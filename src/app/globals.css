@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-yekan: "IRANYEKAN";
 }
-
+@font-face {
+  font-family: IRANYEKAN;
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url("../../public/fonts/IRANYEKANREGULAR.TTF") format("TTF");
+}
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -20,5 +25,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+.p-6 {
+  padding: 6px;
 }
