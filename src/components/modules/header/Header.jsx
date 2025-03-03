@@ -12,17 +12,30 @@ import { FaAngleLeft } from "react-icons/fa6";
 function Header() {
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
-  useEffect(() => {
-    console.log(activeSubMenu);
-  });
+  const [isHover, setIsHover] = useState(false);
+  const [isActiveHamburger, setIsActiveHamburger] = useState(false);
   const categories = [
     {
       name: "مردانه",
       submenu: [
-        { title: "لباس مردانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
+        {
+          title: "لباس مردانه",
+          links: [
+            "شلوار",
+            "لباس زیر",
+            "پیراهن",
+            "ژاکت و پلیور",
+            "جوراب",
+            "شلوارک",
+          ],
+        },
         {
           title: "کفش مردانه",
-          links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
+          links: ["کفش اسپورت", "بوت", "کفش مجلسی", "نیم بوت"],
+        },
+        {
+          title: "اکسسوری مردانه",
+          links: ["ساعت", "عینک", "شال", "کلاه", "دستکش", "کمربند"],
         },
       ],
     },
@@ -39,49 +52,23 @@ function Header() {
     {
       name: "بچگانه",
       submenu: [
-        { title: "لباس زنانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
+        { title: "لباس بچگانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
         {
-          title: "کفش زنانه",
+          title: "کفش بچگانه",
           links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
         },
       ],
     },
     {
-      name: "ساعت",
+      name: "آرایشی و بهداشتی",
       submenu: [
-        { title: "لباس زنانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
+        { title: "صورت", links: ["شلوار", "لباس زیر", "پیراهن"] },
         {
-          title: "کفش زنانه",
+          title: "چشم و ابرو",
           links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
         },
-      ],
-    },
-    {
-      name: "کیف",
-      submenu: [
-        { title: "لباس زنانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
         {
-          title: "کفش زنانه",
-          links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
-        },
-      ],
-    },
-    {
-      name: "آزایش و بهداشتی",
-      submenu: [
-        { title: "لباس زنانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
-        {
-          title: "کفش زنانه",
-          links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
-        },
-      ],
-    },
-    {
-      name: "عطر و ادکلن",
-      submenu: [
-        { title: "لباس زنانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
-        {
-          title: "کفش زنانه",
+          title: "ناخن",
           links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
         },
       ],
@@ -89,10 +76,10 @@ function Header() {
   ];
   return (
     <header>
-      <div className="fixed left-0 right-0 top-0 z-30 py-4 bg-white">
+      <div className="fixed left-0 right-0 top-0 z-30 py-4 bg-white px-2">
         {/* header desktop : */}
         <div>
-          <div className="hidden md:block">
+          <div className="hidden xl:block">
             {/* top section : */}
             <div className="container relative z-30 flex max-w-[1680px] items-center justify-between gap-x-4 mx-auto  ">
               <div>
@@ -128,18 +115,25 @@ function Header() {
             </div>
             {/* bottom section  :*/}
             <div className="absolute left-0 right-0 top-full z-20  shadow-xs duration-300 bg-white">
-              <nav className="container relative flex max-w-[1680px] items-center gap-x-3 mx-auto">
+              <nav className="container relative flex max-w-[1680px] items-center gap-x-3 mx-auto px-4">
                 <ul className="group z-10">
-                  <div className="relative flex cursor-pointer items-center gap-x-2  ">
+                  <div
+                    className="relative flex cursor-pointer items-center gap-x-2  "
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                  >
                     <div>
                       <RxHamburgerMenu />
                     </div>
-                    <div>بسته بندی ها</div>
+                    <div className="text-xl">دسته بندی ها</div>
                   </div>
                   {/*mega mene*/}
-                  <div className="absolute top-full w-full max-w-[1000px]  ">
+                  <div className="absolute top-full w-full max-w-[1000px]   ">
                     <div className="relative rounded-b-lg  shadow-base hidden  group-hover:block">
-                      <div className="flex h-[450px] max-h-[450px] w-full overflow-hidden rounded-b-lg pt-0.5">
+                      <div
+                        className="flex h-[450px] max-h-[450px] w-full overflow-hidden rounded-b-lg pt-0.5 "
+                        onMouseLeave={() => setIsHover(false)}
+                      >
                         {/* right : */}
                         <div
                           dir="ltr"
@@ -148,14 +142,15 @@ function Header() {
                           <ul dir="rtl">
                             {categories.map((category) => (
                               <li
-                                class="mega-menu-active"
+                                class="hover:bg-white hover:text-green-300"
                                 onMouseEnter={() => {
                                   setActiveCategory(category.name);
                                   setActiveSubMenu(category.submenu);
+                                  setIsHover(true);
                                 }}
                                 // onMouseLeave={() => setActiveCategory(null)}
                               >
-                                <a href="" className="flex py-4 pr-4">
+                                <a href="" className="flex py-4 pr-4 text-lg">
                                   {category.name}
                                 </a>
                               </li>
@@ -165,7 +160,7 @@ function Header() {
                         {/* left : */}
                         <div
                           dir="ltr"
-                          className="main-scroll h-[450px] max-h-[450px] w-full overflow-auto"
+                          className="main-scroll h-[450px] max-h-[450px] w-full overflow-auto bg-white"
                         >
                           <div class="flex grow p-5" dir="rtl">
                             {/* categories child */}
@@ -174,7 +169,7 @@ function Header() {
                               <div className="mb-4 text-green-400">
                                 <a
                                   href="/"
-                                  className="flex items-center gap-x-1 py-2 text-sm text-primary"
+                                  className="flex items-center gap-x-1 py-2 text-primary text-lg"
                                 >
                                   <div>مشاهده همه</div>
                                   <FaAngleLeft />
@@ -183,11 +178,7 @@ function Header() {
                               <div className="flex grow flex-wrap gap-x-14 gap-y-8">
                                 {activeSubMenu?.map((submenu) => (
                                   <div className="space-y-2">
-                                    <a
-                                      href=""
-                                      className="flex items-center gap-x-2 hover:text-primary"
-                                    >
-                                      <span className="flex items-center gap-x-2 hover:text-primary"></span>
+                                    <a className="relative before:content-[''] before:w-[2px] before:h-[25px] flex items-center gap-x-2 text-lg hover:text-green-300 before:bg-green-500 before:absolute before:right-0 before:top-0 pr-4">
                                       <div>{submenu.title}</div>
                                       <FaAngleLeft />
                                     </a>
@@ -196,7 +187,7 @@ function Header() {
                                         {submenu.links.map((link) => (
                                           <a
                                             href=""
-                                            className="block py-2 text-sm text-text/90 hover:text-green-300"
+                                            className="block py-2 text-lg  hover:text-green-300"
                                           >
                                             {link}
                                           </a>
@@ -213,18 +204,76 @@ function Header() {
                     </div>
                   </div>
                 </ul>
-                <Link href="/">فروش ویژه</Link>
-                <Link href="/">چرا کیوان کالا</Link>
-                <Link href="/">راهنمای خرید</Link>
-                <Link href="/">تماس با ما</Link>
-                <Link href="/">درباره ما</Link>
-                <Link href="/">سوالات متدوال</Link>
+                <Link href="/" className="text-lg">
+                  فروش ویژه
+                </Link>
+                <Link href="/" className="text-lg">
+                  چرا کیوان کالا
+                </Link>
+                <Link href="/" className="text-lg">
+                  راهنمای خرید
+                </Link>
+                <Link href="/" className="text-lg	">
+                  تماس با ما
+                </Link>
+                <Link href="/" className="text-lg">
+                  درباره ما
+                </Link>
+                <Link href="/" className="text-lg">
+                  سوالات متدوال
+                </Link>
               </nav>
             </div>
           </div>
         </div>
+        {/* header mobile  */}
+        <div>
+          <div className="xl:hidden">
+            {/* top section : */}
+            <div className="@container flex items-center justify-between">
+              <div onClick={() => setIsActiveHamburger(true)}>
+                <RxHamburgerMenu className="text-2xl" />
+              </div>
+              <div className="w-[170px]">
+                <Link href="/">
+                  <Image
+                    src={cartIcon}
+                    width={500}
+                    height={500}
+                    alt="Picture of the author"
+                    className="w-62"
+                  />
+                </Link>
+              </div>
+              <div className="flex gap-x-2">
+                <CiUser className="text-2xl" />
+                <LuShoppingCart className="text-2xl" />
+              </div>
+            </div>
+            {/* bottom section : */}
+            <div className="flex px-3 py-1 mt-3 relative bg-gray-200 rounded-lg">
+              <input
+                type="text"
+                placeholder="جستجو کنید ..."
+                className="w-full p-2 mr-5 outline-none"
+              />
+              <CiSearch className="absolute text-2xl top-3 right-2.5" />
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="fixed inset-0 z-20  bg-black hidden "></div>
+      <div
+        className={`xl:hidden bg-yellow-300 absolute z-50 w-3/5 h-screen top-0 right-0 transform  ${
+          isActiveHamburger ? "translate-x-0" : "translate-x-full"
+        } transition-transform duration-500 ease-in-out`}
+      >
+        hi
+      </div>
+      <div
+        className={`fixed inset-0 z-20  bg-black backdrop ${
+          isHover ? "block" : "hidden"
+        }`}
+      ></div>
     </header>
   );
 }
