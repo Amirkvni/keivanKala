@@ -29,7 +29,7 @@ function Slider() {
         }}
         navigation={true}
         modules={[Pagination, Navigation]}
-        className="mySwiper rounded-lg overflow-hidden "
+        className="mySwiper1 rounded-lg overflow-hidden "
       >
         <SwiperSlide>
           <Image src={mainSliderOne} alt="" width={600} height={200} />
