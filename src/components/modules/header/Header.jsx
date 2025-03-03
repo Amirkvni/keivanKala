@@ -142,7 +142,8 @@ function Header() {
                           <ul dir="rtl">
                             {categories.map((category) => (
                               <li
-                                class="hover:bg-white hover:text-green-300"
+                                key={Math.random() * 1000}
+                                className="hover:bg-white hover:text-green-300"
                                 onMouseEnter={() => {
                                   setActiveCategory(category.name);
                                   setActiveSubMenu(category.submenu);
@@ -162,7 +163,7 @@ function Header() {
                           dir="ltr"
                           className="main-scroll h-[450px] max-h-[450px] w-full overflow-auto bg-white"
                         >
-                          <div class="flex grow p-5" dir="rtl">
+                          <div className="flex grow p-5" dir="rtl">
                             {/* categories child */}
                             <div>
                               {/* head */}
@@ -177,7 +178,10 @@ function Header() {
                               </div>
                               <div className="flex grow flex-wrap gap-x-14 gap-y-8">
                                 {activeSubMenu?.map((submenu) => (
-                                  <div className="space-y-2">
+                                  <div
+                                    className="space-y-2"
+                                    key={Math.random() * 100}
+                                  >
                                     <a className="relative before:content-[''] before:w-[2px] before:h-[25px] flex items-center gap-x-2 text-lg hover:text-green-300 before:bg-green-500 before:absolute before:right-0 before:top-0 pr-4">
                                       <div>{submenu.title}</div>
                                       <FaAngleLeft />
@@ -270,7 +274,7 @@ function Header() {
         hi
       </div>
       <div
-        className={`fixed inset-0 z-20  bg-black backdrop ${
+        className={`fixed inset-0 z-20  backdrop ${
           isHover ? "block" : "hidden"
         }`}
       ></div>
