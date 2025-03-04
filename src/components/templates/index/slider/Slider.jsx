@@ -32,13 +32,28 @@ function Slider() {
         className="mySwiper1 rounded-lg overflow-hidden "
       >
         <SwiperSlide>
-          <Image src={mainSliderOne} alt="" width={600} height={200} />
+          <Image
+            src={mainSliderOne}
+            alt="mainSliderOne"
+            width={600}
+            height={200}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image src={mainSliderTwo} alt="" width={600} height={200} />
+          <Image
+            src={mainSliderTwo}
+            alt="mainSliderTwo"
+            width={600}
+            height={200}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Image src={mainSliderThree} alt="" width={600} height={200} />
+          <Image
+            src={mainSliderThree}
+            alt="mainSliderThree"
+            width={600}
+            height={200}
+          />
         </SwiperSlide>
       </Swiper>
 

@@ -54,6 +54,7 @@ function LatestProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImageOne"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -81,6 +82,7 @@ function LatestProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImageTwo"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -108,6 +110,7 @@ function LatestProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImagethree"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -135,6 +138,7 @@ function LatestProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImageFour"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -162,6 +166,7 @@ function LatestProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImageFive"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -189,6 +194,7 @@ function LatestProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImageSix"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -216,6 +222,7 @@ function LatestProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImageSeven"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -243,6 +250,7 @@ function LatestProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImageEight"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -270,6 +278,3 @@ function LatestProducts() {
 }
 
 export default LatestProducts;
-
-
-

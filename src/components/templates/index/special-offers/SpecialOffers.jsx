@@ -1,16 +1,23 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-
 import "./styles.css";
-import productImage from "@/../public/images/product.png";
-// import required modules
 import Image from "next/image";
-function SpecialOffers() {
+export default function SpecialOffers() {
+  const [specialProducts, setSpecialProducts] = useState([]);
+  useEffect(() => {
+    const getProducts = async () => {
+      const res = await fetch("/api/specialofers");
+      const data = await res.json();
+      setSpecialProducts([...data]);
+    };
+    getProducts();
+  }, []);
+
   return (
     <div className="container mx-auto mt-7">
       <section>
@@ -48,226 +55,41 @@ function SpecialOffers() {
           }}
           className=" swiper2 "
         >
-          <SwiperSlide>
-            <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
-              <Image
-                src={productImage}
-                width={500}
-                height={400}
-                className="w-32 h-32 mx-auto"
-              />
-              <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
-              <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-                10,000,000
-              </div>
-              <div className="flex items-center justify-around">
-                <span
-                  className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
-                  dir="ltr"
-                >
-                  60%
-                </span>
+          {specialProducts?.map((product) => (
+            <SwiperSlide>
+              <Link href={`/product/${product.persianName}`}>
+                <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
+                  <Image
+                    src={product.mainImage}
+                    width={500}
+                    height={400}
+                    className="w-32 h-32 mx-auto"
+                    alt="productImage"
+                  />
+                  <div className="text-right">{product.persianName}</div>
+                  <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
+                    {product.price}
+                  </div>
+                  <div className="flex items-center justify-around">
+                    <span
+                      className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
+                      dir="ltr"
+                    >
+                      60%
+                    </span>
 
-                <div className="flex items-center text-green-400 gap-x-1 text-base">
-                  <span>4,000,000</span>
-                  <span>تومان</span>
+                    <div className="flex items-center text-green-400 gap-x-1 text-base">
+                      <span>4,000,000</span>
+                      <span>تومان</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
-              <Image
-                src={productImage}
-                width={500}
-                height={400}
-                className="w-32 h-32 mx-auto"
-              />
-              <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
-              <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-                10,000,000
-              </div>
-              <div className="flex items-center justify-around">
-                <span
-                  className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
-                  dir="ltr"
-                >
-                  60%
-                </span>
-
-                <div className="flex items-center text-green-400 gap-x-1 text-base">
-                  <span>4,000,000</span>
-                  <span>تومان</span>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
-              <Image
-                src={productImage}
-                width={500}
-                height={400}
-                className="w-32 h-32 mx-auto"
-              />
-              <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
-              <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-                10,000,000
-              </div>
-              <div className="flex items-center justify-around">
-                <span
-                  className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
-                  dir="ltr"
-                >
-                  60%
-                </span>
-
-                <div className="flex items-center text-green-400 gap-x-1 text-base">
-                  <span>4,000,000</span>
-                  <span>تومان</span>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
-              <Image
-                src={productImage}
-                width={500}
-                height={400}
-                className="w-32 h-32 mx-auto"
-              />
-              <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
-              <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-                10,000,000
-              </div>
-              <div className="flex items-center justify-around">
-                <span
-                  className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
-                  dir="ltr"
-                >
-                  60%
-                </span>
-
-                <div className="flex items-center text-green-400 gap-x-1 text-base">
-                  <span>4,000,000</span>
-                  <span>تومان</span>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
-              <Image
-                src={productImage}
-                width={500}
-                height={400}
-                className="w-32 h-32 mx-auto"
-              />
-              <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
-              <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-                10,000,000
-              </div>
-              <div className="flex items-center justify-around">
-                <span
-                  className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
-                  dir="ltr"
-                >
-                  60%
-                </span>
-
-                <div className="flex items-center text-green-400 gap-x-1 text-base">
-                  <span>4,000,000</span>
-                  <span>تومان</span>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
-              <Image
-                src={productImage}
-                width={500}
-                height={400}
-                className="w-32 h-32 mx-auto"
-              />
-              <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
-              <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-                10,000,000
-              </div>
-              <div className="flex items-center justify-around">
-                <span
-                  className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
-                  dir="ltr"
-                >
-                  60%
-                </span>
-
-                <div className="flex items-center text-green-400 gap-x-1 text-base">
-                  <span>4,000,000</span>
-                  <span>تومان</span>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
-              <Image
-                src={productImage}
-                width={500}
-                height={400}
-                className="w-32 h-32 mx-auto"
-              />
-              <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
-              <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-                10,000,000
-              </div>
-              <div className="flex items-center justify-around">
-                <span
-                  className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
-                  dir="ltr"
-                >
-                  60%
-                </span>
-
-                <div className="flex items-center text-green-400 gap-x-1 text-base">
-                  <span>4,000,000</span>
-                  <span>تومان</span>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
-              <Image
-                src={productImage}
-                width={500}
-                height={400}
-                className="w-32 h-32 mx-auto"
-              />
-              <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
-              <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-                10,000,000
-              </div>
-              <div className="flex items-center justify-around">
-                <span
-                  className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
-                  dir="ltr"
-                >
-                  60%
-                </span>
-
-                <div className="flex items-center text-green-400 gap-x-1 text-base">
-                  <span>4,000,000</span>
-                  <span>تومان</span>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide>
+              </Link>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </main>
+      <div></div>
     </div>
   );
 }
-
-export default SpecialOffers;

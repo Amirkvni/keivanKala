@@ -54,6 +54,7 @@ function BestSellingProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImage1"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -81,6 +82,7 @@ function BestSellingProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImage2"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -108,6 +110,7 @@ function BestSellingProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImage3"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -135,6 +138,7 @@ function BestSellingProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImage4"
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -162,6 +166,8 @@ function BestSellingProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImage5"
+
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -189,6 +195,8 @@ function BestSellingProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImage6"
+
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -216,6 +224,8 @@ function BestSellingProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImage7"
+
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
@@ -243,6 +253,8 @@ function BestSellingProducts() {
                 width={500}
                 height={400}
                 className="w-32 h-32 mx-auto"
+                alt="productImage8"
+
               />
               <div className="text-right">کیف دوشی زنانه درسا مدل 49787</div>
               <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
