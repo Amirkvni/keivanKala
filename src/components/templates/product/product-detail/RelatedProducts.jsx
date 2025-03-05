@@ -7,11 +7,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "./styles.css";
 import Image from "next/image";
-export default function SpecialOffers() {
+export default function RelatedProducts({ category }) {
+  console.log(category);
+
   const [specialProducts, setSpecialProducts] = useState([]);
   useEffect(() => {
     const getProducts = async () => {
-      const res = await fetch("/api/specialofers");
+      const res = await fetch(`/api/relatedproducts/${category}`);
       const data = await res.json();
       setSpecialProducts([...data]);
     };
@@ -27,7 +29,7 @@ export default function SpecialOffers() {
     <div className="container mx-auto mt-7">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-lg">پیشنهادات ویژه</span>
+          <span className="text-lg">کالاهای مرتبط</span>
           <Link href="/" className=" flex gap-x-2 items-center text-green-500">
             <span className="text-lg">مشاهده همه</span>
             <FaChevronLeft />
@@ -58,7 +60,7 @@ export default function SpecialOffers() {
               spaceBetween: 30,
             },
           }}
-          className=" swiper2 "
+          className=" swiper5 "
         >
           {specialProducts?.map((product) => (
             <SwiperSlide>

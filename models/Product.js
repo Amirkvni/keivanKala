@@ -17,6 +17,11 @@ const schema = {
     type: Number,
     required: true,
   },
+  secondPrice: {
+    type: Number,
+    required: false,
+  },
+
   stock: {
     type: Number,
     required: true,
@@ -38,6 +43,10 @@ const schema = {
     default: 0,
   },
   attributes: {
+    type: Schema.Types.Mixed,
+    required: true,
+  },
+  colors: {
     type: Schema.Types.Mixed,
     required: true,
   },
