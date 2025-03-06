@@ -9,18 +9,17 @@ async function ProductDetailPage({ params }) {
   const { name } = await params;
   connectToDB();
   const deslugify = (slug) => {
-    return slug.toLowerCase().replace(/-/g, " "); // جایگزینی خط تیره با فاصله
+    return slug.toLowerCase().replace(/-/g, " ");
   };
 
   const productName = deslugify(name);
 
   const product = await ProductModel.findOne({
     englishFullName: productName,
-  });
+  }).populate("comments");
   //   console.log(name);
 
   //   console.log(productName);
-  //   console.log(product);
 
   return (
     <div>

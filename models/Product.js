@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+require("./Comment");
 const { Schema } = mongoose;
-const schema = {
+const schema = new mongoose.Schema({
   persianName: {
     type: String,
     required: true,
@@ -50,6 +51,14 @@ const schema = {
     type: Schema.Types.Mixed,
     required: true,
   },
-};
+  comments: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+  },
+});
 const model = mongoose.models.Product || mongoose.model("Product", schema);
 export default model;

@@ -7,7 +7,7 @@ import { FiMoreVertical } from "react-icons/fi";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
 
-function Comments() {
+function Comments({ product }) {
   const [isLogin, SetIsLogin] = useState(false);
   return (
     <div className="mt-8 ">
@@ -45,238 +45,44 @@ function Comments() {
         </div>
         {/* Comments section */}
         <div className=" w-3/4">
-          <div className="border-b-2 border-b-gray-500 py-3 my-4">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-x-2">
-                <span>کاربر دیجی‌کالا</span>
-                <span>خریدار</span>
-                <span>۲۷ بهمن</span>
-              </div>
-              <FiMoreVertical />
-            </div>
-            <div className="flex gap-x-2 items-center [&>svg]:text-yellow-300 ">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-            </div>
-            <p>
-              گوشی به شدت خوش دسته خوشرنگ و یه برق آبی داره پشتش پلاستیکه واسه
-              همون خیلی سبکه اینترنت 5G روش فعاله و کارکرد خوبی داره من راضی
-              بودم و تنها نقصش اینه که برای این قیمت دوربین راضی کننده ای نداره
-              متاسفانه
-            </p>
-            <div className="flex gap-x-2 justify-start items-center" dir="ltr">
-              <AiOutlineLike className="cursor-pointer hover:text-green-800" />
-              <span>5</span>
-              <AiOutlineDislike className="cursor-pointer hover:text-red-800" />
-              <span>3</span>
-            </div>
-          </div>
-          <div className="border-b-2 border-b-gray-500 py-3 my-4">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-x-2">
-                <span>کاربر دیجی‌کالا</span>
-                <span>خریدار</span>
-                <span>۲۷ بهمن</span>
-              </div>
-              <FiMoreVertical />
-            </div>
-            <div className="flex gap-x-2 items-center [&>svg]:text-yellow-300 ">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-            </div>
-            <p>
-              گوشی به شدت خوش دسته خوشرنگ و یه برق آبی داره پشتش پلاستیکه واسه
-              همون خیلی سبکه اینترنت 5G روش فعاله و کارکرد خوبی داره من راضی
-              بودم و تنها نقصش اینه که برای این قیمت دوربین راضی کننده ای نداره
-              متاسفانه
-            </p>
-            <div className="flex gap-x-2 justify-start items-center" dir="ltr">
-              <AiOutlineLike className="cursor-pointer hover:text-green-800" />
-              <span>5</span>
-              <AiOutlineDislike className="cursor-pointer hover:text-red-800" />
-              <span>3</span>
-            </div>
-          </div>
-          <div className="border-b-2 border-b-gray-500 py-3 my-4 flex flex-col gap-y-3">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-x-2">
-                <span>کاربر دیجی‌کالا</span>
-                <span>خریدار</span>
-                <span>۲۷ بهمن</span>
-              </div>
-              <FiMoreVertical />
-            </div>
-            <div className="flex gap-x-2 items-center [&>svg]:text-yellow-300 ">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-            </div>
-            <p>
-              گوشی به شدت خوش دسته خوشرنگ و یه برق آبی داره پشتش پلاستیکه واسه
-              همون خیلی سبکه اینترنت 5G روش فعاله و کارکرد خوبی داره من راضی
-              بودم و تنها نقصش اینه که برای این قیمت دوربین راضی کننده ای نداره
-              متاسفانه
-            </p>
-            <div className="flex gap-x-2 justify-start items-center" dir="ltr">
-              <AiOutlineLike className="cursor-pointer hover:text-green-800" />
-              <span>5</span>
-              <AiOutlineDislike className="cursor-pointer hover:text-red-800" />
-              <span>3</span>
-            </div>
-          </div>
-          <div className="border-b-2 border-b-gray-500 py-3 my-4 flex flex-col gap-y-3">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-x-2">
-                <span>کاربر دیجی‌کالا</span>
-                <span>خریدار</span>
-                <span>۲۷ بهمن</span>
-              </div>
-              <FiMoreVertical />
-            </div>
-            <div className="flex gap-x-2 items-center [&>svg]:text-yellow-300 ">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-            </div>
-            <p>
-              گوشی به شدت خوش دسته خوشرنگ و یه برق آبی داره پشتش پلاستیکه واسه
-              همون خیلی سبکه اینترنت 5G روش فعاله و کارکرد خوبی داره من راضی
-              بودم و تنها نقصش اینه که برای این قیمت دوربین راضی کننده ای نداره
-              متاسفانه
-            </p>
-            <div className="flex gap-x-2 justify-start items-center" dir="ltr">
-              <AiOutlineLike className="cursor-pointer hover:text-green-800" />
-              <span>5</span>
-              <AiOutlineDislike className="cursor-pointer hover:text-red-800" />
-              <span>3</span>
-            </div>
-          </div>
-          <div className="border-b-2 border-b-gray-500 py-3 my-4 flex flex-col gap-y-3">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-x-2">
-                <span>کاربر دیجی‌کالا</span>
-                <span>خریدار</span>
-                <span>۲۷ بهمن</span>
-              </div>
-              <FiMoreVertical />
-            </div>
-            <div className="flex gap-x-2 items-center [&>svg]:text-yellow-300 ">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-            </div>
-            <p>
-              گوشی به شدت خوش دسته خوشرنگ و یه برق آبی داره پشتش پلاستیکه واسه
-              همون خیلی سبکه اینترنت 5G روش فعاله و کارکرد خوبی داره من راضی
-              بودم و تنها نقصش اینه که برای این قیمت دوربین راضی کننده ای نداره
-              متاسفانه
-            </p>
-            <div className="flex gap-x-2 justify-start items-center" dir="ltr">
-              <AiOutlineLike className="cursor-pointer hover:text-green-800" />
-              <span>5</span>
-              <AiOutlineDislike className="cursor-pointer hover:text-red-800" />
-              <span>3</span>
-            </div>
-          </div>
-          <div className="border-b-2 border-b-gray-500 py-3 my-4 flex flex-col gap-y-3">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-x-2">
-                <span>کاربر دیجی‌کالا</span>
-                <span>خریدار</span>
-                <span>۲۷ بهمن</span>
-              </div>
-              <FiMoreVertical />
-            </div>
-            <div className="flex gap-x-2 items-center [&>svg]:text-yellow-300 ">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-            </div>
-            <p>
-              گوشی به شدت خوش دسته خوشرنگ و یه برق آبی داره پشتش پلاستیکه واسه
-              همون خیلی سبکه اینترنت 5G روش فعاله و کارکرد خوبی داره من راضی
-              بودم و تنها نقصش اینه که برای این قیمت دوربین راضی کننده ای نداره
-              متاسفانه
-            </p>
-            <div className="flex gap-x-2 justify-start items-center" dir="ltr">
-              <AiOutlineLike className="cursor-pointer hover:text-green-800" />
-              <span>5</span>
-              <AiOutlineDislike className="cursor-pointer hover:text-red-800" />
-              <span>3</span>
-            </div>
-          </div>
-          <div className="border-b-2 border-b-gray-500 py-3 my-4 flex flex-col gap-y-3">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-x-2">
-                <span>کاربر دیجی‌کالا</span>
-                <span>خریدار</span>
-                <span>۲۷ بهمن</span>
-              </div>
-              <FiMoreVertical />
-            </div>
-            <div className="flex gap-x-2 items-center [&>svg]:text-yellow-300 ">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-            </div>
-            <p>
-              گوشی به شدت خوش دسته خوشرنگ و یه برق آبی داره پشتش پلاستیکه واسه
-              همون خیلی سبکه اینترنت 5G روش فعاله و کارکرد خوبی داره من راضی
-              بودم و تنها نقصش اینه که برای این قیمت دوربین راضی کننده ای نداره
-              متاسفانه
-            </p>
-            <div className="flex gap-x-2 justify-start items-center" dir="ltr">
-              <AiOutlineLike className="cursor-pointer hover:text-green-800" />
-              <span>5</span>
-              <AiOutlineDislike className="cursor-pointer hover:text-red-800" />
-              <span>3</span>
-            </div>
-          </div>
-          <div className="border-b-2 border-b-gray-500 py-3 my-4 flex flex-col gap-y-3">
-            <div className="flex justify-between">
-              <div className="flex items-center gap-x-2">
-                <span>کاربر دیجی‌کالا</span>
-                <span>خریدار</span>
-                <span>۲۷ بهمن</span>
-              </div>
-              <FiMoreVertical />
-            </div>
-            <div className="flex gap-x-2 items-center [&>svg]:text-yellow-300 ">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-            </div>
-            <p>
-              گوشی به شدت خوش دسته خوشرنگ و یه برق آبی داره پشتش پلاستیکه واسه
-              همون خیلی سبکه اینترنت 5G روش فعاله و کارکرد خوبی داره من راضی
-              بودم و تنها نقصش اینه که برای این قیمت دوربین راضی کننده ای نداره
-              متاسفانه
-            </p>
-            <div className="flex gap-x-2 justify-start items-center" dir="ltr">
-              <AiOutlineLike className="cursor-pointer hover:text-green-800" />
-              <span>5</span>
-              <AiOutlineDislike className="cursor-pointer hover:text-red-800" />
-              <span>3</span>
-            </div>
-          </div>
+          {product.comments.map(
+            (product) =>
+              product.isAccept && (
+                <div
+                  className="border-b-2 border-b-gray-500 py-3 my-4"
+                  key={product._id}
+                >
+                  <div className="flex justify-between">
+                    <div className="flex items-center gap-x-2">
+                      <span>{product.username}</span>
+                      <span>خریدار</span>
+                      <span>
+                        {new Date(product.date).toLocaleDateString("fa-IR")}
+                      </span>
+                    </div>
+                    <FiMoreVertical />
+                  </div>
+                  <div className="flex gap-x-2 items-center  ">
+                    {new Array(product.score).fill(0).map((item, index) => (
+                      <FaStar key={index} className="text-yellow-400" />
+                    ))}
+                    {new Array(5 - product.score).fill(0).map((item, index) => (
+                      <FaStar key={index} className="text-gray-400" />
+                    ))}
+                  </div>
+                  <p>{product.body}</p>
+                  <div
+                    className="flex gap-x-2 justify-start items-center"
+                    dir="ltr"
+                  >
+                    <AiOutlineLike className="cursor-pointer hover:text-green-800" />
+                    <span>5</span>
+                    <AiOutlineDislike className="cursor-pointer hover:text-red-800" />
+                    <span>3</span>
+                  </div>
+                </div>
+              )
+          )}
         </div>
       </div>
     </div>
