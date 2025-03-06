@@ -29,9 +29,9 @@ export default function RelatedProducts({ category }) {
     <div className="container mx-auto mt-7">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-lg">کالاهای مرتبط</span>
+          <span className="text-sm 2xl:text-lg">کالاهای مرتبط</span>
           <Link href="/" className=" flex gap-x-2 items-center text-green-500">
-            <span className="text-lg">مشاهده همه</span>
+            <span className="text-sm 2xl:text-lg">مشاهده همه</span>
             <FaChevronLeft />
           </Link>
         </div>
@@ -65,7 +65,7 @@ export default function RelatedProducts({ category }) {
           {specialProducts?.map((product) => (
             <SwiperSlide>
               <Link href={`/product/${slugify(product.englishFullName)}`}>
-                <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
+                <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white border-1 border-gray-200 h-[300px] ">
                   <Image
                     src={product.mainImage}
                     width={500}

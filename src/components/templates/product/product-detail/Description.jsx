@@ -5,8 +5,10 @@ import React, { useState } from "react";
 function Description({ product }) {
   const [viewMore, setViewMore] = useState(false);
   return (
-    <div className="mt-8">
-      <p className="border-green-400 border-b-2 gap-y-5 w-fit my-6">معرفی </p>
+    <div className="mt-8 [&>img]:mx-auto">
+      <p className="border-green-400 border-b-2 gap-y-5 w-fit my-6 text-xl pb-2 ">
+        معرفی
+      </p>
       <p>
         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
         از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
@@ -20,14 +22,14 @@ function Description({ product }) {
       <Image src={product.mainImage} width={500} height={500} />
       {!viewMore && (
         <span
-          className="bg-green-400 cursor-pointer"
+          className="cursor-pointer block w-fit mx-auto mt-3 text-green-400 hover:border-b-green-600 hover:border-b-2"
           onClick={() => setViewMore(true)}
         >
           مشاهده بیشتر
         </span>
       )}
       {viewMore && (
-        <div>
+        <div className="[&>img]:mx-auto">
           <p>
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
             استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
@@ -61,7 +63,7 @@ function Description({ product }) {
           </p>
           {viewMore && (
             <span
-              className="bg-red-400 cursor-pointer"
+              className=" cursor-pointer block w-fit mx-auto mt-3 text-red-400 hover:border-b-red-600 hover:border-b-2"
               onClick={() => setViewMore(false)}
             >
               بستن
