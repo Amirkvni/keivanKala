@@ -1,19 +1,22 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import cartIcon from "@/assets/icons/logo.webp";
 import { CiSearch } from "react-icons/ci";
+
 import { CiUser } from "react-icons/ci";
 import { LuShoppingCart } from "react-icons/lu";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { PiMoonStarsLight } from "react-icons/pi";
 import { FaAngleLeft } from "react-icons/fa6";
+import Cart from "./Cart";
 function Header() {
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const [isHover, setIsHover] = useState(false);
   const [isActiveHamburger, setIsActiveHamburger] = useState(false);
+  const [isActiveCart, setIsActiveCart] = useState(false);
   const categories = [
     {
       name: "مردانه",
@@ -74,6 +77,7 @@ function Header() {
       ],
     },
   ];
+
   return (
     <header>
       <div className="fixed left-0 right-0 top-0 z-30 py-4 bg-white px-2">
@@ -105,13 +109,15 @@ function Header() {
                 <Link href="/">
                   <CiUser className="text-2xl font-black" />
                 </Link>
-                <Link href="/">
+                <Link href="/" onClick={() => setIsActiveCart(true)}>
                   <LuShoppingCart className="text-2xl font-black" />
                 </Link>
                 <Link href="/">
                   <PiMoonStarsLight className="text-2xl font-black" />
                 </Link>
               </div>
+              {/* cart : */}
+              {isActiveCart && <Cart />}
             </div>
             {/* bottom section  :*/}
             <div className="absolute left-0 right-0 top-full z-20  shadow-xs duration-300 bg-white">
@@ -149,7 +155,6 @@ function Header() {
                                   setActiveSubMenu(category.submenu);
                                   setIsHover(true);
                                 }}
-                                // onMouseLeave={() => setActiveCategory(null)}
                               >
                                 <a href="" className="flex py-4 pr-4 text-lg">
                                   {category.name}

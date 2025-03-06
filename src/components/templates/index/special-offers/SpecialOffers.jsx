@@ -13,6 +13,7 @@ export default function SpecialOffers() {
     const getProducts = async () => {
       const res = await fetch("/api/specialofers");
       const data = await res.json();
+
       setSpecialProducts([...data]);
     };
     getProducts();
@@ -61,7 +62,7 @@ export default function SpecialOffers() {
           className=" swiper2 "
         >
           {specialProducts?.map((product) => (
-            <SwiperSlide>
+            <SwiperSlide key={product._id}>
               <Link href={`/product/${slugify(product.englishFullName)}`}>
                 <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">
                   <Image

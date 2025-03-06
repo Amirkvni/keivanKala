@@ -1,0 +1,27 @@
+{
+  "persianName": "کفش روزمره مردانه مدل آراد طبی",
+  "englishFullName": "men s casual shoes arad tabi model",
+  "description": "بهترین کفش برای کارهای روزمره",
+  "price": "299000",
+  "stock": "709",
+  "category": "Specialoffers",
+  "mainImage": "https://ik.imagekit.io/bflkztneat/p1.png?updatedAt=1741102426872",
+  "images": [
+    "https://ik.imagekit.io/bflkztneat/p1.png?updatedAt=1741102426872",
+    "https://ik.imagekit.io/bflkztneat/p1.png?updatedAt=1741102426872",
+    "https://ik.imagekit.io/bflkztneat/p1.png?updatedAt=1741102426872"
+  ],
+  "saleCount": "7100",
+  "attributes": {
+    "جنس ": "پارچه",
+    "جنس زیره": "لاستیک",
+    "نحوه بسته شدن کفش": "بندی"
+  },
+  "colors": {
+    "قرمز": "bg-red-400",
+    "ابی": "bg-blue-400",
+    "سبز": "bg-green-400"
+  },
+  "comment": ["67c8ebf1075c315b61a65a6b"],
+  "secondPrice": "100000"
+}
