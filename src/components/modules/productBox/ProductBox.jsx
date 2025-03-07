@@ -11,7 +11,7 @@ export default function ProductBox({ product }) {
   };
   return (
     <Link href={`/product/${slugify(product.englishFullName)}`}>
-      <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white h-[250px]">
+      <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white h-[250px] w-[200px]">
         <Image
           src={product.mainImage}
           width={500}

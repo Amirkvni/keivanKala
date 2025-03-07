@@ -22,7 +22,10 @@ export default function SpecialOffers() {
       <section>
         <div className="flex justify-between items-center">
           <span className="text-lg">پیشنهادات ویژه</span>
-          <Link href="/" className=" flex gap-x-2 items-center text-green-500">
+          <Link
+            href="/special-offers"
+            className=" flex gap-x-2 items-center text-green-500"
+          >
             <span className="text-lg">مشاهده همه</span>
             <FaChevronLeft />
           </Link>
