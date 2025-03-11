@@ -21,7 +21,7 @@ export default function ProductBox({ product }) {
         />
         <div className="text-right">{product.persianName}</div>
         <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-          {product.price}
+          {product.price.toLocaleString()}
         </div>
         <div className="flex items-center justify-around">
           <span
@@ -32,7 +32,7 @@ export default function ProductBox({ product }) {
           </span>
 
           <div className="flex items-center text-green-400 gap-x-1 text-base">
-            <span> {product.secondPrice}</span>
+            <span> {product.secondPrice.toLocaleString()}</span>
             <span>تومان</span>
           </div>
         </div>

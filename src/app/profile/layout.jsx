@@ -1,0 +1,21 @@
+import Header from "@/components/modules/header/Header";
+import DashboardLinks from "@/components/templates/profile/DashboardLinks";
+import { authUser } from "@/utils/serverHelpers";
+import { redirect } from "next/navigation";
+
+export default async function DashboardLayout({ children }) {
+  const user = await authUser();
+  if (!user) {
+    redirect("/signin");
+  }
+
+  return (
+    <>
+      <Header />
+      <div className="container mx-auto flex gap-x-3 mt-[140px]">
+        <DashboardLinks phone={user.phone} name={user.name} />
+        {children}
+      </div>
+    </>
+  );
+}

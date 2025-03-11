@@ -6,10 +6,12 @@ import Categories from "@/components/templates/index/categories/Categories";
 import LatestProducts from "@/components/templates/index/latest-products/LatestProducts";
 import Slider from "@/components/templates/index/slider/Slider";
 import SpecialOffers from "@/components/templates/index/special-offers/SpecialOffers";
-export default function Home() {
+import { authUser } from "@/utils/serverHelpers";
+export default async function Home() {
+  const user = await authUser();
   return (
     <>
-      <Header />
+      <Header isLogin={user ? true : false} />
       <Slider />
       <SpecialOffers />
       <LatestProducts />

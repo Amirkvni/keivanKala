@@ -4,14 +4,13 @@ import Link from "next/link";
 import React, { useState } from "react";
 import cartIcon from "@/assets/icons/logo.webp";
 import { CiSearch } from "react-icons/ci";
-
 import { CiUser } from "react-icons/ci";
 import { LuShoppingCart } from "react-icons/lu";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { PiMoonStarsLight } from "react-icons/pi";
 import { FaAngleLeft } from "react-icons/fa6";
 import Cart from "./Cart";
-function Header() {
+function Header({ isLogin }) {
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const [isHover, setIsHover] = useState(false);
@@ -106,8 +105,19 @@ function Header() {
                 />
               </div>
               <div className="flex gap-x-4 ">
-                <Link href="/">
-                  <CiUser className="text-2xl font-black" />
+                <Link href="/profile">
+                  {isLogin ? (
+                    <CiUser className="text-2xl font-black" />
+                  ) : (
+                    <Link
+                      className="text-lg flex items-center gap-x-1 border rounded-lg px-1.5 py-1"
+                      href="/signin"
+                    >
+                      <span>ورود </span>
+                      <span>|</span>
+                      <span>ثبت نام</span>
+                    </Link>
+                  )}
                 </Link>
                 <Link href="/" onClick={() => setIsActiveCart(true)}>
                   <LuShoppingCart className="text-2xl font-black" />
