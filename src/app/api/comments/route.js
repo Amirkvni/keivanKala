@@ -5,9 +5,10 @@ export async function POST(req) {
   try {
     connectToDB();
     const reqBody = await req.json();
-    const { username, body, email, score, productID } = reqBody;
+    const { userID, username, body, email, score, productID } = reqBody;
     // validation
     const comment = await CommentModel.create({
+      userID,
       username,
       body,
       email,

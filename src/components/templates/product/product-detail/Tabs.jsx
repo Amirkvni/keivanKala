@@ -4,7 +4,7 @@ import Description from "./Description";
 import Details from "./Details";
 import Comments from "./Comments";
 
-function Tabs({ product }) {
+function Tabs({ product, user }) {
   const [tab, setTab] = useState("description");
   return (
     <div className="container mx-auto mt-7 shadow-xl px-3 bg-white py-3 border-1 border-gray-200 rounded-xl">
@@ -38,7 +38,7 @@ function Tabs({ product }) {
             {tab === "details" && <Details product={product} />}
           </section>
           <section>
-            {tab === "comments" && <Comments product={product} />}
+            {tab === "comments" && <Comments product={product} user={user} />}
           </section>
         </section>
       </div>

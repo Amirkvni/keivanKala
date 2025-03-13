@@ -9,7 +9,7 @@ import {
   IoHomeOutline,
   IoLocationOutline,
 } from "react-icons/io5";
-import { FaRegHeart } from "react-icons/fa6";
+import { FaRegCommentDots, FaRegHeart } from "react-icons/fa6";
 import { GiBackwardTime } from "react-icons/gi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { LuUserCog } from "react-icons/lu";
@@ -82,6 +82,17 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
         >
           <FaRegHeart />
           <span>علاقه مندی ها</span>
+        </Link>
+        <Link
+          href="/profile/comments"
+          className={
+            pathname == "/profile/comments"
+              ? "bg-green-100 text-green-700"
+              : null
+          }
+        >
+          <FaRegCommentDots />
+          <span>کامنت ها</span>
         </Link>
         <Link
           href="/profile/recentVisits"

@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 require("./Product");
+require("./User");
 const schema = new mongoose.Schema({
-  username: { type: String, require: true },
+  userID: { type: mongoose.Types.ObjectId, ref: "User" },
+  username: { type: String },
   body: { type: String, require: true },
   email: { type: String, require: true },
   score: { type: Number, require: true },

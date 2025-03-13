@@ -11,6 +11,7 @@ async function ProductDetailPage({ params }) {
   const { name } = await params;
   connectToDB();
   const user = await authUser();
+
   const deslugify = (slug) => {
     return slug.toLowerCase().replace(/-/g, " ");
   };
@@ -20,20 +21,20 @@ async function ProductDetailPage({ params }) {
   const product = await ProductModel.findOne({
     englishFullName: productName,
   }).populate("comments");
-  console.log(product);
-
-  const existingVisit = await VisitModel.findOne({
-    userId: user._id,
-    pageName: name,
-  });
-  if (!existingVisit) {
-    const visit = await VisitModel.create({
+  if (user !== null) {
+    const existingVisit = await VisitModel.findOne({
       userId: user._id,
       pageName: name,
-      productName: product.persianName,
-      price: product.price,
-      image: product.mainImage,
     });
+    if (!existingVisit) {
+      const visit = await VisitModel.create({
+        userId: user._id,
+        pageName: name,
+        productName: product.persianName,
+        price: product.price,
+        image: product.mainImage,
+      });
+    }
   }
 
   return (
@@ -42,7 +43,10 @@ async function ProductDetailPage({ params }) {
       <Breadcrumb />
       <ProductDetail product={JSON.parse(JSON.stringify(product))} />
       <RelatedProducts category={product.category} />
-      <Tabs product={JSON.parse(JSON.stringify(product))} />
+      <Tabs
+        product={JSON.parse(JSON.stringify(product))}
+        user={JSON.parse(JSON.stringify(user))}
+      />
     </div>
   );
 }

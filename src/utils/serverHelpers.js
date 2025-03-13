@@ -9,8 +9,6 @@ const authUser = async () => {
   let user = null;
   if (token) {
     const tokenPayload = verifyAccessToken(token.value);
-    console.log(tokenPayload);
-
     if (tokenPayload) {
       user = await UserModel.findOne({
         $or: [
