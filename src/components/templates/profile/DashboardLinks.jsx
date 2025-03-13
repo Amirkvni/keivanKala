@@ -13,19 +13,41 @@ import { FaRegHeart } from "react-icons/fa6";
 import { GiBackwardTime } from "react-icons/gi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { LuUserCog } from "react-icons/lu";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 function DashboardLinks({ phone, name = "کاربر جدید" }) {
+  let router = useRouter();
   let pathname = usePathname();
-
+  const logoutHandler = () => {
+    Swal.fire({
+      title: "آیا از خروج مطمینی?",
+      icon: "warning",
+      confirmButtonText: "بله",
+      cancelButtonText: "نه",
+    }).then(async (result) => {
+      if (result) {
+        const res = await fetch("/api/auth/signout", {
+          method: "POST",
+        });
+        if (res.status === 200) {
+          Swal.fire({
+            title: "با موفقیت خارج شدی",
+            icon: "success",
+            confirmButtonText: "اوکی",
+          }).then(() => router.replace("/"));
+        }
+      }
+    });
+  };
   return (
     <div className="flex flex-col gap-y-2 p-3  w-1/4 rounded-sm shadow-lg">
       <div className="flex justify-between items-center  border-b-gray-400 pb-2 border-b-1">
         <div className="flex gap-x-2">
           <FaUserCircle className="w-10 h-10 rounded-full" />
           <div>
-            <p>{name}</p>
             <p>{phone}</p>
+            <p>{name}</p>
           </div>
         </div>
 
@@ -97,7 +119,7 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
         <Link
           href="/profile/personal-info"
           className={
-            pathname == "/profile/personalInfo"
+            pathname == "/profile/personal-info"
               ? "bg-green-100 text-green-700"
               : null
           }
@@ -105,10 +127,13 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
           <LuUserCog />
           <span>اطلاعات حساب کاربری</span>
         </Link>
-        <Link href="/">
-          <IoExitOutline />
+        <div
+          onClick={logoutHandler}
+          className="p-4 rounded-lg flex items-center gap-x-2 hover:bg-red-500 hover:text-white cursor-pointer text-red-600 hover:font-bold"
+        >
+          <IoExitOutline className="text-2xl" />
           <span>خروج</span>
-        </Link>
+        </div>
       </div>
     </div>
   );

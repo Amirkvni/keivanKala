@@ -1,41 +1,47 @@
 const mongoose = require("mongoose");
+
 const schema = mongoose.Schema(
   {
     firstname: {
       type: String,
-      reqired: false,
+      required: false,
       default: "کاریر",
     },
     lastname: {
       type: String,
-      reqired: false,
+      required: false,
       default: "جدید",
     },
     birthday: {
-      type: Date,
-      default: null,
+      type: {
+        year: { type: Number, required: false },
+        month: { type: Number, required: false },
+        day: { type: Number, required: false },
+      },
+      default: {
+        year: null,
+        month: null,
+        day: null,
+      },
     },
     email: {
       type: String,
-      reqired: true,
+      required: true,
       unique: true,
     },
     nationalcode: {
       type: String,
       default: null,
+      required: false,
     },
     phone: {
       type: String,
-      reqired: true,
+      required: true,
       unique: true,
     },
     password: {
       type: String,
-      reqired: true,
-    },
-    address: {
-      type: String,
-      reqired: false,
+      required: true,
     },
     role: {
       type: String,

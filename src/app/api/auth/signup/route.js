@@ -13,6 +13,7 @@ export async function POST(req) {
     connectToDB();
     const body = await req.json();
     const { email, phone, password } = body;
+
     // validation :
     const isValidEmail = validateEmail(email);
     const isValidPhone = validatePhone(phone);
@@ -27,6 +28,7 @@ export async function POST(req) {
     const isUserExist = await UserModel.findOne({
       $or: [{ email }, { phone }],
     });
+
     if (isUserExist) {
       return Response.json(
         {
@@ -40,7 +42,7 @@ export async function POST(req) {
     const accessToken = generateAccessToken({ phone });
 
     const users = await UserModel.find({});
-    const newUser = await UserModel.create({
+    await UserModel.create({
       email,
       phone,
       password: hashedPassword,

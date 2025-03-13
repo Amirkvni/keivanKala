@@ -5,9 +5,12 @@ import connectToDB from "@/configs/db";
 import ProductModel from "@/models/Product";
 import RelatedProducts from "@/components/templates/product/product-detail/RelatedProducts";
 import Tabs from "@/components/templates/product/product-detail/Tabs";
+import { authUser } from "@/utils/serverHelpers";
+import VisitModel from "@/models/Visit";
 async function ProductDetailPage({ params }) {
   const { name } = await params;
   connectToDB();
+  const user = await authUser();
   const deslugify = (slug) => {
     return slug.toLowerCase().replace(/-/g, " ");
   };
@@ -17,9 +20,21 @@ async function ProductDetailPage({ params }) {
   const product = await ProductModel.findOne({
     englishFullName: productName,
   }).populate("comments");
-  //   console.log(name);
+  console.log(product);
 
-  //   console.log(productName);
+  const existingVisit = await VisitModel.findOne({
+    userId: user._id,
+    pageName: name,
+  });
+  if (!existingVisit) {
+    const visit = await VisitModel.create({
+      userId: user._id,
+      pageName: name,
+      productName: product.persianName,
+      price: product.price,
+      image: product.mainImage,
+    });
+  }
 
   return (
     <div>

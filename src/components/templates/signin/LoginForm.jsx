@@ -53,7 +53,7 @@ function LoginForm() {
         setPassword("");
         router.replace("/");
       } else {
-        alert("کاربر وجود دارد");
+        alert("کاربر وجود ندارد");
       }
     }
   };

@@ -36,9 +36,19 @@ function PersonalInfo({ user }) {
             ).value;
           });
         }
-
-        if (Object.values(updatedData).some((val) => !val.trim())) {
-          return Swal.showValidationMessage("لطفاً همه فیلدها را پر کنید!");
+        if (
+          fieldName.includes("year") &&
+          fieldName.includes("month") &&
+          fieldName.includes("day")
+        ) {
+          const year = updatedData["year"];
+          const month = updatedData["month"];
+          const day = updatedData["day"];
+          updatedData["birthday"] = {
+            year,
+            month,
+            day,
+          };
         }
 
         try {
@@ -48,23 +58,16 @@ function PersonalInfo({ user }) {
               "Content-Type": "application/Json",
             },
             body: JSON.stringify(updatedData),
-          });
-
-          if (!response.ok) {
-            throw new Error("مشکلی پیش آمد، دوباره امتحان کنید.");
-          }
-
-          return response.json();
+          })
+            .then(() => {
+              Swal.fire("تغییرات با موفقیت انجام شد");
+            })
+            .then(() => location.reload());
         } catch (error) {
           Swal.showValidationMessage(`خطا در ارسال: ${error.message}`);
         }
       },
-      allowOutsideClick: () => !Swal.isLoading(),
-    })
-      .then(() => {
-        Swal.fire("تغییرات با موفقیت انجام شد");
-      })
-      .then(() => location.reload());
+    });
   };
 
   return (
@@ -95,7 +98,11 @@ function PersonalInfo({ user }) {
               )}
             </p>
           </div>
-          <FaRegEdit onClick={() => editInfo("nationalcode", "کدملی")} />
+          {user.nationalcode == null || user.nationalcode == undefined ? (
+            <FaPlus onClick={() => editInfo("nationalcode", "کدملی")} />
+          ) : (
+            <FaRegEdit onClick={() => editInfo("nationalcode", "کدملی")} />
+          )}
         </div>
         <div>
           <div>
@@ -110,7 +117,7 @@ function PersonalInfo({ user }) {
             <p className="pt-3">{user.email}</p>
           </div>
           <FaRegEdit
-            onClick={() => editInfo("password", "رمزعبور", "user@example.com")}
+            onClick={() => editInfo("email", "ایمیل", "user@example.com")}
           />
         </div>
         <div>
@@ -124,14 +131,28 @@ function PersonalInfo({ user }) {
           <div>
             <p>تاریخ تولد</p>
             <p className="pt-3">
-              {user.birthday == null || user.birthday == undefined ? (
+              {user.birthday.year == null || user.birthday == undefined ? (
                 <p>تاریخ تولد وجود ندارد</p>
               ) : (
-                user.nationalcode
+                <p>
+                  {user.birthday.year}/{user.birthday.month}/{user.birthday.day}
+                </p>
               )}
             </p>
           </div>
-          <FaPlus />
+          {user.birthday.year == null ? (
+            <FaPlus
+              onClick={() =>
+                editInfo(["year", "month", "day"], ["سال ", "ماه", "روز"])
+              }
+            />
+          ) : (
+            <FaRegEdit
+              onClick={() =>
+                editInfo(["year", "month", "day"], ["سال ", "ماه", "روز"])
+              }
+            />
+          )}
         </div>
       </div>
     </div>

@@ -11,9 +11,12 @@ export default async function DashboardLayout({ children }) {
 
   return (
     <>
-      <Header />
+      <Header isLogin={user ? true : false} />
       <div className="container mx-auto flex gap-x-3 mt-[140px]">
-        <DashboardLinks phone={user.phone} name={user.name} />
+        <DashboardLinks
+          phone={user.phone}
+          name={user.firstname + " " + user.lastname}
+        />
         {children}
       </div>
     </>

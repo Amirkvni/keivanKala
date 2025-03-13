@@ -1,27 +1,20 @@
 {
-  "persianName": "کفش روزمره مردانه مدل آراد طبی",
-  "englishFullName": "men s casual shoes arad tabi model",
-  "description": "بهترین کفش برای کارهای روزمره",
-  "price": "299000",
-  "stock": "709",
-  "category": "Specialoffers",
-  "mainImage": "https://ik.imagekit.io/bflkztneat/p1.png?updatedAt=1741102426872",
-  "images": [
-    "https://ik.imagekit.io/bflkztneat/p1.png?updatedAt=1741102426872",
-    "https://ik.imagekit.io/bflkztneat/p1.png?updatedAt=1741102426872",
-    "https://ik.imagekit.io/bflkztneat/p1.png?updatedAt=1741102426872"
+  "title": "سفارش شما ارسال شد 😍",
+  "text": "سفارش #20022 شما پردازش و ارسال شد. لطفا قبل از دریافت محصول به  پیک اطلاع بدید",
+  "products": [
+    {
+      "text": "محصول شماره یک",
+      "image": "https://ik.imagekit.io/bflkztneat/p3.png?updatedAt=1741102746152"
+    },
+    {
+      "text": "محصول شماره دو",
+      "image": "https://ik.imagekit.io/bflkztneat/p3.png?updatedAt=1741102746152"
+    },
+    {
+      "text": "محصول شماره سه",
+      "image": "https://ik.imagekit.io/bflkztneat/p3.png?updatedAt=1741102746152"
+    }
   ],
-  "saleCount": "7100",
-  "attributes": {
-    "جنس ": "پارچه",
-    "جنس زیره": "لاستیک",
-    "نحوه بسته شدن کفش": "بندی"
-  },
-  "colors": {
-    "قرمز": "bg-red-400",
-    "ابی": "bg-blue-400",
-    "سبز": "bg-green-400"
-  },
-  "comment": ["67c8ebf1075c315b61a65a6b"],
-  "secondPrice": "100000"
+  "type": "orderRegistrationMessages",
+  "userId": "67cde1f1a4251d7ad7a82bf7"
 }

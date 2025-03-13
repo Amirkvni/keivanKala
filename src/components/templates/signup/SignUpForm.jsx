@@ -11,7 +11,6 @@ export default function SignUpForm() {
   const [verifyPassword, setVerifyPassword] = useState("");
   const [email, setEmail] = useState("");
 
-
   const [enteredEmail, setEnteredEmail] = useState(true);
   const [enteredPhone, setEnteredPhone] = useState(true);
   const [enteredPassWord, setEnteredPassWord] = useState(true);
@@ -69,8 +68,10 @@ export default function SignUpForm() {
       return isValid;
     };
     const isFormValid = veryfyForm();
+
     if (isFormValid) {
       const user = { email, phone, password };
+
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {

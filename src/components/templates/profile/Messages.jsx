@@ -6,7 +6,11 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { RiShoppingBag3Line } from "react-icons/ri";
 
-function Messages() {
+function Messages({
+  discountMessages,
+  orderProcessingMessages,
+  orderRegistrationMessages,
+}) {
   return (
     <div className="flex flex-col gap-y-8 p-3 w-3/4 rounded-sm shadow-2xl">
       <div className="flex justify-between items-center">
@@ -25,115 +29,75 @@ function Messages() {
         </div>
       </div>
       <div className="flex flex-col gap-y-2">
-        <div className="border p-2 flex justify-between">
-          <div className=" flex gap-x-4 items-center">
-            <IoMdNotificationsOutline className="w-12 h-12 border rounded-full flex items-center justify-center p-2" />
-            <div className="flex flex-col gap-y-2">
-              <span>تا ۶۰٪ تخفیف محصولات بومی محلی 🧿</span>
-              <p>از عسل و ادویه تا صنایع دستی🏺👘</p>
-              <span> تا ۳۰ خرداد </span>
+        {discountMessages.map((message) => (
+          <div
+            className="border p-2 flex justify-between border-gray-300 "
+            key={message._id}
+          >
+            <div className=" flex gap-x-4 items-center">
+              <IoMdNotificationsOutline className="w-12 h-12 border rounded-full flex items-center justify-center p-2" />
+              <div className="flex flex-col gap-y-2">
+                <span>{message.title}</span>
+                <p>{message.text}</p>
+                <span>تا {message.endTime}</span>
+              </div>
             </div>
-          </div>
 
-          <div className="bg-green-400  w-fit mr-auto h-fit p-2 rounded-lg cursor-pointer">
-            بزن بریم
-          </div>
-        </div>
-        <div className="border p-2 flex flex-col gap-y-2">
-          <div className="flex gap-x-2 items-center text-green-500">
-            <FaShippingFast />
-            <span>سفارش شما ارسال شد</span>
-          </div>
-          <p>
-            سفارش #200221 شما پردازش و ارسال شد. لطفا قبل از دریافت محصول به پیک
-            کون بدید
-          </p>
-          <div className="flex [&>div]:border gap-x-1">
-            <div className="flex items-center">
-              <div className="w-32 h-32  rounded-lg">
-                <Image
-                  src={
-                    "https://ik.imagekit.io/bflkztneat/p6.png?updatedAt=1741102746005"
-                  }
-                  width={500}
-                  height={500}
-                />
-              </div>
-              <p>لورم ایسپسوم دولار کیر خر کسکش نز جنده باز</p>
-            </div>
-            <div className="flex items-center">
-              <div className="w-32 h-32  rounded-lg">
-                <Image
-                  src={
-                    "https://ik.imagekit.io/bflkztneat/p6.png?updatedAt=1741102746005"
-                  }
-                  width={500}
-                  height={500}
-                />
-              </div>
-              <p>لورم ایسپسوم دولار کیر خر کسکش نز جنده باز</p>
-            </div>
-            <div className="flex items-center">
-              <div className="w-32 h-32  rounded-lg">
-                <Image
-                  src={
-                    "https://ik.imagekit.io/bflkztneat/p6.png?updatedAt=1741102746005"
-                  }
-                  width={500}
-                  height={500}
-                />
-              </div>
-              <p>لورم ایسپسوم دولار کیر خر کسکش نز جنده باز</p>
+            <div className="bg-green-400  w-fit mr-auto h-fit p-2 rounded-lg cursor-pointer text-white">
+              بزن بریم
             </div>
           </div>
-          <div className="bg-green-400  w-fit mr-auto">مشاهده جزییات سفارش</div>
-        </div>
-        <div className="border p-2 flex flex-col gap-y-2">
-          <div className="flex gap-x-2 items-center text-blue-500">
-            <RiShoppingBag3Line />
-            <span>سفارش شما ثبت و درحال پردازش است</span>
-          </div>
-          <p>وضعیت سفارش خود را از اینجا میتوانید پیگیری کنید</p>
-          <div className="flex [&>div]:border gap-x-1">
-            <div className="flex items-center">
-              <div className="w-32 h-32  rounded-lg">
-                <Image
-                  src={
-                    "https://ik.imagekit.io/bflkztneat/p6.png?updatedAt=1741102746005"
-                  }
-                  width={500}
-                  height={500}
-                />
-              </div>
-              <p>لورم ایسپسوم دولار کیر خر کسکش نز جنده باز</p>
+        ))}
+        {orderProcessingMessages.map((message) => (
+          <div
+            className="border border-gray-300 p-2 flex flex-col gap-y-2"
+            key={message._id}
+          >
+            <div className="flex gap-x-2 items-center text-blue-500">
+              <RiShoppingBag3Line />
+              <span>{message.title}</span>
             </div>
-            <div className="flex items-center">
-              <div className="w-32 h-32  rounded-lg">
-                <Image
-                  src={
-                    "https://ik.imagekit.io/bflkztneat/p6.png?updatedAt=1741102746005"
-                  }
-                  width={500}
-                  height={500}
-                />
-              </div>
-              <p>لورم ایسپسوم دولار کیر خر کسکش نز جنده باز</p>
+            <p>{message.text}</p>
+            <div className="flex  gap-x-1">
+              {message.products.map((product) => (
+                <div className="flex items-center" key={product._id}>
+                  <div className="w-32 h-32  rounded-lg">
+                    <Image src={product.image} width={500} height={500} />
+                  </div>
+                  <p>لورم ایسپسوم دولار کیر خر کسکش نز جنده باز</p>
+                </div>
+              ))}
             </div>
-            <div className="flex items-center">
-              <div className="w-32 h-32  rounded-lg">
-                <Image
-                  src={
-                    "https://ik.imagekit.io/bflkztneat/p6.png?updatedAt=1741102746005"
-                  }
-                  width={500}
-                  height={500}
-                />
-              </div>
-              <p>لورم ایسپسوم دولار کیر خر کسکش نز جنده باز</p>
+            <div className="bg-green-400  w-fit mr-auto text-white p-2 rounded-lg cursor-pointer">
+              پیگیری سفارش
             </div>
           </div>
-          <div className="bg-green-400  w-fit mr-auto">پیگیری سفارش</div>
-        </div>
+        ))}
+        {orderRegistrationMessages.map((message) => (
+          <div
+            className="border border-gray-300 p-2 flex flex-col gap-y-2"
+            key={message._id}
+          >
+            <div className="flex gap-x-2 items-center text-green-500">
+              <FaShippingFast />
+              <span>{message.title}</span>
+            </div>
+            <p>{message.text}</p>
+            <div className="flex gap-x-1">
+              {message.products.map((product) => (
+                <div className="flex items-center" key={product._id}>
+                  <div className="w-32 h-32  rounded-lg">
+                    <Image src={product.image} width={500} height={500} />
+                  </div>
+                  <p>{product.text}</p>
+                </div>
+              ))}
+            </div>
+            <div className="bg-green-400  w-fit mr-auto text-white p-2 rounded-lg cursor-pointer">
+              مشاهده جزییات سفارش
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="w-fit mr-auto">pagination</div>

@@ -10,23 +10,20 @@ import { MdOutlineCompare } from "react-icons/md";
 import { MdShare } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
-
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
 import "./styles.css";
-
-// import required modules
 import { Pagination } from "swiper/modules";
-
 import LightBox from "./LightBox";
 import Image from "next/image";
+import { useEffect } from "react";
 function ProductDetail({ product }) {
-  console.log(product);
-
+  useEffect(() => {
+    const addTorecentVisit = async () => {
+      
+    };
+  }, []);
   return (
     <>
       <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white hidden 2xl:block">
