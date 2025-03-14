@@ -17,25 +17,58 @@ import "./styles.css";
 import { Pagination } from "swiper/modules";
 import LightBox from "./LightBox";
 import Image from "next/image";
-import { useEffect } from "react";
-function ProductDetail({ product }) {
-  useEffect(() => {
-    const addTorecentVisit = async () => {
-      
-    };
-  }, []);
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+function ProductDetail({ product, user }) {
+  const router = useRouter();
+  const addToWishlist = async () => {
+    if (user === null) {
+      router.push("/signin");
+    } else {
+      const wish = {
+        user: user._id,
+        product: product._id,
+      };
+
+      const res = await fetch("/api/wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(wish),
+      });
+
+      if (res.status === 201) {
+        Swal.fire({
+          position: "top-start",
+          icon: "success",
+          title: "محصول با موفقیت به علاقه مندی های شما اضافه شد",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      } else {
+        Swal.fire({
+          position: "top-start",
+          icon: "success",
+          title: "محصول با موفقیت از علاقه مندی ها پاک شد",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      }
+    }
+  };
   return (
     <>
       <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white hidden 2xl:block">
         <div className="gap-x-2 flex 2xl:flex-row flex-col">
           {/* right section : */}
           <div className="w-1/3 ">
-            <div className="flex gap-x-2 items-center p-3 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:cursor-pointer ">
-              <FaRegHeart />
+            <div className="flex gap-x-2 items-center p-3 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:cursor-pointer bg-red-300">
+              <FaRegHeart onClick={addToWishlist} />
               <MdOutlineCompare />
               <MdShare />
             </div>
-            <div className=" mt-1  py-1.5">
+            <div className=" mt-1  py-1.5 bg-blue-400">
               <LightBox
                 mainImage={product.mainImage}
                 pictures={product.images}

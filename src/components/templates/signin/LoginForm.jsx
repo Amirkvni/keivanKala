@@ -3,6 +3,7 @@ import { validateEmail, validatePhone } from "@/utils/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 
 function LoginForm() {
   let router = useRouter();
@@ -48,10 +49,15 @@ function LoginForm() {
         body: JSON.stringify(user),
       });
       if (res.status === 200) {
-        alert("ورود موفق");
-        setPhoneOrEmail("");
-        setPassword("");
-        router.replace("/");
+        Swal.fire({
+          position: "top-start",
+          icon: "success",
+          title: "ورود موفق",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          router.replace("/");
+        });
       } else {
         alert("کاربر وجود ندارد");
       }

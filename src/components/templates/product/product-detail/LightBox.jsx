@@ -18,7 +18,7 @@ function LightBox({ mainImage, pictures }) {
           width={400}
           height={400}
           src={mainImage}
-          className=""
+          className="w-75"
           onClick={() => setOpen(true)}
         />
       </div>

@@ -21,8 +21,8 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
   let pathname = usePathname();
   const logoutHandler = () => {
     Swal.fire({
-      title: "آیا از خروج مطمینی?",
-      icon: "warning",
+      title: "آیا از خروج مطمئنی ?",
+      icon: "question	",
       confirmButtonText: "بله",
       cancelButtonText: "نه",
     }).then(async (result) => {

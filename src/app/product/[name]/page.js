@@ -41,7 +41,10 @@ async function ProductDetailPage({ params }) {
     <div>
       <Header />
       <Breadcrumb />
-      <ProductDetail product={JSON.parse(JSON.stringify(product))} />
+      <ProductDetail
+        product={JSON.parse(JSON.stringify(product))}
+        user={JSON.parse(JSON.stringify(user))}
+      />
       <RelatedProducts category={product.category} />
       <Tabs
         product={JSON.parse(JSON.stringify(product))}
