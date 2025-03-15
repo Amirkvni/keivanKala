@@ -19,7 +19,10 @@ import LightBox from "./LightBox";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { CartContext } from "@/contexts/CartContext";
 function ProductDetail({ product, user }) {
+  let { addToCart } = useContext(CartContext);
   const router = useRouter();
   const addToWishlist = async () => {
     if (user === null) {
@@ -57,6 +60,7 @@ function ProductDetail({ product, user }) {
       }
     }
   };
+
   return (
     <>
       <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white hidden 2xl:block">
@@ -156,7 +160,10 @@ function ProductDetail({ product, user }) {
                     <span>تومان</span>
                   </div>
                 </div>
-                <button className="w-full rounded-lg p-1 mt-3 text-white cursor-pointer py-3 bg-green-600">
+                <button
+                  onClick={() => addToCart(product)}
+                  className="w-full rounded-lg p-1 mt-3 text-white cursor-pointer py-3 bg-green-600"
+                >
                   افزودن به سبد خرید
                 </button>
               </div>

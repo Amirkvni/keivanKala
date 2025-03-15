@@ -1,16 +1,18 @@
 "use client";
+import { CartContext } from "@/contexts/CartContext";
 import { validateEmail, validatePhone } from "@/utils/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
 
 function LoginForm() {
   let router = useRouter();
+  let { redirectPath } = useContext(CartContext);
+
   const [loginWay, setLoginWay] = useState("username");
   const [phoneOrEmail, setPhoneOrEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [enteredPhoneOrEmail, setEnteredPhoneOrEmail] = useState(true);
   const [enteredPassword, setEnteredPassword] = useState(true);
   const loginWithPassword = async () => {
@@ -56,7 +58,11 @@ function LoginForm() {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          router.replace("/");
+          if (redirectPath) {
+            router.replace(redirectPath);
+          } else {
+            router.replace("/");
+          }
         });
       } else {
         alert("کاربر وجود ندارد");

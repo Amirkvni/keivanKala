@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import cartIcon from "@/assets/icons/logo.webp";
 import { CiSearch } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
@@ -10,6 +10,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { PiMoonStarsLight } from "react-icons/pi";
 import { FaAngleLeft } from "react-icons/fa6";
 import Cart from "./Cart";
+import { CartContext } from "@/contexts/CartContext";
 function Header({ isLogin }) {
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
@@ -76,7 +77,7 @@ function Header({ isLogin }) {
       ],
     },
   ];
-
+  let { cart } = useContext(CartContext);
   return (
     <header>
       <div className="fixed left-0 right-0 top-0 z-30 py-4 bg-white px-2">
@@ -119,15 +120,22 @@ function Header({ isLogin }) {
                     </Link>
                   )}
                 </Link>
-                <Link href="/" onClick={() => setIsActiveCart(true)}>
+                <Link
+                  href="/checkout-cart"
+                  className="relative "
+                  // onClick={() => setIsActiveCart(true)}
+                >
                   <LuShoppingCart className="text-2xl font-black" />
+                  <span className="absolute -top-2 -right-2 bg-green-500 text-white  w-4.5 h-4.5 rounded-full flex items-center justify-center">
+                    {cart.length}
+                  </span>
                 </Link>
                 <Link href="/">
                   <PiMoonStarsLight className="text-2xl font-black" />
                 </Link>
               </div>
               {/* cart : */}
-              {isActiveCart && <Cart />}
+              {/* {isActiveCart && <Cart />} */}
             </div>
             {/* bottom section  :*/}
             <div className="absolute left-0 right-0 top-full z-20  shadow-xs duration-300 bg-white">

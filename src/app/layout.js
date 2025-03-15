@@ -1,3 +1,4 @@
+import { CartProvider } from "@/contexts/CartContext";
 import "./globals.css";
 
 export const metadata = {
@@ -8,7 +9,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="font-yekan">{children}</body>
+      <body className="font-yekan">
+        <CartProvider>{children}</CartProvider>
+      </body>
     </html>
   );
 }

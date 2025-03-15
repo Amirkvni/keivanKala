@@ -9,6 +9,7 @@ import SpecialOffers from "@/components/templates/index/special-offers/SpecialOf
 import { authUser } from "@/utils/serverHelpers";
 export default async function Home() {
   const user = await authUser();
+
   return (
     <>
       <Header isLogin={user ? true : false} />

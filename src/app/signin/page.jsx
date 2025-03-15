@@ -1,8 +1,7 @@
 import LoginForm from "@/components/templates/signin/LoginForm";
+
 import React from "react";
 
-function page() {
+export default async function page() {
   return <LoginForm />;
 }
-
-export default page;
