@@ -67,12 +67,12 @@ function ProductDetail({ product, user }) {
         <div className="gap-x-2 flex 2xl:flex-row flex-col">
           {/* right section : */}
           <div className="w-1/3 ">
-            <div className="flex gap-x-2 items-center p-3 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:cursor-pointer bg-red-300">
+            <div className="flex gap-x-2 items-center p-3 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:cursor-pointer">
               <FaRegHeart onClick={addToWishlist} />
               <MdOutlineCompare />
               <MdShare />
             </div>
-            <div className=" mt-1  py-1.5 bg-blue-400">
+            <div className=" mt-1  py-1.5 ">
               <LightBox
                 mainImage={product.mainImage}
                 pictures={product.images}

@@ -9,43 +9,29 @@ const schema = mongoose.Schema({
   },
   products: [
     {
-      product: {
+      _id: {
         type: mongoose.Types.ObjectId,
         ref: "Product",
         required: true,
       },
-      quantity: {
-        type: Number,
-        required: true,
-        min: 1,
-      },
     },
   ],
-  totalPrice: {
-    type: Number,
-    required: true,
-  },
   orderDate: {
     type: Date,
-    default: Date.now,
+    default: () => Date.now(),
   },
-  address: {
-    type: String,
-  },
-  delivery: [
-    {
-      day: {
-        type: Number,
-      },
-      date: {
-        type: String,
-      },
-      price: {
-        type: String,
-      },
+  delivery: {
+    id: { type: Number },
+    day: {
+      type: String,
     },
-  ],
-
+    date: {
+      type: Number,
+    },
+    price: {
+      type: Number,
+    },
+  },
   status: {
     type: String,
     default: "pending",

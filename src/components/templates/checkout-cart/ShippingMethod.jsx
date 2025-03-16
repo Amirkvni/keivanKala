@@ -1,10 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { CartContext } from "@/contexts/CartContext";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 import { FaAngleLeft, FaTruckFast } from "react-icons/fa6";
 import { IoMdTime } from "react-icons/io";
 
-function ShippingMethod({ user }) {
+function ShippingMethod() {
+  const router = useRouter();
+  let { cart } = useContext(CartContext);
 
   let sendTimes = [
     {
@@ -48,9 +52,26 @@ function ShippingMethod({ user }) {
     date: 26,
     price: 69000,
   });
-  useEffect(() => {
-    console.log(sendTime);
-  });
+
+  const paymentHandler = async () => {
+    const idsArray = cart.map((item) => ({ _id: item._id }));
+
+    const newOrder = {
+      products: idsArray,
+      delivery: sendTime,
+    };
+
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newOrder),
+    });
+    if (res.status === 201) {
+      router.push("/checkout-cart/payment");
+    }
+  };
   return (
     <div className="mt-12 container  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 ">
       <div className="w-3/4 border flex flex-col gap-y-4">
@@ -96,7 +117,28 @@ function ShippingMethod({ user }) {
         </div>
       </div>
       <div className="w-1/4 h-fit  border [&>div]:flex  [&>div]:py-5 [&>div]:justify-between items-center">
-        salam2
+        <div>
+          <span>قیمت کالا ها (2)</span>
+          <span className="text-green-400">
+            {/* {getTotal().toLocaleString()} تومان */}
+          </span>
+        </div>
+        <div className="border-y border-y-gray-400">
+          <span>تخفیف</span>
+          <span className="text-red-400">1,220,000 تومان</span>
+        </div>
+        <div>
+          <span>مبلغ قابل پرداخت</span>
+          <span className="text-green-500 font-bold">
+            {/* {getTotal().toLocaleString()} تومان */}
+          </span>
+        </div>
+        <button
+          className="bg-green-500 text-white cursor-pointer p-3 rounded-lg w-full"
+          onClick={() => paymentHandler()}
+        >
+          ادامه فرایند خرید
+        </button>
       </div>
     </div>
   );
