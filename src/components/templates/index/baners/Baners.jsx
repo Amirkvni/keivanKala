@@ -8,16 +8,16 @@ export default function Banners() {
       <div>
         <Image
           src={categoryRightImage}
-          width={500}
-          height={500}
+          width={5000}
+          height={5000}
           alt="categoryRightImage"
         />
       </div>
       <div>
         <Image
           src={categoryLefyImage}
-          width={500}
-          height={500}
+          width={5000}
+          height={5000}
           alt="categoryLefyImage"
         />
       </div>

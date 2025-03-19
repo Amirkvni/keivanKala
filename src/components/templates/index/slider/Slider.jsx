@@ -1,15 +1,10 @@
 "use client";
-
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import "./style.css";
-
-// import required modules
 import { Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 import myGif from "@/../public/gifs/main-bot.gif";
@@ -51,8 +46,8 @@ function Slider() {
           <Image
             src={mainSliderThree}
             alt="mainSliderThree"
-            width={600}
-            height={200}
+            width={3000}
+            height={3000}
           />
         </SwiperSlide>
       </Swiper>

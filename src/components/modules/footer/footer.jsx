@@ -6,21 +6,23 @@ import { FaChevronUp, FaInstagram, FaWhatsapp } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <div className="mt-12 border-t-1 pt-6 bg-white">
+    <div className="mt-12 border-t-1 border-t-gray-200 pt-6 bg-white">
       <div className="flex flex-col gap-y-12 container mx-auto w-[1000px] ">
         <div className="flex justify-between">
-          <div className="flex gap-x-4 items-center">
+          <div className="flex gap-x-4 items-center text-gray-500">
             <span>تلفن پشتیبانی 0000000 - 021</span>
             <span>|</span>
             <span>۷ روز هفته، ۲۴ ساعته پاسخگوی شما هستیم</span>
           </div>
-          <div className="flex gap-x-2 items-center border rounded-lg p-2">
+          <div className="flex gap-x-2 items-center border border-gray-300 rounded-lg p-2 text-gray-500 hover:text-green-500 hover:border-green-300 cursor-pointer">
             <span>بازگشت به بالا</span>
             <FaChevronUp />
           </div>
         </div>
         <div className="rounded-xl  p-3 flex justify-between items-center bg-gray-100 shadow">
-          <span>از جدیدترین تخفیف ها با خبر شوید</span>
+          <span className="text-gray-500">
+            از جدیدترین تخفیف ها با خبر شوید
+          </span>
           <div className=" p-2 rounded-xl w-[350px] bg-white">
             <input
               type="text"
@@ -31,30 +33,47 @@ export default function Footer() {
               ثبت
             </button>
           </div>
-          <div className="flex gap-x-3">
+          <div className="flex gap-x-3  [&>svg]:w-7 [&>svg]:h-7 [&>svg]:cursor-pointer">
             <FaInstagram />
             <FaTelegramPlane />
             <FaWhatsapp />
           </div>
         </div>
         <div className="flex justify-between">
-          <div className="flex gap-x-24 text-xl [&>div]:flex [&>div]:flex-col [&>div]:gap-y-4 [&>div>a]:text-gray-400 ">
+          <div className="  flex gap-x-20 text-lg [&>div]:flex [&>div]:flex-col [&>div]:gap-y-4 [&>div>a]:text-gray-400 ">
             <div>
               <span>کیوان کالا</span>
-              <Link href="/">شرایط مرجوعی</Link>
-              <Link href="/">شرایط مرجوعی</Link>
-              <Link href="/">شرایط مرجوعی</Link>
-              <Link href="/">شرایط مرجوعی</Link>
+              <Link href="/" className="hover:text-green-400">
+                شرایط مرجوعی
+              </Link>
+              <Link href="/" className="hover:text-green-400">
+                راهنمای خرید
+              </Link>
+              <Link href="/" className="hover:text-green-400">
+                قوانین و مقررات
+              </Link>
+              <Link href="/" className="hover:text-green-400">
+                چرا کیوان کالا
+              </Link>
             </div>
-            <div>
-              <span>کیوان کالا</span>
-              <Link href="/">شرایط مرجوعی</Link>
-              <Link href="/">شرایط مرجوعی</Link>
-              <Link href="/">شرایط مرجوعی</Link>
-              <Link href="/">شرایط مرجوعی</Link>
+            <div className="group">
+              <span>دسترسی سریع</span>
+              <Link href="/" className="hover:text-green-400">
+                {" "}
+                پیگیری سفارشات
+              </Link>
+              <Link href="/" className="hover:text-green-400">
+                تماس با ما
+              </Link>
+              <Link href="/" className="hover:text-green-400">
+                سوالات متداول{" "}
+              </Link>
+              <Link href="/" className="hover:text-green-400">
+                درباره ما
+              </Link>
             </div>
           </div>
-          <div className="[&>div]:w-32 [&>div]:h-32 flex gap-x-3">
+          <div className="[&>div]:w-26 [&>div]:h-26 flex gap-x-3">
             <div>
               <Image
                 src="https://ik.imagekit.io/bflkztneat/namad.png?updatedAt=1742396052826"
@@ -72,7 +91,7 @@ export default function Footer() {
           </div>
         </div>
         <hr className="text-gray-200" />
-        <p className="text-center text-xl text-gray-400">
+        <p className="text-center text-lg text-gray-400">
           نوشته شده با ❤️ توسط امیرحسین کیوانی
         </p>
       </div>

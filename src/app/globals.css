@@ -23,10 +23,10 @@
   font-style: normal;
   font-weight: normal;
   font-display: swap;
-  src: url("../../public/fonts/IRANYEKANREGULAR.TTF") format("TTF");
+  src: url("../../public/fonts/IRANYEKANMEDIUM.TTF") format("TTF");
 }
 :root {
-  --background: #ffffff;
+  --background: oklch(0.97 0.001 106.424);
   --foreground: #171717;
 }
 

@@ -60,7 +60,7 @@ function Blogs() {
         >
           {blogs?.map((blog) => (
             <SwiperSlide key={blog._id}>
-              <Link href={`/blogs/${blog.link}`}>
+              <Link href={`/blogs/${blog.link}`} className="group">
                 <BlogBox blog={blog} />
               </Link>
             </SwiperSlide>

@@ -18,20 +18,20 @@ export default function SpecialOffers() {
     getProducts();
   }, []);
   return (
-    <div className="container mx-auto mt-7">
+    <div className="container mx-auto mt-12">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-lg">پیشنهادات ویژه</span>
+          <span className="text-xl">پیشنهادات ویژه</span>
           <Link
             href="/special-offers"
             className=" flex gap-x-2 items-center text-green-500"
           >
-            <span className="text-lg">مشاهده همه</span>
+            <span className="text-base">مشاهده همه</span>
             <FaChevronLeft />
           </Link>
         </div>
       </section>
-      <main className="mt-5">
+      <main className="mt-5 ">
         <Swiper
           slidesPerView={"auto"}
           pagination={{
@@ -55,7 +55,7 @@ export default function SpecialOffers() {
               spaceBetween: 30,
             },
           }}
-          className=" swiper2 "
+          className="swiper2"
         >
           {specialProducts?.map((product) => (
             <SwiperSlide key={product._id}>

@@ -9,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="font-yekan">
+      <body className="font-yekan ">
         <CartProvider>{children}</CartProvider>
       </body>
     </html>

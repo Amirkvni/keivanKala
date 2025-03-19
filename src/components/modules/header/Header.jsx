@@ -108,18 +108,18 @@ function Header({ isLogin }) {
                   />
                 </Link>
               </div>
-              <div className="relative  flex items-center gap-2 rounded-sm p-6 max-w-[576px] w-[576px] bg-slate-50">
+              <div className="relative  flex items-center gap-2 rounded-sm py-3 px-2 max-w-[576px] w-[576px] bg-slate-100">
                 <CiSearch className="text-2xl" />
                 <input
                   type="text"
-                  className="outline-none "
+                  className="outline-none placeholder:text-gray-500 placeholder:font-medium placeholder:text-lg "
                   placeholder="جستجو کنید ..."
                 />
               </div>
-              <div className="flex gap-x-4 ">
+              <div className="flex gap-x-4 items-center">
                 <Link href="/profile">
                   {isLogin ? (
-                    <CiUser className="text-2xl font-black" />
+                    <CiUser className="text-2xl" />
                   ) : (
                     <Link
                       className="text-lg flex items-center gap-x-1 border rounded-lg px-1.5 py-1"
@@ -136,13 +136,13 @@ function Header({ isLogin }) {
                   className="relative "
                   // onClick={() => setIsActiveCart(true)}
                 >
-                  <LuShoppingCart className="text-2xl font-black" />
+                  <LuShoppingCart className="text-2xl" />
                   <span className="absolute -top-2 -right-2 bg-green-500 text-white  w-4.5 h-4.5 rounded-full flex items-center justify-center">
                     {cart.length}
                   </span>
                 </Link>
                 <Link href="/">
-                  <PiMoonStarsLight className="text-2xl font-black" />
+                  <PiMoonStarsLight className="text-2xl " />
                 </Link>
               </div>
               {/* cart : */}
