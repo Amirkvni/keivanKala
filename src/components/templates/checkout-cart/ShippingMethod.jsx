@@ -5,47 +5,24 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { FaAngleLeft, FaTruckFast } from "react-icons/fa6";
 import { IoMdTime } from "react-icons/io";
-
+import moment from "moment-jalaali";
 function ShippingMethod() {
   const router = useRouter();
   let { cart } = useContext(CartContext);
+  let now = moment().locale("fa");
+  let sendTimes = [];
+  for (let i = 0; i < 4; i++) {
+    let currentDay = now.clone().add(i, "days");
+    let dayOfWeekName = currentDay.format("dddd");
+    let dayOfMonth = currentDay.format("jD");
 
-  let sendTimes = [
-    {
-      id: 1,
-      day: "شنبه ",
-      date: 26,
-
-      price: 69000,
-    },
-    {
-      id: 2,
-      day: "یکشنبه",
-      date: 27,
-
-      price: 79000,
-    },
-    {
-      id: 3,
-      day: "دوشنبه",
-      date: 28,
-
-      price: 90000,
-    },
-    {
-      id: 4,
-      day: "سه شنبه",
-      date: 29,
-
-      price: 93000,
-    },
-    {
-      id: 5,
-      day: "چهارشنبه",
-      date: 30,
-      price: 89000,
-    },
-  ];
+    sendTimes.push({
+      id: i + 1,
+      day: dayOfWeekName,
+      date: dayOfMonth,
+      price: Math.floor(Math.random() * (98000 - 58000 + 1)) + 58000,
+    });
+  }
   const [sendTime, setSendTime] = useState({
     id: 1,
     day: "شنبه ",

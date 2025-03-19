@@ -24,59 +24,70 @@ function Header({ isLogin }) {
         {
           title: "لباس مردانه",
           links: [
-            "شلوار",
-            "لباس زیر",
-            "پیراهن",
-            "ژاکت و پلیور",
-            "جوراب",
-            "شلوارک",
+            { title: "شلوار", address: "men-pants" },
+            { title: "لباس زیر", address: "men-underwear" },
+            { title: "پیراهن", address: "men-shirts" },
+            { title: "ژاکت و پلیور", address: "men-knitwear" },
+            { title: "شلوارک", address: "men-shorts" },
+            { title: "جوراب", address: "men-socks-tights" },
           ],
         },
         {
           title: "کفش مردانه",
-          links: ["کفش اسپورت", "بوت", "کفش مجلسی", "نیم بوت"],
+          links: [
+            { title: "روزمره", address: "men-casual-shoes" },
+            { title: "صندل ", address: "men-sandals" },
+            { title: "دمپایی", address: "men-slippers" },
+            { title: "بوت", address: "men-boots" },
+            { title: "نیم بوت", address: "men-ankle-boots" },
+          ],
         },
         {
           title: "اکسسوری مردانه",
           links: ["ساعت", "عینک", "شال", "کلاه", "دستکش", "کمربند"],
         },
       ],
+      link: "mens-category-shop",
     },
-    {
-      name: "زنانه",
-      submenu: [
-        { title: "لباس زنانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
-        {
-          title: "کفش زنانه",
-          links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
-        },
-      ],
-    },
-    {
-      name: "بچگانه",
-      submenu: [
-        { title: "لباس بچگانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
-        {
-          title: "کفش بچگانه",
-          links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
-        },
-      ],
-    },
-    {
-      name: "آرایشی و بهداشتی",
-      submenu: [
-        { title: "صورت", links: ["شلوار", "لباس زیر", "پیراهن"] },
-        {
-          title: "چشم و ابرو",
-          links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
-        },
-        {
-          title: "ناخن",
-          links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
-        },
-      ],
-    },
+    // {
+    //   name: "زنانه",
+    //   submenu: [
+    //     { title: "لباس زنانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
+    //     {
+    //       title: "کفش زنانه",
+    //       links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
+    //     },
+    //   ],
+    //   link: "womens-category-shop",
+    // },
+    // {
+    //   name: "بچگانه",
+    //   submenu: [
+    //     { title: "لباس بچگانه", links: ["شلوار", "لباس زیر", "پیراهن"] },
+    //     {
+    //       title: "کفش بچگانه",
+    //       links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
+    //     },
+    //   ],
+    //   link: "kids-category-shop",
+    // },
+    // {
+    //   name: "آرایشی و بهداشتی",
+    //   submenu: [
+    //     { title: "صورت", links: ["شلوار", "لباس زیر", "پیراهن"] },
+    //     {
+    //       title: "چشم و ابرو",
+    //       links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
+    //     },
+    //     {
+    //       title: "ناخن",
+    //       links: ["کفش اسپورت", "کفش پیاده روی", "کفش راحتی"],
+    //     },
+    //   ],
+    //   link: "personal-appliance-category-shop",
+    // },
   ];
+
   let { cart } = useContext(CartContext);
   return (
     <header>
@@ -174,9 +185,12 @@ function Header({ isLogin }) {
                                   setIsHover(true);
                                 }}
                               >
-                                <a href="" className="flex py-4 pr-4 text-lg">
+                                <Link
+                                  href={category.link}
+                                  className="flex py-4 pr-4 text-lg"
+                                >
                                   {category.name}
-                                </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -211,13 +225,14 @@ function Header({ isLogin }) {
                                     </a>
                                     <ul>
                                       <li>
-                                        {submenu.links.map((link) => (
-                                          <a
-                                            href=""
+                                        {submenu.links.map((item) => (
+                                          <Link
+                                            key={Math.random() * 20}
+                                            href={`/search/${item.address}`}
                                             className="block py-2 text-lg  hover:text-green-300"
                                           >
-                                            {link}
-                                          </a>
+                                            {item.title}
+                                          </Link>
                                         ))}
                                       </li>
                                     </ul>
@@ -297,6 +312,7 @@ function Header({ isLogin }) {
         hi
       </div>
       <div
+        onMouseEnter={() => setIsHover(false)}
         className={`fixed inset-0 z-20  backdrop ${
           isHover ? "block" : "hidden"
         }`}
