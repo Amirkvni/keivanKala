@@ -4,7 +4,7 @@ import React from "react";
 import { FaTelegramPlane } from "react-icons/fa";
 import { FaChevronUp, FaInstagram, FaWhatsapp } from "react-icons/fa6";
 
-export default function footer() {
+export default function Footer() {
   return (
     <div className="mt-12 border-t-1 pt-6 bg-white">
       <div className="flex flex-col gap-y-12 container mx-auto w-[1000px] ">

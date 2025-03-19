@@ -5,6 +5,7 @@ import connectToDB from "@/configs/db";
 import React from "react";
 import BlogModel from "@/models/Blog";
 import BlogLinks from "@/components/templates/blogs/BlogLinks";
+import Footer from "@/components/modules/footer/Footer";
 export default async function page({ params }) {
   const { name } = await params;
   connectToDB();
@@ -18,6 +19,7 @@ export default async function page({ params }) {
         <BlogDetail blog={JSON.parse(JSON.stringify(blog))} />
         <BlogLinks blogLinks={JSON.parse(JSON.stringify(blogLinks))} />
       </div>
+      <Footer />
     </>
   );
 }

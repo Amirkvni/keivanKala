@@ -7,6 +7,7 @@ import RelatedProducts from "@/components/templates/product/product-detail/Relat
 import Tabs from "@/components/templates/product/product-detail/Tabs";
 import { authUser } from "@/utils/serverHelpers";
 import VisitModel from "@/models/Visit";
+import Footer from "@/components/modules/footer/Footer";
 async function ProductDetailPage({ params }) {
   const { name } = await params;
   connectToDB();
@@ -50,6 +51,7 @@ async function ProductDetailPage({ params }) {
         product={JSON.parse(JSON.stringify(product))}
         user={JSON.parse(JSON.stringify(user))}
       />
+      <Footer />
     </div>
   );
 }

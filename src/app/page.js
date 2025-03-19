@@ -1,4 +1,4 @@
-import Footer from "@/components/modules/footer/footer";
+import Footer from "@/components/modules/footer/Footer";
 import Header from "@/components/modules/header/Header";
 import Banners from "@/components/templates/index/baners/Baners";
 import BestSellingProducts from "@/components/templates/index/best-selling-products/BestSellingProducts";

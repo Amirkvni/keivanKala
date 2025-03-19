@@ -3,6 +3,7 @@ import connectToDB from "@/configs/db";
 import React from "react";
 import ProductModel from "@/models/Product";
 import Shop from "@/components/templates/search/Shop";
+import Footer from "@/components/modules/footer/Footer";
 export default async function page({ params }) {
   const { name } = await params;
 
@@ -13,6 +14,7 @@ export default async function page({ params }) {
     <>
       <Header />
       <Shop products={JSON.parse(JSON.stringify(products))} />
+      <Footer />
     </>
   );
 }
