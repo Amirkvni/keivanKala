@@ -2,3 +2,14 @@
   width: 100%;
   height: 100%;
 }
+@media screen and (max-width: 769px) {
+  .swiper2 .swiper-slide {
+    width: 40% !important;
+  }
+}
+
+@media screen and (max-width: 481px) {
+  .swiper2 .swiper-slide {
+    width: 65% !important;
+  }
+}

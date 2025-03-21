@@ -22,7 +22,7 @@ function BestSellingProducts() {
     <div className="container mx-auto mt-7">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-lg">پرفروش ترین محصولات</span>
+          <span className="text-xl">پرفروش ترین محصولات</span>
           <Link href="/" className=" flex gap-x-2 items-center text-green-500">
             <span className="text-lg">مشاهده همه</span>
             <FaChevronLeft />
@@ -53,7 +53,7 @@ function BestSellingProducts() {
               spaceBetween: 30,
             },
           }}
-          className=" swiper4"
+          className=" swiper2"
         >
           {bestSellingProducts?.map((product) => (
             <SwiperSlide key={product._id}>

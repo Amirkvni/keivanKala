@@ -34,7 +34,7 @@ let productCategories = [
 ];
 export default function Categories() {
   return (
-    <div className="my-4 container mx-auto flex justify-between flex-wrap px-5 items-center gap-y-3">
+    <div className="my-4 container mx-auto flex items-center justify-between flex-wrap px-5  gap-y-3">
       {productCategories.map((item) => {
         return <Category {...item} key={item.id} />;
       })}

@@ -30,24 +30,24 @@ function Slider() {
           <Image
             src={mainSliderOne}
             alt="mainSliderOne"
-            width={600}
-            height={200}
+            width={10000}
+            height={10000}
           />
         </SwiperSlide>
         <SwiperSlide>
           <Image
             src={mainSliderTwo}
             alt="mainSliderTwo"
-            width={600}
-            height={200}
+            width={10000}
+            height={10000}
           />
         </SwiperSlide>
         <SwiperSlide>
           <Image
             src={mainSliderThree}
             alt="mainSliderThree"
-            width={3000}
-            height={3000}
+            width={10000}
+            height={10000}
           />
         </SwiperSlide>
       </Swiper>
@@ -58,12 +58,12 @@ function Slider() {
             src={myPicture}
             alt="GIF Animation"
             className="2xl:w-[450px] w-2/4rounded-lg overflow-hidden"
-            width={500}
-            height={200}
+            width={10000}
+            height={10000}
           />
         </div>
         <div className="2xl:w-[440px] w-2/4 rounded-lg overflow-hidden ">
-          <Image src={myGif} alt="GIF Animation" width={600} height={600} />
+          <Image src={myGif} alt="GIF Animation" width={10000} height={10000} />
         </div>
       </div>
     </div>

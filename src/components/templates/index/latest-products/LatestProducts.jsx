@@ -14,7 +14,7 @@ function LatestProducts() {
     <div className="container mx-auto mt-7">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-lg">جدیدترین محصولات </span>
+          <span className="text-xl">جدیدترین محصولات </span>
           <Link href="/" className=" flex gap-x-2 items-center text-green-500">
             <span className="text-lg">مشاهده همه</span>
             <FaChevronLeft />
@@ -45,7 +45,7 @@ function LatestProducts() {
               spaceBetween: 30,
             },
           }}
-          className=" swiper3 "
+          className=" swiper2 "
         >
           <SwiperSlide>
             <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white ">

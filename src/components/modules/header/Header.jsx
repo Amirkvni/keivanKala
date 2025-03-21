@@ -91,12 +91,12 @@ function Header({ isLogin }) {
   let { cart } = useContext(CartContext);
   return (
     <header>
-      <div className="fixed left-0 right-0 top-0 z-30 py-4 bg-white px-2">
+      <div className="fixed left-0 right-0 top-0 z-30 py-4 bg-white px-2 ">
         {/* header desktop : */}
         <div>
           <div className="hidden xl:block">
             {/* top section : */}
-            <div className="container relative z-30 flex max-w-[1680px] items-center justify-between gap-x-4 mx-auto  ">
+            <div className="container  relative z-30 flex max-w-[1680px] items-center justify-between gap-x-4 mx-auto  ">
               <div>
                 <Link href="/">
                   <Image

@@ -14,7 +14,7 @@ export default function ProductBox({ product }) {
       href={`/product/${slugify(product.englishFullName)}`}
       className="group  "
     >
-      <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white h-[280px] w-[220px] group-hover:border-l-green-300 group-hover:border-l-1 group-hover:border-t-1 group-hover:border-t-green-300">
+      <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white h-[280px] w-[200px] xl:w-[220px] group-hover:border-l-green-300 group-hover:border-l-1 group-hover:border-t-1 group-hover:border-t-green-300">
         <div className="h-6/12 ">
           <Image
             src={product.mainImage}

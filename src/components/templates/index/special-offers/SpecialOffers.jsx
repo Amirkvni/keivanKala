@@ -26,7 +26,7 @@ export default function SpecialOffers() {
             href="/special-offers"
             className=" flex gap-x-2 items-center text-green-500"
           >
-            <span className="text-base">مشاهده همه</span>
+            <span className="text-lg">مشاهده همه</span>
             <FaChevronLeft />
           </Link>
         </div>
