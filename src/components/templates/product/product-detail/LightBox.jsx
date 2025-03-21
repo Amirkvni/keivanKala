@@ -2,14 +2,10 @@
 import React, { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-
-import NextJsImage from "./NextJsImage";
-import image1 from "@/../public/images/c1.jpg";
-import image2 from "@/../public/images/c2.jpg";
-import image3 from "@/../public/images/c3.jpg";
 import Image from "next/image";
-
 function LightBox({ mainImage, pictures }) {
+  console.log(pictures);
+
   let [open, setOpen] = useState(false);
   return (
     <>
@@ -39,8 +35,11 @@ function LightBox({ mainImage, pictures }) {
       <Lightbox
         open={open}
         close={() => setOpen(false)}
-        slides={[image1, image2, image3]}
-        render={{ slide: NextJsImage }}
+        slides={[
+          { src: pictures[0] },
+          { src: pictures[1] },
+          { src: pictures[2] },
+        ]}
       />
     </>
   );

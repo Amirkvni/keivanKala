@@ -6,10 +6,10 @@ function Description({ product }) {
   const [viewMore, setViewMore] = useState(false);
   return (
     <div className="mt-8 [&>img]:mx-auto">
-      <p className="border-green-400 border-b-2 gap-y-5 w-fit my-6 text-xl pb-2 ">
+      <p className="border-green-400 border-b-4 gap-y-5 w-fit my-6 text-xl pb-2 ">
         معرفی
       </p>
-      <p>
+      <p className="text-xl font-medium">
         لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
         از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
         سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
@@ -22,7 +22,7 @@ function Description({ product }) {
       <Image src={product.mainImage} width={500} height={500} />
       {!viewMore && (
         <span
-          className="cursor-pointer block w-fit mx-auto mt-3 text-green-400 hover:border-b-green-600 hover:border-b-2"
+          className="cursor-pointer block w-fit mx-auto mt-3 text-green-400 hover:border-b-green-600 hover:border-b-2 text-lg font-bold"
           onClick={() => setViewMore(true)}
         >
           مشاهده بیشتر
@@ -30,7 +30,7 @@ function Description({ product }) {
       )}
       {viewMore && (
         <div className="[&>img]:mx-auto">
-          <p>
+          <p className="text-xl font-medium">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
             استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
             ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز،
@@ -40,7 +40,7 @@ function Description({ product }) {
             رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد
             کرد، در این صورت می توان امید داشت که تمام و دشواری
           </p>
-          <p>
+          <p className="text-xl font-medium">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
             استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
             ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز،
@@ -51,7 +51,7 @@ function Description({ product }) {
             کرد، در این صورت می توان امید داشت که تمام و دشواری
           </p>
           <Image src={product.mainImage} width={500} height={500} />
-          <p>
+          <p className="text-xl font-medium">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
             استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
             ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز،

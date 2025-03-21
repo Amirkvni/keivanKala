@@ -1,5 +1,5 @@
 "use client";
-import { FaChevronLeft } from "react-icons/fa6";
+import { FaChevronLeft, FaHeart } from "react-icons/fa6";
 import { AiOutlineLike } from "react-icons/ai";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { IoIosTimer } from "react-icons/io";
@@ -19,11 +19,14 @@ import LightBox from "./LightBox";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "@/contexts/CartContext";
 function ProductDetail({ product, user }) {
+  console.log(product);
+
   let { addToCart } = useContext(CartContext);
   const router = useRouter();
+  const [isWishlist, setIsWishList] = useState(false);
   const addToWishlist = async () => {
     if (user === null) {
       router.push("/signin");
@@ -49,6 +52,7 @@ function ProductDetail({ product, user }) {
           showConfirmButton: false,
           timer: 1000,
         });
+        setIsWishList((prev) => !prev);
       } else {
         Swal.fire({
           position: "top-start",
@@ -57,6 +61,7 @@ function ProductDetail({ product, user }) {
           showConfirmButton: false,
           timer: 1000,
         });
+        setIsWishList((prev) => !prev);
       }
     }
   };
@@ -68,8 +73,11 @@ function ProductDetail({ product, user }) {
           {/* right section : */}
           <div className="w-1/3 ">
             <div className="flex gap-x-2 items-center p-3 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:cursor-pointer">
-              <FaRegHeart onClick={addToWishlist} />
-              <MdOutlineCompare />
+              {isWishlist ? (
+                <FaHeart onClick={addToWishlist} className="text-red-600" />
+              ) : (
+                <FaRegHeart onClick={addToWishlist} />
+              )}
               <MdShare />
             </div>
             <div className=" mt-1  py-1.5 ">
@@ -85,27 +93,29 @@ function ProductDetail({ product, user }) {
               نایک
               <FaChevronLeft />
             </div>
-            <h1 className="font-medium text-lg mb-2">{product.persianName}</h1>
+            <h1 className="font-bold text-2xl mb-2">{product.persianName}</h1>
             <div className="flex gap-x-0.5 h-[400px]">
               {/* bottom right : */}
               <div className=" w-1/2 h-full flex flex-col gap-y-5 ">
-                <p className="text-sm capitalize">{product.englishFullName}</p>
-                <div className="flex text-green-400 text-sm ">
+                <p className="text-base capitalize text-gray-400 ">
+                  {product.englishFullName}
+                </p>
+                <div className="flex text-green-400 text-base items-center gap-x-3 ">
                   <span>کد کالا 6457#</span>
+                  <span>|</span>
                   <span>20 دیدگاه</span>
                 </div>
                 <div className="flex  items-center gap-x-2 ">
-                  <AiOutlineLike className="text-green-300" />
-
-                  <p className="text-sm text-gray-400">
+                  <AiOutlineLike className="text-green-300 w-5 h-5" />
+                  <p className="text-base text-gray-400">
                     80% از خریداران، خرید این کالا را پیشنهاد کرده‌اند
                   </p>
                 </div>
-                <div className="font-medium">ویژگی های محصول</div>
+                <div className="font-semibold text-xl">ویژگی های محصول</div>
                 <div>
                   <ul className="flex flex-col gap-y-5">
                     {Object.entries(product.attributes).map(([key, value]) => (
-                      <li key={key}>
+                      <li key={key} className="text-lg">
                         {key} : {value}
                       </li>
                     ))}
@@ -114,17 +124,20 @@ function ProductDetail({ product, user }) {
               </div>
               {/* bottom left : */}
               <div className=" w-1/2 h-full flex flex-col justify-between">
-                <div>انتخاب رنگ</div>
+                <div className="font-semibold text-lg">انتخاب رنگ</div>
                 <div className="colors flex  gap-x-2 w-fit ">
                   {Object.entries(product.colors).map(([key, value]) => (
-                    <div className="flex border w-fit items-center gap-x-2 cursor-pointer border-green-300 bg-white rounded-3xl px-4 py-2">
+                    <div
+                      className="flex border w-fit items-center gap-x-2 cursor-pointer border-green-300 bg-white rounded-3xl px-4 py-2"
+                      key={key}
+                    >
                       <div className={`w-4 h-4 ${value} rounded-full`}></div>
-                      <span>{key}</span>
+                      <span className="font-semibold text-lg">{key}</span>
                     </div>
                   ))}
                 </div>
-                <div>انتخاب سایز</div>
-                <div className="colors flex  gap-x-2 w-fit ">
+                <div className="font-semibold text-lg">انتخاب سایز</div>
+                <div className="colors flex  gap-x-2 w-fit [&>div>span]:font-semibold [&>div>span]:text-lg">
                   <div className="w-10 h-10 flex border  items-center gap-x-2 cursor-pointer justify-center border-green-300 bg-white rounded-full p-1">
                     <span>37</span>
                   </div>
@@ -141,9 +154,9 @@ function ProductDetail({ product, user }) {
                     <span>37</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-x-3  my-3 p-4  w-full bg-green-50 rounded-sm text-green-600">
-                  <IoShieldCheckmarkOutline />
-                  <span className="text-sm">
+                <div className="flex items-center gap-x-3  my-3 p-4  w-full bg-green-50 rounded-sm text-green-600 ">
+                  <IoShieldCheckmarkOutline className="w-6 h-6" />
+                  <span className="text-lg font-semibold">
                     تضمین سلامت فیزیکی و اصالت کالا
                   </span>
                 </div>
@@ -155,7 +168,7 @@ function ProductDetail({ product, user }) {
                       <FaMinus className="text-red-400" />
                     </div>
                   </div>
-                  <div className="flex justify-end w-1/2 items-center text-green-600   gap-x-2">
+                  <div className="flex justify-end w-1/2 items-center text-green-600 text-lg font-semibold  gap-x-2">
                     <span>{product.price.toLocaleString()}</span>
                     <span>تومان</span>
                   </div>
@@ -170,7 +183,7 @@ function ProductDetail({ product, user }) {
             </div>
           </div>
         </div>
-        <div className="flex justify-between mt-4 gap-x-3 [&>div]:flex [&>div]:px-3 [&>div]:py-2 [&>div]:w-1/4 [&>div]:items-center [&>div]:gap-x-1 [&>div]:border [&>div]:border-gray-200 [&>div]:p-0.5 [&>div]:rounded-sm ">
+        <div className="flex justify-between mt-7 gap-x-3 [&>div]:flex [&>div]:px-3 [&>div]:py-4 [&>div]:w-1/4 [&>div]:items-center [&>div]:gap-x-2.5 [&>div]:border [&>div]:border-gray-200 [&>div]:p-0.5 [&>div]:rounded-sm [&>div]:text-lg  [&>div>svg]:w-6 [&>div>svg]:h-6">
           <div>
             <IoIosTimer />
             <span>هفت روز ضمانت بازگشت کالا</span>
@@ -223,7 +236,7 @@ function ProductDetail({ product, user }) {
         <div>انتخاب رنگ</div>
         <div className="colors flex  gap-x-2 w-fit ">
           {Object.entries(product.colors).map(([key, value]) => (
-            <div className="flex border w-fit items-center gap-x-2 cursor-pointer border-green-300 bg-white rounded-3xl px-4 py-2">
+            <div className="flex border w-fit items-center gap-x-2 cursor-pointer border-green-300 bg-white rounded-3xl px-4 py-2"key={key}>
               <div className={`w-4 h-4 ${value} rounded-full`}></div>
               <span>{key}</span>
             </div>

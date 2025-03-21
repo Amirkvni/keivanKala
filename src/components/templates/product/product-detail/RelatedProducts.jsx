@@ -6,10 +6,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./styles.css";
-import Image from "next/image";
+import ProductBox from "@/components/modules/productBox/ProductBox";
 export default function RelatedProducts({ category }) {
-  console.log(category);
-
   const [specialProducts, setSpecialProducts] = useState([]);
   useEffect(() => {
     const getProducts = async () => {
@@ -19,19 +17,18 @@ export default function RelatedProducts({ category }) {
     };
     getProducts();
   }, []);
-  const slugify = (text) => {
-    return text
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  };
+
   return (
     <div className="container mx-auto mt-7">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-sm 2xl:text-lg">کالاهای مرتبط</span>
+          <span className="text-sm 2xl:text-2xl font-semibold">
+            کالاهای مرتبط
+          </span>
           <Link href="/" className=" flex gap-x-2 items-center text-green-500">
-            <span className="text-sm 2xl:text-lg">مشاهده همه</span>
+            <span className="text-sm 2xl:text-2xl font-semibold">
+              مشاهده همه
+            </span>
             <FaChevronLeft />
           </Link>
         </div>
@@ -64,34 +61,7 @@ export default function RelatedProducts({ category }) {
         >
           {specialProducts?.map((product) => (
             <SwiperSlide>
-              <Link href={`/product/${slugify(product.englishFullName)}`}>
-                <div className="rounded-lg p-3 overflow-hidden mx-2 bg-white border-1 border-gray-200 h-[300px] ">
-                  <Image
-                    src={product.mainImage}
-                    width={500}
-                    height={400}
-                    className="w-32 h-32 mx-auto"
-                    alt="productImage"
-                  />
-                  <div className="text-right">{product.persianName}</div>
-                  <div className="text-xs text-left pl-3 line-through decoration-red-300 decoration-2 text-gray-400">
-                    {product.price}
-                  </div>
-                  <div className="flex items-center justify-around">
-                    <span
-                      className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
-                      dir="ltr"
-                    >
-                      60%
-                    </span>
-
-                    <div className="flex items-center text-green-400 gap-x-1 text-base">
-                      <span> {product.secondPrice}</span>
-                      <span>تومان</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
+              <ProductBox product={product} />
             </SwiperSlide>
           ))}
         </Swiper>

@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { FaFilter } from "react-icons/fa";
-import discounBanner from "@/../public/images/discounBanner.webp";
 import ProductFilter from "@/components/modules/productfilter/ProductFilter";
 import ProductBox from "@/components/modules/productBox/ProductBox";
+import SpecialBanner from "./SpecialBanner";
 function SpecialOffers() {
   const [specialProducts, setspecialProducts] = useState([]);
   const [activeTab, setActiveTab] = useState("newest");
@@ -28,16 +27,10 @@ function SpecialOffers() {
     const sortedItems = [...specialProducts].sort((a, b) => b.sales - a.sales);
     setspecialProducts(sortedItems);
   };
+
   return (
     <>
-      <div className="container mx-auto h-[500px]">
-        <Image
-          width={1920}
-          height={1080}
-          src={discounBanner}
-          className="h-full"
-        />
-      </div>
+      <SpecialBanner />
       <div className="container mx-auto my-10">
         <h3>همه شگفت انگیزها</h3>
         <div className=" flex gap-x-4">
@@ -101,7 +94,7 @@ function SpecialOffers() {
             </div>
             {/* bottom : */}
             <div className="flex flex-wrap  gap-4 ">
-              {specialProducts.map((product) => (
+              {specialProducts?.map((product) => (
                 <ProductBox product={product} key={product._id} />
               ))}
             </div>
@@ -114,4 +107,3 @@ function SpecialOffers() {
 }
 
 export default SpecialOffers;
- 

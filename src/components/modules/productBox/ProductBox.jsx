@@ -35,10 +35,16 @@ export default function ProductBox({ product }) {
             </span>
             <div className="flex flex-col">
               <span className="text-sm text-left  line-through  decoration-red-300 decoration-2 text-gray-500">
-                {product.price.toLocaleString()}
+                {product?.price
+                  ? product.price.toLocaleString()
+                  : "قیمت موجود نیست"}
+                تومان
               </span>
               <span className="text-green-400">
-                {product.secondPrice.toLocaleString()} تومان
+                {product?.secondPrice
+                  ? product.secondPrice.toLocaleString()
+                  : "قیمت موجود نیست"}
+                تومان
               </span>
             </div>
           </div>

@@ -9,7 +9,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { PiMoonStarsLight } from "react-icons/pi";
 import { FaAngleLeft } from "react-icons/fa6";
-import Cart from "./Cart";
+// import Cart from "./Cart";
 import { CartContext } from "@/contexts/CartContext";
 function Header({ isLogin }) {
   const [activeCategory, setActiveCategory] = useState(null);
@@ -117,7 +117,7 @@ function Header({ isLogin }) {
                 />
               </div>
               <div className="flex gap-x-4 items-center">
-                <Link href="/profile">
+                {/* <Link href="/profile">
                   {isLogin ? (
                     <CiUser className="text-2xl" />
                   ) : (
@@ -130,7 +130,7 @@ function Header({ isLogin }) {
                       <span>ثبت نام</span>
                     </Link>
                   )}
-                </Link>
+                </Link> */}
                 <Link
                   href="/checkout-cart"
                   className="relative "
