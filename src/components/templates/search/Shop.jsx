@@ -1,11 +1,11 @@
 "use client";
+import Breadcrumb from "@/components/modules/breadcrumb/Breadcrumb";
 import ProductBox from "@/components/modules/productBox/ProductBox";
 import ProductFilter from "@/components/modules/productfilter/ProductFilter";
 import React, { useState } from "react";
 import { FaFilter } from "react-icons/fa6";
 
 function Shop({ products }) {
-
   const [activeTab, setActiveTab] = useState("newest");
   const [items, setItems] = useState(products);
   const sortByHightPrice = () => {
@@ -21,13 +21,13 @@ function Shop({ products }) {
     setItems(sortedItems);
   };
   return (
-    <div className="container mx-auto  mt-[140px]">
-      <h3>همه شگفت انگیزها</h3>
+    <div className="container mx-auto  mt-[140px] ">
+      {/* <Breadcrumb /> */}
       <div className=" flex gap-x-4">
         <ProductFilter />
-        <div className="w-3/4 flex flex-col gap-y-3 p-2 bg-gray-100">
-          <div className="flex gap-x-4 items-center [&>button]:cursor-pointer">
-            <div className="flex gap-x-1 items-center">
+        <div className="w-3/4 flex flex-col gap-y-3 p-4 ">
+          <div className="flex gap-x-7 text-xl  items-center [&>button]:cursor-pointer bg-white rounded-lg p-4 ">
+            <div className="flex gap-x-2.5 items-center ">
               <FaFilter />
               <span>مرتب سازی بر اساس</span>
             </div>
@@ -36,7 +36,9 @@ function Shop({ products }) {
                 setActiveTab("newest");
               }}
               className={`${
-                activeTab === "newest" ? "bg-gray-200 text-greeb-400" : null
+                activeTab === "newest"
+                  ? "bg-gray-100 text-green-600 p-2 rounded-sm"
+                  : null
               }`}
             >
               جدیدترین
@@ -47,7 +49,9 @@ function Shop({ products }) {
                 sortBySaleCount();
               }}
               className={`${
-                activeTab === "bestSeller" ? "bg-gray-200 text-greeb-400" : null
+                activeTab === "bestSeller"
+                  ? "bg-gray-100 text-green-600 p-2 rounded-sm"
+                  : null
               }`}
             >
               پرفروش ترین
@@ -58,7 +62,9 @@ function Shop({ products }) {
                 sortByHightPrice();
               }}
               className={`${
-                activeTab === "expensive" ? "bg-gray-200 text-greeb-400" : null
+                activeTab === "expensive"
+                  ? "bg-gray-100 text-green-600 p-2 rounded-sm"
+                  : null
               }`}
             >
               گرانترین
@@ -69,14 +75,16 @@ function Shop({ products }) {
                 sortBylowtPrice();
               }}
               className={`${
-                activeTab === "cheap" ? "bg-gray-200 text-greeb-400" : null
+                activeTab === "cheap"
+                  ? "bg-gray-100 text-green-600 p-2 rounded-sm"
+                  : null
               }`}
             >
               ارزانترین
             </button>
           </div>
           {/* bottom : */}
-          <div className="flex flex-wrap  gap-4 ">
+          <div className="flex flex-wrap gap-7.5">
             {items.map((product) => (
               <ProductBox product={product} key={product._id} />
             ))}

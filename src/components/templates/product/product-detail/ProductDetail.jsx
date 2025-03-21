@@ -21,9 +21,8 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { useContext, useState } from "react";
 import { CartContext } from "@/contexts/CartContext";
+import Breadcrumb from "@/components/modules/breadcrumb/Breadcrumb";
 function ProductDetail({ product, user }) {
-  console.log(product);
-
   let { addToCart } = useContext(CartContext);
   const router = useRouter();
   const [isWishlist, setIsWishList] = useState(false);
@@ -68,7 +67,8 @@ function ProductDetail({ product, user }) {
 
   return (
     <>
-      <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white hidden 2xl:block">
+      <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white hidden 2xl:block mt-[140px]">
+        {/* <Breadcrumb /> */}
         <div className="gap-x-2 flex 2xl:flex-row flex-col">
           {/* right section : */}
           <div className="w-1/3 ">
@@ -89,10 +89,6 @@ function ProductDetail({ product, user }) {
           </div>
           {/* left section : */}
           <div className="w-2/3 ">
-            <div className="flex items-center gap-x-2 text-green-400">
-              نایک
-              <FaChevronLeft />
-            </div>
             <h1 className="font-bold text-2xl mb-2">{product.persianName}</h1>
             <div className="flex gap-x-0.5 h-[400px]">
               {/* bottom right : */}
@@ -236,7 +232,10 @@ function ProductDetail({ product, user }) {
         <div>انتخاب رنگ</div>
         <div className="colors flex  gap-x-2 w-fit ">
           {Object.entries(product.colors).map(([key, value]) => (
-            <div className="flex border w-fit items-center gap-x-2 cursor-pointer border-green-300 bg-white rounded-3xl px-4 py-2"key={key}>
+            <div
+              className="flex border w-fit items-center gap-x-2 cursor-pointer border-green-300 bg-white rounded-3xl px-4 py-2"
+              key={key}
+            >
               <div className={`w-4 h-4 ${value} rounded-full`}></div>
               <span>{key}</span>
             </div>

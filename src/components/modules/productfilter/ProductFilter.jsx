@@ -9,22 +9,25 @@ function ProductFilter() {
   const [isSwitchToggleActive, setIsSwitchToggleActive] = useState(false);
 
   return (
-    <div className="relative w-1/4 bg-gray-100 p-2 ">
-      <div className="sticky top-28 flex flex-col gap-y-4 ">
+    <div className="relative w-1/4   p-4">
+      <div className="sticky top-28 flex flex-col gap-y-4 bg-white p-2 rounded-lg text-xl ">
         <div className="flex justify-between items-center">
           <span>فیلترها</span>
-          <button className="texg-green-500">حذف همه</button>
+          <button className="text-green-500 hover:text-green-600 cursor-pointer">
+            حذف همه
+          </button>
         </div>
         <div>
           <input
             type="text"
-            className="w-full  outline-none p-3 rounded-xl  bg-gray-400"
-            placeholder="جستجو در بین نتایح ..."
+            className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-600 placeholder:text-lg"
+            placeholder="جستجو در بین نتایج ..."
           />
         </div>
         <div>محدوده قیمت</div>
+        <div></div>
         <div
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
           onClick={() => setIsCategoryActive((prev) => !prev)}
         >
           <span>دسته بندی ها</span>
@@ -61,15 +64,15 @@ function ProductFilter() {
           </div>
         )}
         <div
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
           onClick={() => setIsBrandsActive((prev) => !prev)}
         >
           <span>برندها</span>
           <FaAngleLeft />
         </div>
         {isBrands && (
-          <div>
-            <form>
+          <div className=" flex flex-col gap-y-2 [&>div>input]:w-4 [&>div>input]:h-4 [&>div>input]:rounded-full [&>div>input]:bg-red-200">
+            <div>
               <input
                 type="checkbox"
                 id="vehicle1"
@@ -77,7 +80,8 @@ function ProductFilter() {
                 value="Bike"
               />
               <label for="vehicle1"> زنانه</label>
-              <br />
+            </div>
+            <div>
               <input
                 type="checkbox"
                 id="vehicle2"
@@ -85,7 +89,8 @@ function ProductFilter() {
                 value="Car"
               />
               <label for="vehicle2"> مردانه</label>
-              <br />
+            </div>
+            <div>
               <input
                 type="checkbox"
                 id="vehicle3"
@@ -93,12 +98,11 @@ function ProductFilter() {
                 value="Boat"
               />
               <label for="vehicle3">بچگانه</label>
-              <br />
-            </form>
+            </div>
           </div>
         )}
         <div
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
           onClick={() => setIsColorsActive((prev) => !prev)}
         >
           <span>رنگ ها</span>
@@ -134,7 +138,7 @@ function ProductFilter() {
             </form>
           </div>
         )}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center ">
           <span>فقط کالاهای موجود</span>
           <div dir="ltr">
             <label className="relative inline-flex items-center cursor-pointer">

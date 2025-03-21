@@ -57,7 +57,7 @@ export default function RelatedProducts({ category }) {
               spaceBetween: 30,
             },
           }}
-          className=" swiper5 "
+          className=" swiper2 "
         >
           {specialProducts?.map((product) => (
             <SwiperSlide>
