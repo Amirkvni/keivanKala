@@ -250,9 +250,6 @@ function Header({ isLogin }) {
                   فروش ویژه
                 </Link>
                 <Link href="/" className="text-lg">
-                  چرا کیوان کالا
-                </Link>
-                <Link href="/" className="text-lg">
                   راهنمای خرید
                 </Link>
                 <Link href="/" className="text-lg	">
@@ -261,7 +258,7 @@ function Header({ isLogin }) {
                 <Link href="/about-us" className="text-lg">
                   درباره ما
                 </Link>
-                <Link href="/" className="text-lg">
+                <Link href="/questions" className="text-lg">
                   سوالات متدوال
                 </Link>
               </nav>
