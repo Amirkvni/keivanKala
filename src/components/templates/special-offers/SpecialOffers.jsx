@@ -39,7 +39,7 @@ function SpecialOffers() {
           {/* left */}
           <div className="w-3/4 flex flex-col gap-y-3 p-2 bg-gray-100">
             {/* top : */}
-            <div className="flex gap-x-4 items-center [&>button]:cursor-pointer">
+            <div className="flex gap-x-7 text-xl  items-center [&>button]:cursor-pointer bg-white rounded-lg p-4">
               <div className="flex gap-x-1 items-center">
                 <FaFilter />
                 <span>مرتب سازی بر اساس</span>

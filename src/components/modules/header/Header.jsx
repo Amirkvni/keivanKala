@@ -117,7 +117,7 @@ function Header({ isLogin }) {
                 />
               </div>
               <div className="flex gap-x-4 items-center">
-                {/* <Link href="/profile">
+                <Link href="/profile">
                   {isLogin ? (
                     <CiUser className="text-2xl" />
                   ) : (
@@ -130,7 +130,7 @@ function Header({ isLogin }) {
                       <span>ثبت نام</span>
                     </Link>
                   )}
-                </Link> */}
+                </Link>
                 <Link
                   href="/checkout-cart"
                   className="relative "
@@ -258,7 +258,7 @@ function Header({ isLogin }) {
                 <Link href="/" className="text-lg	">
                   تماس با ما
                 </Link>
-                <Link href="/" className="text-lg">
+                <Link href="/about-us" className="text-lg">
                   درباره ما
                 </Link>
                 <Link href="/" className="text-lg">

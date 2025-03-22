@@ -6,7 +6,7 @@ import { PiFireSimple } from "react-icons/pi";
 import { BiSolidTimer } from "react-icons/bi";
 
 function SpecialBanner() {
-  const targetTime = new Date("2025-03-22").getTime();
+  const targetTime = new Date("2025-03-24").getTime();
   const [timeLeft, setTimeLeft] = useState(targetTime - Date.now());
   useEffect(() => {
     if (timeLeft <= 0) return;
@@ -32,7 +32,6 @@ function SpecialBanner() {
       .padStart(2, "0")} :${seconds.toString().padStart(2, "0")}`;
   };
 
-  console.log(timeLeft);
 
   return (
     <div className="container mx-auto h-[100px] bg-red-400 mt-[130px] rounded-2xl relative">
