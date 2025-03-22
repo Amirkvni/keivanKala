@@ -11,6 +11,7 @@ import { PiMoonStarsLight } from "react-icons/pi";
 import { FaAngleLeft } from "react-icons/fa6";
 // import Cart from "./Cart";
 import { CartContext } from "@/contexts/CartContext";
+import { useRouter } from "next/navigation";
 function Header({ isLogin }) {
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
@@ -87,7 +88,14 @@ function Header({ isLogin }) {
     //   link: "personal-appliance-category-shop",
     // },
   ];
+  const router = useRouter();
+  const [search, setSearch] = useState("");
 
+  const searchHandler = () => {
+    if (search.trim()) {
+      router.push(`/search?q=${search}`);
+    }
+  };
   let { cart } = useContext(CartContext);
   return (
     <header>
@@ -109,11 +117,16 @@ function Header({ isLogin }) {
                 </Link>
               </div>
               <div className="relative  flex items-center gap-2 rounded-sm py-3 px-2 max-w-[576px] w-[576px] bg-slate-100">
-                <CiSearch className="text-2xl" />
+                <CiSearch
+                  className="text-2xl cursor-pointer"
+                  onClick={searchHandler}
+                />
                 <input
                   type="text"
                   className="outline-none placeholder:text-gray-500 placeholder:font-medium placeholder:text-lg "
                   placeholder="جستجو کنید ..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
               <div className="flex gap-x-4 items-center">
@@ -249,10 +262,8 @@ function Header({ isLogin }) {
                 <Link href="/" className="text-lg">
                   فروش ویژه
                 </Link>
-                <Link href="/" className="text-lg">
-                  راهنمای خرید
-                </Link>
-                <Link href="/" className="text-lg	">
+
+                <Link href="/contact-us" className="text-lg	">
                   تماس با ما
                 </Link>
                 <Link href="/about-us" className="text-lg">
