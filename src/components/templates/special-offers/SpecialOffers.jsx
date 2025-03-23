@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaFilter } from "react-icons/fa";
 import ProductFilter from "@/components/modules/productfilter/ProductFilter";
 import ProductBox from "@/components/modules/productBox/ProductBox";
@@ -7,6 +7,7 @@ import SpecialBanner from "./SpecialBanner";
 function SpecialOffers() {
   const [specialProducts, setspecialProducts] = useState([]);
   const [activeTab, setActiveTab] = useState("newest");
+
   useEffect(() => {
     const getProducts = async () => {
       const res = await fetch("/api/products/specialoffers");
@@ -98,6 +99,7 @@ function SpecialOffers() {
                 <ProductBox product={product} key={product._id} />
               ))}
             </div>
+
             <div>pagination</div>
           </div>
         </div>

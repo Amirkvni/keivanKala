@@ -5,9 +5,9 @@ import ContactForm from "./ContactForm";
 function Contactus() {
   return (
     <>
-      <div className="border rounded-lg p-3 mt-[130px] container mx-auto w-[1000px]">
+      <div className=" rounded-lg p-3 mt-[130px] container mx-auto w-[1000px] bg-white">
         <h3 className="border-b-3 border-b-green-300 w-fit">تماس با ما</h3>
-        <div className="flex gap-x-3 mt-3">
+        <div className="flex flex-col xl:flex-row gap-x-3 mt-3">
           <ContactForm />
           <ContactAdresses />
         </div>
