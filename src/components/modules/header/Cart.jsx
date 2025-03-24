@@ -1,17 +1,22 @@
 "use client";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 import CartProduct from "./CartProduct";
 import { CartContext } from "@/contexts/CartContext";
-function Cart() {
-  let { cart, getTotal, removeFromCart, addToCart } = useContext(CartContext);
-
+import { MdOutlineRemoveShoppingCart } from "react-icons/md";
+function Cart({ setIsActiveCart }) {
+  let { cart, getTotal, removeFromCart, addToCart, decreaseFromCart } =
+    useContext(CartContext);
   return (
-    <div className="absolute left-0 top-12 w-[400px]  max-h-[350px] overflow-y-auto rounded-xl border-t-green-400 border-t-3 bg-white ">
+    <div
+      className={
+        " absolute left-0 top-12 w-[400px]  max-h-[350px] overflow-y-auto rounded-xl border-t-green-400 border-t-3 bg-white"
+      }
+      onMouseLeave={() => setIsActiveCart(false)}
+    >
       {cart.length > 0 ? (
         <>
-          {" "}
           <div className="flex items-center justify-between p-3 ">
             <div className="flex gap-x-2 items-center text-lg ">
               <span>{cart.length}</span>
@@ -31,6 +36,7 @@ function Cart() {
                 product={product}
                 removeFromCart={removeFromCart}
                 addToCart={addToCart}
+                decreaseFromCart={decreaseFromCart}
               />
             ))}
           </div>
@@ -41,7 +47,7 @@ function Cart() {
               <p>{getTotal().toLocaleString()} تومان</p>
             </div>
             <Link
-              href="/"
+              href="/checkout-cart"
               className="bg-green-600 text-white px-6 py-2 rounded-lg text-lg"
             >
               ثبت سفارش
@@ -49,7 +55,10 @@ function Cart() {
           </div>
         </>
       ) : (
-        <p>سبد خرید خالیه</p>
+        <div className="p-3 text-center text-3xl">
+          <p>سبد خرید شما خالی است</p>
+          <MdOutlineRemoveShoppingCart className="w-fit mx-auto" />
+        </div>
       )}
     </div>
   );

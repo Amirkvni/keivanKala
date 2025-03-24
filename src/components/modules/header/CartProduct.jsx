@@ -3,7 +3,7 @@ import React from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import Image from "next/image";
-function CartProduct({ product, removeFromCart, addToCart }) {
+function CartProduct({ product, removeFromCart, addToCart, decreaseFromCart }) {
   return (
     <div className="flex gap-x-3  ">
       <div>
@@ -27,7 +27,10 @@ function CartProduct({ product, removeFromCart, addToCart }) {
               onClick={() => addToCart(product)}
             />
             <span>{product.quantity}</span>
-            <FaMinus className="text-red-400" />
+            <FaMinus
+              className="text-red-400"
+              onClick={() => decreaseFromCart(product)}
+            />
           </div>
         </div>
       </div>

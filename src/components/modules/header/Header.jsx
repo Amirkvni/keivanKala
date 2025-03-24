@@ -168,7 +168,7 @@ function Header({ isLogin }) {
                 </button>
               </div>
               {/* cart : */}
-              {isActiveCart && <Cart />}
+              {isActiveCart && <Cart setIsActiveCart={setIsActiveCart} />}
             </div>
             {/* bottom section  :*/}
             <div className="absolute left-0 right-0 top-full z-20  shadow-xs duration-300 bg-white">
@@ -275,10 +275,10 @@ function Header({ isLogin }) {
                 <Link href="/contact-us" className="text-lg	">
                   تماس با ما
                 </Link>
-                <Link href="/about-us" className="text-lg">
+                <Link href="/about-us" className="text-lg ">
                   درباره ما
                 </Link>
-                <Link href="/questions" className="text-lg">
+                <Link href="/questions" className="text-lg ">
                   سوالات متدوال
                 </Link>
               </nav>

@@ -33,7 +33,6 @@ function SpecialOffers() {
     <>
       <SpecialBanner />
       <div className="container mx-auto my-10">
-        <h3>همه شگفت انگیزها</h3>
         <div className=" flex gap-x-4">
           {/* right */}
           <ProductFilter />

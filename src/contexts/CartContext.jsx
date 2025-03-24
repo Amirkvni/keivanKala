@@ -50,6 +50,17 @@ export function CartProvider({ children }) {
   function addToRedirectPath(path) {
     setRedirecPath(path);
   }
+  function decreaseFromCart(product) {
+    setCart((prev) => {
+      return prev
+        .map((item) =>
+          item._id === product._id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0);
+    });
+  }
   return (
     <CartContext.Provider
       value={{
@@ -61,6 +72,7 @@ export function CartProvider({ children }) {
         getTotal,
         addToRedirectPath,
         setRedirecPath,
+        decreaseFromCart,
       }}
     >
       {children}

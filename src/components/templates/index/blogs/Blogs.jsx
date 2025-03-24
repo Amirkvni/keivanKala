@@ -25,9 +25,12 @@ function Blogs() {
     <div className="container mx-auto mt-7">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-xl">مطالب خواندنی </span>
-          <Link href="/" className=" flex gap-x-2 items-center text-green-500">
-            <span className="text-lg">مشاهده همه</span>
+          <span className="text-2xl font-semibold">مطالب خواندنی</span>
+          <Link
+            href="/special-offers"
+            className=" flex gap-x-2 items-center text-green-500"
+          >
+            <span className="text-xl font-semibold">مشاهده همه</span>
             <FaChevronLeft />
           </Link>
         </div>
