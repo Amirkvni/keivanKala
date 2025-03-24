@@ -9,7 +9,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { PiMoonStarsLight } from "react-icons/pi";
 import { FaAngleLeft } from "react-icons/fa6";
-// import Cart from "./Cart";
+import Cart from "./Cart";
 import { CartContext } from "@/contexts/CartContext";
 import { useRouter } from "next/navigation";
 function Header({ isLogin }) {
@@ -18,6 +18,8 @@ function Header({ isLogin }) {
   const [isHover, setIsHover] = useState(false);
   const [isActiveHamburger, setIsActiveHamburger] = useState(false);
   const [isActiveCart, setIsActiveCart] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
   const categories = [
     {
       name: "مردانه",
@@ -90,7 +92,14 @@ function Header({ isLogin }) {
   ];
   const router = useRouter();
   const [search, setSearch] = useState("");
-
+  const darkmodeHandler = () => {
+    setIsDarkMode(!isDarkMode);
+    if (!isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
   const searchHandler = () => {
     if (search.trim()) {
       router.push(`/search?q=${search}`);
@@ -99,7 +108,7 @@ function Header({ isLogin }) {
   let { cart } = useContext(CartContext);
   return (
     <header>
-      <div className="fixed left-0 right-0 top-0 z-30 py-4 bg-white px-2 ">
+      <div className="fixed left-0 right-0 top-0 z-30 py-4 bg-white  px-2 ">
         {/* header desktop : */}
         <div>
           <div className="hidden xl:block">
@@ -147,19 +156,19 @@ function Header({ isLogin }) {
                 <Link
                   href="/checkout-cart"
                   className="relative "
-                  // onClick={() => setIsActiveCart(true)}
+                  onMouseEnter={() => setIsActiveCart(true)}
                 >
                   <LuShoppingCart className="text-2xl" />
                   <span className="absolute -top-2 -right-2 bg-green-500 text-white  w-4.5 h-4.5 rounded-full flex items-center justify-center">
                     {cart.length}
                   </span>
                 </Link>
-                <Link href="/">
+                <button href="/" onClick={darkmodeHandler}>
                   <PiMoonStarsLight className="text-2xl " />
-                </Link>
+                </button>
               </div>
               {/* cart : */}
-              {/* {isActiveCart && <Cart />} */}
+              {isActiveCart && <Cart />}
             </div>
             {/* bottom section  :*/}
             <div className="absolute left-0 right-0 top-full z-20  shadow-xs duration-300 bg-white">

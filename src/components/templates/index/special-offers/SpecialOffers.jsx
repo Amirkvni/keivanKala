@@ -52,7 +52,7 @@ export default function SpecialOffers() {
             },
             1024: {
               slidesPerView: 6,
-              spaceBetween: 30,
+              spaceBetween: 100,
             },
           }}
           className="swiper2"

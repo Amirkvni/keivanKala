@@ -1,41 +1,56 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 import CartProduct from "./CartProduct";
+import { CartContext } from "@/contexts/CartContext";
 function Cart() {
+  let { cart, getTotal, removeFromCart, addToCart } = useContext(CartContext);
+
   return (
     <div className="absolute left-0 top-12 w-[400px]  max-h-[350px] overflow-y-auto rounded-xl border-t-green-400 border-t-3 bg-white ">
-      <div className="flex items-center justify-between p-3 ">
-        <div className="flex gap-x-2 items-center text-lg ">
-          <span>۴</span>
-          <span>مورد</span>
-        </div>
-        <Link
-          className="flex gap-x-2 items-center text-lg text-green-300"
-          href="/"
-        >
-          <span href="/">مشاهده سبد خرید</span>
-          <FaChevronLeft />
-        </Link>
-      </div>
-      <div className="p-3  flex flex-col gap-y-2 ">
-        {/* product : */}
-        <CartProduct />
-        <CartProduct />
-      </div>
-      {/* bottom : */}
-      <div className="sticky bottom-0 left-0 right-0 bg-white flex justify-between items-center p-2">
-        <div>
-          <p className="py-3 font-bold">مبلغ قابل پرداخت</p>
-          <p>1,200,000 تومان</p>
-        </div>
-        <Link
-          href="/"
-          className="bg-green-600 text-white px-6 py-2 rounded-lg text-lg"
-        >
-          ثبت سفارش
-        </Link>
-      </div>
+      {cart.length > 0 ? (
+        <>
+          {" "}
+          <div className="flex items-center justify-between p-3 ">
+            <div className="flex gap-x-2 items-center text-lg ">
+              <span>{cart.length}</span>
+              <span>مورد</span>
+            </div>
+            <Link
+              className="flex gap-x-2 items-center text-lg text-green-300"
+              href="/checkout-cart"
+            >
+              <span>مشاهده سبد خرید</span>
+              <FaChevronLeft />
+            </Link>
+          </div>
+          <div className="p-3  flex flex-col gap-y-2 ">
+            {cart.map((product) => (
+              <CartProduct
+                product={product}
+                removeFromCart={removeFromCart}
+                addToCart={addToCart}
+              />
+            ))}
+          </div>
+          {/* bottom : */}
+          <div className="sticky bottom-0 left-0 right-0 bg-white flex justify-between items-center p-2">
+            <div>
+              <p className="py-3 font-bold">مبلغ قابل پرداخت</p>
+              <p>{getTotal().toLocaleString()} تومان</p>
+            </div>
+            <Link
+              href="/"
+              className="bg-green-600 text-white px-6 py-2 rounded-lg text-lg"
+            >
+              ثبت سفارش
+            </Link>
+          </div>
+        </>
+      ) : (
+        <p>سبد خرید خالیه</p>
+      )}
     </div>
   );
 }

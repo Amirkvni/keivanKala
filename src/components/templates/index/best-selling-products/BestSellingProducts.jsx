@@ -50,10 +50,10 @@ function BestSellingProducts() {
             },
             1024: {
               slidesPerView: 6,
-              spaceBetween: 30,
+              spaceBetween: 100,
             },
           }}
-          className=" swiper2"
+          className="swiper2"
         >
           {bestSellingProducts?.map((product) => (
             <SwiperSlide key={product._id}>

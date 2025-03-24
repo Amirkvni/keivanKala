@@ -25,27 +25,15 @@
   font-display: swap;
   src: url("../../public/fonts/IRANYEKANMEDIUM.TTF") format("TTF");
 }
-:root {
-  --background: oklch(0.97 0.001 106.424);
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  background: oklch(0.97 0.001 106.424);
 }
+
 .p-6 {
   padding: 6px;
 }
 .backdrop {
-  /* From https://css.glass */
   background: rgba(162, 153, 153, 0.77);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);

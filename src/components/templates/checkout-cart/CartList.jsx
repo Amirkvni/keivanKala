@@ -10,7 +10,6 @@ function CartList({ isLogin }) {
   let router = useRouter();
   let { cart, removeFromCart, updateQuantity, getTotal, addToRedirectPath } =
     useContext(CartContext);
-  console.log(cart);
 
   const shippingMethodHandler = () => {
     if (isLogin) {
