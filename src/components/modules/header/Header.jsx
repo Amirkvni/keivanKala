@@ -47,7 +47,13 @@ function Header({ isLogin }) {
         },
         {
           title: "اکسسوری مردانه",
-          links: ["ساعت", "عینک", "شال", "کلاه", "دستکش", "کمربند"],
+          links: [
+            { title: "ساعت", address: "men-watches" },
+            { title: "عینک", address: "men-eyewear" },
+            { title: "کمربند", address: "men-belts" },
+            { title: "کروات", address: "men-ties" },
+            { title: "شال", address: "men-shawl" },
+          ],
         },
       ],
       link: "mens-category-shop",
