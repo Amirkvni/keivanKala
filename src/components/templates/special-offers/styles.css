@@ -1,0 +1,30 @@
+.selectedSlider {
+  width: 100%;
+  height: 390px;
+  background: linear-gradient(to left, #2e8b57, #98fb98);
+}
+
+.selectedSlider .swiper-slide {
+  background: #fff;
+  height: 350px;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.selectedSlider .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.selectedSlider .iconSlider {
+  background: transparent;
+}
+.selectedSlider .swiper-wrapper {
+  padding: 15px;
+}
+.element {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* حداکثر تعداد خطوط */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

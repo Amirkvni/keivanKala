@@ -9,7 +9,7 @@ function ProductFilter() {
   const [isSwitchToggleActive, setIsSwitchToggleActive] = useState(false);
 
   return (
-    <div className="relative w-1/4   p-4">
+    <div className="relative w-1/4 hidden 2xl:block  p-4">
       <div className="sticky top-28 flex flex-col gap-y-4 bg-white p-2 rounded-lg text-xl ">
         <div className="flex justify-between items-center">
           <span>فیلترها</span>

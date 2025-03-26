@@ -274,7 +274,7 @@ function Header({ isLogin }) {
                     </div>
                   </div>
                 </ul>
-                <Link href="/" className="text-lg">
+                <Link href="/special-offers" className="text-lg">
                   فروش ویژه
                 </Link>
 
