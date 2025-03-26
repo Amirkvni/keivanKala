@@ -11,7 +11,7 @@ export async function GET(request) {
         { englishFullName: { $regex: q, $options: "i" } }, // جستجو در نام انگلیسی
       ],
     }).limit(10);
-    return NextResponse.json(products);
+    return Response.json(products);
   } catch (error) {
     return Response.json({ message: error });
   }

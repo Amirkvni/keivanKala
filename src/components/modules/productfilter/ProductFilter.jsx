@@ -1,13 +1,45 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
-function ProductFilter() {
+function ProductFilter({ setspecialProducts, specialProducts }) {
   const [isCategoryActive, setIsCategoryActive] = useState(false);
   const [isBrands, setIsBrandsActive] = useState(false);
   const [isColorsActive, setIsColorsActive] = useState(false);
   const [isSwitchToggleActive, setIsSwitchToggleActive] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [selectedFilters, setSelectedFilters] = useState([]);
 
+  useEffect(() => {
+    const searchHandler = async () => {
+      const res = await fetch(`/api/search?q=${searchValue}`);
+      const data = await res.json();
+      setspecialProducts([...data]);
+    };
+    searchHandler();
+  }, [searchValue]);
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+    setSelectedFilters((prevFilters) =>
+      checked
+        ? [...prevFilters, value]
+        : prevFilters.filter((item) => item !== value)
+    );
+  };
+
+  useEffect(() => {
+    if (selectedFilters.length === 0) {
+      setspecialProducts(specialProducts);
+    } else {
+      setspecialProducts(
+        specialProducts.filter((product) =>
+          selectedFilters.every((filter) =>
+            product.persianName.includes(filter)
+          )
+        )
+      );
+    }
+  }, [selectedFilters]);
   return (
     <div className="relative w-1/4 hidden 2xl:block  p-4">
       <div className="sticky top-28 flex flex-col gap-y-4 bg-white p-2 rounded-lg text-xl ">
@@ -22,6 +54,8 @@ function ProductFilter() {
             type="text"
             className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-600 placeholder:text-lg"
             placeholder="جستجو در بین نتایج ..."
+            value={searchValue}
+            onChange={() => setSearchValue(event.target.value)}
           />
         </div>
         <div>محدوده قیمت</div>
@@ -38,27 +72,27 @@ function ProductFilter() {
             <form>
               <input
                 type="checkbox"
-                id="vehicle1"
-                name="vehicle1"
-                value="Bike"
+                id="women"
+                value="زنانه"
+                onChange={handleCheckboxChange}
               />
-              <label for="vehicle1"> زنانه</label>
+              <label for="women"> زنانه</label>
               <br />
               <input
                 type="checkbox"
-                id="vehicle2"
-                name="vehicle2"
-                value="Car"
+                id="men"
+                value="مردانه"
+                onChange={handleCheckboxChange}
               />
-              <label for="vehicle2"> مردانه</label>
+              <label for="men"> مردانه</label>
               <br />
               <input
                 type="checkbox"
-                id="vehicle3"
-                name="vehicle3"
-                value="Boat"
+                id="child"
+                value="بچگانه"
+                onChange={handleCheckboxChange}
               />
-              <label for="vehicle3">بچگانه</label>
+              <label for="child">بچگانه</label>
               <br />
             </form>
           </div>

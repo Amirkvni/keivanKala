@@ -30,14 +30,17 @@ function SpecialOffers() {
   const sortByHightPrice = () => {
     const sortedItems = [...specialProducts].sort((a, b) => b.price - a.price);
     setspecialProducts(sortedItems);
+    setIsMobileSortActive(false);
   };
   const sortBylowtPrice = () => {
     const sortedItems = [...specialProducts].sort((a, b) => a.price - b.price);
     setspecialProducts(sortedItems);
+    setIsMobileSortActive(false);
   };
   const sortBySaleCount = () => {
     const sortedItems = [...specialProducts].sort((a, b) => b.sales - a.sales);
     setspecialProducts(sortedItems);
+    setIsMobileSortActive(false);
   };
 
   return (
@@ -47,7 +50,10 @@ function SpecialOffers() {
       <div className="container mx-auto my-10">
         <div className=" flex 2xl:flex-row flex-col gap-y-3 2xl:gap-x-4">
           {/* right */}
-          <ProductFilter />
+          <ProductFilter
+            setspecialProducts={setspecialProducts}
+            specialProducts={specialProducts}
+          />
           {/* mobile filters: */}
           <div
             className={`fixed bg-white transition-all duration-300 z-99 w-full h-screen p-3 ${
@@ -60,23 +66,27 @@ function SpecialOffers() {
                 onClick={() => setIsMobileFiltersActive(false)}
               />
             </div>
-            <div className="flex flex-col gap-y-6">
-              <input type="text" placeholder="جستجو در بین نتایح" />
-              <div>محصدوده </div>
+            <div className="flex flex-col gap-y-6 mt-6 ">
+              <input
+                type="text"
+                placeholder="جستجو در بین نتایج"
+                className="p-3 rounded-lg border-gray-400 outline-none  "
+              />
+              <div>محدوده قیمت </div>
               <div className="flex justify-between items-center">
                 <span>دسته بندی ها</span>
                 <FaAngleLeft />
               </div>
               <div className="flex justify-between items-center">
-                <span>دسته بندی ها</span>
+                <span>برندها </span>
                 <FaAngleLeft />
               </div>
               <div className="flex justify-between items-center">
-                <span>دسته بندی ها</span>
+                <span>رنگ ها</span>
                 <FaAngleLeft />
               </div>
-              <div>فقثط موجوذ</div>
-              <div>فقثط موجوذ</div>
+              <div>فقط کالاهای موجود</div>
+              <div>فقط محصولات ویژه</div>
               <button className="bg-green-400 text-white py-2 rounded-xl">
                 اعمال فیلتر
               </button>
@@ -88,18 +98,18 @@ function SpecialOffers() {
               isMobileSortActive ? "top-0 left-0" : "top-[100vh]"
             }  `}
           >
-            <div className="bg-red-200 bottom-0 absolute w-full p-3 left-0 rounded-2xl">
+            <div className="bg-white bottom-0 absolute w-full p-3 left-0 rounded-2xl">
               <div className="flex justify-between items-center text-xl ">
                 <span>مرتب سازی بر اساس</span>
                 <IoCloseCircleOutline
                   onClick={() => setIsMobileSortActive(false)}
                 />
               </div>
-              <div className="flex flex-col gap-y-6 items-center mt-3">
-                <div>جدیدترین</div>
-                <div>پرفروش ترین</div>
-                <div>گرانترین</div>
-                <div>ارزانترین</div>
+              <div className="flex flex-col gap-y-6 items-center mt-3  [&>button]:border-gray-200 [&>button]:p-2 [&>button]:rounded-lg [&>button]:w-full [&>button]:border-[0.1px]">
+                <button>جدیدترین</button>
+                <button onClick={() => sortBySaleCount()}>پرفروش ترین</button>
+                <button onClick={() => sortByHightPrice()}>گرانترین</button>
+                <button onClick={() => sortBylowtPrice()}>ارزانترین</button>
               </div>
             </div>
           </div>
