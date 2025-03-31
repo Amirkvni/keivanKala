@@ -1,32 +1,21 @@
 "use client";
-import ProductFilter from "@/components/modules/productfilter/ProductFilter";
 import React, { useState } from "react";
 import { FaFilter } from "react-icons/fa6";
 import BlogBox from "./BlogBox";
+import BlogFilter from "../../blogs/BlogFilter";
 
 function BlogPage({ blogs }) {
   const [activeTab, setActiveTab] = useState("newest");
   const [items, setItems] = useState(blogs);
-  const sortByHightPrice = () => {
-    const sortedItems = [...items].sort((a, b) => b.price - a.price);
-    setItems(sortedItems);
-  };
-  const sortBylowtPrice = () => {
-    const sortedItems = [...items].sort((a, b) => a.price - b.price);
-    setItems(sortedItems);
-  };
-  const sortBySaleCount = () => {
-    const sortedItems = [...items].sort((a, b) => b.sales - a.sales);
-    setItems(sortedItems);
-  };
+
   return (
     <div className="container mx-auto  mt-[140px]">
-      <h3>همه بلاگ ها</h3>
+      <h3 className="pr-5 dark:text-white">همه بلاگ ها</h3>
       <div className=" flex gap-x-4">
-        <ProductFilter />
-        <div className="w-3/4 flex flex-col gap-y-3 p-2 bg-gray-100">
-          <div className="flex gap-x-4 items-center [&>button]:cursor-pointer">
-            <div className="flex gap-x-1 items-center">
+        <BlogFilter />
+        <div className=" flex flex-col gap-y-3 p-2 2xl:w-3/4 w-full">
+          <div className="flex 2xl:gap-x-4 gap-x-2 items-center [&>button]:cursor-pointer dark:bg-zinc-800 bg-white p-4 text-xs 2xl:text-base rounded-xl dark:text-white">
+            <div className="flex gap-x-1 items-center ">
               <FaFilter />
               <span>مرتب سازی بر اساس</span>
             </div>
@@ -34,44 +23,25 @@ function BlogPage({ blogs }) {
               onClick={() => {
                 setActiveTab("newest");
               }}
-              className={`${
-                activeTab === "newest" ? "bg-gray-200 text-greeb-400" : null
+              className={` ${
+                activeTab === "newest"
+                  ? "bg-gray-200 text-greeb-400 p-2 rounded-sm text-green-500"
+                  : null
               }`}
             >
-              جدیدترین
+              جدید ترین
             </button>
             <button
               onClick={() => {
-                setActiveTab("bestSeller");
-                sortBySaleCount();
+                setActiveTab("mostview");
               }}
               className={`${
-                activeTab === "bestSeller" ? "bg-gray-200 text-greeb-400" : null
+                activeTab === "mostview"
+                  ? "bg-gray-200 text-greeb-400 p-2 rounded-sm text-green-500"
+                  : null
               }`}
             >
-              پرفروش ترین
-            </button>
-            <button
-              onClick={() => {
-                setActiveTab("expensive");
-                sortByHightPrice();
-              }}
-              className={`${
-                activeTab === "expensive" ? "bg-gray-200 text-greeb-400" : null
-              }`}
-            >
-              گرانترین
-            </button>
-            <button
-              onClick={() => {
-                setActiveTab("cheap");
-                sortBylowtPrice();
-              }}
-              className={`${
-                activeTab === "cheap" ? "bg-gray-200 text-greeb-400" : null
-              }`}
-            >
-              ارزانترین
+              پربازدید ترین
             </button>
           </div>
           {/* bottom : */}

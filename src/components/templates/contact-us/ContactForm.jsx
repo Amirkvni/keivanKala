@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { useState } from "react";
 import Swal from "sweetalert2";
-
 function ContactForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -47,13 +46,13 @@ function ContactForm() {
             placeholder="نام شما"
             type="text"
             value={name}
-            onChange={() => setName(event.target.value)}
+            onChange={(event) => setName(event.target.value)}
           />
           <input
             placeholder="شماره تماس شما"
             type="text"
             value={phone}
-            onChange={() => setPhone(event.target.value)}
+            onChange={(event) => setPhone(event.target.value)}
           />
         </div>
         <div>
@@ -62,7 +61,7 @@ function ContactForm() {
             placeholder="ایمیل شما"
             className="w-full outline-none border border-gray-200 p-3 rounded-lg"
             value={email}
-            onChange={() => setEmail(event.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
           />
         </div>
         <textarea
@@ -72,7 +71,7 @@ function ContactForm() {
           rows="3"
           className="outline-none border border-gray-200 p-3 rounded-lg resize-none"
           value={text}
-          onChange={() => setText(event.target.value)}
+          onChange={(event) => setText(event.target.value)}
         />
         <button
           className="w-fit bg-green-400 text-white p-2 rounded-lg mr-auto "

@@ -73,7 +73,7 @@ function Header({ isLogin }) {
           ],
         },
       ],
-      link: "mens-category-shop",
+      link: "/mens-category-shop",
     },
     {
       id: "2",
@@ -343,15 +343,7 @@ function Header({ isLogin }) {
                             {/* categories child */}
                             <div>
                               {/* head */}
-                              <div className="mb-4 text-green-400">
-                                <a
-                                  href="/"
-                                  className="flex items-center gap-x-1 py-2 text-primary text-lg"
-                                >
-                                  <div>مشاهده همه</div>
-                                  <FaAngleLeft />
-                                </a>
-                              </div>
+
                               <div className="flex grow flex-wrap gap-x-14 gap-y-8">
                                 {activeSubMenu?.map((submenu) => (
                                   <div
@@ -388,7 +380,6 @@ function Header({ isLogin }) {
                 <Link href="/special-offers" className="text-lg">
                   فروش ویژه
                 </Link>
-
                 <Link href="/contact-us" className="text-lg	">
                   تماس با ما
                 </Link>
@@ -397,6 +388,9 @@ function Header({ isLogin }) {
                 </Link>
                 <Link href="/questions" className="text-lg ">
                   سوالات متدوال
+                </Link>
+                <Link href="/blogs" className="text-lg ">
+                  وبلاگ
                 </Link>
               </nav>
             </div>

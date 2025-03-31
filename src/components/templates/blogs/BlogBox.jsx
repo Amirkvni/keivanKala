@@ -8,7 +8,10 @@ function BlogBox({ mag }) {
   const isoDate = mag.updatedAt;
   const jalaliDate = moment(isoDate).format("jDD / jMMMM / jYYYY");
   return (
-    <Link className="flex gap-x-2 items-center border pr-3" href={mag.link}>
+    <Link
+      className="flex gap-x-2 items-center border border-gray-200 dark:border-green-200 rounded-lg pr-3"
+      href={mag.link}
+    >
       <div className="w-36 h-30 flex items-center justify-center ">
         <Image src={mag.mainImage} width={500} height={500} />
       </div>

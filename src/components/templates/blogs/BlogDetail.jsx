@@ -9,17 +9,17 @@ function BlogDetail({ blog }) {
   const isoDate = blog.updatedAt;
   const jalaliDate = moment(isoDate).format("jDD / jMMMM / jYYYY");
   return (
-    <div className="w-9/12 border rounded-lg p-4 flex flex-col gap-y-5">
-      <h1>{blog.title}</h1>
-      <div className="flex justify-between items-center">
-        <div className="flex gap-x-4 items-center">
+    <div className="2xl:w-9/12 w-full  rounded-lg p-4 flex flex-col gap-y-5 bg-white dark:bg-zinc-800 dark:text-white">
+      <h1 className=" text-lg 2xl:text-xl font-semibold">{blog.title}</h1>
+      <div className="flex justify-between items-center text-[10px] 2xl:text-base">
+        <div className="flex 2xl:gap-x-4 items-center   ">
           <div className="flex gap-x-2 items-center">
             <IoPersonOutline />
             <span>{blog.author}</span>
           </div>
           <span>{jalaliDate}</span>
         </div>
-        <div className="flex gap-x-2 items-center">
+        <div className="flex 2xl:gap-x-2 items-center text-green-400 gap-x-1">
           <span>اشتراک گذاری</span>
           <LuShare2 />
         </div>
@@ -42,7 +42,9 @@ function BlogDetail({ blog }) {
       <div className="flex gap-x-3 items-center">
         <span>برچسب ها :</span>
         {blog.tags.map((tag) => (
-          <span className="p-2 rounded-lg bg-gray-100 text-xs">{tag}</span>
+          <span className="p-2 rounded-lg bg-gray-100 dark:bg-black text-xs">
+            {tag}
+          </span>
         ))}
       </div>
     </div>

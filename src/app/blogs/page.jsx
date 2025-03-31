@@ -1,3 +1,4 @@
+import Footer from "@/components/modules/footer/Footer";
 import Header from "@/components/modules/header/Header";
 import BlogPage from "@/components/templates/index/blogs/BlogPage";
 import connectToDB from "@/configs/db";
@@ -9,6 +10,7 @@ export default async function page() {
     <>
       <Header />
       <BlogPage blogs={JSON.parse(JSON.stringify(blogs))} />
+      <Footer />
     </>
   );
 }

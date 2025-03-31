@@ -15,7 +15,7 @@ export default async function page({ params }) {
     <>
       <Header />
       <Breadcrumb />
-      <div className="flex gap-x-3 container mx-auto mt-10">
+      <div className="flex gap-x-3 container mx-auto mt-10 flex-col 2xl:flex-row">
         <BlogDetail blog={JSON.parse(JSON.stringify(blog))} />
         <BlogLinks blogLinks={JSON.parse(JSON.stringify(blogLinks))} />
       </div>

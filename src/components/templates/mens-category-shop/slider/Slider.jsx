@@ -5,14 +5,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./style.css";
-import { Pagination} from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import Image from "next/image";
 import mainSliderOne from "@/../public/images/men-gold-accessories.jpg";
 import mainSliderTwo from "@/../public/images/men-watch.jpg";
 import mainSliderThree from "@/../public/images/mens-under-ware.jpg";
 function Slider() {
   return (
-    <div className=" mt-[140px] bg-red-300  ">
+    <div className=" mt-[140px] 2xl:w-full w-[300px] mx-auto 2xl:h-[500px] h-[200px] ">
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
