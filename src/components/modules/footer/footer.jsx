@@ -10,27 +10,27 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   return (
-    <div className="mt-12 border-t-1 border-t-gray-200 pt-6 bg-white">
+    <div className="mt-12 border-t-1 border-t-gray-200 pt-6 bg-white dark:bg-zinc-800 dark:text-white">
       <div className="flex flex-col gap-y-12 container mx-auto w-[1000px] ">
         <div className="flex flex-col-reverse gap-y-6 xl:flex-row items-center justify-between">
-          <div className="flex gap-x-4 items-center text-gray-500">
+          <div className="flex gap-x-4 items-center text-gray-500 dark:text-white">
             <span>تلفن پشتیبانی 0000000 - 021</span>
             <span>|</span>
             <span>۷ روز هفته، ۲۴ ساعته پاسخگوی شما هستیم</span>
           </div>
           <div
             onClick={scrollToTop}
-            className="flex gap-x-2 items-center border border-gray-300 rounded-lg p-2 text-gray-500 hover:text-green-500 hover:border-green-300 cursor-pointer w-fit"
+            className="flex gap-x-2 items-center border dark:text-white border-gray-300 rounded-lg p-2 text-gray-500 hover:text-green-500 hover:border-green-300 cursor-pointer w-fit"
           >
             <span>بازگشت به بالا</span>
             <FaChevronUp />
           </div>
         </div>
-        <div className="rounded-xl  p-3 flex flex-col xl:flex-row gap-y-5 justify-between items-center bg-gray-100 shadow">
+        <div className="rounded-xl  p-3 flex flex-col xl:flex-row gap-y-5 justify-between items-center bg-gray-100 shadow dark:bg-black dark:text-white">
           <span className="text-gray-500">
             از جدیدترین تخفیف ها با خبر شوید
           </span>
-          <div className=" p-2 rounded-xl w-[250px] xl:w-[350px] bg-white">
+          <div className=" p-2 rounded-xl w-[250px] xl:w-[350px] bg-white dark:bg-zinc-800 dark:text-white">
             <input
               type="text"
               placeholder="ایمیل شما"

@@ -22,7 +22,9 @@ function BestSellingProducts() {
     <div className="container mx-auto mt-7">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-semibold">پرفروش ترین محصولات</span>
+          <span className="text-2xl font-semibold dark:text-white">
+            پرفروش ترین محصولات
+          </span>
           <Link
             href="/special-offers"
             className=" flex gap-x-2 items-center text-green-500"

@@ -4,12 +4,12 @@
 }
 @media screen and (max-width: 769px) {
   .swiper2 .swiper-slide {
-    width: 40% !important;
+    width: 30% !important;
   }
 }
 
 @media screen and (max-width: 481px) {
   .swiper2 .swiper-slide {
-    width: 65% !important;
+    width: 50% !important;
   }
 }

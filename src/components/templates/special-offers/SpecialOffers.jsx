@@ -9,12 +9,22 @@ import SelectedProducts from "./SelectedProducts";
 import { GoSortDesc } from "react-icons/go";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { FaAngleLeft } from "react-icons/fa6";
+import { useSearchParams } from "next/navigation";
 function SpecialOffers() {
   const [specialProducts, setspecialProducts] = useState([]);
   const [activeTab, setActiveTab] = useState("newest");
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [isMobileFiltersActive, setIsMobileFiltersActive] = useState(false);
   const [isMobileSortActive, setIsMobileSortActive] = useState(false);
+  const searchParams = useSearchParams();
+  const gender = searchParams.get("gender")?.split(",") || [];
+  const inStockFilter = searchParams.get("inStock") === "true";
+  const filteredProducts = specialProducts.filter((product) => {
+    return (
+      (gender.length === 0 || gender.includes(product.gender)) &&
+      (!inStockFilter || Number(product.stock) > 0)
+    );
+  });
   useEffect(() => {
     const getProducts = async () => {
       const res = await fetch("/api/products/specialoffers");
@@ -181,9 +191,13 @@ function SpecialOffers() {
             </div>
             {/* bottom : */}
             <div className="flex flex-wrap  gap-2 xl:gap-4 ">
-              {specialProducts?.map((product) => (
-                <ProductBox product={product} key={product._id} />
-              ))}
+              {filteredProducts.length > 0 ? (
+                filteredProducts?.map((product) => (
+                  <ProductBox product={product} key={product._id} />
+                ))
+              ) : (
+                <p>not found</p>
+              )}
             </div>
 
             <div>pagination</div>

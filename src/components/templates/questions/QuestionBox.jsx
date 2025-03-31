@@ -79,12 +79,12 @@ function QuestionBox() {
     },
   ];
   return (
-    <div className="flex mt-[130px] mx-auto w-[1000px]  relative gap-x-2 [&>div]:rounded-lg">
+    <div className="flex 2xl:flex-row flex-col mt-[130px] mx-auto 2xl:w-[1000px] w-9/12  relative gap-x-2 [&>div]:rounded-lg">
       {/* search section : */}
-      <div className="w-4/12 bg-white flex flex-col gap-y-3 sticky top-28 p-3">
+      <div className="w-full 2xl:w-4/12 bg-white flex flex-col gap-y-3 2xl:sticky 2xl:top-28 p-3">
         <h2 className="border-b-2 border-b-green-400 w-fit">سوالات متداول</h2>
-        <div>
-          <span>
+        <div className="text-xs 2xl:text-base">
+          <span className="text-sm">
             سوالات خود را پیدا نکردید ؟
             <Link href="/" className="text-green-400 pr-3">
               با ما تماس بگیرید
@@ -95,16 +95,16 @@ function QuestionBox() {
         <div className="relative">
           <input
             type="text"
-            className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-600 placeholder:text-lg"
+            className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-600 text-xs 2xl:placeholder:text-lg"
             placeholder="سوال خود را جستجو کنید ..."
           />
-          <button className="absolute  left-0 bg-green-500 p-3 rounded-xl w-fit h-full text-white">
+          <button className="absolute  left-0 bg-green-500 p-3 text-xs 2xl:text-base rounded-xl w-fit h-full text-white">
             جستجو
           </button>
         </div>
       </div>
 
-      <div className="w-8/12 flex flex-col gap-y-4 bg-white p-3">
+      <div className="w-full 2xl:w-8/12 flex flex-col gap-y-4 bg-white p-3">
         {questions.map((question) => (
           <div className="flex flex-col gap-y-2">
             <span className="text-lg pr-2 font-bold">{question.title}</span>

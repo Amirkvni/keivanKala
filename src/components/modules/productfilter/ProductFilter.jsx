@@ -1,4 +1,5 @@
 "use client";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
@@ -8,41 +9,26 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
   const [isColorsActive, setIsColorsActive] = useState(false);
   const [isSwitchToggleActive, setIsSwitchToggleActive] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const handleFilterChange = (filterName, value, checked) => {
+    const params = new URLSearchParams(searchParams);
+    let values = params.get(filterName)?.split(",") || [];
 
-  useEffect(() => {
-    const searchHandler = async () => {
-      const res = await fetch(`/api/search?q=${searchValue}`);
-      const data = await res.json();
-      setspecialProducts([...data]);
-    };
-    searchHandler();
-  }, [searchValue]);
-  const handleCheckboxChange = (event) => {
-    const { value, checked } = event.target;
-    setSelectedFilters((prevFilters) =>
-      checked
-        ? [...prevFilters, value]
-        : prevFilters.filter((item) => item !== value)
-    );
+    if (checked) {
+      values.push(value);
+    } else {
+      values = values.filter((v) => v !== value);
+    }
+    values.length
+      ? params.set(filterName, values.join(","))
+      : params.delete(filterName);
+    router.push(`?${params.toString()}`);
   };
 
-  useEffect(() => {
-    if (selectedFilters.length === 0) {
-      setspecialProducts(specialProducts);
-    } else {
-      setspecialProducts(
-        specialProducts.filter((product) =>
-          selectedFilters.every((filter) =>
-            product.persianName.includes(filter)
-          )
-        )
-      );
-    }
-  }, [selectedFilters]);
   return (
     <div className="relative w-1/4 hidden 2xl:block  p-4">
-      <div className="sticky top-28 flex flex-col gap-y-4 bg-white p-2 rounded-lg text-xl ">
+      <div className="sticky top-28 flex flex-col gap-y-4 bg-white p-2 rounded-lg text-xl dark:bg-zinc-800 dark:text-white">
         <div className="flex justify-between items-center">
           <span>فیلترها</span>
           <button className="text-green-500 hover:text-green-600 cursor-pointer">
@@ -55,7 +41,6 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
             className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-600 placeholder:text-lg"
             placeholder="جستجو در بین نتایج ..."
             value={searchValue}
-            onChange={() => setSearchValue(event.target.value)}
           />
         </div>
         <div>محدوده قیمت</div>
@@ -74,7 +59,9 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
                 type="checkbox"
                 id="women"
                 value="زنانه"
-                onChange={handleCheckboxChange}
+                onChange={(e) =>
+                  handleFilterChange("gender", "woman", e.target.checked)
+                }
               />
               <label for="women"> زنانه</label>
               <br />
@@ -82,7 +69,9 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
                 type="checkbox"
                 id="men"
                 value="مردانه"
-                onChange={handleCheckboxChange}
+                onChange={(e) =>
+                  handleFilterChange("gender", "man", e.target.checked)
+                }
               />
               <label for="men"> مردانه</label>
               <br />
@@ -90,7 +79,9 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
                 type="checkbox"
                 id="child"
                 value="بچگانه"
-                onChange={handleCheckboxChange}
+                onChange={(e) =>
+                  handleFilterChange("gender", "child", e.target.checked)
+                }
               />
               <label for="child">بچگانه</label>
               <br />
@@ -180,7 +171,16 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
                 type="checkbox"
                 className="sr-only"
                 checked={isSwitchToggleActive}
-                onChange={() => setIsSwitchToggleActive(!isSwitchToggleActive)}
+                onChange={(e) => {
+                  setIsSwitchToggleActive((prev) => !prev);
+                  const params = new URLSearchParams(searchParams);
+                  if (e.target.checked) {
+                    params.set("inStock", "true");
+                  } else {
+                    params.delete("inStock");
+                  }
+                  router.push(`?${params.toString()}`);
+                }}
               />
               <div
                 className={`w-12 h-6 bg-gray-200 rounded-full ${

@@ -2,7 +2,7 @@ import React from "react";
 
 function Description() {
   return (
-    <div className="contianer mt-[130px] mx-auto w-[1000px] flex flex-col gap-y-4 bg-white p-6 rounded-lg">
+    <div className="contianer mt-[130px] mx-auto 2xl:w-[1000px] w-10/12 flex flex-col gap-y-4 bg-white 2xl:p-6 p-1 rounded-lg">
       <h2 className=" border-b-green-500 border-b-2 w-fit text-2xl">مقدمه </h2>
       <p className="text-lg">
         سلام . به سایت کیوان کالا خوش اومدی. این وبسایت یه سایت فروشگاهیه که

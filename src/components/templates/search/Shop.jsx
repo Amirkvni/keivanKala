@@ -26,7 +26,7 @@ function Shop({ products }) {
       <div className=" flex gap-x-4">
         <ProductFilter />
         <div className="w-3/4 flex flex-col gap-y-3 p-4 ">
-          <div className="flex gap-x-7 text-xl  items-center [&>button]:cursor-pointer bg-white rounded-lg p-4 ">
+          <div className="flex gap-x-7 text-xl  items-center [&>button]:cursor-pointer bg-white dark:bg-zinc-800 dark:text-white rounded-lg p-4 ">
             <div className="flex gap-x-2.5 items-center ">
               <FaFilter />
               <span>مرتب سازی بر اساس</span>

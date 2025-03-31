@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-IRANSans: "IRANSans";
@@ -18,23 +19,15 @@
   --container-2xl: 1024px;
   --container-3xl: 1280px;
   --container-4xl: 1440px;
+
 }
-/* @font-face {
-  font-family: IRANYEKAN;
-  font-style: normal;
-  font-weight: normal;
-  font-display: swap;
-  src: url("../../public/fonts/IRANYEKANMEDIUM.TTF") format("TTF");
-} */
+
 @font-face {
   font-family: IRANSans;
   font-style: normal;
   font-weight: 200 700;
   font-display: swap;
   src: url("../../public/fonts/IRANSansWeb.ttf") format("ttf");
-}
-body {
-  background: oklch(0.97 0.001 106.424);
 }
 
 .p-6 {

@@ -67,12 +67,12 @@ function ProductDetail({ product, user }) {
 
   return (
     <>
-      <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white hidden 2xl:block mt-[140px]">
+      <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white hidden 2xl:block mt-[140px] dark:bg-zinc-800 ">
         {/* <Breadcrumb /> */}
         <div className="gap-x-2 flex 2xl:flex-row flex-col">
           {/* right section : */}
           <div className="w-1/3 ">
-            <div className="flex gap-x-2 items-center p-3 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:cursor-pointer">
+            <div className="flex gap-x-2 items-center p-3 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:cursor-pointer dark:text-white">
               {isWishlist ? (
                 <FaHeart onClick={addToWishlist} className="text-red-600" />
               ) : (
@@ -89,7 +89,9 @@ function ProductDetail({ product, user }) {
           </div>
           {/* left section : */}
           <div className="w-2/3 ">
-            <h1 className="font-bold text-2xl mb-2">{product.persianName}</h1>
+            <h1 className="font-bold text-2xl mb-2 dark:text-white">
+              {product.persianName}
+            </h1>
             <div className="flex gap-x-0.5 h-[400px]">
               {/* bottom right : */}
               <div className=" w-1/2 h-full flex flex-col gap-y-5 ">
@@ -107,12 +109,15 @@ function ProductDetail({ product, user }) {
                     80% از خریداران، خرید این کالا را پیشنهاد کرده‌اند
                   </p>
                 </div>
-                <div className="font-semibold text-xl">ویژگی های محصول</div>
+                <div className="font-semibold text-xl dark:text-white">
+                  ویژگی های محصول
+                </div>
                 <div>
                   <ul className="flex flex-col gap-y-5">
                     {Object.entries(product.attributes).map(([key, value]) => (
                       <li key={key} className="text-lg">
-                        {key} : {value}
+                        <span className="dark:text-gray-400">{key}</span> :
+                        <span className="dark:text-white">{value}</span>
                       </li>
                     ))}
                   </ul>
@@ -120,11 +125,13 @@ function ProductDetail({ product, user }) {
               </div>
               {/* bottom left : */}
               <div className=" w-1/2 h-full flex flex-col justify-between">
-                <div className="font-semibold text-lg">انتخاب رنگ</div>
+                <div className="font-semibold text-lg dark:text-white">
+                  انتخاب رنگ
+                </div>
                 <div className="colors flex  gap-x-2 w-fit ">
                   {Object.entries(product.colors).map(([key, value]) => (
                     <div
-                      className="flex border w-fit items-center gap-x-2 cursor-pointer border-green-300 bg-white rounded-3xl px-4 py-2"
+                      className="flex border w-fit items-center gap-x-2 cursor-pointer border-green-300 bg-white rounded-3xl px-4 py-2 dark:bg-zinc-800 dark:text-white"
                       key={key}
                     >
                       <div className={`w-4 h-4 ${value} rounded-full`}></div>
@@ -132,9 +139,11 @@ function ProductDetail({ product, user }) {
                     </div>
                   ))}
                 </div>
-                <div className="font-semibold text-lg">انتخاب سایز</div>
+                <div className="font-semibold text-lg dark:text-white">
+                  انتخاب سایز
+                </div>
                 <div className="colors flex  gap-x-2 w-fit [&>div>span]:font-semibold [&>div>span]:text-lg">
-                  <div className="w-10 h-10 flex border  items-center gap-x-2 cursor-pointer justify-center border-green-300 bg-white rounded-full p-1">
+                  <div className="w-10 h-10 flex border  items-center gap-x-2 cursor-pointer justify-center border-green-300 bg-white rounded-full p-1 dark:bg-zinc-800 dark:text-white">
                     <span>37</span>
                   </div>
                   <div className="w-10 h-10 flex border  items-center gap-x-2 cursor-pointer justify-center border-green-300 bg-white rounded-full p-1">
@@ -150,7 +159,7 @@ function ProductDetail({ product, user }) {
                     <span>37</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-x-3  my-3 p-4  w-full bg-green-50 rounded-sm text-green-600 ">
+                <div className="flex items-center gap-x-3  my-3 p-4  w-full bg-green-50 rounded-sm text-green-600  ">
                   <IoShieldCheckmarkOutline className="w-6 h-6" />
                   <span className="text-lg font-semibold">
                     تضمین سلامت فیزیکی و اصالت کالا
@@ -179,7 +188,7 @@ function ProductDetail({ product, user }) {
             </div>
           </div>
         </div>
-        <div className="flex justify-between mt-7 gap-x-3 [&>div]:flex [&>div]:px-3 [&>div]:py-4 [&>div]:w-1/4 [&>div]:items-center [&>div]:gap-x-2.5 [&>div]:border [&>div]:border-gray-200 [&>div]:p-0.5 [&>div]:rounded-sm [&>div]:text-lg  [&>div>svg]:w-6 [&>div>svg]:h-6">
+        <div className="flex justify-between mt-7 gap-x-3 [&>div]:flex [&>div]:px-3 [&>div]:py-4 [&>div]:w-1/4 [&>div]:items-center [&>div]:gap-x-2.5 [&>div]:border [&>div]:border-gray-200 [&>div]:p-0.5 [&>div]:rounded-sm [&>div]:text-lg  [&>div>svg]:w-6 [&>div>svg]:h-6 dark:text-white">
           <div>
             <IoIosTimer />
             <span>هفت روز ضمانت بازگشت کالا</span>

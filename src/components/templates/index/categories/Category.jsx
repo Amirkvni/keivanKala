@@ -12,7 +12,7 @@ export default function Category({ imageUrl, name }) {
           alt={name}
         />
       </div>
-      <p className="pt-3">{name}</p>
+      <p className="pt-3  dark:text-white">{name}</p>
     </div>
   );
 }

@@ -21,12 +21,14 @@ export default function SpecialOffers() {
     <div className="container mx-auto mt-12">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-semibold">پیشنهادات ویژه</span>
+          <span className="text-lg xl:text-2xl font-semibold dark:text-white">
+            پیشنهادات ویژه
+          </span>
           <Link
             href="/special-offers"
             className=" flex gap-x-2 items-center text-green-500"
           >
-            <span className="text-xl font-semibold">مشاهده همه</span>
+            <span className="text-sm xl:text-xl font-semibold">مشاهده همه</span>
             <FaChevronLeft />
           </Link>
         </div>
@@ -40,7 +42,7 @@ export default function SpecialOffers() {
           breakpoints={{
             100: {
               slidesPerView: 1,
-              spaceBetween: 20,
+              spaceBetween: 5,
             },
             480: {
               slidesPerView: 2,

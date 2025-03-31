@@ -7,7 +7,7 @@ import Comments from "./Comments";
 function Tabs({ product, user }) {
   const [tab, setTab] = useState("description");
   return (
-    <div className="container mx-auto mt-7 shadow-xl px-10 bg-white py-6 border-1 border-gray-200 rounded-xl">
+    <div className="container mx-auto mt-7 shadow-xl px-10 bg-white py-6 border-1 border-gray-200 rounded-xl dark:bg-zinc-800 dark:border-none dark:text-gray-300 ">
       <div className="flex gap-x-8 items-center [&>button]:cursor-pointer [&>button]:text-xl [&>button]:font-medium pb-3 ">
         <button
           className={

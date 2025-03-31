@@ -9,7 +9,7 @@ function BreadCrumb() {
   const path = usePathname();
 
   return (
-    <div className="container mx-auto flex gap-x-0.5  mt-[140px]  rounded-xl overflow-hidden [&>div]:w-1/3 [&>div]:text-center [&>div]:flex  [&>div]:flex-col [&>div]:gap-y-2  [&>div]:items-center [&>div]:p-3 ">
+    <div className="container mx-auto flex gap-x-0.5  mt-[140px] bg-white dark:bg-zinc-800 dark:text-white  rounded-xl overflow-hidden [&>div]:w-1/3 [&>div]:text-center [&>div]:flex  [&>div]:flex-col [&>div]:gap-y-2  [&>div]:items-center [&>div]:p-3 ">
       <div
         className={
           path == "/checkout-cart" ? "bg-green-100 text-green-500" : null

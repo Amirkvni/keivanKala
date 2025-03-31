@@ -11,7 +11,7 @@ function Cart({ setIsActiveCart }) {
   return (
     <div
       className={
-        " absolute left-0 top-12 w-[400px]  max-h-[350px] overflow-y-auto rounded-xl border-t-green-400 border-t-3 bg-white"
+        " absolute left-0 top-12 w-[400px]  max-h-[350px] overflow-y-auto rounded-xl border-t-green-400 border-t-3 bg-white dark:bg-zinc-800"
       }
       onMouseLeave={() => setIsActiveCart(false)}
     >
@@ -41,7 +41,7 @@ function Cart({ setIsActiveCart }) {
             ))}
           </div>
           {/* bottom : */}
-          <div className="sticky bottom-0 left-0 right-0 bg-white flex justify-between items-center p-2">
+          <div className="sticky bottom-0 left-0 right-0 bg-white flex justify-between items-center p-2 dark:bg-zinc-800">
             <div>
               <p className="py-3 font-bold">مبلغ قابل پرداخت</p>
               <p>{getTotal().toLocaleString()} تومان</p>

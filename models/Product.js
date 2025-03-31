@@ -15,6 +15,10 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    discount: {
+      type: String,
+      required: false,
+    },
     price: {
       type: Number,
       required: true,

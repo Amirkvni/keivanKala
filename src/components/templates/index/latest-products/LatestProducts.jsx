@@ -21,7 +21,9 @@ export default function SpecialOffers() {
     <div className="container mx-auto mt-12">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-semibold">جدیدترین محصولات</span>
+          <span className="text-2xl font-semibold dark:text-white">
+            جدیدترین محصولات
+          </span>
           <Link
             href="/special-offers"
             className=" flex gap-x-2 items-center text-green-500"

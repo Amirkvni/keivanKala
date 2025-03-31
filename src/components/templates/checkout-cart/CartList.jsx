@@ -20,10 +20,10 @@ function CartList({ isLogin }) {
     }
   };
   return (
-    <div className="mt-12 container  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 ">
-      <div className="w-3/4 border">
+    <div className="mt-12 container  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 dark:bg-zinc-800 dark:text-white  ">
+      <div className="w-3/4 border ">
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-x-2 ">
             <span>سبد خرید</span>
             <span>( 2 کالا )</span>
           </div>
