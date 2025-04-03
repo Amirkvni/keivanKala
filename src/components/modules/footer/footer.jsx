@@ -86,12 +86,14 @@ export default function Footer() {
                 src="https://ik.imagekit.io/bflkztneat/namad.png?updatedAt=1742396052826"
                 width={500}
                 height={500}
+                alt="namad"
               />
             </div>
             <div>
               <Image
                 src="https://ik.imagekit.io/bflkztneat/samandehi.png?updatedAt=1742396053037"
                 width={500}
+                alt="samandehi"
                 height={500}
               />
             </div>

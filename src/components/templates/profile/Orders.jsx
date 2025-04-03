@@ -10,7 +10,7 @@ import { RiFilePaperLine } from "react-icons/ri";
 function Orders() {
   const [activeOrder, setActiveOrder] = useState("current");
   return (
-    <div className="  flex flex-col gap-y-8 p-3 w-3/4 rounded-sm shadow-2xl">
+    <div className="  flex flex-col gap-y-8 p-3 w-3/4 rounded-sm shadow-2xl dark:bg-zinc-800 dark:text-white">
       <span className=" border-b-green-400 pb-2 border-b-3 w-fit">
         سفارش های شما
       </span>
@@ -53,10 +53,10 @@ function Orders() {
           <div className="flex flex-col gap-y-4 [&>div]:border [&>div]:rounded-lg [&>div]:p-2">
             <Link
               href="/"
-              className="border rounded-lg p-2 flex flex-col gap-y-3"
+              className="border rounded-lg p-2 flex flex-col gap-y-3 dark:border-green-300"
             >
-              <div className="flex justify-between items-center">
-                <div className="flex gap-x-2 items-center">
+              <div className="flex justify-between items-center text-green-400">
+                <div className="flex gap-x-2 items-center ">
                   <span>تحویل شده</span>
                   <CiCircleCheck />
                 </div>
@@ -113,10 +113,10 @@ function Orders() {
             </Link>
             <Link
               href="/"
-              className="border rounded-lg p-2 flex flex-col gap-y-3"
+              className="border rounded-lg p-2 flex flex-col gap-y-3 dark:border-green-300"
             >
-              <div className="flex justify-between items-center">
-                <div className="flex gap-x-2 items-center">
+              <div className="flex justify-between items-center text-green-400">
+                <div className="flex gap-x-2 items-center ">
                   <span>تحویل شده</span>
                   <CiCircleCheck />
                 </div>
@@ -173,10 +173,10 @@ function Orders() {
             </Link>
             <Link
               href="/"
-              className="border rounded-lg p-2 flex flex-col gap-y-3"
+              className="border rounded-lg p-2 flex flex-col gap-y-3 dark:border-green-300"
             >
-              <div className="flex justify-between items-center">
-                <div className="flex gap-x-2 items-center">
+              <div className="flex justify-between items-center text-green-400">
+                <div className="flex gap-x-2 items-center ">
                   <span>تحویل شده</span>
                   <CiCircleCheck />
                 </div>
@@ -233,10 +233,10 @@ function Orders() {
             </Link>
             <Link
               href="/"
-              className="border rounded-lg p-2 flex flex-col gap-y-3"
+              className="border rounded-lg p-2 flex flex-col gap-y-3 dark:border-green-300"
             >
-              <div className="flex justify-between items-center">
-                <div className="flex gap-x-2 items-center">
+              <div className="flex justify-between items-center text-green-400">
+                <div className="flex gap-x-2 items-center ">
                   <span>تحویل شده</span>
                   <CiCircleCheck />
                 </div>

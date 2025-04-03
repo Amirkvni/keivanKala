@@ -7,7 +7,6 @@ import Tabs from "@/components/templates/product/product-detail/Tabs";
 import { authUser } from "@/utils/serverHelpers";
 import VisitModel from "@/models/Visit";
 import Footer from "@/components/modules/footer/Footer";
-import Breadcrumb from "@/components/modules/breadcrumb/Breadcrumb";
 async function ProductDetailPage({ params }) {
   const { name } = await params;
   connectToDB();

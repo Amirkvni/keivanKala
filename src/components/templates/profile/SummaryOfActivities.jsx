@@ -14,11 +14,19 @@ import { LuTicketX } from "react-icons/lu";
 
 import { RiLockPasswordLine } from "react-icons/ri";
 
-function SummaryOfActivities() {
+function SummaryOfActivities({ orders }) {
+  const statusCounts = orders.reduce((acc, order) => {
+    const status = order.status || "unknown"; // اگر وضعیت نداشته باشد، "unknown" در نظر بگیر
+    acc[status] = (acc[status] || 0) + 1;
+    return acc;
+  }, {});
   return (
-    <div className=" flex flex-col gap-y-8 p-3 w-3/4 rounded-sm shadow-2xl">
+    <div className=" flex flex-col gap-y-8 p-3 w-3/4 rounded-sm shadow-2xl dark:bg-zinc-800 dark:text-white">
       <div className="flex justify-between items-center ">
-        <span className=" border-b-green-400 pb-2 border-b-3">
+        <span className=" border-b-green-400 pb-2 border-b-3 relative">
+          <span className="absolute bg-green-600 -left-5 -top-1 w-5 h-5 rounded-full flex items-center justify-center text-white text-xs">
+            {orders.length}
+          </span>
           سفارش‌های من
         </span>
         <Link href="/" className="flex gap-x-2 items-center text-green-400">
@@ -32,8 +40,8 @@ function SummaryOfActivities() {
             <FiShoppingBag />
           </div>
           <div className="flex flex-col gap-y-2 ">
-            <span>0 سفارش</span>
-            <span>فعلی</span>
+            <span>{statusCounts["pending"] || 0} سفارش</span>
+            <span>درحال پردازش</span>
           </div>
         </div>
         <div className="bg-green-400 flex gap-x-5  rounded-2xl p-2 text-white">
@@ -41,7 +49,7 @@ function SummaryOfActivities() {
             <FiShoppingBag />
           </div>
           <div className="flex flex-col gap-y-2 ">
-            <span>0 سفارش</span>
+            <span>{statusCounts["delivered"] || 0} سفارش</span>
             <span>تحویل شده</span>
           </div>
         </div>
@@ -50,7 +58,7 @@ function SummaryOfActivities() {
             <FiShoppingBag />
           </div>
           <div className="flex flex-col gap-y-2 ">
-            <span>0 سفارش</span>
+            <span>{statusCounts["canceled"] || 0} سفارش</span>
             <span>لغو شده</span>
           </div>
         </div>
@@ -59,7 +67,7 @@ function SummaryOfActivities() {
             <FiShoppingBag />
           </div>
           <div className="flex flex-col gap-y-2 ">
-            <span>0 سفارش</span>
+            <span>{statusCounts["returned"] || 0} سفارش</span>
             <span>مرجوع شده</span>
           </div>
         </div>
@@ -72,35 +80,41 @@ function SummaryOfActivities() {
           <div className="shadow-lg w-12 h-12 flex items-center justify-center  text-2xl rounded-lg">
             <LuUserCog />
           </div>
-          <div className="flex flex-col gap-y-2 ">
+          <Link
+            href="/profile/personal-info"
+            className="flex flex-col gap-y-2 "
+          >
             <span>تکمیل مشخصات</span>
-          </div>
+          </Link>
         </div>
         <div className="bg-red-400 flex gap-x-5  rounded-2xl p-2 text-white items-center">
           <div className="shadow-lg w-12 h-12 flex items-center justify-center  text-2xl rounded-lg">
             <RiLockPasswordLine />
           </div>
-          <div className="flex flex-col gap-y-2 ">
+          <Link
+            href="/profile/personal-info"
+            className="flex flex-col gap-y-2 "
+          >
             <span>ثبت کلمه عبور</span>
-          </div>
+          </Link>
         </div>
         <div className="bg-pink-600 flex gap-x-5  rounded-2xl p-2 text-white items-center">
           <div className="shadow-lg w-12 h-12 flex items-center justify-center  text-2xl rounded-lg">
             <FaRegHeart />
           </div>
-          <div className="flex gap-x-2 ">
+          <Link href="/profile/favorites" className="flex gap-x-2 ">
             <span>0</span>
             <span>علاقه مندی</span>
-          </div>
+          </Link>
         </div>
         <div className="bg-green-600 flex gap-x-5  rounded-2xl p-2 text-white items-center">
           <div className="shadow-lg w-12 h-12 flex items-center justify-center  text-2xl rounded-lg">
             <IoMdNotificationsOutline />
           </div>
-          <div className="flex gap-x-2 ">
+          <Link href="/profile/favorites" className="flex gap-x-2 ">
             <span>0</span>
             <span>اعلان جدید</span>
-          </div>
+          </Link>
         </div>
       </div>
       <div>

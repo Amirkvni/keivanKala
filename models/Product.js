@@ -32,6 +32,7 @@ const schema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    parentCategory: { type: String, required: false },
     category: {
       type: String,
       required: true,

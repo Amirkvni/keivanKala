@@ -4,9 +4,8 @@ import React from "react";
 import { FaRegEyeSlash, FaRegTrashCan } from "react-icons/fa6";
 
 function RecentVisits({ recentVisits }) {
-
   return (
-    <div className="  flex flex-col gap-y-8 p-3 w-3/4 rounded-sm shadow-2xl">
+    <div className="  flex flex-col gap-y-8 p-3 w-3/4 rounded-sm shadow-2xl dark:bg-zinc-800 dark:text-white">
       <span className=" border-b-green-400 pb-2 border-b-3 w-fit">
         بازدید‌های اخیر
       </span>

@@ -1,8 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { FaEdit } from "react-icons/fa";
-import { FaUserCircle } from "react-icons/fa";
+import { FaEdit, FaUserCircle } from "react-icons/fa";
 import { BiBasket } from "react-icons/bi";
 import {
   IoExitOutline,
@@ -41,7 +40,7 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
     });
   };
   return (
-    <div className="flex flex-col gap-y-2 p-3  w-1/4 rounded-sm shadow-lg">
+    <div className="flex flex-col gap-y-2 p-3  w-1/4 rounded-lg  bg-white dark:text-white dark:bg-zinc-800">
       <div className="flex justify-between items-center  border-b-gray-400 pb-2 border-b-1">
         <div className="flex gap-x-2">
           <FaUserCircle className="w-10 h-10 rounded-full" />

@@ -1,15 +1,16 @@
 "use client";
-import { FaChevronLeft, FaHeart } from "react-icons/fa6";
+import {
+  FaChevronLeft,
+  FaHeart,
+  FaPlus,
+  FaMinus,
+  FaTruckFast,
+} from "react-icons/fa6";
 import { AiOutlineLike } from "react-icons/ai";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { IoIosTimer } from "react-icons/io";
-import { MdSupportAgent } from "react-icons/md";
-import { FaTruckFast } from "react-icons/fa6";
+import { MdSupportAgent, MdOutlineCompare, MdShare } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
-import { MdOutlineCompare } from "react-icons/md";
-import { MdShare } from "react-icons/md";
-import { FaPlus } from "react-icons/fa6";
-import { FaMinus } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -21,7 +22,6 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { useContext, useState } from "react";
 import { CartContext } from "@/contexts/CartContext";
-import Breadcrumb from "@/components/modules/breadcrumb/Breadcrumb";
 function ProductDetail({ product, user }) {
   let { addToCart } = useContext(CartContext);
   const router = useRouter();
@@ -68,7 +68,6 @@ function ProductDetail({ product, user }) {
   return (
     <>
       <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white hidden 2xl:block mt-[140px] dark:bg-zinc-800 ">
-        {/* <Breadcrumb /> */}
         <div className="gap-x-2 flex 2xl:flex-row flex-col">
           {/* right section : */}
           <div className="w-1/3 ">
@@ -101,7 +100,13 @@ function ProductDetail({ product, user }) {
                 <div className="flex text-green-400 text-base items-center gap-x-3 ">
                   <span>کد کالا 6457#</span>
                   <span>|</span>
-                  <span>20 دیدگاه</span>
+                  <span>
+                    {
+                      product.comments.filter((product) => product.isAccept)
+                        .length
+                    }
+                    دیدگاه
+                  </span>
                 </div>
                 <div className="flex  items-center gap-x-2 ">
                   <AiOutlineLike className="text-green-300 w-5 h-5" />
@@ -116,8 +121,8 @@ function ProductDetail({ product, user }) {
                   <ul className="flex flex-col gap-y-5">
                     {Object.entries(product.attributes).map(([key, value]) => (
                       <li key={key} className="text-lg">
-                        <span className="dark:text-gray-400">{key}</span> :
-                        <span className="dark:text-white">{value}</span>
+                        <span className="dark:text-gray-400">{key} </span>
+                        <span className="dark:text-white">: {value}</span>
                       </li>
                     ))}
                   </ul>

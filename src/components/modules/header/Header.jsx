@@ -16,6 +16,7 @@ import {
   FaChevronDown,
   FaChevronUp,
   FaGripfire,
+  FaRegSun,
 } from "react-icons/fa6";
 import Cart from "./Cart";
 import { CartContext } from "@/contexts/CartContext";
@@ -49,6 +50,7 @@ function Header({ isLogin }) {
             { title: "شلوارک", address: "men-shorts" },
             { title: "جوراب", address: "men-socks-tights" },
           ],
+          mainLink: "/category-men-clothing",
         },
         {
           id: "2",
@@ -60,6 +62,7 @@ function Header({ isLogin }) {
             { title: "بوت", address: "men-boots" },
             { title: "نیم بوت", address: "men-ankle-boots" },
           ],
+          mainLink: "/category-men-shoes",
         },
         {
           id: "3",
@@ -71,6 +74,7 @@ function Header({ isLogin }) {
             { title: "کروات", address: "men-ties" },
             { title: "شال", address: "men-shawl" },
           ],
+          mainLink: "/category-men-accessories",
         },
       ],
       link: "/mens-category-shop",
@@ -83,13 +87,14 @@ function Header({ isLogin }) {
           id: "1",
           title: "لباس زنانه",
           links: [
-            { title: "شلوار", address: "/" },
+            { title: "شلوار", address: "" },
             { title: "لباس زیر", address: "/" },
             { title: "پیراهن", address: "/" },
             { title: "ژاکت و پلیور", address: "/" },
             { title: "شلوارک", address: "/" },
             { title: "جوراب", address: "/" },
           ],
+          mainLink: "/category-men-clothing",
         },
         {
           id: "2",
@@ -114,7 +119,7 @@ function Header({ isLogin }) {
           ],
         },
       ],
-      link: "mens-category-shop",
+      link: "/",
     },
     {
       id: "3",
@@ -155,7 +160,7 @@ function Header({ isLogin }) {
           ],
         },
       ],
-      link: "mens-category-shop",
+      link: "/",
     },
     {
       id: "4",
@@ -194,7 +199,7 @@ function Header({ isLogin }) {
           ],
         },
       ],
-      link: "mens-category-shop",
+      link: "/",
     },
   ];
   const router = useRouter();
@@ -281,7 +286,11 @@ function Header({ isLogin }) {
                   </span>
                 </Link>
                 <button href="/" onClick={darkmodeHandler}>
-                  <PiMoonStarsLight className="text-2xl cursor-pointer" />
+                  {isDarkMode ? (
+                    <FaRegSun className="text-2xl cursor-pointer" />
+                  ) : (
+                    <PiMoonStarsLight className="text-2xl cursor-pointer" />
+                  )}
                 </button>
               </div>
               {/* cart : */}
@@ -350,10 +359,13 @@ function Header({ isLogin }) {
                                     className="space-y-2"
                                     key={Math.random() * 100}
                                   >
-                                    <a className="relative before:content-[''] before:w-[2px] before:h-[25px] flex items-center gap-x-2 text-lg hover:text-green-300 before:bg-green-500 before:absolute before:right-0 before:top-0 pr-4">
-                                      <div>{submenu.title}</div>
+                                    <Link
+                                      href={submenu.mainLink}
+                                      className=" relative before:content-[''] before:w-[2px] before:h-[25px] flex items-center gap-x-2 text-lg hover:text-green-300 before:bg-green-500 before:absolute before:right-0 before:top-0 pr-4"
+                                    >
+                                      <div className="">{submenu.title}</div>
                                       <FaAngleLeft />
-                                    </a>
+                                    </Link>
                                     <ul>
                                       <li>
                                         {submenu.links.map((item) => (
@@ -469,7 +481,7 @@ function Header({ isLogin }) {
               }`}
             >
               {categories.map((category) => (
-                <div>
+                <div key={category.id}>
                   <div
                     className="flex items-center justify-between border border-gray-300 p-2 rounded-sm "
                     onClick={() => setActiveMobileCategory(category.id)}
