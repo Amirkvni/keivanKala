@@ -6,7 +6,7 @@ function Category({ address, name, link }) {
   return (
     <Link
       href={link}
-      className="flex flex-col justify-center items-center bg-white rounded-xl hover:border hover:border-green-200"
+      className="flex flex-col justify-center items-center bg-white rounded-xl  "
     >
       <div className="w-16 h-16 bg-red-200">
         <Image width={500} height={500} src={address} />

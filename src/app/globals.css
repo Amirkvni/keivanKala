@@ -19,7 +19,6 @@
   --container-2xl: 1024px;
   --container-3xl: 1280px;
   --container-4xl: 1440px;
-
 }
 
 @font-face {
@@ -40,3 +39,4 @@
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
+

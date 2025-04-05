@@ -3,7 +3,7 @@ import React from "react";
 
 export default function CategorymanBreadCrumb({ name }) {
   return (
-    <div className="mt-[140px] container mx-38 flex items-center gap-x-2">
+    <div className="mt-[140px] container  flex items-center gap-x-2  bg-white w-fit rounded-lg p-3 mr-58">
       <Link href="/">کیوان کالا</Link>
       <span>/</span>
       <Link href="/mens-category-shop">مردانه</Link>

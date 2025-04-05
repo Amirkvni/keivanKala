@@ -2,10 +2,13 @@
 import Breadcrumb from "@/components/modules/breadcrumb/Breadcrumb";
 import ProductBox from "@/components/modules/productBox/ProductBox";
 import ProductFilter from "@/components/modules/productfilter/ProductFilter";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaFilter } from "react-icons/fa6";
 
 function Shop({ products }) {
+  const path = usePathname();
+
   const [activeTab, setActiveTab] = useState("newest");
   const [items, setItems] = useState(products);
   const sortByHightPrice = () => {
@@ -21,7 +24,11 @@ function Shop({ products }) {
     setItems(sortedItems);
   };
   return (
-    <div className="container mx-auto  mt-[140px] ">
+    <div
+      className={`container mx-auto  ${
+        !path.startsWith("/category") ? "mt-[140px]" : "mt-4"
+      } `}
+    >
       {/* <Breadcrumb /> */}
       <div className=" flex gap-x-4">
         <ProductFilter />
@@ -37,7 +44,7 @@ function Shop({ products }) {
               }}
               className={`${
                 activeTab === "newest"
-                  ? "bg-gray-100 text-green-600 p-2 rounded-sm"
+                  ? "bg-gray-100 text-green-600 p-2 rounded-lg"
                   : null
               }`}
             >

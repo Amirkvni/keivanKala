@@ -1,7 +1,9 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
+import "next-range-slider/dist/main.css";
+import { RangeSlider } from "next-range-slider";
 
 function ProductFilter({ setspecialProducts, specialProducts }) {
   const [isCategoryActive, setIsCategoryActive] = useState(false);
@@ -9,6 +11,8 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
   const [isColorsActive, setIsColorsActive] = useState(false);
   const [isSwitchToggleActive, setIsSwitchToggleActive] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [low, setLow] = useState(0);
+  const [high, setHigh] = useState(20000000);
   const router = useRouter();
   const searchParams = useSearchParams();
   const handleFilterChange = (filterName, value, checked) => {
@@ -44,7 +48,61 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
           />
         </div>
         <div>محدوده قیمت</div>
-        <div></div>
+        <div>
+          <RangeSlider
+            dir="ltr"
+            min={0}
+            max={20000000}
+            step={10000}
+            options={{
+              leftInputProps: {
+                value: low,
+                onChange: (e) => {
+                  const newLow = Number(e.target.value);
+                  if (newLow <= high) {
+                    setLow(newLow);
+                  }
+                  const params = new URLSearchParams(searchParams);
+
+                  params.set("min-price", newLow);
+
+                  router.push(`?${params.toString()}`);
+                },
+              },
+              rightInputProps: {
+                value: high,
+                onChange: (e) => {
+                  const newHigh = Number(e.target.value);
+                  if (newHigh >= low) {
+                    setHigh(newHigh);
+                  }
+                  const params = new URLSearchParams(searchParams);
+
+                  params.set("max-price", newHigh);
+
+                  router.push(`?${params.toString()}`);
+                },
+              },
+              thumb: {
+                background: "#36d67e",
+                focusBackground: "#36d67e",
+                width: "20px",
+                height: "20px",
+              },
+              track: {
+                height: "6px",
+                background: "#36d67e",
+              },
+              range: { background: "#36d67e" },
+            }}
+          />
+          <div className=" flex items-center justify-between [&>input]:w-[130px] [&>input]:p-2 text-xs [&>input]:outline-none">
+            <input type="text" value={`${high.toLocaleString()} تومان`} />
+            <span>تا</span>
+            <input type="text" value={`${low.toLocaleString()} تومان`} />
+          </div>
+        </div>
+
         <div
           className="flex justify-between items-center cursor-pointer"
           onClick={() => setIsCategoryActive((prev) => !prev)}
