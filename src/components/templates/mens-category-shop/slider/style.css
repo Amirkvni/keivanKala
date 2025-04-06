@@ -18,11 +18,14 @@ body {
   align-items: center;
 }
 
-.mySwiper10 .swiper-slide img {
+.mySwiper10 .swiper-slide a {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* object-fit: cover; */
+}
+.mySwiper10 .swiper-slide img {
+  height: 100%;
 }
 .mySwiper10 {
   width: 100%;

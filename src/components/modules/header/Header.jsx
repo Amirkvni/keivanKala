@@ -483,7 +483,7 @@ function Header({ isLogin }) {
               {categories.map((category) => (
                 <div key={category.id}>
                   <div
-                    className="flex items-center justify-between border border-gray-300 p-2 rounded-sm "
+                    className="flex items-center justify-between border border-gray-300 p-2 rounded-sm  "
                     onClick={() => setActiveMobileCategory(category.id)}
                   >
                     <span>{category.name}</span>

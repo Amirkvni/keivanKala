@@ -10,9 +10,10 @@ import Image from "next/image";
 import mainSliderOne from "@/../public/images/men-gold-accessories.jpg";
 import mainSliderTwo from "@/../public/images/men-watch.jpg";
 import mainSliderThree from "@/../public/images/mens-under-ware.jpg";
+import Link from "next/link";
 function Slider() {
   return (
-    <div className=" mt-[140px] 2xl:w-full w-[300px] mx-auto 2xl:h-[500px] h-[200px] ">
+    <div className=" mt-[140px] 2xl:w-full w-[300px] mx-auto 2xl:h-[500px] h-[150px] ">
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
@@ -24,28 +25,34 @@ function Slider() {
         className="mySwiper10 rounded-lg overflow-hidden "
       >
         <SwiperSlide>
-          <Image
-            src={mainSliderOne}
-            alt="mainSliderOne"
-            width={5000}
-            height={5000}
-          />
+          <Link href="/search/men-belts">
+            <Image
+              src={mainSliderOne}
+              alt="mainSliderOne"
+              width={5000}
+              height={5000}
+            />
+          </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src={mainSliderTwo}
-            alt="mainSliderTwo"
-            width={5000}
-            height={5000}
-          />
+          <Link href="/search/men-watches">
+            <Image
+              src={mainSliderTwo}
+              alt="mainSliderTwo"
+              width={5000}
+              height={5000}
+            />
+          </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Image
-            src={mainSliderThree}
-            alt="mainSliderThree"
-            width={5000}
-            height={5000}
-          />
+          <Link href="/search/men-underwear">
+            <Image
+              src={mainSliderThree}
+              alt="mainSliderThree"
+              width={5000}
+              height={5000}
+            />
+          </Link>
         </SwiperSlide>
       </Swiper>
     </div>

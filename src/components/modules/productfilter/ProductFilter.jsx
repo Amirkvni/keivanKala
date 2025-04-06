@@ -7,7 +7,6 @@ import { RangeSlider } from "next-range-slider";
 
 function ProductFilter({ setspecialProducts, specialProducts }) {
   const [isCategoryActive, setIsCategoryActive] = useState(false);
-  const [isBrands, setIsBrandsActive] = useState(false);
   const [isColorsActive, setIsColorsActive] = useState(false);
   const [isSwitchToggleActive, setIsSwitchToggleActive] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -146,44 +145,7 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
             </form>
           </div>
         )}
-        <div
-          className="flex justify-between items-center cursor-pointer"
-          onClick={() => setIsBrandsActive((prev) => !prev)}
-        >
-          <span>برندها</span>
-          <FaAngleLeft />
-        </div>
-        {isBrands && (
-          <div className=" flex flex-col gap-y-2 [&>div>input]:w-4 [&>div>input]:h-4 [&>div>input]:rounded-full [&>div>input]:bg-red-200">
-            <div>
-              <input
-                type="checkbox"
-                id="vehicle1"
-                name="vehicle1"
-                value="Bike"
-              />
-              <label for="vehicle1"> زنانه</label>
-            </div>
-            <div>
-              <input
-                type="checkbox"
-                id="vehicle2"
-                name="vehicle2"
-                value="Car"
-              />
-              <label for="vehicle2"> مردانه</label>
-            </div>
-            <div>
-              <input
-                type="checkbox"
-                id="vehicle3"
-                name="vehicle3"
-                value="Boat"
-              />
-              <label for="vehicle3">بچگانه</label>
-            </div>
-          </div>
-        )}
+
         <div
           className="flex justify-between items-center cursor-pointer"
           onClick={() => setIsColorsActive((prev) => !prev)}

@@ -3,6 +3,7 @@ import Header from "@/components/modules/header/Header";
 import Shop from "@/components/templates/search/Shop";
 import React from "react";
 import connectToDB from "@/configs/db";
+
 import ProductModel from "@/models/Product";
 export default async function page({ searchParams }) {
   const q = searchParams.q;

@@ -11,3 +11,9 @@
   border-radius: 50%;
   background-color: white;
 }
+@media screen and (max-width: 481px) {
+  .subcategory-slider .swiper-button-prev:after,
+  .subcategory-slider .swiper-button-next:after {
+    display: none;
+  }
+}
