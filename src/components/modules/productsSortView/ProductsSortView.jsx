@@ -14,10 +14,35 @@ function ProductsSortView({ allProducts, setAllProducts }) {
   const searchParams = useSearchParams();
   const gender = searchParams.get("gender")?.split(",") || [];
   const inStockFilter = searchParams.get("inStock") === "true";
+  const colors = searchParams.get("colors")?.split(",") || [];
+  const searchedProduct = searchParams.get("search") || "";
+  const minPrice = parseInt(searchParams.get("min-price") || "0", 10);
+  const maxPrice = parseInt(searchParams.get("max-price") || "100000000000", 10);
+  function normalizeText(text) {
+    if (typeof text !== "string") {
+      return ""; // اگر مقدار ورودی رشته نبود، یه رشته خالی برگردون
+    }
+
+    return text
+      .toLowerCase()
+      .trim()
+      .normalize("NFD") // نرمال‌سازی یونی‌کد
+      .replace(/\s+/g, " ") // تبدیل همه فاصله‌ها به یه فاصله
+      .replace(/‌/g, ""); // حذف نیم‌فاصله (کاراکتر U+200C)
+  }
+  const normalizedSearch = normalizeText(searchedProduct);
+
   const filteredProducts = allProducts.filter((product) => {
+    const normalizedTitle = normalizeText(product.persianName);
+    const productPrice = parseInt(product.price, 10);
+
     return (
       (gender.length === 0 || gender.includes(product.gender)) &&
-      (!inStockFilter || Number(product.stock) > 0)
+      (!inStockFilter || Number(product.stock) > 0) &&
+      (colors.length === 0 || colors.includes(product.colors)) &&
+      (normalizedSearch === "" || normalizedTitle.includes(normalizedSearch)) &&
+      productPrice >= minPrice &&
+      productPrice <= maxPrice // فیلتر قیمت
     );
   });
   const sortByHightPrice = () => {

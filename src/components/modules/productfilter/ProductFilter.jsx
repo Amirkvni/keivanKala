@@ -1,9 +1,11 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import React, { useEffect, useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 import "next-range-slider/dist/main.css";
 import { RangeSlider } from "next-range-slider";
+import styles from "./productfilter.module.css";
 
 function ProductFilter({ setspecialProducts, specialProducts }) {
   const [isCategoryActive, setIsCategoryActive] = useState(false);
@@ -13,6 +15,8 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
   const [low, setLow] = useState(0);
   const [high, setHigh] = useState(20000000);
   const router = useRouter();
+  const pathname = usePathname(); // مسیر فعلی بدون پارامترهای query
+
   const searchParams = useSearchParams();
   const handleFilterChange = (filterName, value, checked) => {
     const params = new URLSearchParams(searchParams);
@@ -28,13 +32,45 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
       : params.delete(filterName);
     router.push(`?${params.toString()}`);
   };
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
 
+    if (searchValue) {
+      params.set("search", searchValue);
+    } else {
+      params.delete("search");
+    }
+
+    const newUrl = `?${params.toString()}`;
+    router.replace(newUrl);
+  }, [searchValue]);
+  const colorPalettes = [
+    { id: 1, name: "قرمز", code: "bg-red-600", secondName: "red" },
+    { id: 2, name: "ابی", code: "bg-blue-600", secondName: "blue" },
+    { id: 3, name: "زرد", code: "bg-yellow-600", secondName: "yellow" },
+    { id: 4, name: "صورتی", code: "bg-fuchsia-600", secondName: "fuchsia" },
+    { id: 5, name: "بنفش", code: "bg-violet-600", secondName: "violet" },
+    { id: 6, name: "مشکی", code: "bg-black", secondName: "black" },
+    { id: 7, name: "سبز", code: "bg-green-600", secondName: "green" },
+    { id: 8, name: "طوسی", code: "bg-slate-600", secondName: "slate" },
+    { id: 9, name: "نارنجی", code: "bg-orange-600", secondName: "orange" },
+    { id: 10, name: "سفید", code: "bg-white", secondName: "white" },
+  ];
+  const deleteFilterParams = () => {
+    if (searchParams.toString()) {
+      const cleanUrl = pathname; // فقط مسیر بدون پارامترهای query
+      window.history.replaceState(null, "", cleanUrl); // بروزرسانی URL بدون رفرش صفحه
+    }
+  };
   return (
     <div className="relative w-1/4 hidden 2xl:block  p-4">
       <div className="sticky top-28 flex flex-col gap-y-4 bg-white p-2 rounded-lg text-xl dark:bg-zinc-800 dark:text-white">
         <div className="flex justify-between items-center">
           <span>فیلترها</span>
-          <button className="text-green-500 hover:text-green-600 cursor-pointer">
+          <button
+            className="text-green-500 hover:text-green-600 cursor-pointer"
+            onClick={deleteFilterParams}
+          >
             حذف همه
           </button>
         </div>
@@ -44,6 +80,7 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
             className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-600 placeholder:text-lg"
             placeholder="جستجو در بین نتایج ..."
             value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>
         <div>محدوده قیمت</div>
@@ -154,33 +191,36 @@ function ProductFilter({ setspecialProducts, specialProducts }) {
           <FaAngleLeft />
         </div>
         {isColorsActive && (
-          <div>
-            <form>
-              <input
-                type="checkbox"
-                id="vehicle1"
-                name="vehicle1"
-                value="Bike"
-              />
-              <label for="vehicle1"> قرمز</label>
-              <br />
-              <input
-                type="checkbox"
-                id="vehicle2"
-                name="vehicle2"
-                value="Car"
-              />
-              <label for="vehicle2"> آبی</label>
-              <br />
-              <input
-                type="checkbox"
-                id="vehicle3"
-                name="vehicle3"
-                value="Boat"
-              />
-              <label for="vehicle3">سبز</label>
-              <br />
-            </form>
+          <div
+            className={`h-[200px] overflow-y-auto p-1   ${styles.customScrollbar}`}
+            dir="ltr"
+          >
+            {colorPalettes.map((color) => (
+              <div
+                className="flex items-center justify-between "
+                key={color.id}
+                dir="rtl"
+              >
+                <div>
+                  <input
+                    type="checkbox"
+                    id="color"
+                    value={color.secondName}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "colors",
+                        `${color.secondName}`,
+                        e.target.checked
+                      )
+                    }
+                  />
+                  <label for="vehicle1"> {color.name}</label>
+                </div>
+                <div
+                  className={`w-3 h-3 border border-gray-400 ${color.code}`}
+                ></div>
+              </div>
+            ))}
           </div>
         )}
         <div className="flex justify-between items-center ">
