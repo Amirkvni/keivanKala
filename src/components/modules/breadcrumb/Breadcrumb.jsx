@@ -1,10 +1,11 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaAngleLeft } from "react-icons/fa6";
 
 function Breadcrumb() {
   const path = usePathname();
-  const pathSegments = path.split("/").filter((segment) => segment !== "");
+  const link = path.split("/")[2];
   const friendlyNames = {
     search: "محصولات",
     "men-pants": "شلوارهای مردانه",
@@ -28,19 +29,13 @@ function Breadcrumb() {
     "cleaning-suede-shoes": "انواع کفش جیر را چگونه باید تمیز کنیم؟",
   };
   return (
-    <div className="2xl:px-2 container mx-auto text-sm 2xl:text-base">
-      <div className="flex items-center gap-x-2 w-fit bg-white rounded-lg p-2.5 mt-[140px]">
-        <span>خانه</span>
-        {pathSegments.map((segment, index) => {
-          const path = `/${pathSegments.slice(0, index + 1).join("/")}`;
-          const friendlyName = friendlyNames[segment] || segment;
-          return (
-            <>
-              <FaAngleLeft />
-              <span>{friendlyName}</span>
-            </>
-          );
-        })}
+    <div className="  rounded-lg text-[10px] lg:text-sm 2xl:text-base 2xl:mx-auto  2xl:w-9/12 w-full ">
+      <div className="flex items-center gap-x-2  w-fit  p-2.5 mt-[130px] bg-white dark:bg-zinc-800 mx-auto 2xl:mx-0  rounded-lg dark:text-white   ">
+        <Link href="/">خانه</Link>
+        <FaAngleLeft />
+        <Link href="/blogs">وبلاگ</Link>
+        <FaAngleLeft />
+        <span>{friendlyNames[link]}</span>
       </div>
     </div>
   );

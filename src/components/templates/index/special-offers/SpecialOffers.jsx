@@ -26,7 +26,7 @@ export default function SpecialOffers() {
           </span>
           <Link
             href="/special-offers"
-            className=" flex gap-x-2 items-center text-green-500"
+            className=" flex xl:gap-x-2  items-center text-green-500"
           >
             <span className="text-sm xl:text-xl font-semibold">مشاهده همه</span>
             <FaChevronLeft />

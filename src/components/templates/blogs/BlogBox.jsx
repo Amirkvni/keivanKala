@@ -9,7 +9,7 @@ function BlogBox({ mag }) {
   const jalaliDate = moment(isoDate).format("jDD / jMMMM / jYYYY");
   return (
     <Link
-      className="flex gap-x-2 items-center border border-gray-200 dark:border-green-200 rounded-lg pr-3"
+      className="flex gap-x-2 items-center border border-gray-200 dark:border-green-100 rounded-lg pr-3"
       href={mag.link}
     >
       <div className="w-36 h-30 flex items-center justify-center ">

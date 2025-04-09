@@ -7,9 +7,13 @@ import { GoSortDesc } from "react-icons/go";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { FaAngleLeft } from "react-icons/fa6";
 import { useState } from "react";
-function ProductsSortView({ allProducts, setAllProducts }) {
+import { BiMessageRoundedError } from "react-icons/bi";
+function ProductsSortView({
+  allProducts,
+  setAllProducts,
+  setIsMobileFiltersActive,
+}) {
   const [activeTab, setActiveTab] = useState("newest");
-  const [isMobileFiltersActive, setIsMobileFiltersActive] = useState(false);
   const [isMobileSortActive, setIsMobileSortActive] = useState(false);
   const searchParams = useSearchParams();
   const gender = searchParams.get("gender")?.split(",") || [];
@@ -17,7 +21,11 @@ function ProductsSortView({ allProducts, setAllProducts }) {
   const colors = searchParams.get("colors")?.split(",") || [];
   const searchedProduct = searchParams.get("search") || "";
   const minPrice = parseInt(searchParams.get("min-price") || "0", 10);
-  const maxPrice = parseInt(searchParams.get("max-price") || "100000000000", 10);
+  const maxPrice = parseInt(
+    searchParams.get("max-price") || "100000000000",
+    10
+  );
+
   function normalizeText(text) {
     if (typeof text !== "string") {
       return ""; // اگر مقدار ورودی رشته نبود، یه رشته خالی برگردون
@@ -26,9 +34,9 @@ function ProductsSortView({ allProducts, setAllProducts }) {
     return text
       .toLowerCase()
       .trim()
-      .normalize("NFD") // نرمال‌سازی یونی‌کد
-      .replace(/\s+/g, " ") // تبدیل همه فاصله‌ها به یه فاصله
-      .replace(/‌/g, ""); // حذف نیم‌فاصله (کاراکتر U+200C)
+      .normalize("NFD")
+      .replace(/\s+/g, " ")
+      .replace(/‌/g, "");
   }
   const normalizedSearch = normalizeText(searchedProduct);
 
@@ -62,51 +70,13 @@ function ProductsSortView({ allProducts, setAllProducts }) {
   };
   return (
     <>
-      {/* mobile filters: */}
-      <div
-        className={`fixed bg-white transition-all duration-300 z-99 w-full h-screen p-3 ${
-          isMobileFiltersActive ? "top-0 left-0" : "top-[100vh]"
-        }  `}
-      >
-        <div className="flex justify-between items-center text-xl ">
-          <span>فیلتر محصولات</span>
-          <IoCloseCircleOutline
-            onClick={() => setIsMobileFiltersActive(false)}
-          />
-        </div>
-        <div className="flex flex-col gap-y-6 mt-6 ">
-          <input
-            type="text"
-            placeholder="جستجو در بین نتایج"
-            className="p-3 rounded-lg border-gray-400 outline-none  "
-          />
-          <div>محدوده قیمت </div>
-          <div className="flex justify-between items-center">
-            <span>دسته بندی ها</span>
-            <FaAngleLeft />
-          </div>
-          <div className="flex justify-between items-center">
-            <span>برندها </span>
-            <FaAngleLeft />
-          </div>
-          <div className="flex justify-between items-center">
-            <span>رنگ ها</span>
-            <FaAngleLeft />
-          </div>
-          <div>فقط کالاهای موجود</div>
-          <div>فقط محصولات ویژه</div>
-          <button className="bg-green-400 text-white py-2 rounded-xl">
-            اعمال فیلتر
-          </button>
-        </div>
-      </div>
       {/* mobile sorts : */}
       <div
-        className={`fixed backdrop transition-all duration-300 z-99 w-full h-screen p-3 ${
+        className={`fixed backdrop transition-all duration-300 z-99 w-full h-screen p-3   ${
           isMobileSortActive ? "top-0 left-0" : "top-[100vh]"
         }  `}
       >
-        <div className="bg-white bottom-0 absolute w-full p-3 left-0 rounded-2xl">
+        <div className="dark:bg-zinc-800 dark:text-white bottom-0 absolute w-full p-3 left-0 rounded-2xl">
           <div className="flex justify-between items-center text-xl ">
             <span>مرتب سازی بر اساس</span>
             <IoCloseCircleOutline
@@ -114,14 +84,37 @@ function ProductsSortView({ allProducts, setAllProducts }) {
             />
           </div>
           <div className="flex flex-col gap-y-6 items-center mt-3  [&>button]:border-gray-200 [&>button]:p-2 [&>button]:rounded-lg [&>button]:w-full [&>button]:border-[0.1px]">
-            <button>جدیدترین</button>
-            <button onClick={() => sortBySaleCount()}>پرفروش ترین</button>
-            <button onClick={() => sortByHightPrice()}>گرانترین</button>
-            <button onClick={() => sortBylowtPrice()}>ارزانترین</button>
+            <button onClick={() => setIsMobileSortActive(false)}>
+              جدیدترین
+            </button>
+            <button
+              onClick={() => {
+                sortBySaleCount();
+                setIsMobileSortActive(false);
+              }}
+            >
+              پرفروش ترین
+            </button>
+            <button
+              onClick={() => {
+                sortByHightPrice();
+                setIsMobileSortActive(false);
+              }}
+            >
+              گرانترین
+            </button>
+            <button
+              onClick={() => {
+                sortBylowtPrice();
+                setIsMobileSortActive(false);
+              }}
+            >
+              ارزانترین
+            </button>
           </div>
         </div>
       </div>
-      <div className=" 2xl:hidden flex gap-x-2 items-center [&>div]:w-1/2 [&>div]:flex [&>div]:gap-x-2 [&>div]:items-center [&>div]:bg-white [&>div]:p-3 [&>div]:text-sm ">
+      <div className=" 2xl:hidden flex gap-x-2 items-center [&>div]:w-1/2 [&>div]:flex [&>div]:gap-x-2 [&>div]:items-center [&>div]:bg-white [&>div]:p-3 [&>div]:text-sm  [&>div]:dark:bg-zinc-800 dark:text-white">
         <div onClick={() => setIsMobileFiltersActive(true)}>
           <VscFilterFilled />
           <span>فیلترها</span>
@@ -131,10 +124,9 @@ function ProductsSortView({ allProducts, setAllProducts }) {
           <span>مرتب سازی</span>
         </div>
       </div>
-      {/* left */}
-      <div className="w-full 2xl:w-3/4 flex flex-col gap-y-3 xl:p-2 ">
+      <div className="w-full 2xl:w-3/4 flex flex-col gap-y-3 xl:p-2  ">
         {/* top : */}
-        <div className=" gap-x-7 text-xl  items-center [&>button]:cursor-pointer bg-white rounded-lg p-4 hidden 2xl:flex">
+        <div className=" gap-x-7 text-xl  items-center [&>button]:cursor-pointer dark:bg-zinc-800 dark:text-white bg-white rounded-lg p-4 hidden 2xl:flex">
           <div className="flex gap-x-1 items-center">
             <FaFilter />
             <span>مرتب سازی بر اساس</span>
@@ -198,11 +190,17 @@ function ProductsSortView({ allProducts, setAllProducts }) {
               <ProductBox product={product} key={product._id} />
             ))
           ) : (
-            <p>not found</p>
+            <div className=" mx-auto">
+              <BiMessageRoundedError className="text-9xl text-green-400 mx-auto" />
+              <div>
+                <p className="text-sm">کالایی با این مشخصات پیدا نکردیم</p>
+                <p className="text-gray-400 text-xs mt-2">
+                  پیشنهاد می‌کنیم فیلترها را تغییر دهید
+                </p>
+              </div>
+            </div>
           )}
         </div>
-
-        <div>pagination</div>
       </div>
     </>
   );

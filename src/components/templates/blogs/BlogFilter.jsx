@@ -40,15 +40,8 @@ function BlogFilter() {
                 type="checkbox"
                 className="sr-only"
                 checked={isSwitchToggleActive}
-                onChange={(e) => {
+                onChange={() => {
                   setIsSwitchToggleActive((prev) => !prev);
-                  const params = new URLSearchParams(searchParams);
-                  if (e.target.checked) {
-                    params.set("inStock", "true");
-                  } else {
-                    params.delete("inStock");
-                  }
-                  router.push(`?${params.toString()}`);
                 }}
               />
               <div

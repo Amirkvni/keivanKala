@@ -18,7 +18,6 @@ function Slider() {
     <div className="container mx-auto mt-[140px] flex flex-col 2xl:flex-row  ">
       <Swiper
         slidesPerView={1}
-        spaceBetween={30}
         loop={true}
         pagination={{
           clickable: true,
@@ -28,7 +27,7 @@ function Slider() {
         className="mySwiper1 rounded-lg overflow-hidden "
       >
         <SwiperSlide>
-          <Link href="/">
+          <Link href="/category-men-clothing">
             <Image
               src={mainSliderOne}
               alt="mainSliderOne"
@@ -38,7 +37,7 @@ function Slider() {
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link href="/special-offers/shoes">
+          <Link href="/category-men-shoes">
             <Image
               src={mainSliderTwo}
               alt="mainSliderTwo"
@@ -48,7 +47,7 @@ function Slider() {
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link href="/special-offers/shirts">
+          <Link href="/search/men-shirts">
             <Image
               src={mainSliderThree}
               alt="mainSliderThree"

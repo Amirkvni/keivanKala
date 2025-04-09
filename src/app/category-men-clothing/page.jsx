@@ -5,7 +5,7 @@ import Subcategories from "@/components/modules/subCategories/SubCategories";
 import Shop from "@/components/templates/search/Shop";
 import connectToDB from "@/configs/db";
 import ProductModel from "@/models/Product";
-import CategorymanBreadCrumb from "@/components/modules/categorymanBreadCrumb/CategorymanBreadCrumb";
+import CategorysBreadCrumb from "@/components/modules/CategorysBreadCrumb/CategorysBreadCrumb";
 export default async function Page() {
   connectToDB();
   let products = await ProductModel.find({ parentCategory: "men-clothing" });
@@ -85,7 +85,7 @@ export default async function Page() {
   return (
     <>
       <Header />
-      <CategorymanBreadCrumb name="لباس" />
+      <CategorysBreadCrumb name="لباس" />
       <Subcategories subCategories={subCategories} />
       <Shop products={JSON.parse(JSON.stringify(products))} />
       <Footer />

@@ -7,7 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import "./styles.css";
 function BestSellingProducts() {
   const [bestSellingProducts, setBestSellingProducts] = useState([]);
   useEffect(() => {
@@ -22,14 +21,14 @@ function BestSellingProducts() {
     <div className="container mx-auto mt-7">
       <section>
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-semibold dark:text-white">
+          <span className="text-lg xl:text-2xl font-semibold dark:text-white">
             پرفروش ترین محصولات
           </span>
           <Link
             href="/special-offers"
-            className=" flex gap-x-2 items-center text-green-500"
+            className=" flex xl:gap-x-2  items-center text-green-500"
           >
-            <span className="text-xl font-semibold">مشاهده همه</span>
+            <span className="text-sm xl:text-xl font-semibold">مشاهده همه</span>
             <FaChevronLeft />
           </Link>
         </div>
@@ -43,7 +42,7 @@ function BestSellingProducts() {
           breakpoints={{
             100: {
               slidesPerView: 1,
-              spaceBetween: 20,
+              spaceBetween: 5,
             },
             480: {
               slidesPerView: 2,

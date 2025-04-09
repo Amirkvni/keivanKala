@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-export default function Category({ imageUrl, name }) {
+export default function Category({ imageUrl, name, link }) {
   return (
-    <div className="flex flex-col items-center">
+    <Link href={link} className="flex flex-col items-center">
       <div className="w-24 h-24 rounded-[50%] overflow-hidden">
         <Image
           src={`/images/${imageUrl}.jpg`}
@@ -13,6 +14,6 @@ export default function Category({ imageUrl, name }) {
         />
       </div>
       <p className="pt-3  dark:text-white">{name}</p>
-    </div>
+    </Link>
   );
 }

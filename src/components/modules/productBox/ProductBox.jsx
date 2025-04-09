@@ -15,7 +15,7 @@ export default function ProductBox({ product }) {
       href={`/product/${slugify(product.englishFullName)}`}
       className="group  "
     >
-      <div className="rounded-lg p-3 overflow-hidden xl:mx-2 bg-white dark:bg-zinc-800 dark:text-white h-[300px]  w-[150px] xl:w-[220px] group-hover:border-l-green-300 group-hover:border-l-1 group-hover:border-t-1 group-hover:border-t-green-300">
+      <div className="rounded-lg p-3 overflow-hidden xl:mx-2 bg-white dark:bg-zinc-800 dark:text-white   w-[150px] xl:w-[220px] group-hover:border-l-green-300 group-hover:border-l-1 group-hover:border-t-1 group-hover:border-t-green-300">
         <div className="h-[120px] ">
           <Image
             src={product.mainImage}
@@ -33,7 +33,11 @@ export default function ProductBox({ product }) {
           <MdOutlineStar className="text-yellow-400" />
         </div>
         <div className=" pt-4">
-          <div className="flex justify-between items-center ">
+          <div
+            className={`flex  ${
+              product.secondPrice ? "justify-between " : "justify-end"
+            } items-center`}
+          >
             {product.secondPrice && (
               <span
                 className="text-xs bg-red-500 px-2 py-0.5 rounded-full text-white"
@@ -43,21 +47,18 @@ export default function ProductBox({ product }) {
               </span>
             )}
 
-            <div className="flex flex-col">
+            <div className="flex flex-col ">
               <span
-                className={`text-xs  text-left  ${
+                className={`text-xs   ${
                   product.secondPrice
                     ? "line-through  decoration-red-300 decoration-2 text-gray-500 xl:text-sm dark:text-white"
-                    : "text-green-400 xl:text-base mr-24 "
+                    : "text-green-400 xl:text-base "
                 } `}
               >
-                {product?.price
-                  ? product.price.toLocaleString()
-                  : "قیمت موجود نیست"}
-                تومان
+                {product.price.toLocaleString()}تومان
               </span>
               {product.secondPrice && (
-                <span className="text-green-400 text-xs  xl:text-base">
+                <span className="text-green-400 text-xs  xl:text-base ">
                   {product.secondPrice.toLocaleString()}
                   تومان
                 </span>

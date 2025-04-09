@@ -7,6 +7,8 @@ import React, { useEffect, useState } from "react";
 function Shop({ products }) {
   const path = usePathname();
   const [allProducts, setAllProducts] = useState([]);
+  const [isMobileFiltersActive, setIsMobileFiltersActive] = useState(false);
+
   useEffect(() => {
     const getProducts = async () => {
       setAllProducts([...products]);
@@ -21,12 +23,13 @@ function Shop({ products }) {
     >
       <div className=" flex 2xl:flex-row flex-col gap-y-3 2xl:gap-x-4">
         <ProductFilter
-          setAllProducts={setAllProducts}
-          allProducts={allProducts}
+          isMobileFiltersActive={isMobileFiltersActive}
+          setIsMobileFiltersActive={setIsMobileFiltersActive}
         />
         <ProductsSortView
           allProducts={allProducts}
           setAllProducts={setAllProducts}
+          setIsMobileFiltersActive={setIsMobileFiltersActive}
         />
       </div>
     </div>

@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext, useState, useEffect } from "react";
 import cartIcon from "@/assets/icons/logo.webp";
-import { CiSearch } from "react-icons/ci";
-import { CiUser } from "react-icons/ci";
+import { CiSearch, CiUser } from "react-icons/ci";
 import { LuShoppingCart } from "react-icons/lu";
+import { MdOutlinePhoneEnabled } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { PiMoonStarsLight } from "react-icons/pi";
 import { HiOutlineUserGroup } from "react-icons/hi";
+import { IoClose, IoHomeOutline, IoSearchOutline } from "react-icons/io5";
 import { BsQuestion } from "react-icons/bs";
-
 import {
   FaAngleLeft,
   FaChevronDown,
@@ -21,8 +21,7 @@ import {
 import Cart from "./Cart";
 import { CartContext } from "@/contexts/CartContext";
 import { useRouter } from "next/navigation";
-import { IoClose, IoHomeOutline, IoSearchOutline } from "react-icons/io5";
-import { MdOutlinePhoneEnabled } from "react-icons/md";
+
 function Header({ isLogin }) {
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
@@ -40,39 +39,39 @@ function Header({ isLogin }) {
       name: "مردانه",
       submenu: [
         {
-          id: "1",
+          id: "s1",
           title: "لباس مردانه",
           links: [
-            { title: "شلوار", address: "men-pants" },
-            { title: "لباس زیر", address: "men-underwear" },
-            { title: "پیراهن", address: "men-shirts" },
-            { title: "ژاکت و پلیور", address: "men-knitwear" },
-            { title: "شلوارک", address: "men-shorts" },
-            { title: "جوراب", address: "men-socks-tights" },
+            { id: "t1", title: "شلوار", address: "men-pants" },
+            { id: "t2", title: "لباس زیر", address: "men-underwear" },
+            { id: "t3", title: "پیراهن", address: "men-shirts" },
+            { id: "t4", title: "ژاکت و پلیور", address: "men-knitwear" },
+            { id: "t5", title: "شلوارک", address: "men-shorts" },
+            { id: "t6", title: "جوراب", address: "men-socks-tights" },
           ],
           mainLink: "/category-men-clothing",
         },
         {
-          id: "2",
+          id: "s2",
           title: "کفش مردانه",
           links: [
-            { title: "روزمره", address: "men-casual-shoes" },
-            { title: "صندل ", address: "men-sandals" },
-            { title: "دمپایی", address: "men-slippers" },
-            { title: "بوت", address: "men-boots" },
-            { title: "نیم بوت", address: "men-ankle-boots" },
+            { id: "t7", title: "روزمره", address: "men-casual-shoes" },
+            { id: "t8", title: "صندل ", address: "men-sandals" },
+            { id: "t9", title: "دمپایی", address: "men-slippers" },
+            { id: "t10", title: "بوت", address: "men-boots" },
+            { id: "t11", title: "نیم بوت", address: "men-ankle-boots" },
           ],
           mainLink: "/category-men-shoes",
         },
         {
-          id: "3",
+          id: "s3",
           title: "اکسسوری مردانه",
           links: [
-            { title: "ساعت", address: "men-watches" },
-            { title: "عینک", address: "men-eyewear" },
-            { title: "کمربند", address: "men-belts" },
-            { title: "کروات", address: "men-ties" },
-            { title: "شال", address: "men-shawl" },
+            { id: "t12", title: "ساعت", address: "men-watches" },
+            { id: "t13", title: "عینک", address: "men-eyewear" },
+            { id: "t14", title: "کمربند", address: "men-belts" },
+            { id: "t15", title: "کروات", address: "men-ties" },
+            { id: "t16", title: "شال", address: "men-shawl" },
           ],
           mainLink: "/category-men-accessories",
         },
@@ -84,39 +83,41 @@ function Header({ isLogin }) {
       name: "زنانه",
       submenu: [
         {
-          id: "1",
+          id: "s4",
           title: "لباس زنانه",
           links: [
-            { title: "شلوار", address: "" },
-            { title: "لباس زیر", address: "/" },
-            { title: "پیراهن", address: "/" },
-            { title: "ژاکت و پلیور", address: "/" },
-            { title: "شلوارک", address: "/" },
-            { title: "جوراب", address: "/" },
+            { id: "t17", title: "شلوار", address: "" },
+            { id: "t18", title: "لباس زیر", address: "/" },
+            { id: "t19", title: "پیراهن", address: "/" },
+            { id: "t20", title: "ژاکت و پلیور", address: "/" },
+            { id: "t21", title: "شلوارک", address: "/" },
+            { id: "t22", title: "جوراب", address: "/" },
           ],
-          mainLink: "/category-men-clothing",
+          mainLink: "/",
         },
         {
-          id: "2",
+          id: "s5",
           title: "کفش زنانه",
           links: [
-            { title: "روزمره", address: "/" },
-            { title: "صندل ", address: "/" },
-            { title: "دمپایی", address: "/" },
-            { title: "بوت", address: "/" },
-            { title: "نیم بوت", address: "/" },
+            { id: "t23", title: "روزمره", address: "/" },
+            { id: "t24", title: "صندل ", address: "/" },
+            { id: "t25", title: "دمپایی", address: "/" },
+            { id: "t26", title: "بوت", address: "/" },
+            { id: "t27", title: "نیم بوت", address: "/" },
           ],
+          mainLink: "/",
         },
         {
-          id: "3",
+          id: "s6",
           title: "اکسسوری زنانه",
           links: [
-            { title: "ساعت", address: "/" },
-            { title: "عینک", address: "/r" },
-            { title: "کمربند", address: "/" },
-            { title: "کروات", address: "/" },
-            { title: "شال", address: "/" },
+            { id: "t28", title: "ساعت", address: "/" },
+            { id: "t29", title: "عینک", address: "/r" },
+            { id: "t30", title: "کمربند", address: "/" },
+            { id: "t31", title: "کروات", address: "/" },
+            { id: "t32", title: "شال", address: "/" },
           ],
+          mainLink: "/",
         },
       ],
       link: "/",
@@ -126,38 +127,41 @@ function Header({ isLogin }) {
       name: "بچگانه",
       submenu: [
         {
-          id: "1",
+          id: "s7",
           title: "نوزادی",
           links: [
-            { title: "لباس راحتی", address: "/" },
-            { title: "بادی و لباس زیر", address: "/" },
-            { title: "پیراهن و سارافون", address: "/" },
-            { title: "جوراب و پاپوش", address: "/" },
-            { title: "پالتو و بارانی", address: "/" },
-            { title: "سوییشرت و هودی", address: "/" },
+            { id: "t33", title: "لباس راحتی", address: "/" },
+            { id: "t34", title: "بادی و لباس زیر", address: "/" },
+            { id: "t35", title: "پیراهن و سارافون", address: "/" },
+            { id: "t36", title: "جوراب و پاپوش", address: "/" },
+            { id: "t37", title: "پالتو و بارانی", address: "/" },
+            { id: "t38", title: "سوییشرت و هودی", address: "/" },
           ],
+          mainLink: "/",
         },
         {
-          id: "2",
+          id: "s8",
           title: "دخترانه",
           links: [
-            { title: "پیراهن و سارافون", address: "/" },
-            { title: "سرهمی ", address: "/" },
-            { title: "شلوار", address: "/" },
-            { title: "دامن", address: "/" },
-            { title: "لباس زیر", address: "/" },
+            { id: "t39", title: "پیراهن و سارافون", address: "/" },
+            { id: "t40", title: "سرهمی ", address: "/" },
+            { id: "t41", title: "شلوار", address: "/" },
+            { id: "t42", title: "دامن", address: "/" },
+            { id: "t43", title: "لباس زیر", address: "/" },
           ],
+          mainLink: "/",
         },
         {
-          id: "3",
+          id: "s9",
           title: "پسرانه",
           links: [
-            { title: "تیشرت", address: "/" },
-            { title: "پولوشرت", address: "/" },
-            { title: "پیراهن", address: "/" },
-            { title: "شلوار", address: "/" },
-            { title: "لباس زیر", address: "/" },
+            { id: "t45", title: "تیشرت", address: "/" },
+            { id: "t46", title: "پولوشرت", address: "/" },
+            { id: "t47", title: "پیراهن", address: "/" },
+            { id: "t48", title: "شلوار", address: "/" },
+            { id: "t49", title: "لباس زیر", address: "/" },
           ],
+          mainLink: "/",
         },
       ],
       link: "/",
@@ -167,36 +171,39 @@ function Header({ isLogin }) {
       name: "زیبایی و سلامت",
       submenu: [
         {
-          id: "1",
+          id: "s10",
           title: "عطر و ادکلن",
           links: [
-            { title: "عطر و ادکلن مردانه", address: "/" },
-            { title: "عطر و ادکلن زنانه", address: "/" },
-            { title: "اسپری و بادی اسپلش زنانه", address: "/" },
-            { title: "اسپری و بادی اسپلش مردانه", address: "/" },
+            { id: "t50", title: "عطر و ادکلن مردانه", address: "/" },
+            { id: "t51", title: "عطر و ادکلن زنانه", address: "/" },
+            { id: "t52", title: "اسپری و بادی اسپلش زنانه", address: "/" },
+            { id: "t53", title: "اسپری و بادی اسپلش مردانه", address: "/" },
           ],
+          mainLink: "/",
         },
         {
-          id: "2",
+          id: "s11",
           title: "آرایش و گریم",
           links: [
-            { title: "کرم پودر", address: "/" },
-            { title: "پنکیک ", address: "/" },
-            { title: "رژ گونه و هایلاتر", address: "/" },
-            { title: "برنز کننده", address: "/" },
-            { title: "رژ لب", address: "/" },
+            { id: "t54", title: "کرم پودر", address: "/" },
+            { id: "t55", title: "پنکیک ", address: "/" },
+            { id: "t56", title: "رژ گونه و هایلاتر", address: "/" },
+            { id: "t57", title: "برنز کننده", address: "/" },
+            { id: "t58", title: "رژ لب", address: "/" },
           ],
+          mainLink: "/",
         },
         {
-          id: "3",
+          id: "s12",
           title: "مراقبت پوست",
           links: [
-            { title: "کرم ضد آفتاب", address: "/" },
-            { title: "کرم مرطوب کننده و نرم کننده", address: "/" },
-            { title: "لوسیون و روغن آفتاب", address: "/" },
-            { title: "کرم و نرم کننده لب", address: "/" },
-            { title: "لوسیون و روغن بدن ", address: "/" },
+            { id: "t59", title: "کرم ضد آفتاب", address: "/" },
+            { id: "t60", title: "کرم مرطوب کننده و نرم کننده", address: "/" },
+            { id: "t61", title: "لوسیون و روغن آفتاب", address: "/" },
+            { id: "t62", title: "کرم و نرم کننده لب", address: "/" },
+            { id: "t63", title: "لوسیون و روغن بدن ", address: "/" },
           ],
+          mainLink: "/",
         },
       ],
       link: "/",
@@ -229,8 +236,8 @@ function Header({ isLogin }) {
   };
   let { cart } = useContext(CartContext);
   return (
-    <header className="">
-      <div className="fixed left-0 right-0 top-0 z-30 py-4   px-2 bg-white  dark:bg-zinc-800 dark:text-white">
+    <header>
+      <div className="fixed left-0 right-0 top-0 z-30 py-4 px-2 bg-white  dark:bg-zinc-800 dark:text-white">
         {/* header desktop : */}
         <div>
           <div className="hidden xl:block">
@@ -240,9 +247,9 @@ function Header({ isLogin }) {
                 <Link href="/">
                   <Image
                     src={cartIcon}
-                    width={500}
-                    height={500}
-                    alt="Picture of the author"
+                    width={5000}
+                    height={5000}
+                    alt="websiteIcon"
                     className="w-62"
                   />
                 </Link>
@@ -298,7 +305,7 @@ function Header({ isLogin }) {
             </div>
             {/* bottom section  :*/}
             <div className="absolute left-0 right-0 top-full z-20  shadow-xs duration-300 bg-white  dark:bg-zinc-800 dark:text-white ">
-              <nav className="container relative flex max-w-[1680px] items-center gap-x-3 mx-auto px-4 ">
+              <nav className="container relative flex max-w-[1680px] items-center gap-x-3 mx-auto px-4 [&>a]:text-lg ">
                 <ul className="group z-10">
                   <div
                     className="relative flex cursor-pointer items-center gap-x-2  "
@@ -310,7 +317,7 @@ function Header({ isLogin }) {
                     </div>
                     <div className="text-xl">دسته بندی ها</div>
                   </div>
-                  {/*mega mene*/}
+                  {/*mega menu*/}
                   <div className="absolute top-full w-full max-w-[1000px]  ">
                     <div className="relative rounded-b-lg  shadow-base hidden  group-hover:block  ">
                       <div
@@ -320,12 +327,12 @@ function Header({ isLogin }) {
                         {/* right : */}
                         <div
                           dir="ltr"
-                          className="main-scroll w-50 overflow-y-auto bg-gray-50 dark:bg-black "
+                          className="main-scroll w-50 overflow-y-auto bg-gray-100 dark:bg-black "
                         >
                           <ul dir="rtl">
                             {categories.map((category) => (
                               <li
-                                key={Math.random() * 1000}
+                                key={category.id}
                                 className="hover:bg-white hover:text-green-300 text-gray-700 dark:text-white dark:hover:bg-zinc-800"
                                 onMouseEnter={() => {
                                   setActiveCategory(category.name);
@@ -349,16 +356,10 @@ function Header({ isLogin }) {
                           className="main-scroll h-[450px] max-h-[450px] w-full overflow-auto bg-white dark:bg-zinc-800 "
                         >
                           <div className="flex grow p-5" dir="rtl">
-                            {/* categories child */}
                             <div>
-                              {/* head */}
-
                               <div className="flex grow flex-wrap gap-x-14 gap-y-8">
                                 {activeSubMenu?.map((submenu) => (
-                                  <div
-                                    className="space-y-2"
-                                    key={Math.random() * 100}
-                                  >
+                                  <div className="space-y-2" key={submenu.id}>
                                     <Link
                                       href={submenu.mainLink}
                                       className=" relative before:content-[''] before:w-[2px] before:h-[25px] flex items-center gap-x-2 text-lg hover:text-green-300 before:bg-green-500 before:absolute before:right-0 before:top-0 pr-4"
@@ -370,7 +371,7 @@ function Header({ isLogin }) {
                                       <li>
                                         {submenu.links.map((item) => (
                                           <Link
-                                            key={Math.random() * 20}
+                                            key={item.id}
                                             href={`/search/${item.address}`}
                                             className="block py-2 text-lg  hover:text-green-300 text-gray-500 dark:text-gray-200"
                                           >
@@ -389,21 +390,11 @@ function Header({ isLogin }) {
                     </div>
                   </div>
                 </ul>
-                <Link href="/special-offers" className="text-lg">
-                  فروش ویژه
-                </Link>
-                <Link href="/contact-us" className="text-lg	">
-                  تماس با ما
-                </Link>
-                <Link href="/about-us" className="text-lg ">
-                  درباره ما
-                </Link>
-                <Link href="/questions" className="text-lg ">
-                  سوالات متدوال
-                </Link>
-                <Link href="/blogs" className="text-lg ">
-                  وبلاگ
-                </Link>
+                <Link href="/special-offers">فروش ویژه</Link>
+                <Link href="/contact-us">تماس با ما</Link>
+                <Link href="/about-us">درباره ما</Link>
+                <Link href="/questions">سوالات متدوال</Link>
+                <Link href="/blogs">وبلاگ</Link>
               </nav>
             </div>
           </div>
@@ -423,13 +414,21 @@ function Header({ isLogin }) {
                     width={500}
                     height={500}
                     alt="Picture of the author"
-                    className="w-62"
+                    className="w-62 "
                   />
                 </Link>
               </div>
-              <div className="flex gap-x-2">
-                <CiUser className="text-2xl" />
-                <LuShoppingCart className="text-2xl" />
+              <div className="flex gap-x-3 items-center">
+                <button href="/" onClick={darkmodeHandler}>
+                  {isDarkMode ? (
+                    <FaRegSun className="text-2xl cursor-pointer" />
+                  ) : (
+                    <PiMoonStarsLight className="text-2xl cursor-pointer" />
+                  )}
+                </button>
+                <Link href="/checkout-cart">
+                  <LuShoppingCart className="text-2xl" />
+                </Link>
               </div>
             </div>
             {/* bottom section : */}
@@ -455,17 +454,18 @@ function Header({ isLogin }) {
               onClick={() => setIsActiveHamburger(false)}
               className="w-6 h-6"
             />
-            <button className="border border-gray-600 py-1.5 rounded-lg w-fit text-xs px-2.5">
-              ورود و ثبت نام
-            </button>
-          </div>
-          <div className="flex items-center p-0.5 border-b-1">
-            <input
-              type="text"
-              className="outline-none"
-              placeholder="جستجو ..."
-            />
-            <IoSearchOutline />
+            {isLogin ? (
+              <CiUser className="text-2xl" />
+            ) : (
+              <Link
+                className="text-sm flex items-center gap-x-1 border rounded-lg p-1"
+                href="/signin"
+              >
+                <span>ورود </span>
+                <span>|</span>
+                <span>ثبت نام</span>
+              </Link>
+            )}
           </div>
           <div>
             <div
@@ -496,7 +496,10 @@ function Header({ isLogin }) {
                   {activeMobileCategory === category.id && (
                     <div className="flex flex-col gap-y-2 ">
                       {category.submenu.map((sub) => (
-                        <div className="border border-gray-300 p-2.5 rounded-sm  mt-1.5">
+                        <div
+                          className="border border-gray-300 p-2.5 rounded-sm  mt-1.5"
+                          key={sub.id}
+                        >
                           <div
                             className="flex items-center justify-between "
                             onClick={() => setActiveMobileSubCategory(sub.id)}
@@ -511,7 +514,9 @@ function Header({ isLogin }) {
                           {activeMobileSubCategory === sub.id && (
                             <div className="flex flex-col gap-y-2 mt-2 ">
                               {sub.links.map((link) => (
-                                <Link href="/">{link.title}</Link>
+                                <Link href="/" key={link.id}>
+                                  {link.title}
+                                </Link>
                               ))}
                             </div>
                           )}
