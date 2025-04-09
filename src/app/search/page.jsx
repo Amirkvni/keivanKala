@@ -1,6 +1,6 @@
 import Footer from "@/components/modules/footer/Footer";
 import Header from "@/components/modules/header/Header";
-import Shop from "@/components/templates/search/Shop";
+import Shop from "@/components/modules/shop/Shop";
 import React from "react";
 import connectToDB from "@/configs/db";
 

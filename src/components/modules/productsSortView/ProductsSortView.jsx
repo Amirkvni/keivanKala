@@ -5,7 +5,6 @@ import ProductBox from "@/components/modules/productBox/ProductBox";
 import { VscFilterFilled } from "react-icons/vsc";
 import { GoSortDesc } from "react-icons/go";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { FaAngleLeft } from "react-icons/fa6";
 import { useState } from "react";
 import { BiMessageRoundedError } from "react-icons/bi";
 function ProductsSortView({

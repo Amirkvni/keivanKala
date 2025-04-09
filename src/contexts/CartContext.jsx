@@ -33,7 +33,11 @@ export function CartProvider({ children }) {
     });
   }
   function removeFromCart(productID) {
-    setCart((prev) => prev.filter((product) => product._id != productID));
+    setCart((prev) => {
+      const updatedCart = prev.filter((product) => product._id != productID);
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
   }
   function updateQuantity(productID, newQuantity) {
     setCart((prev) =>
@@ -43,8 +47,17 @@ export function CartProvider({ children }) {
     );
   }
   function getTotal() {
+    return cart.reduce((total, item) => {
+      return total + item.quantity * item.price;
+    }, 0);
+  }
+  function getTotalDiscountPrice() {
     let total = 0;
-    cart.forEach((item) => (total += item.quantity * item.price));
+    cart.forEach((item) => {
+      if (item.discountPrice != null) {
+        total += item.quantity * item.discountPrice;
+      }
+    });
     return total;
   }
   function addToRedirectPath(path) {
@@ -61,6 +74,18 @@ export function CartProvider({ children }) {
         .filter((item) => item.quantity > 0);
     });
   }
+  function getPayableAmount() {
+    let total = 0;
+    cart.forEach((item) => {
+      const priceToUse = item.secondPrice ?? item.price;
+      total += item.quantity * priceToUse;
+    });
+    return total;
+  }
+  function clearCart() {
+    setCart([]);
+    localStorage.removeItem("cart");
+  }
   return (
     <CartContext.Provider
       value={{
@@ -73,6 +98,9 @@ export function CartProvider({ children }) {
         addToRedirectPath,
         setRedirecPath,
         decreaseFromCart,
+        getTotalDiscountPrice,
+        getPayableAmount,
+        clearCart,
       }}
     >
       {children}

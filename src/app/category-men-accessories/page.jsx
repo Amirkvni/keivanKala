@@ -2,7 +2,7 @@ import Footer from "@/components/modules/footer/Footer";
 import Header from "@/components/modules/header/Header";
 import React from "react";
 import Subcategories from "@/components/modules/subCategories/SubCategories";
-import Shop from "@/components/templates/search/Shop";
+import Shop from "@/components/modules/shop/Shop";
 import connectToDB from "@/configs/db";
 import ProductModel from "@/models/Product";
 import CategorysBreadCrumb from "@/components/modules/CategorysBreadCrumb/CategorysBreadCrumb";

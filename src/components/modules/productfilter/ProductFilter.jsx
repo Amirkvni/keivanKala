@@ -449,7 +449,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                 />
                 <div
                   className={`w-12 h-6 bg-gray-200 rounded-full ${
-                    isSwitchToggleActive ? "bg-green-500" : ""
+                    isSwitchToggleActive ? "bg-green-500" : "dark:bg-zinc-400"
                   } transition-colors`}
                 >
                   <div

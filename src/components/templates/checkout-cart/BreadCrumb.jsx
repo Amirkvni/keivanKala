@@ -15,8 +15,8 @@ function BreadCrumb() {
           path == "/checkout-cart" ? "bg-green-100 text-green-500" : null
         }
       >
-        <span>سبد خرید</span>
         <LuShoppingCart />
+        <span>سبد خرید</span>
       </div>
 
       <div
