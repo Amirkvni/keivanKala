@@ -1,54 +1,153 @@
 "use client";
-
 import { CartContext } from "@/contexts/CartContext";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { FaAngleLeft, FaTruckFast } from "react-icons/fa6";
 import { IoMdTime } from "react-icons/io";
 import moment from "moment-jalaali";
-function ShippingMethod() {
+import Swal from "sweetalert2";
+export default function ShippingMethod() {
+  const [address, setAddress] = useState(null);
+  useEffect(() => {
+    const getAddress = async () => {
+      const res = await fetch("/api/addresses");
+      const data = await res.json();
+      setAddress(data);
+    };
+    getAddress();
+  }, []);
   const router = useRouter();
-  let { cart } = useContext(CartContext);
+  let { cart, getTotal, getTotalDiscountPrice, getPayableAmount } =
+    useContext(CartContext);
+
   let now = moment().locale("fa");
   let sendTimes = [];
   for (let i = 0; i < 4; i++) {
     let currentDay = now.clone().add(i, "days");
     let dayOfWeekName = currentDay.format("dddd");
     let dayOfMonth = currentDay.format("jD");
-
+    let prices = [32000, 45000, 54222, 90000];
     sendTimes.push({
       id: i + 1,
       day: dayOfWeekName,
       date: dayOfMonth,
-      price: Math.floor(Math.random() * (98000 - 58000 + 1)) + 58000,
+      price: prices[i],
     });
   }
-  const [sendTime, setSendTime] = useState({
-    id: 1,
-    day: "شنبه ",
-    date: 26,
-    price: 69000,
-  });
+  const [sendTime, setSendTime] = useState({});
 
   const paymentHandler = async () => {
-    const idsArray = cart.map((item) => ({ _id: item._id }));
+    const newArray = cart.map((item) => ({
+      _id: item._id,
+      persianName: item.persianName,
+      quantity: item.quantity,
+      paid: getTotal(),
+    }));
 
-    const newOrder = {
-      products: idsArray,
-      delivery: sendTime,
+    const newPayment = {
+      products: newArray,
+      delivery: {
+        day: sendTime.day,
+        date: sendTime.date,
+        price: sendTime.price,
+      },
+      paid: getPayableAmount(),
+      discount: getTotalDiscountPrice(),
     };
-
-    const res = await fetch("/api/orders", {
+    const res = await fetch("/api/payment", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "content-type": "application/json",
       },
-      body: JSON.stringify(newOrder),
+      body: JSON.stringify(newPayment),
     });
     if (res.status === 201) {
-      router.push("/checkout-cart/payment");
+      const data = await res.json();
+
+      const { trackingCode, orderDate } = data.data;
+
+      router.push(
+        `/success-payment?trackingCode=${trackingCode}&orderDate=${orderDate}`
+      );
     }
   };
+  const changeUserAddressHandler = () => {
+    Swal.fire({
+      title: "جزییات آدرس",
+      html: `
+         <div class="flex flex-col gap-y-2 [&>div]:flex [&>div]:items-center ">
+            <div>
+           <label for="fullAddress" class="text-red-400">* نشان پستی :</label>
+           <textarea id="fullAddress" class="swal2-textarea" placeholder=${address.fullAddress} ></textarea>
+           </div>
+   
+         <div>
+         <label for="province" class="text-red-400">* استان :</label>
+           <input type="text" id="province" class="swal2-input" placeholder=${address.province} ></input>
+         </div>
+   
+         <div>
+          <label for="city" class="text-red-400">* شهر :</label>
+           <input   type="text" id="city" class="swal2-input" placeholder=${address.city}  />
+         </div>
+   
+         <div>
+          <label for="district" class="text-red-400">* محله :</label>
+           <input type="text" id="district" class="swal2-input" placeholder=${address.district} />
+         </div>
+         
+         <div>
+          <label for="plaque" class="text-red-400">* پلاک :</label>
+           <input type="text" id="plaque" class="swal2-input" placeholder=${address.plaque} />
+         </div>
+   
+          <div>
+          <label for="postalCode" class="text-red-400">* کدپستی :</label>
+           <input type="text" id="postalCode" class="swal2-input"  placeholder=${address.postalCode} />
+         </div>
+   
+         <div>
+           <label for="unit">واحد :</label>
+           <input type="text" id="unit" class="swal2-input" placeholder=${address.unit} />
+         </div>
+         
+        
+   
+         </div>
+           
+         `,
+      showCancelButton: true,
+      confirmButtonText: "ثبت",
+      preConfirm: async () => {
+        let newAddress = {};
+
+        newAddress["fullAddress"] =
+          document.getElementById("fullAddress").value;
+        newAddress["province"] = document.getElementById("province").value;
+        newAddress["city"] = document.getElementById("city").value;
+        newAddress["district"] = document.getElementById("district").value;
+        newAddress["plaque"] = document.getElementById("plaque").value;
+        newAddress["postalCode"] = document.getElementById("postalCode").value;
+        newAddress["unit"] = document.getElementById("unit").value;
+        try {
+          const response = await fetch("/api/addresses", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newAddress),
+          })
+            .then(() => {
+              Swal.fire("تغییرات با موفقیت انجام شد");
+            })
+            .then(() => location.reload());
+        } catch (error) {
+          Swal.showValidationMessage(`خطا در ارسال: ${error.message}`);
+        }
+      },
+    });
+  };
+
   return (
     <div className="mt-12 container  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 ">
       <div className="w-3/4 border flex flex-col gap-y-4">
@@ -56,11 +155,14 @@ function ShippingMethod() {
           <div className="flex gap-x-2 items-center">
             <FaTruckFast />
             <div>
-              <p className="text-blue-400">رسال به آدرس انتخاب شده</p>
-              <p>خبرنگار،بلوار مخابرات،ک. نه غربی,</p>
+              <p className="text-blue-400">ارسال به آدرس انتخاب شده</p>
+              <p>{address?.fullAddress}</p>
             </div>
           </div>
-          <div className="flex gap-x-2 text-blue-400 items-center">
+          <div
+            className="flex gap-x-2 text-blue-400 items-center cursor-pointer"
+            onClick={changeUserAddressHandler}
+          >
             <span> تغییر ادرس</span>
             <FaAngleLeft />
           </div>
@@ -95,30 +197,30 @@ function ShippingMethod() {
       </div>
       <div className="w-1/4 h-fit  border [&>div]:flex  [&>div]:py-5 [&>div]:justify-between items-center">
         <div>
-          <span>قیمت کالا ها (2)</span>
+          <span>قیمت کالا ها ({cart.length})</span>
           <span className="text-green-400">
-            {/* {getTotal().toLocaleString()} تومان */}
+            {getTotal().toLocaleString()} تومان
           </span>
         </div>
         <div className="border-y border-y-gray-400">
           <span>تخفیف</span>
-          <span className="text-red-400">1,220,000 تومان</span>
+          <span className="text-red-400">
+            {getTotalDiscountPrice().toLocaleString()} تومان
+          </span>
         </div>
         <div>
           <span>مبلغ قابل پرداخت</span>
           <span className="text-green-500 font-bold">
-            {/* {getTotal().toLocaleString()} تومان */}
+            {getPayableAmount().toLocaleString()} تومان
           </span>
         </div>
         <button
           className="bg-green-500 text-white cursor-pointer p-3 rounded-lg w-full"
           onClick={() => paymentHandler()}
         >
-          ادامه فرایند خرید
+          پرداخت
         </button>
       </div>
     </div>
   );
 }
-
-export default ShippingMethod;
