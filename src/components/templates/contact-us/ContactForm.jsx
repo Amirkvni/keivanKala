@@ -40,8 +40,8 @@ function ContactForm() {
         </Link>
         را مطالعه فرمایید
       </p>
-      <div className="[&>input]:border flex flex-col gap-y-4 mt-3">
-        <div className="flex gap-x-2 [&>input]:w-1/2 [&>input]:outline-none [&>input]:border [&>input]:border-gray-200 [&>input]:p-3 [&>input]:rounded-lg ">
+      <div className="flex flex-col gap-y-4 mt-3  ">
+        <div className="flex gap-x-2 [&>input]:w-1/2 [&>input]:outline-none [&>input]:border [&>input]:border-gray-200  [&>input]:p-3 [&>input]:rounded-lg ">
           <input
             placeholder="نام شما"
             type="text"
@@ -74,7 +74,7 @@ function ContactForm() {
           onChange={(event) => setText(event.target.value)}
         />
         <button
-          className="w-fit bg-green-400 text-white p-2 rounded-lg mr-auto "
+          className="w-fit bg-green-400 text-white p-2 rounded-lg mr-auto cursor-pointer "
           onClick={ticketHandler}
         >
           ارسال پیام

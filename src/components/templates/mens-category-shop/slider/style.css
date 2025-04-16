@@ -1,48 +1,29 @@
-#app {
-  height: 100%;
-}
-html,
-body {
-  position: relative;
-  height: 100%;
-}
-
-.mySwiper10 .swiper-slide {
+.mensCategorySlider .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
-
-  /* Center slide text vertically */
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.mySwiper10 .swiper-slide a {
+.mensCategorySlider .swiper-slide a {
   display: block;
   width: 100%;
   height: 100%;
-  /* object-fit: cover; */
 }
-.mySwiper10 .swiper-slide img {
+.mensCategorySlider .swiper-slide img {
   height: 100%;
 }
-.mySwiper10 {
+.mensCategorySlider {
   width: 100%;
   height: 100%;
 }
-.swiper-button-prev,
-.swiper-button-next {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: white;
-}
-.swiper-button-prev::after,
-.swiper-button-next::after {
+
+.mensCategorySlider .swiper-button-prev::after,
+.mensCategorySlider .swiper-button-next::after {
   font-size: 10px;
   color: teal;
 }
-.swiper-pagination-bullet-active {
+.mensCategorySlider .swiper-pagination-bullet-active {
   background: green;
 }

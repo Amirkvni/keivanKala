@@ -1,11 +1,15 @@
 "use client";
 import { CartContext } from "@/contexts/CartContext";
 import { useRouter } from "next/navigation";
+import "moment/locale/fa";
+
 import { useContext, useEffect, useState } from "react";
 import { FaAngleLeft, FaTruckFast } from "react-icons/fa6";
 import { IoMdTime } from "react-icons/io";
 import moment from "moment-jalaali";
 import Swal from "sweetalert2";
+moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
+
 export default function ShippingMethod() {
   const [address, setAddress] = useState(null);
   useEffect(() => {
@@ -26,11 +30,14 @@ export default function ShippingMethod() {
     let currentDay = now.clone().add(i, "days");
     let dayOfWeekName = currentDay.format("dddd");
     let dayOfMonth = currentDay.format("jD");
-    let prices = [32000, 45000, 54222, 90000];
+    let monthName = currentDay.format("jMMMM");
+
+    let prices = [50000, 45000, 60000, 90000];
     sendTimes.push({
       id: i + 1,
       day: dayOfWeekName,
       date: dayOfMonth,
+      month: monthName,
       price: prices[i],
     });
   }
@@ -43,7 +50,6 @@ export default function ShippingMethod() {
       quantity: item.quantity,
       paid: getTotal(),
     }));
-
     const newPayment = {
       products: newArray,
       delivery: {
@@ -54,30 +60,38 @@ export default function ShippingMethod() {
       paid: getPayableAmount(),
       discount: getTotalDiscountPrice(),
     };
-    const res = await fetch("/api/payment", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newPayment),
-    });
-    if (res.status === 201) {
-      const data = await res.json();
 
-      const { trackingCode, orderDate } = data.data;
-
-      router.push(
-        `/success-payment?trackingCode=${trackingCode}&orderDate=${orderDate}`
-      );
+    if (Object.keys(sendTime).length !== 0) {
+      const res = await fetch("/api/payment", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newPayment),
+      });
+      if (res.status === 201) {
+        const data = await res.json();
+        const { trackingCode, orderDate } = data.data;
+        router.push(
+          `/success-payment?trackingCode=${trackingCode}&orderDate=${orderDate}`
+        );
+      }
+    } else {
+      Swal.fire({
+        text: "لطفا تاریخ ارسال را مشخص کنید",
+        icon: "error",
+        confirmButtonText: "چشم",
+        confirmButtonColor: "green",
+      });
     }
   };
   const changeUserAddressHandler = () => {
     Swal.fire({
       title: "جزییات آدرس",
       html: `
-         <div class="flex flex-col gap-y-2 [&>div]:flex [&>div]:items-center ">
+         <div class="flex flex-col gap-y-2 [&>div]:flex [&>div]:items-center text-xs xl:text-base  ">
             <div>
-           <label for="fullAddress" class="text-red-400">* نشان پستی :</label>
+           <label for="fullAddress" class="text-red-400 ">* نشان پستی :</label>
            <textarea id="fullAddress" class="swal2-textarea" placeholder=${address.fullAddress} ></textarea>
            </div>
    
@@ -110,14 +124,14 @@ export default function ShippingMethod() {
            <label for="unit">واحد :</label>
            <input type="text" id="unit" class="swal2-input" placeholder=${address.unit} />
          </div>
-         
-        
-   
          </div>
            
          `,
       showCancelButton: true,
+      cancelButtonText: "لغو",
       confirmButtonText: "ثبت",
+      cancelButtonColor: "red",
+      confirmButtonColor: "green",
       preConfirm: async () => {
         let newAddress = {};
 
@@ -129,34 +143,48 @@ export default function ShippingMethod() {
         newAddress["plaque"] = document.getElementById("plaque").value;
         newAddress["postalCode"] = document.getElementById("postalCode").value;
         newAddress["unit"] = document.getElementById("unit").value;
-        try {
-          const response = await fetch("/api/addresses", {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newAddress),
-          })
-            .then(() => {
-              Swal.fire("تغییرات با موفقیت انجام شد");
+        if (
+          !newAddress.fullAddress ||
+          !newAddress.province ||
+          !newAddress.city ||
+          !newAddress.district ||
+          !newAddress.plaque ||
+          !newAddress.postalCode
+        ) {
+          Swal.showValidationMessage(
+            "لطفاً تمام فیلدهای ستاره‌دار را پر کنید."
+          );
+          return false;
+        } else {
+          try {
+            const response = await fetch("/api/addresses", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(newAddress),
             })
-            .then(() => location.reload());
-        } catch (error) {
-          Swal.showValidationMessage(`خطا در ارسال: ${error.message}`);
+              .then(() => {
+                Swal.fire("تغییرات با موفقیت انجام شد");
+              })
+              .then(() => location.reload());
+          } catch (error) {
+            Swal.showValidationMessage(`خطا در ارسال: ${error.message}`);
+          }
         }
       },
     });
   };
 
   return (
-    <div className="mt-12 container  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 ">
-      <div className="w-3/4 border flex flex-col gap-y-4">
-        <div className="border border-blue-400 flex justify-between p-2 rounded-lg">
+    <div className="mt-12 container  flex flex-col xl:flex-row gap-x-2 mx-auto gap-y-4  [&>div]:rounded-lg [&>div]:p-3 text-xs lg:text-base ">
+      <div className="xl:w-3/4 w-full border flex flex-col gap-y-4 dark:border-green-400">
+        <div className="border border-blue-400 flex justify-between p-2 rounded-lg dark:border-gray-500">
           <div className="flex gap-x-2 items-center">
             <FaTruckFast />
             <div>
               <p className="text-blue-400">ارسال به آدرس انتخاب شده</p>
-              <p>{address?.fullAddress}</p>
+              <p className="dark:text-blue-400">{address?.fullAddress}</p>
             </div>
           </div>
           <div
@@ -167,18 +195,31 @@ export default function ShippingMethod() {
             <FaAngleLeft />
           </div>
         </div>
-        <div className=" flex items-center gap-x-3 p-2 rounded-lg border border-gray-400">
+        <div className=" flex items-center gap-x-3 p-2 rounded-lg border border-gray-400 dark:text-blue-400">
           <IoMdTime />
 
           <div>
             <div>
               <span>هزینه ارسال :</span>
-              <span>{sendTime.price} تومان </span>
+              {sendTime.price ? (
+                <span>{sendTime.price} تومان </span>
+              ) : (
+                <span>نامشخص </span>
+              )}
             </div>
-            <p>زمان : {sendTime.date} اردیبهشت</p>
+            <div>
+              <span>تاریخ ارسال :</span>
+              {sendTime.day ? (
+                <span>
+                  {sendTime.date} {sendTime.month}
+                </span>
+              ) : (
+                <span>نامشخص </span>
+              )}
+            </div>
           </div>
         </div>
-        <div className="flex gap-x-2 items-center [&>div]:w-20 [&>div]:h-28 [&>div]:border  [&>div]:cursor-pointer [&>div]:rounded-lg [&>div]:text-center [&>div]:flex [&>div]:gap-y-2 [&>div]:flex-col">
+        <div className="flex gap-x-2 items-center [&>div]:w-20 [&>div]:h-28  dark:text-blue-400 [&>div]:border  [&>div]:cursor-pointer [&>div]:rounded-lg [&>div]:text-center [&>div]:flex [&>div]:gap-y-2 [&>div]:flex-col">
           {sendTimes.map((time) => (
             <div
               onClick={() => setSendTime(time)}
@@ -195,7 +236,7 @@ export default function ShippingMethod() {
           ))}
         </div>
       </div>
-      <div className="w-1/4 h-fit  border [&>div]:flex  [&>div]:py-5 [&>div]:justify-between items-center">
+      <div className="xl:w-1/4 w-full h-fit  border [&>div]:flex  [&>div]:py-5 [&>div]:justify-between items-center dark:text-green-400">
         <div>
           <span>قیمت کالا ها ({cart.length})</span>
           <span className="text-green-400">

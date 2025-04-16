@@ -15,14 +15,14 @@ function page() {
   return (
     <>
       <Header />
-      <div className="mt-[220px] mx-auto w-96 h-64 bg-white rounded-xl dark:bg-zinc-700">
+      <div className="mt-[220px] mx-auto w-60 xl:w-96 xl:h-72 h-64  bg-white rounded-xl dark:bg-zinc-700 text-xs xl:text-base">
         <div className="flex flex-col gap-y-5 items-center  p-4 ">
           <FaCheck className="text-green-600 text-5xl" />
           <span className="text-green-400 font-bold">
             پرداخت سفارش موفق بود !
           </span>
           <span className="dark:text-white">جزییات پرداخت</span>
-          <div className="flex justify-between items-center  text-sm w-full text-gray-600 dark:text-white">
+          <div className="flex justify-between items-center  w-full text-gray-600 dark:text-white">
             <p> شماره پیگیری : {trackingCode}</p>
             <p> تاریخ :‌ {persianDate}</p>
           </div>

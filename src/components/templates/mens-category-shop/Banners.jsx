@@ -4,7 +4,7 @@ import React from "react";
 
 function Banners() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 container gap-2 mx-auto  [&>a]:bg-red-200">
+    <div className="grid grid-cols-1 lg:grid-cols-2 container gap-2 mx-auto   [&>a>img]:rounded-lg">
       <Link href="/">
         <Image
           src="https://ik.imagekit.io/bflkztneat/cc96ba1c7f18386573ac9bca6f0f39f8562d36ff_1720946433.jpg?updatedAt=1742153195219"

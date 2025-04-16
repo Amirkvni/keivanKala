@@ -9,7 +9,7 @@ function Details({ product }) {
       <div className="flex flex-col gap-y-5">
         {Object.entries(product.attributes).map(([key, value]) => (
           <>
-            <div className="flex text-lg gap-x-4 xl:gap-x-0">
+            <div className="flex text-sm lg:text-lg gap-x-4 xl:gap-x-0">
               <div className="xl:w-1/5">{key} : </div>
               <div className=" border-b-2 border-b-gray-200 xl:w-full pb-2">
                 {value}

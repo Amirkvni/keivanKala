@@ -13,7 +13,7 @@ import mainSliderThree from "@/../public/images/mens-under-ware.jpg";
 import Link from "next/link";
 function Slider() {
   return (
-    <div className=" mt-[140px] 2xl:w-full w-[300px] mx-auto 2xl:h-[500px] h-[150px] ">
+    <div className=" mt-[140px] 2xl:w-full w-3/4  mx-auto 2xl:h-[500px] h-[150px] lg:h-[250px] ">
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
@@ -22,7 +22,7 @@ function Slider() {
           clickable: true,
         }}
         modules={[Pagination]}
-        className="mySwiper10 rounded-lg overflow-hidden "
+        className="mensCategorySlider rounded-lg overflow-hidden "
       >
         <SwiperSlide>
           <Link href="/search/men-belts">

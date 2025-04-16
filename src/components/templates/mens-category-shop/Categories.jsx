@@ -8,7 +8,7 @@ function Categories() {
       <h3 className="text-center 2xl:text-3xl text-xl font-semibold">
         دسته بندی ها
       </h3>
-      <div className="flex flex-wrap justify-center 2xl:gap-x-3 gap-y-2 2xl:[&>a]:w-58 gap-x-2 dark:[&>a]:text-white [&>a>p]:text-xs  [&>a]:w-32 [&>a]:g-42 2xl:[&>a]:h-68 [&>a]:border [&>a]:border-gray-300 dark:[&>a]:border-black dark:[&>a]:bg-white dark:[&>a>p]:text-black  [&>a]:rounded-lg 2xl:justify-center mt-3 [&>a]:p-3 2xl:[&>a>p]:text-xl [&>a>p]:pt-3">
+      <div className="flex flex-wrap justify-center 2xl:gap-x-3 gap-y-2 2xl:[&>a]:w-58 gap-x-2 dark:[&>a]:text-white [&>a>p]:text-xs  [&>a]:w-32 [&>a>div>img]:rounded-lg [&>a]:g-42 2xl:[&>a]:h-68 [&>a]:border [&>a]:border-gray-300 dark:[&>a]:border-black dark:[&>a]:bg-white dark:[&>a>p]:text-black  [&>a]:rounded-lg 2xl:justify-center mt-3 [&>a]:p-3 2xl:[&>a>p]:text-xl [&>a>p]:pt-3">
         <Link href="/search/men-shirts">
           <div>
             <Image

@@ -90,7 +90,7 @@ function Comments({ product, user }) {
                   </Link>
                 ) : (
                   <button
-                    className=" border-red-400 border-2 text-red-500 bg-white w-full p-2 rounded-lg mt-4 block text-center text-lg"
+                    className=" border-red-400 border-2 text-red-500 bg-white w-full p-2 rounded-lg mt-4 block text-center text-lg dark:border-red-200"
                     onClick={showCommentModal}
                   >
                     ثبت دیدگاه

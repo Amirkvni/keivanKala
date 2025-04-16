@@ -9,12 +9,12 @@ function LightBox({ mainImage, pictures }) {
   let [open, setOpen] = useState(false);
   return (
     <>
-      <div className=" flex justify-center items-center h-80">
+      <div className=" flex justify-center items-center h-80  overflow-hidden">
         <Image
           width={400}
           height={400}
           src={mainImage}
-          className="w-75"
+          className="w-75 rounded-lg"
           onClick={() => setOpen(true)}
         />
       </div>
@@ -27,7 +27,7 @@ function LightBox({ mainImage, pictures }) {
             height={500}
             src={pic}
             onClick={() => setOpen(true)}
-            className="border border-gray-200 px-1 rounded-lg"
+            className="border border-gray-200 px-1 rounded-lg dark:border-none"
           />
         ))}
       </div>

@@ -5,7 +5,6 @@ import { FaChevronLeft } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import "./styles.css";
 import ProductBox from "@/components/modules/productBox/ProductBox";
 export default function RelatedProducts({ category }) {
   const [specialProducts, setSpecialProducts] = useState([]);
@@ -44,17 +43,16 @@ export default function RelatedProducts({ category }) {
               slidesPerView: 1,
               spaceBetween: 20,
             },
-            480: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 40,
-            },
+            319: { slidesPerView: 2, spaceBetween: 5 },
+            480: { slidesPerView: 3, spaceBetween: 5 },
+            769: { slidesPerView: 3, spaceBetween: 14 },
             1024: {
+              slidesPerView: 4,
+              spaceBetween: 2,
+            },
+            1281: {
               slidesPerView: 6,
-              spaceBetween: 30,
+              spaceBetween: 4,
             },
           }}
           className=" swiper2 "
