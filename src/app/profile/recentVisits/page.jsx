@@ -8,7 +8,7 @@ export default async function page() {
   const user = await authUser();
   const recentVisits = await VisitModel.find({ userId: user._id })
     .sort({ timestamp: -1 })
-    .limit(5);
+    .limit(8);
 
   return (
     <RecentVisits recentVisits={JSON.parse(JSON.stringify(recentVisits))} />

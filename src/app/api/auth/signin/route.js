@@ -1,6 +1,10 @@
 import connectToDB from "@/configs/db";
 import UserModel from "@/models/User";
-import { generateAccessToken, verifyPassword } from "@/utils/auth";
+import {
+  generateAccessToken,
+  verifyPassword,
+  generateRefreshToken,
+} from "@/utils/auth";
 export async function POST(req) {
   try {
     connectToDB();
@@ -29,12 +33,28 @@ export async function POST(req) {
     }
 
     const accessToken = generateAccessToken({ phoneOrEmail });
-
+    const refreshToken = generateRefreshToken({ phoneOrEmail });
+    await UserModel.findOneAndUpdate(
+      { phoneOrEmail },
+      {
+        $set: {
+          refreshToken,
+        },
+      }
+    );
     const headers = new Headers();
     headers.append("Set-Cookie", `token=${accessToken};path=/;httpOnly=true;`);
+    headers.append(
+      "Set-Cookie",
+      `refresh-token=${refreshToken};path=/;httpOnly=true;`
+    );
+
     return Response.json(
-      { message: "user loggin successfully" },
-      { status: 200, headers }
+      { message: "User logged in successfully :))" },
+      {
+        status: 200,
+        headers,
+      }
     );
   } catch (error) {
     return Response.json({ message: error }, { status: 500 });

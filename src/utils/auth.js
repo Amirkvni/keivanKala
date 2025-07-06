@@ -19,9 +19,14 @@ const verifyAccessToken = (token) => {
     const tokenPayload = verify(token, process.env.AccessTokenSecretKey);
     return tokenPayload;
   } catch (error) {
-    console.log("verify access token error =>", error);
     return false;
   }
+};
+const generateRefreshToken = (data) => {
+  const token = sign({ ...data }, process.env.RefreshTokenSecretKey, {
+    expiresIn: "15d",
+  });
+  return token;
 };
 const validateEmail = (email) => {
   const pattern =
@@ -44,4 +49,5 @@ export {
   validateEmail,
   validatePhone,
   validatePassword,
+  generateRefreshToken,
 };
