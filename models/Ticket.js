@@ -35,5 +35,5 @@ const schema = mongoose.Schema(
   { timestamps: true }
 );
 
-const model = mongoose.models.Ticket || mongoose.model("Ticket ", schema);
+const model = mongoose.models.Ticket || mongoose.model("Ticket", schema);
 export default model;

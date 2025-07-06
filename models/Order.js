@@ -7,15 +7,7 @@ const schema = mongoose.Schema({
     ref: "User",
     required: true,
   },
-  products: [
-    {
-      _id: {
-        type: mongoose.Types.ObjectId,
-        ref: "Product",
-        required: true,
-      },
-    },
-  ],
+  products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   orderDate: {
     type: Date,
     default: () => Date.now(),

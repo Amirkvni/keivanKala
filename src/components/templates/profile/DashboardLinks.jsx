@@ -14,7 +14,6 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { LuUserCog } from "react-icons/lu";
 import { usePathname, useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-
 function DashboardLinks({ phone, name = "کاربر جدید" }) {
   let router = useRouter();
   let pathname = usePathname();
@@ -40,7 +39,7 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
     });
   };
   return (
-    <div className="flex flex-col gap-y-2 p-3  w-1/4 rounded-lg  bg-white dark:text-white dark:bg-zinc-800">
+    <div className="hidden 2xl:flex flex-col gap-y-2 p-3  w-1/4 rounded-lg  bg-white dark:text-white dark:bg-zinc-800 border border-gray-300 dark:border-none">
       <div className="flex justify-between items-center  border-b-gray-400 pb-2 border-b-1">
         <div className="flex gap-x-2">
           <FaUserCircle className="w-10 h-10 rounded-full" />
@@ -50,14 +49,15 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
           </div>
         </div>
 
-        <FaEdit className="text-2xl text-green-300" />
+        <FaEdit
+          className="text-2xl text-green-300 cursor-pointer hover:text-green-800"
+          onClick={() => router.push("/profile/personal-info")}
+        />
       </div>
       <div className="flex flex-col  gap-y-1 [&>a]:p-4 [&>a]:rounded-lg [&>a]:flex [&>a]:items-center  [&>a]:gap-x-2 [&>a>svg]:text-2xl">
         <Link
           href="/profile"
-          className={
-            pathname == "/profile" ? "bg-green-100 text-green-700" : null
-          }
+          className={pathname == "/profile" ? "activeUserDashboardLink" : null}
         >
           <IoHomeOutline />
           <span>پیشخوان</span>
@@ -65,7 +65,9 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
         <Link
           href="/profile/orders"
           className={
-            pathname == "/profile/orders" ? "bg-green-100 text-green-700" : null
+            pathname.startsWith("/profile/orders")
+              ? "activeUserDashboardLink"
+              : undefined
           }
         >
           <BiBasket />
@@ -74,9 +76,7 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
         <Link
           href="/profile/favorites"
           className={
-            pathname == "/profile/favorites"
-              ? "bg-green-100 text-green-700"
-              : null
+            pathname == "/profile/favorites" ? "activeUserDashboardLink" : null
           }
         >
           <FaRegHeart />
@@ -85,9 +85,7 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
         <Link
           href="/profile/comments"
           className={
-            pathname == "/profile/comments"
-              ? "bg-green-100 text-green-700"
-              : null
+            pathname == "/profile/comments" ? "activeUserDashboardLink" : null
           }
         >
           <FaRegCommentDots />
@@ -97,7 +95,7 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
           href="/profile/recentVisits"
           className={
             pathname == "/profile/recentVisits"
-              ? "bg-green-100 text-green-700"
+              ? "activeUserDashboardLink"
               : null
           }
         >
@@ -107,9 +105,7 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
         <Link
           href="/profile/messages"
           className={
-            pathname == "/profile/messages"
-              ? "bg-green-100 text-green-700"
-              : null
+            pathname == "/profile/messages" ? "activeUserDashboardLink" : null
           }
         >
           <IoIosNotificationsOutline />
@@ -118,9 +114,7 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
         <Link
           href="/profile/addresses"
           className={
-            pathname == "/profile/addresses"
-              ? "bg-green-100 text-green-700"
-              : null
+            pathname == "/profile/addresses" ? "activeUserDashboardLink" : null
           }
         >
           <IoLocationOutline />
@@ -130,7 +124,7 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
           href="/profile/personal-info"
           className={
             pathname == "/profile/personal-info"
-              ? "bg-green-100 text-green-700"
+              ? "activeUserDashboardLink"
               : null
           }
         >

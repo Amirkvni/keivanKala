@@ -254,7 +254,7 @@ function Header({ isLogin }) {
                   />
                 </Link>
               </div>
-              <div className="relative  flex items-center gap-2 rounded-sm py-3 px-2 max-w-[576px] w-[576px] bg-slate-100">
+              <div className="relative  flex items-center gap-2 rounded-lg py-3 px-2 max-w-[576px] w-[576px] bg-slate-100 dark:bg-zinc-900 ">
                 <CiSearch
                   className="text-2xl cursor-pointer"
                   onClick={searchHandler}

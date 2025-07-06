@@ -46,3 +46,13 @@
   align-items: center !important;
   font-size: 14px;
 }
+.activeUserDashboardLink {
+  background-color: oklch(92.5% 0.084 155.995);
+  color: oklch(52.7% 0.154 150.069);
+}
+.orderDetails {
+  @apply flex items-center gap-x-2 2xl:gap-x-5 [&>div]:flex [&>div]:items-center [&>div]:gap-x-2 text-[10px] 2xl:text-sm;
+}
+.order-detail__label-text {
+  @apply text-gray-500 dark:text-gray-300;
+}
