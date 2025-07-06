@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaRegTrashCan } from "react-icons/fa6";
 import Swal from "sweetalert2";
-
+import { CartContext } from "@/contexts/CartContext";
 function Favorites({ wishlists }) {
   let [activeSort, setActiveSort] = useState("bestSeller");
   let [products, setProducts] = useState([...wishlists]);
+
   const deleteProduct = async (productID) => {
     const res = await fetch(`/api/wishlist/${productID}`, {
       method: "DELETE",
@@ -47,12 +48,13 @@ function Favorites({ wishlists }) {
     setProducts([...newProduct]);
     console.log("mostExpensiveHandler", newProduct);
   };
+  let { addToCart } = useContext(CartContext);
   return (
-    <div className="  flex flex-col gap-y-8 p-3 w-3/4 rounded-sm shadow-2xl dark:bg-zinc-800 dark:text-white">
-      <span className=" border-b-green-400 pb-2 border-b-3 w-fit">
+    <div className=" flex flex-col gap-y-8 p-3 w-full 2xl:w-3/4 rounded-sm shadow-2xl dark:bg-zinc-800 dark:text-white">
+      <span className=" border-b-green-400 pb-2 border-b-3 w-fit text-sm 2xl:text-base">
         علاقه مندی های شما
       </span>
-      <div className="flex gap-x-3 [&>button]:cursor-pointer [&>button]:p-2">
+      <div className="flex gap-x-3 [&>button]:cursor-pointer [&>button]:p-2 [&>button]:text-sm">
         <button
           onClick={() => bestSellerHandler()}
           className={`${
@@ -80,30 +82,48 @@ function Favorites({ wishlists }) {
           ارزانترین
         </button>
       </div>
-      <div className="flex gap-2 flex-wrap  ">
-        {products.map((product) => (
-          <div
-            className="border p-3 border-gray-400 rounded-lg w-52 h-72 flex flex-col gap-y-3 "
-            key={product._id}
-          >
-            <div className="w-32 h-32 mx-auto">
-              <Image width={500} height={500} src={product.product.mainImage} />
+      <div className="flex gap-2 flex-wrap items-center ">
+        {products.length ? (
+          products.map((product) => (
+            <div
+              className="border p-3 border-gray-400 rounded-lg 2xl:w-52 2xl:h-[300px] w-32 h-52 flex flex-col 2xl:gap-y-3 gap-y-1 "
+              key={product._id}
+            >
+              <div className="2xl:w-32 w-22 2xl:h-44 h-22 mx-auto">
+                <Image
+                  width={500}
+                  height={500}
+                  src={product.product.mainImage}
+                />
+              </div>
+              <p className="2xl:h-40 h-20 overflow-y-hidden  text-[8px] 2xl:text-sm font-bold ">
+                {product.product.persianName}
+              </p>
+              <div className="flex justify-between items-center h-8 ">
+                <FaRegTrashCan
+                  className="text-red-500 tesx-lg hover:text-red-700 cursor-pointer"
+                  onClick={() => deleteProduct(product._id)}
+                />
+                <span className="text-[10px] 2xl:text-lg">
+                  {product.product.price.toLocaleString()}
+                </span>
+              </div>
+              <button
+                className="2xl:h-12 h-9 py-1  bg-green-400 text-white  rounded-lg 2xl:py-2 text-[10px] 2xl:text-lg cursor-pointer"
+                onClick={() => addToCart(product)}
+              >
+                افزودن به سبد خرید
+              </button>
             </div>
-            <p className="h-40 overflow-y-hidden  text-xs font-bold">
-              {product.product.persianName}
-            </p>
-            <div className="flex justify-between items-center h-8 ">
-              <FaRegTrashCan
-                className="text-red-500 tesx-lg"
-                onClick={() => deleteProduct(product._id)}
-              />
-              <span>{product.product.price.toLocaleString()}</span>
-            </div>
-            <button className="h-12 bg-green-400 text-white  rounded-lg py-2">
-              افزودن به سبد خرید
-            </button>
+          ))
+        ) : (
+          <div className="flex justify-center items-center  w-full h-full">
+            <span className="2xl:text-lg text-sm">
+              {" "}
+              لیست علاقه‌مندی‌های شما خالی است !!
+            </span>
           </div>
-        ))}
+        )}
       </div>
       <div>pagination</div>
     </div>

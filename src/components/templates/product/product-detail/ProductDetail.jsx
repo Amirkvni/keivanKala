@@ -285,7 +285,7 @@ function ProductDetail({ product, user }) {
           >
             {product.images.map((image) => (
               <SwiperSlide key={Math.random()}>
-                <Image src={image} width={500} height={500} />
+                <Image src={image} width={500} height={500} alt="p1" />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -301,7 +301,7 @@ function ProductDetail({ product, user }) {
         </div>
         <div>انتخاب رنگ</div>
         <div className="colors flex  gap-x-2 w-fit ">
-          {Object.entries(product.colors).map(([key, value]) => (
+          {/* {Object.entries(product.colors).map(([key, value]) => (
             <div
               className={`flex border w-fit items-center gap-x-1 cursor-pointer  ${
                 selectedProductColor === key
@@ -314,11 +314,11 @@ function ProductDetail({ product, user }) {
               <div className={`w-4 h-4 ${value} rounded-full`}></div>
               <span>{key}</span>
             </div>
-          ))}
+          ))} */}
         </div>
         <div>انتخاب سایز</div>
         <div className="colors flex  gap-x-2 w-fit ">
-          {product.sizes.map((product) => (
+          {/* {product.sizes.map((product) => (
             <div
               onClick={() => setSelectedProductSize(product)}
               className={`w-10 h-10 flex border  items-center gap-x-2 cursor-pointer justify-center ${
@@ -329,7 +329,7 @@ function ProductDetail({ product, user }) {
             >
               <span>{product}</span>
             </div>
-          ))}
+          ))} */}
         </div>
         <div>انتخاب تعداد </div>
         <div className="flex items-center gap-x-4  border-gray-200 border-1 rounded-sm w-fit p-1.5 [&>svg]:cursor-pointer ">

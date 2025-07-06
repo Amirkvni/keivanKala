@@ -56,3 +56,6 @@
 .order-detail__label-text {
   @apply text-gray-500 dark:text-gray-300;
 }
+.check-comment {
+  @apply items-center 2xl:gap-x-1.5 2xl:p-2 rounded-lg mt-3 flex  2xl:text-sm text-[8px] gap-x-2 p-1;
+}
