@@ -183,7 +183,7 @@ function Addresses({ addresses }) {
   };
 
   return (
-    <div className=" flex flex-col gap-y-8 p-3 w-full 2xl:w-3/4 rounded-sm shadow-2xl dark:bg-zinc-800 dark:text-white ">
+    <div className="profile-content-box ">
       <div className="flex justify-between items-center ">
         <span className=" border-b-green-400 pb-2 border-b-3 ">
           آدرس های شما

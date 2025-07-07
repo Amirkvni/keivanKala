@@ -1,10 +1,14 @@
 "use client";
+import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
-import { FaRegEdit } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
+import { FaRegEdit, FaPlus } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
 function PersonalInfo({ user }) {
+  const router = useRouter();
   const editInfo = async (fieldName, fieldLabel, currentValue = "") => {
     const isSingleField = typeof fieldName === "string";
 
@@ -21,8 +25,10 @@ function PersonalInfo({ user }) {
             )
             .join(""),
       showCancelButton: true,
-      confirmButtonText: "ارسال",
+      confirmButtonText: "ویرایش",
+      confirmButtonColor: "green",
       cancelButtonText: "بیخیال",
+      cancelButtonColor: "gray",
       showLoaderOnConfirm: true,
       preConfirm: async () => {
         let updatedData = {};
@@ -62,7 +68,7 @@ function PersonalInfo({ user }) {
             .then(() => {
               Swal.fire("تغییرات با موفقیت انجام شد");
             })
-            .then(() => location.reload());
+            .then(() => router.refresh());
         } catch (error) {
           Swal.showValidationMessage(`خطا در ارسال: ${error.message}`);
         }
@@ -71,11 +77,9 @@ function PersonalInfo({ user }) {
   };
 
   return (
-    <div className="flex flex-col gap-y-8 p-3 w-3/4 rounded-sm shadow-2xl dark:bg-zinc-800 dark:text-white">
-      <span className=" border-b-green-400 pb-2 border-b-3 w-fit">
-        اطلاعات حساب کاربری شما
-      </span>
-      <div className="grid grid-cols-2 gap-4 [&>div]:flex [&>div]:justify-between [&>div]:p-3 [&>div]:border [&>div]:rounded-2xl [&>div]:items-center">
+    <div className="profile-content-box">
+      <SectionHeader title="اطلاعات حساب کاربری شما" />
+      <div className="grid grid-cols-1 2xl:grid-cols-2 gap-4 [&>div]:flex [&>div]:justify-between [&>div]:p-3  [&>div]:border 2xl:[&>div]:rounded-2xl [&>div]:rounded-xl [&>div]:items-center [&>div>div>p]:text-base [&>div>svg]:text-xl 2xl:[&>div>svg]:hover:text-green-400 2xl:[&>div>svg]:cursor-pointer">
         <div>
           <div>
             <p>نام و نام خانوادگی</p>

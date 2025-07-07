@@ -59,3 +59,6 @@
 .check-comment {
   @apply items-center 2xl:gap-x-1.5 2xl:p-2 rounded-lg mt-3 flex  2xl:text-sm text-[8px] gap-x-2 p-1;
 }
+.profile-content-box {
+  @apply flex flex-col gap-y-8 bg-white w-full rounded-lg dark:bg-zinc-800 dark:text-white  2xl:w-3/4 p-3;
+}

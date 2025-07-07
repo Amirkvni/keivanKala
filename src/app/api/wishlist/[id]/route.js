@@ -1,9 +1,12 @@
 import connectToDB from "@/configs/db";
 import { authUser } from "@/utils/serverHelpers";
 import WishlistModel from "@/models/Wishlist";
+import mongoose from "mongoose";
+
 export async function DELETE(req, { params }) {
   try {
     connectToDB();
+
     const user = await authUser();
     if (!user) {
       return Response.json(
@@ -11,17 +14,26 @@ export async function DELETE(req, { params }) {
         { status: 400 }
       );
     }
-    const productID = params.id;
-    let product = await WishlistModel.findOneAndDelete({
+    console.log("user==>", user._id);
+    const { id } = await params;
+
+    const product = await WishlistModel.findOneAndDelete({
       user: user._id,
-      _id: productID,
+      product: id,
     });
 
+    if (!product) {
+      return Response.json(
+        { message: "Product not found or does not belong to this user." },
+        { status: 404 }
+      );
+    }
+
     return Response.json(
-      { message: "product remove successfully" },
+      { message: "Product removed successfully" },
       { status: 200 }
     );
   } catch (error) {
-    return Response.json({ message: error }, { status: 500 });
+    return Response.json({ message: error.message }, { status: 500 });
   }
 }

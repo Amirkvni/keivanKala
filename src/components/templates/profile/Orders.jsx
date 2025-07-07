@@ -1,5 +1,6 @@
 import Link from "next/link";
 import OrderPreview from "./OrderPreview";
+import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
 
 function Orders({ activeOrder, orders }) {
   const tabs = [
@@ -20,10 +21,8 @@ function Orders({ activeOrder, orders }) {
     return orders.map((order) => <OrderPreview key={order._id} {...order} />);
   };
   return (
-    <div className="flex flex-col gap-y-8 2xl:p-3 2xl:w-3/4 w-full rounded-sm shadow-2xl dark:bg-zinc-800 dark:text-white">
-      <span className=" border-b-green-400 pb-2 border-b-3 w-fit">
-        سفارش های شما
-      </span>
+    <div className="profile-content-box">
+      <SectionHeader title="سفارش های شما" />
       <div className="flex gap-x-3 [&>a]:cursor-pointer [&>a]:p-2 text-xs 2xl:text-base">
         {tabs.map((tab) => (
           <Link
