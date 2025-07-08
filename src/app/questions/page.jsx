@@ -3,7 +3,8 @@ import Header from "@/components/modules/header/Header";
 import QuestionBox from "@/components/templates/questions/QuestionBox";
 import React from "react";
 
-function page() {
+export default function page() {
+
   return (
     <>
       <Header />
@@ -12,5 +13,3 @@ function page() {
     </>
   );
 }
-
-export default page;
