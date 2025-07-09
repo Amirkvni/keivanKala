@@ -1,4 +1,6 @@
 "use client";
+import { priceFormatter } from "@/utils/priceFormatter ";
+import { slugify } from "@/utils/slugify";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
@@ -25,14 +27,11 @@ function FreshOffersBox({ product }) {
       .toString()
       .padStart(2, "0")} :${seconds.toString().padStart(2, "0")}`;
   };
-  const slugify = (text) => {
-    return text
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  };
+
   return (
-    <Link href={`/product/${slugify(product.englishFullName)}`}>
+    <Link
+      href={`/product/${slugify(product.englishFullName)}`}
+    >
       <div className="  flex flex-col text-xs gap-y-2">
         <p className="text-red-500 text-sm font-semibold">پیشنهاد شگفت انگیز</p>
         <div className="w-32 h-38 mx-auto">
@@ -47,10 +46,12 @@ function FreshOffersBox({ product }) {
           <span className="bg-red-700 text-white  rounded-full flex justify-center items-center px-1 py-0.5">
             %50
           </span>
-          <span>{product.price.toLocaleString()} تومان</span>
+          <span className="line-through text-gray-400">
+            {priceFormatter(product.price)}{" "}
+          </span>
         </div>
-        <span className="line-through text-left text-gray-400">
-          {product.secondPrice.toLocaleString()}
+        <span className=" text-left ">
+          {priceFormatter(product.secondPrice)}
         </span>
         <span className="text-left text-red-600" dir="ltr">
           {formatTime(timeLeft)}

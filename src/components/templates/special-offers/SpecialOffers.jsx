@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import ProductFilter from "@/components/modules/productfilter/ProductFilter";
 import SelectedProducts from "./SelectedProducts";
 import ProductsSortView from "@/components/modules/productsSortView/ProductsSortView";
-import SpecialBanner from "./SpecialBanner";
 
 function SpecialOffers({ products }) {
   const [allProducts, setAllProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [isMobileFiltersActive, setIsMobileFiltersActive] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -22,17 +22,17 @@ function SpecialOffers({ products }) {
 
   return (
     <>
-      {/* <SpecialBanner /> */}
       <SelectedProducts selectedProducts={selectedProducts} />
       <div className="container mx-auto my-10">
         <div className=" flex 2xl:flex-row flex-col gap-y-3 2xl:gap-x-4">
           <ProductFilter
-            setAllProducts={setAllProducts}
-            allProducts={allProducts}
+            isMobileFiltersActive={isMobileFiltersActive}
+            setIsMobileFiltersActive={setIsMobileFiltersActive}
           />
           <ProductsSortView
             allProducts={allProducts}
             setAllProducts={setAllProducts}
+            setIsMobileFiltersActive={setIsMobileFiltersActive}
           />
         </div>
       </div>

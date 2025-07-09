@@ -9,7 +9,6 @@ export default function SelectedProducts({ selectedProducts }) {
   return (
     <>
       <Swiper
-       
         className="selectedSlider container rounded-lg  mt-[130px]"
         breakpoints={{
           100: {

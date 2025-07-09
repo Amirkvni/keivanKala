@@ -2,14 +2,10 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MdOutlineStar } from "react-icons/md";
+import { priceFormatter } from "@/utils/priceFormatter ";
+import { slugify } from "@/utils/slugify";
 
 export default function ProductBox({ product }) {
-  const slugify = (text) => {
-    return text
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-  };
   return (
     <Link
       href={`/product/${slugify(product.englishFullName)}`}
@@ -49,18 +45,17 @@ export default function ProductBox({ product }) {
 
             <div className="flex flex-col ">
               <span
-                className={`text-xs   ${
+                className={`text-[11px]   ${
                   product.secondPrice
                     ? "line-through  decoration-red-300 decoration-2 text-gray-500 xl:text-sm dark:text-white"
                     : "text-green-400 xl:text-base "
                 } `}
               >
-                {product.price.toLocaleString()}تومان
+                {priceFormatter(product.price)}
               </span>
               {product.secondPrice && (
                 <span className="text-green-400 text-xs  xl:text-base ">
-                  {product.secondPrice.toLocaleString()}
-                  تومان
+                  {priceFormatter(product.secondPrice)}
                 </span>
               )}
             </div>

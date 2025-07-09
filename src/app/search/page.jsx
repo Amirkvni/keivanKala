@@ -6,18 +6,24 @@ import connectToDB from "@/configs/db";
 
 import ProductModel from "@/models/Product";
 export default async function page({ searchParams }) {
-  const q = searchParams.q;
+  const q = (searchParams.q || "").trim();
   connectToDB();
   const products = await ProductModel.find({
     $or: [
       { persianName: { $regex: q, $options: "i" } },
       { englishFullName: { $regex: q, $options: "i" } },
     ],
-  }).limit(10);
+  }).lean();
   return (
     <>
       <Header />
-      <Shop products={JSON.parse(JSON.stringify(products))} />
+      {!q ? (
+        <div className="container mt-[240px] text-center text-gray-500 h-[400px]">
+          لطفاً یک عبارت برای جستجو وارد کنید!!!
+        </div>
+      ) : (
+        <Shop products={products} />
+      )}
       <Footer />
     </>
   );

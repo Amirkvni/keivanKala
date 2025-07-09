@@ -53,6 +53,10 @@ const schema = new mongoose.Schema(
       type: Schema.Types.Mixed,
       required: true,
     },
+    gender: {
+      type: String,
+      required: false,
+    },
     comments: {
       type: [
         {

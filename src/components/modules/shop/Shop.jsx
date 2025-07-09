@@ -8,13 +8,9 @@ function Shop({ products }) {
   const path = usePathname();
   const [allProducts, setAllProducts] = useState([]);
   const [isMobileFiltersActive, setIsMobileFiltersActive] = useState(false);
-
   useEffect(() => {
-    const getProducts = async () => {
-      setAllProducts([...products]);
-    };
-    getProducts();
-  }, []);
+    setAllProducts(products);
+  }, [products]);
   return (
     <div
       className={`container mx-auto  ${

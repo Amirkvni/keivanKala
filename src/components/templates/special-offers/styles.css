@@ -3,6 +3,9 @@
   height: 390px;
   background: linear-gradient(to left, #2e8b57, #98fb98);
 }
+.dark .selectedSlider {
+  background: oklch(0.274 0.006 286.033);
+}
 
 .selectedSlider .swiper-slide {
   background: #fff;

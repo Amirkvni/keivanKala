@@ -1,24 +1,27 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
 import React, { useEffect, useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 import "next-range-slider/dist/main.css";
 import { RangeSlider } from "next-range-slider";
 import styles from "./productfilter.module.css";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import PriceSlider from "@/components/templates/search/PriceSlider";
 
 function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
+  const searchParams = useSearchParams();
   const [isCategoryActive, setIsCategoryActive] = useState(false);
   const [isColorsActive, setIsColorsActive] = useState(false);
-  const [isSwitchToggleActive, setIsSwitchToggleActive] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const [low, setLow] = useState(0);
-  const [high, setHigh] = useState(10_000_000);
+  const [isSwitchToggleActive, setIsSwitchToggleActive] = useState(
+    searchParams.get("inStock") === "true"
+  );
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get("search") || ""
+  );
+
   const router = useRouter();
   const pathname = usePathname();
 
-  const searchParams = useSearchParams();
   const handleFilterChange = (filterName, value, checked) => {
     const params = new URLSearchParams(searchParams);
     let values = params.get(filterName)?.split(",") || [];
@@ -31,8 +34,9 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
     values.length
       ? params.set(filterName, values.join(","))
       : params.delete(filterName);
-    router.push(`?${params.toString()}`);
+    router.replace(`?${params.toString()}`);
   };
+
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
 
@@ -45,6 +49,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
     const newUrl = `?${params.toString()}`;
     router.replace(newUrl);
   }, [searchValue]);
+
   const colorPalettes = [
     { id: 1, name: "قرمز", code: "bg-red-600", secondName: "red" },
     { id: 2, name: "ابی", code: "bg-blue-600", secondName: "blue" },
@@ -57,12 +62,14 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
     { id: 9, name: "نارنجی", code: "bg-orange-600", secondName: "orange" },
     { id: 10, name: "سفید", code: "bg-white", secondName: "white" },
   ];
+
   const deleteFilterParams = () => {
     if (searchParams.toString()) {
       const cleanUrl = pathname;
       window.history.replaceState(null, "", cleanUrl);
     }
   };
+
   return (
     <>
       {/* mobile filters: */}
@@ -81,69 +88,13 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
           <input
             type="text"
             placeholder="جستجو در بین نتایج"
-            className="p-3 rounded-lg  outline-none    "
+            className="p-3 rounded-lg  outline-none"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
           <div>محدوده قیمت </div>
-          <div>
-            <RangeSlider
-              dir="ltr"
-              min={0}
-              max={10_000_000}
-              step={100_000}
-              options={{
-                leftInputProps: {
-                  value: low,
-                  onChange: (e) => {
-                    const newLow = Number(e.target.value);
-                    if (newLow <= high) {
-                      setLow(newLow);
-                    }
-                    const params = new URLSearchParams(searchParams);
 
-                    params.set("min-price", newLow);
-
-                    router.push(`?${params.toString()}`);
-                  },
-                },
-                rightInputProps: {
-                  value: high,
-                  onChange: (e) => {
-                    const newHigh = Number(e.target.value);
-                    if (newHigh >= low) {
-                      setHigh(newHigh);
-                    }
-                    const params = new URLSearchParams(searchParams);
-
-                    params.set("max-price", newHigh);
-
-                    router.push(`?${params.toString()}`);
-                  },
-                },
-                thumb: {
-                  background: "#36d67e",
-                  focusBackground: "#36d67e",
-                  width: "20px",
-                  height: "20px",
-                },
-                track: {
-                  height: "6px",
-                  background: "#36d67e",
-                },
-                range: { background: "#36d67e" },
-              }}
-            />
-            <div className=" flex items-center justify-between [&>input]:w-[130px] [&>input]:p-2 text-xs [&>input]:outline-none">
-              <input type="text" value={`${high.toLocaleString()} تومان`} />
-              <span>تا</span>
-              <input
-                type="text"
-                value={`${low.toLocaleString()} تومان`}
-                className="text-left"
-              />
-            </div>
-          </div>
+          <PriceSlider />
           <div
             className="flex justify-between items-center"
             onClick={() => setIsCategoryActive((prev) => !prev)}
@@ -162,7 +113,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                     handleFilterChange("gender", "woman", e.target.checked)
                   }
                 />
-                <label for="women"> زنانه</label>
+                <label htmlFor="women"> زنانه</label>
                 <br />
                 <input
                   type="checkbox"
@@ -172,7 +123,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                     handleFilterChange("gender", "man", e.target.checked)
                   }
                 />
-                <label for="men"> مردانه</label>
+                <label htmlFor="men"> مردانه</label>
                 <br />
                 <input
                   type="checkbox"
@@ -182,7 +133,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                     handleFilterChange("gender", "child", e.target.checked)
                   }
                 />
-                <label for="child">بچگانه</label>
+                <label htmlFor="child">بچگانه</label>
                 <br />
               </form>
             </div>
@@ -218,7 +169,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                         )
                       }
                     />
-                    <label for="vehicle1"> {color.name}</label>
+                    <label htmlFor="vehicle1"> {color.name}</label>
                   </div>
                   <div
                     className={`w-3 h-3 border border-gray-400 ${color.code}`}
@@ -268,6 +219,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
           </button>
         </div>
       </div>
+      {/* desktop filters: */}
       <div className="relative w-1/4 hidden 2xl:block  p-4">
         <div className="sticky top-28 flex flex-col gap-y-4 bg-white p-2 rounded-lg text-xl dark:bg-zinc-800 dark:text-white">
           <div className="flex justify-between items-center">
@@ -289,60 +241,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
             />
           </div>
           <div>محدوده قیمت</div>
-          <div>
-            <RangeSlider
-              dir="ltr"
-              min={0}
-              max={10_000_000}
-              step={100_000}
-              options={{
-                leftInputProps: {
-                  value: low,
-                  onChange: (e) => {
-                    const newLow = Number(e.target.value);
-                    if (newLow <= high) {
-                      setLow(newLow);
-                    }
-                    const params = new URLSearchParams(searchParams);
-
-                    params.set("min-price", newLow);
-
-                    router.push(`?${params.toString()}`);
-                  },
-                },
-                rightInputProps: {
-                  value: high,
-                  onChange: (e) => {
-                    const newHigh = Number(e.target.value);
-                    if (newHigh >= low) {
-                      setHigh(newHigh);
-                    }
-                    const params = new URLSearchParams(searchParams);
-
-                    params.set("max-price", newHigh);
-
-                    router.push(`?${params.toString()}`);
-                  },
-                },
-                thumb: {
-                  background: "#36d67e",
-                  focusBackground: "#36d67e",
-                  width: "20px",
-                  height: "20px",
-                },
-                track: {
-                  height: "6px",
-                  background: "#36d67e",
-                },
-                range: { background: "#36d67e" },
-              }}
-            />
-            <div className=" flex items-center justify-between [&>input]:w-[130px] [&>input]:p-2 text-xs [&>input]:outline-none">
-              <input type="text" value={`${high.toLocaleString()} تومان`} />
-              <span>تا</span>
-              <input type="text" value={`${low.toLocaleString()} تومان`} />
-            </div>
-          </div>
+          <PriceSlider />
 
           <div
             className="flex justify-between items-center cursor-pointer"
@@ -362,7 +261,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                     handleFilterChange("gender", "woman", e.target.checked)
                   }
                 />
-                <label for="women"> زنانه</label>
+                <label htmlFor="women"> زنانه</label>
                 <br />
                 <input
                   type="checkbox"
@@ -372,7 +271,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                     handleFilterChange("gender", "man", e.target.checked)
                   }
                 />
-                <label for="men"> مردانه</label>
+                <label htmlFor="men"> مردانه</label>
                 <br />
                 <input
                   type="checkbox"
@@ -382,7 +281,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                     handleFilterChange("gender", "child", e.target.checked)
                   }
                 />
-                <label for="child">بچگانه</label>
+                <label htmlFor="child">بچگانه</label>
                 <br />
               </form>
             </div>
@@ -409,7 +308,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                   <div>
                     <input
                       type="checkbox"
-                      id="color"
+                      id={`color-${color.id}`}
                       value={color.secondName}
                       onChange={(e) =>
                         handleFilterChange(
@@ -419,7 +318,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
                         )
                       }
                     />
-                    <label for="vehicle1"> {color.name}</label>
+                    <label htmlFor="vehicle1"> {color.name}</label>
                   </div>
                   <div
                     className={`w-3 h-3 border border-gray-400 ${color.code}`}

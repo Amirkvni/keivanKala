@@ -5,8 +5,9 @@ import ProductBox from "@/components/modules/productBox/ProductBox";
 import { VscFilterFilled } from "react-icons/vsc";
 import { GoSortDesc } from "react-icons/go";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { BiMessageRoundedError } from "react-icons/bi";
+import normalizeText from "@/utils/normalizeText";
 function ProductsSortView({
   allProducts,
   setAllProducts,
@@ -25,34 +26,33 @@ function ProductsSortView({
     10
   );
 
-  function normalizeText(text) {
-    if (typeof text !== "string") {
-      return ""; // اگر مقدار ورودی رشته نبود، یه رشته خالی برگردون
-    }
-
-    return text
-      .toLowerCase()
-      .trim()
-      .normalize("NFD")
-      .replace(/\s+/g, " ")
-      .replace(/‌/g, "");
-  }
   const normalizedSearch = normalizeText(searchedProduct);
 
-  const filteredProducts = allProducts.filter((product) => {
-    const normalizedTitle = normalizeText(product.persianName);
-    const productPrice = parseInt(product.price, 10);
+  const filteredProducts = useMemo(() => {
+    return allProducts.filter((product) => {
+      const normalizedTitle = normalizeText(product.persianName);
+      const productPrice = parseInt(product.price, 10);
 
-    return (
-      (gender.length === 0 || gender.includes(product.gender)) &&
-      (!inStockFilter || Number(product.stock) > 0) &&
-      (colors.length === 0 || colors.includes(product.colors)) &&
-      (normalizedSearch === "" || normalizedTitle.includes(normalizedSearch)) &&
-      productPrice >= minPrice &&
-      productPrice <= maxPrice // فیلتر قیمت
-    );
-  });
-  const sortByHightPrice = () => {
+      return (
+        (gender.length === 0 || gender.includes(product.gender)) &&
+        (!inStockFilter || Number(product.stock) > 0) &&
+        (colors.length === 0 || colors.includes(product.colors)) &&
+        (normalizedSearch === "" ||
+          normalizedTitle.includes(normalizedSearch)) &&
+        productPrice >= minPrice &&
+        productPrice <= maxPrice
+      );
+    });
+  }, [
+    allProducts,
+    gender,
+    inStockFilter,
+    colors,
+    normalizedSearch,
+    minPrice,
+    maxPrice,
+  ]);
+  const sortByHighPrice = () => {
     const sortedItems = [...allProducts].sort((a, b) => b.price - a.price);
     setAllProducts(sortedItems);
     setIsMobileSortActive(false);
@@ -96,7 +96,7 @@ function ProductsSortView({
             </button>
             <button
               onClick={() => {
-                sortByHightPrice();
+                sortByHighPrice();
                 setIsMobileSortActive(false);
               }}
             >
@@ -123,7 +123,8 @@ function ProductsSortView({
           <span>مرتب سازی</span>
         </div>
       </div>
-      <div className="w-full 2xl:w-3/4 flex flex-col gap-y-3 xl:p-2  ">
+      {/* desktop sorts : */}
+      <div className="w-full 2xl:w-3/4 flex flex-col gap-y-3 xl:p-2 mx-auto  ">
         {/* top : */}
         <div className=" gap-x-7 text-xl  items-center [&>button]:cursor-pointer dark:bg-zinc-800 dark:text-white bg-white rounded-lg p-4 hidden 2xl:flex">
           <div className="flex gap-x-1 items-center">
@@ -158,7 +159,7 @@ function ProductsSortView({
           <button
             onClick={() => {
               setActiveTab("expensive");
-              sortByHightPrice();
+              sortByHighPrice();
             }}
             className={`${
               activeTab === "expensive"
@@ -183,7 +184,7 @@ function ProductsSortView({
           </button>
         </div>
         {/* bottom : */}
-        <div className="flex flex-wrap  gap-2 xl:gap-4 ">
+        <div className="flex flex-wrap  gap-2 xl:gap-4  ">
           {filteredProducts.length > 0 ? (
             filteredProducts?.map((product) => (
               <ProductBox product={product} key={product._id} />
