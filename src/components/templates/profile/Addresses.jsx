@@ -199,7 +199,10 @@ function Addresses({ addresses }) {
       <div className="flex flex-col gap-y-2 ">
         {addresses.length > 0 ? (
           addresses.map((address) => (
-            <div className="border rounded-3xl border-gray-200">
+            <div
+              className="border rounded-3xl border-gray-200"
+              key={address._id}
+            >
               <div className="flex justify-between items-center  p-3 relative  text-xs 2xl:text-base ">
                 <div>
                   <p>{address.fullAddress}</p>
@@ -255,7 +258,12 @@ function Addresses({ addresses }) {
                   </ul>
                 </div>
                 <div className="w-24 h-24  rounded-xl ">
-                  <Image src={mapImage} width={500} height={500} />
+                  <Image
+                    src={mapImage}
+                    width={500}
+                    height={500}
+                    alt="mapImage"
+                  />
                 </div>
               </div>
             </div>

@@ -4,8 +4,6 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import Image from "next/image";
 function CartProduct({ product, removeFromCart, addToCart, decreaseFromCart }) {
-  console.log(product);
-
   return (
     <div className="flex gap-x-3  ">
       <div>
@@ -15,7 +13,12 @@ function CartProduct({ product, removeFromCart, addToCart, decreaseFromCart }) {
         />
 
         <div className="w-24 h-24">
-          <Image src={product.mainImage} width={500} height={500} />
+          <Image
+            src={product.mainImage}
+            width={500}
+            height={500}
+            alt={product.persianName}
+          />
         </div>
       </div>
       <div>

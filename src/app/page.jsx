@@ -7,13 +7,11 @@ import Categories from "@/components/templates/index/categories/Categories";
 import LatestProducts from "@/components/templates/index/latest-products/LatestProducts";
 import Slider from "@/components/templates/index/slider/Slider";
 import SpecialOffers from "@/components/templates/index/special-offers/SpecialOffers";
-import { authUser } from "@/utils/serverHelpers";
+export const revalidate = 60;
 export default async function Home() {
-  const user = await authUser();
-
   return (
     <>
-      <Header isLogin={user ? true : false} />
+      <Header />
       <Slider />
       <SpecialOffers />
       <LatestProducts />

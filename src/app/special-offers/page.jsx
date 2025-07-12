@@ -3,6 +3,7 @@ import Header from "@/components/modules/header/Header";
 import SpecialOffers from "@/components/templates/special-offers/SpecialOffers";
 import connectToDB from "@/configs/db";
 import ProductModel from "@/models/Product";
+import { Suspense } from "react";
 
 export default async function page() {
   connectToDB();
@@ -12,7 +13,9 @@ export default async function page() {
   return (
     <>
       <Header />
-      <SpecialOffers products={JSON.parse(JSON.stringify(products))} />
+      <Suspense fallback={<p>لودینگ...</p>}>
+        <SpecialOffers products={JSON.parse(JSON.stringify(products))} />
+      </Suspense>
       <Footer />
     </>
   );

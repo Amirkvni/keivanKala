@@ -63,9 +63,9 @@ function PriceSlider() {
         }}
       />
       <div className=" flex items-center justify-between [&>input]:w-[130px]  text-xs [&>input]:outline-none">
-        <input type="text" value={priceFormatter(high)} />
+        <input type="text" value={priceFormatter(high)} readOnly />
         <span>تا</span>
-        <input type="text" value={priceFormatter(low)} />
+        <input type="text" value={priceFormatter(low)} readOnly />
       </div>
     </div>
   );

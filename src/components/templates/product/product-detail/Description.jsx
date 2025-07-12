@@ -19,7 +19,7 @@ function Description({ product }) {
         خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
         داشت که تمام و دشواری
       </p>
-      <Image src={product.mainImage} width={500} height={500} />
+      <Image src={product.mainImage} width={500} height={500} alt="mainImage" />
       {!viewMore && (
         <span
           className="cursor-pointer block w-fit mx-auto mt-3 text-green-400 hover:border-b-green-600 hover:border-b-2 text-lg font-bold"
@@ -50,7 +50,12 @@ function Description({ product }) {
             رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد
             کرد، در این صورت می توان امید داشت که تمام و دشواری
           </p>
-          <Image src={product.mainImage} width={500} height={500} />
+          <Image
+            src={product.mainImage}
+            width={500}
+            height={500}
+            alt="mainImage"
+          />
           <p className="text-xl font-medium">
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
             استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در

@@ -11,14 +11,15 @@ function RecentVisits({ recentVisits }) {
   const endIndex = startIndex + itemsPerPage;
   const paginatedVisits = recentVisits.slice(startIndex, endIndex);
   const totalPages = Math.ceil(recentVisits.length / itemsPerPage);
- 
 
   return (
     <div className="profile-content-box">
       <SectionHeader title="بازدید‌های اخیر" />
       <div className="flex gap-2 flex-wrap">
         {recentVisits.length > 0 ? (
-          paginatedVisits.map((product) => <ProfileProductCard  {...product} />)
+          paginatedVisits.map((product) => (
+            <ProfileProductCard {...product} key={product._id} />
+          ))
         ) : (
           <div className="flex justify-center items-center flex-col gap-y-5 text-3xl mx-auto border p-8 rounded-4xl border-gray-200">
             <FaRegEyeSlash />

@@ -8,6 +8,7 @@ import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 function Cart({ setIsActiveCart }) {
   let { cart, getTotal, removeFromCart, addToCart, decreaseFromCart } =
     useContext(CartContext);
+
   return (
     <div
       className={
@@ -33,6 +34,7 @@ function Cart({ setIsActiveCart }) {
           <div className="p-3  flex flex-col gap-y-2 ">
             {cart.map((product) => (
               <CartProduct
+                key={product._id}
                 product={product}
                 removeFromCart={removeFromCart}
                 addToCart={addToCart}

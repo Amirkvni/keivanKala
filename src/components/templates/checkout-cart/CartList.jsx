@@ -71,8 +71,13 @@ function CartList({ isLogin }) {
                     <IoCloseCircleOutline className="w-full h-full" />
                   </div>
 
-                  <div className="w-20 h-24 my-2">
-                    <Image width={400} height={400} src={product.mainImage} />
+                  <div className="w-20 h-24 my-2 ">
+                    <Image
+                      width={400}
+                      height={400}
+                      src={product.mainImage}
+                      alt={product._id}
+                    />
                   </div>
                   <input
                     type="number"

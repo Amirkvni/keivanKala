@@ -3,7 +3,6 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 import "next-range-slider/dist/main.css";
-import { RangeSlider } from "next-range-slider";
 import styles from "./productfilter.module.css";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import PriceSlider from "@/components/templates/search/PriceSlider";

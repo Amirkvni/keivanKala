@@ -22,7 +22,7 @@ import Cart from "./Cart";
 import { CartContext } from "@/contexts/CartContext";
 import { useRouter } from "next/navigation";
 
-function Header({ isLogin }) {
+function Header() {
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const [isHover, setIsHover] = useState(false);
@@ -32,7 +32,8 @@ function Header({ isLogin }) {
   const [mobileCategoriesActive, isMobileCategoriesActive] = useState(false);
   const [activeMobileCategory, setActiveMobileCategory] = useState("");
   const [activeMobileSubCategory, setActiveMobileSubCategory] = useState("");
-
+  const [isLogin, setIsLogin] = useState(false);
+  const [user, setUser] = useState(null);
   const categories = [
     {
       id: "1",
@@ -218,6 +219,23 @@ function Header({ isLogin }) {
       document.documentElement.classList.add("dark");
     }
   }, []);
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await fetch("/api/auth/me", { credentials: "include" });
+        if (!res.ok) return;
+
+        const data = await res.json();
+        setIsLogin(true);
+        setUser(data.data); // شامل firstname و lastname و role
+      } catch (err) {
+        // کاربر لاگین نیست یا مشکلی پیش اومده
+        setIsLogin(false);
+      }
+    };
+
+    getUser();
+  }, []);
   const darkmodeHandler = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
@@ -268,20 +286,20 @@ function Header({ isLogin }) {
                 />
               </div>
               <div className="flex gap-x-4 items-center">
-                <Link href="/profile">
-                  {isLogin ? (
+                {isLogin ? (
+                  <Link href="/profile">
                     <CiUser className="text-2xl" />
-                  ) : (
-                    <Link
-                      className="text-lg flex items-center gap-x-1 border rounded-lg px-1.5 py-1"
-                      href="/signin"
-                    >
-                      <span>ورود </span>
-                      <span>|</span>
-                      <span>ثبت نام</span>
-                    </Link>
-                  )}
-                </Link>
+                  </Link>
+                ) : (
+                  <Link
+                    className="text-lg flex items-center gap-x-1 border rounded-lg px-1.5 py-1"
+                    href="/signin"
+                  >
+                    <span>ورود </span>
+                    <span>|</span>
+                    <span>ثبت نام</span>
+                  </Link>
+                )}
                 <Link
                   href="/checkout-cart"
                   className="relative "

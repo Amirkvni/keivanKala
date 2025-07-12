@@ -31,13 +31,18 @@ function Payment() {
       <section className="flex justify-around  [&>div]:flex [&>div]:gap-x-3 [&>div]:items-center  [&>div]:rounded-lg [&>div]:p-2 [&>div]:border ">
         <div className=" border-gray-400">
           <div className="w-12 h-12">
-            <Image width={400} height={400} src={samanBankLogo} />
+            <Image
+              width={400}
+              height={400}
+              src={samanBankLogo}
+              alt="bankSaman"
+            />
           </div>
           <span>بانک سامان</span>
         </div>
         <div className=" border-green-400">
           <div className="w-12 h-19">
-            <Image width={400} height={400} src={zarinPalLogo} />
+            <Image width={400} height={400} src={zarinPalLogo} alt="zarinPal" />
           </div>
           <span>زرین پال</span>
         </div>

@@ -222,9 +222,12 @@ export default function ShippingMethod() {
         <div className="flex gap-x-2 items-center [&>div]:w-20 [&>div]:h-28  dark:text-blue-400 [&>div]:border  [&>div]:cursor-pointer [&>div]:rounded-lg [&>div]:text-center [&>div]:flex [&>div]:gap-y-2 [&>div]:flex-col">
           {sendTimes.map((time) => (
             <div
+              key={time.id}
               onClick={() => setSendTime(time)}
               className={`${
-                sendTime.id === time.id ? "border-green-400" : "border-gray-400"
+                sendTime.id === time.id
+                  ? "border-green-400 "
+                  : "border-gray-400"
               }`}
             >
               <p>{time.day}</p>

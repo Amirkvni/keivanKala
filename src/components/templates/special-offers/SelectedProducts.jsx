@@ -41,6 +41,7 @@ export default function SelectedProducts({ selectedProducts }) {
               width={500}
               height={500}
               src="https://ik.imagekit.io/bflkztneat/selectedIcon.png?updatedAt=1742990975376"
+              alt="babanorozPic"
             />
           </div>
         </SwiperSlide>

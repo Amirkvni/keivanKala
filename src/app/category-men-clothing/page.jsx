@@ -1,6 +1,6 @@
 import Footer from "@/components/modules/footer/Footer";
 import Header from "@/components/modules/header/Header";
-import React from "react";
+import React, { Suspense } from "react";
 import Subcategories from "@/components/modules/subCategories/SubCategories";
 import connectToDB from "@/configs/db";
 import ProductModel from "@/models/Product";
@@ -87,7 +87,9 @@ export default async function Page() {
       <Header />
       <CategorysBreadCrumb name="لباس" />
       <Subcategories subCategories={subCategories} />
-      <Shop products={JSON.parse(JSON.stringify(products))} />
+      <Suspense fallback={<p>لودینگ...</p>}>
+        <Shop products={JSON.parse(JSON.stringify(products))} />
+      </Suspense>
       <Footer />
     </>
   );

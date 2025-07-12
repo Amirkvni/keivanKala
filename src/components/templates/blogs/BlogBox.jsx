@@ -13,7 +13,7 @@ function BlogBox({ mag }) {
       href={mag.link}
     >
       <div className="w-36 h-30 flex items-center justify-center ">
-        <Image src={mag.mainImage} width={500} height={500} />
+        <Image src={mag.mainImage} width={500} height={500} alt={mag.title} />
       </div>
       <div>
         <p>{mag.title}</p>

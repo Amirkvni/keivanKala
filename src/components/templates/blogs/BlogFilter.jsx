@@ -1,6 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaAngleLeft } from "react-icons/fa";
 
 function BlogFilter() {
@@ -8,7 +8,18 @@ function BlogFilter() {
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
 
+    if (searchValue) {
+      params.set("search", searchValue);
+    } else {
+      params.delete("search");
+    }
+
+    const newUrl = `?${params.toString()}`;
+    router.replace(newUrl);
+  }, [searchValue]);
   return (
     <div className="relative w-1/4 hidden 2xl:block  p-4">
       <div className="sticky top-28 flex flex-col gap-y-4 bg-white p-2 rounded-lg text-xl dark:bg-zinc-800 dark:text-white">
@@ -24,6 +35,7 @@ function BlogFilter() {
             className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-600 placeholder:text-lg"
             placeholder="جستجو در بین نتایج ..."
             value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>
 

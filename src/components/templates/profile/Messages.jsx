@@ -62,7 +62,12 @@ function Messages({
               {message.products.map((product) => (
                 <div className="flex items-center" key={product._id}>
                   <div className="w-32 h-32  rounded-lg">
-                    <Image src={product.image} width={500} height={500} />
+                    <Image
+                      src={product.image}
+                      width={500}
+                      height={500}
+                      alt={product._id}
+                    />
                   </div>
                   <p>لورم ایسپسوم دولار کیر خر کسکش نز جنده باز</p>
                 </div>
@@ -87,7 +92,12 @@ function Messages({
               {message.products.map((product) => (
                 <div className="flex items-center" key={product._id}>
                   <div className="w-32 h-32  rounded-lg">
-                    <Image src={product.image} width={500} height={500} />
+                    <Image
+                      src={product.image}
+                      width={500}
+                      height={500}
+                      alt={product._id}
+                    />
                   </div>
                   <p>{product.text}</p>
                 </div>

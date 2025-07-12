@@ -13,7 +13,7 @@ export default async function page({ searchParams }) {
       { persianName: { $regex: q, $options: "i" } },
       { englishFullName: { $regex: q, $options: "i" } },
     ],
-  }).lean();
+  });
   return (
     <>
       <Header />
@@ -22,7 +22,7 @@ export default async function page({ searchParams }) {
           لطفاً یک عبارت برای جستجو وارد کنید!!!
         </div>
       ) : (
-        <Shop products={products} />
+        <Shop products={JSON.parse(JSON.stringify(products))} />
       )}
       <Footer />
     </>

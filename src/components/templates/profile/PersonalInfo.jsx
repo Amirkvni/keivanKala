@@ -94,12 +94,11 @@ function PersonalInfo({ user }) {
         <div>
           <div>
             <p>کدملی</p>
+
             <p className="pt-3">
-              {user.nationalcode == null || user.nationalcode == undefined ? (
-                <p>کدملی وجود ندارد</p>
-              ) : (
-                user.nationalcode
-              )}
+              {user.nationalcode == null || user.nationalcode == undefined
+                ? "کدملی وجود ندارد"
+                : user.nationalcode}
             </p>
           </div>
           {user.nationalcode == null || user.nationalcode == undefined ? (
@@ -135,13 +134,9 @@ function PersonalInfo({ user }) {
           <div>
             <p>تاریخ تولد</p>
             <p className="pt-3">
-              {user.birthday.year == null || user.birthday == undefined ? (
-                <p>تاریخ تولد وجود ندارد</p>
-              ) : (
-                <p>
-                  {user.birthday.year}/{user.birthday.month}/{user.birthday.day}
-                </p>
-              )}
+              {user.birthday.year == null || user.birthday == undefined
+                ? "تاریخ تولد وجود ندارد"
+                : user.birthday.year / user.birthday.month / user.birthday.day}
             </p>
           </div>
           {user.birthday.year == null ? (

@@ -35,7 +35,12 @@ export default function ProfileProductCard({
       key={_id}
     >
       <div className="2xl:w-32 w-22 2xl:h-44 h-22 mx-auto">
-        <Image width={500} height={500} src={mainImage || image} />
+        <Image
+          width={500}
+          height={500}
+          src={mainImage || image}
+          alt={persianName || productName}
+        />
       </div>
       <p className="2xl:h-40 h-20 overflow-y-hidden text-[8px] 2xl:text-sm font-bold">
         {persianName || productName}

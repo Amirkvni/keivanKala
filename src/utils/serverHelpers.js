@@ -4,7 +4,9 @@ import { verifyAccessToken } from "./auth";
 import UserModel from "@/models/User";
 const authUser = async () => {
   connectToDB();
-  const token = cookies().get("token");
+  const cookieStore = await cookies(); // ← باید await بشه
+
+  const token = cookieStore.get("token");
 
   let user = null;
   if (token) {

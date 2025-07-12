@@ -9,7 +9,7 @@ function Category({ address, name, link }) {
       className="flex flex-col justify-center items-center bg-white    rounded-xl  "
     >
       <div className="w-12 h-12 xl:w-16 xl:h-16 bg-red-200">
-        <Image width={500} height={500} src={address} />
+        <Image width={500} height={500} src={address} alt={name} />
       </div>
       <span className="text-xs text-gray-500 ">{name}</span>
     </Link>

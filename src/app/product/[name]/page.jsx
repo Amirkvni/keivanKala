@@ -39,7 +39,7 @@ async function ProductDetailPage({ params }) {
 
   return (
     <div>
-      <Header />
+      <Header isLogin={user ? true : false} />
       <ProductDetail
         product={JSON.parse(JSON.stringify(product))}
         user={JSON.parse(JSON.stringify(user))}

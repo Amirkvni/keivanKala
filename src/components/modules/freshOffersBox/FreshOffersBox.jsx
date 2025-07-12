@@ -29,13 +29,16 @@ function FreshOffersBox({ product }) {
   };
 
   return (
-    <Link
-      href={`/product/${slugify(product.englishFullName)}`}
-    >
+    <Link href={`/product/${slugify(product.englishFullName)}`}>
       <div className="  flex flex-col text-xs gap-y-2">
         <p className="text-red-500 text-sm font-semibold">پیشنهاد شگفت انگیز</p>
         <div className="w-32 h-38 mx-auto">
-          <Image width={500} height={500} src={product.mainImage} />
+          <Image
+            width={500}
+            height={500}
+            src={product.mainImage}
+            alt={product.englishFullName}
+          />
         </div>
         <span className=" element">{product.persianName}</span>
         <div className="flex gap-x-2 items-center ">

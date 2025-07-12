@@ -25,7 +25,12 @@ function BlogDetail({ blog }) {
         </div>
       </div>
       <div className="rounded-2xl overflow-hidden">
-        <Image width={1500} height={1500} src={blog.mainImage} />
+        <Image
+          width={1500}
+          height={1500}
+          src={blog.mainImage}
+          alt={blog.title}
+        />
       </div>
       <p>{blog.introduction}</p>
       <div>
@@ -34,7 +39,12 @@ function BlogDetail({ blog }) {
             <h4 className="mt-6">{contnet.title}</h4>
             <p>{contnet.text}</p>
             <div className="rounded-2xl overflow-hidden">
-              <Image width={1500} height={1500} src={contnet.image} />
+              <Image
+                width={1500}
+                height={1500}
+                src={contnet.image}
+                alt={contnet.title}
+              />
             </div>
           </div>
         ))}
