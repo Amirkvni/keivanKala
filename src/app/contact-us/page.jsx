@@ -8,7 +8,7 @@ function page() {
     <>
       <Header />
       <Contactus />
-      <Footer/>
+      <Footer />
     </>
   );
 }

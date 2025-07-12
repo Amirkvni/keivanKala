@@ -6,6 +6,8 @@ import connectToDB from "@/configs/db";
 import ProductModel from "@/models/Product";
 import CategorysBreadCrumb from "@/components/modules/CategorysBreadCrumb/CategorysBreadCrumb";
 import Shop from "@/components/modules/shop/Shop";
+export const revalidate = 3600;
+
 export default async function Page() {
   connectToDB();
   let products = await ProductModel.find({ parentCategory: "men-shoes" });

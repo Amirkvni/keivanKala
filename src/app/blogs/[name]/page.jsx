@@ -6,6 +6,16 @@ import React from "react";
 import BlogModel from "@/models/Blog";
 import BlogLinks from "@/components/templates/blogs/BlogLinks";
 import Footer from "@/components/modules/footer/Footer";
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+   connectToDB();
+  const blogs = await BlogModel.find({}, "link").lean();
+
+  return blogs.map((blog) => ({
+    name: blog.link,
+  }));
+}
 export default async function page({ params }) {
   const { name } = await params;
   connectToDB();

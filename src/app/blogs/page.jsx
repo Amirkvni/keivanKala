@@ -4,6 +4,7 @@ import BlogPage from "@/components/templates/index/blogs/BlogPage";
 import connectToDB from "@/configs/db";
 import BlogModel from "@/models/Blog";
 import { Suspense } from "react";
+export const revalidate = 3600;
 export default async function page() {
   connectToDB();
   let blogs = await BlogModel.find();
