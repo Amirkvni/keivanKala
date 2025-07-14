@@ -37,7 +37,7 @@ function BlogPage({ blogs }) {
               }}
               className={` ${
                 activeTab === "newest"
-                  ? "bg-gray-200  p-2 rounded-lg text-green-500"
+                  ? "bg-gray-200 dark:bg-gray-700 p-2 rounded-lg text-green-500"
                   : null
               }`}
             >
@@ -49,7 +49,7 @@ function BlogPage({ blogs }) {
               }}
               className={`${
                 activeTab === "mostview"
-                  ? "bg-gray-200  p-2 rounded-lg text-green-500"
+                  ? "bg-gray-200 dark:bg-gray-700 p-2 rounded-lg text-green-500"
                   : null
               }`}
             >

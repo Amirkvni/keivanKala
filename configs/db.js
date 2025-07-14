@@ -18,12 +18,10 @@ const connectToDB = async () => {
 
   try {
     cached.conn = await cached.promise;
-    console.log("db vasl shod");
 
     return cached.conn;
   } catch (err) {
     console.error("❌ DB connection error =>", err);
-    throw err;
   }
 };
 

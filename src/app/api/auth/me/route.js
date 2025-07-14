@@ -6,10 +6,9 @@ export async function GET() {
   try {
     connectToDB();
 
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
 
     const token = cookieStore.get("token")?.value;
-    console.log("token==>", token);
 
     if (!token) {
       return Response.json(

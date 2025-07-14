@@ -9,7 +9,13 @@ import { MdOutlinePhoneEnabled } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { PiMoonStarsLight } from "react-icons/pi";
 import { HiOutlineUserGroup } from "react-icons/hi";
-import { IoClose, IoHomeOutline, IoSearchOutline } from "react-icons/io5";
+import {
+  IoClose,
+  IoHomeOutline,
+  IoNewspaper,
+  IoNewspaperOutline,
+  IoSearchOutline,
+} from "react-icons/io5";
 import { BsQuestion } from "react-icons/bs";
 import {
   FaAngleLeft,
@@ -121,7 +127,7 @@ function Header() {
           mainLink: "/",
         },
       ],
-      link: "/",
+      link: "/mens-category-shop",
     },
     {
       id: "3",
@@ -165,7 +171,7 @@ function Header() {
           mainLink: "/",
         },
       ],
-      link: "/",
+      link: "/mens-category-shop",
     },
     {
       id: "4",
@@ -207,7 +213,7 @@ function Header() {
           mainLink: "/",
         },
       ],
-      link: "/",
+      link: "/mens-category-shop",
     },
   ];
   const router = useRouter();
@@ -419,7 +425,7 @@ function Header() {
         </div>
         {/* header mobile  */}
         <div>
-          <div className="xl:hidden">
+          <div className="xl:hidden ">
             {/* top section : */}
             <div className="@container flex items-center justify-between">
               <div onClick={() => setIsActiveHamburger(true)}>
@@ -444,13 +450,17 @@ function Header() {
                     <PiMoonStarsLight className="text-2xl cursor-pointer" />
                   )}
                 </button>
-                <Link href="/checkout-cart">
+
+                <Link href="/checkout-cart" className="relative ">
                   <LuShoppingCart className="text-2xl" />
+                  <span className="absolute -top-2 left-3  bg-green-500 text-white  w-4.5 h-4.5 rounded-full flex items-center justify-center">
+                    {cart.length}
+                  </span>
                 </Link>
               </div>
             </div>
             {/* bottom section : */}
-            <div className="flex px-3 py-1 mt-3 relative bg-gray-200 rounded-lg">
+            <div className="flex px-3 py-1 mt-3 relative bg-gray-200 dark:bg-zinc-700 rounded-lg ">
               <input
                 type="text"
                 placeholder="جستجو کنید ..."
@@ -462,7 +472,7 @@ function Header() {
         </div>
       </div>
       <div
-        className={`xl:hidden p-4 bg-white fixed z-50 w-3/5 h-screen top-0 right-0 bottom-0 transform  ${
+        className={`xl:hidden p-4 bg-white dark:bg-zinc-900 dark:text-white fixed z-50 w-3/5 h-screen top-0 right-0 bottom-0 transform  ${
           isActiveHamburger ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-500 ease-in-out`}
       >
@@ -473,7 +483,9 @@ function Header() {
               className="w-6 h-6"
             />
             {isLogin ? (
-              <CiUser className="text-2xl" />
+              <Link href="/profile">
+                <CiUser className="text-2xl" />
+              </Link>
             ) : (
               <Link
                 className="text-sm flex items-center gap-x-1 border rounded-lg p-1"
@@ -500,33 +512,33 @@ function Header() {
             >
               {categories.map((category) => (
                 <div key={category.id}>
-                  <div
-                    className="flex items-center justify-between border border-gray-300 p-2 rounded-sm  "
-                    onClick={() => setActiveMobileCategory(category.id)}
-                  >
-                    <span>{category.name}</span>
+                  <div className="flex items-center justify-between border border-gray-300  p-2 rounded-sm  ">
+                    <Link href={category.link}>{category.name}</Link>
                     {activeMobileCategory === category.id ? (
                       <FaChevronDown />
                     ) : (
-                      <FaChevronUp />
+                      <FaChevronUp
+                        onClick={() => setActiveMobileCategory(category.id)}
+                      />
                     )}
                   </div>
                   {activeMobileCategory === category.id && (
-                    <div className="flex flex-col gap-y-2 ">
+                    <div className="flex flex-col gap-y-2  ">
                       {category.submenu.map((sub) => (
                         <div
-                          className="border border-gray-300 p-2.5 rounded-sm  mt-1.5"
+                          className="border border-gray-300 p-2.5 rounded-sm  mt-1.5 "
                           key={sub.id}
                         >
-                          <div
-                            className="flex items-center justify-between "
-                            onClick={() => setActiveMobileSubCategory(sub.id)}
-                          >
-                            <span>{sub.title}</span>
+                          <div className="flex items-center justify-between ">
+                            <Link href={sub.mainLink}>{sub.title}</Link>
                             {activeMobileSubCategory === sub.id ? (
                               <FaChevronDown />
                             ) : (
-                              <FaChevronUp />
+                              <FaChevronUp
+                                onClick={() =>
+                                  setActiveMobileSubCategory(sub.id)
+                                }
+                              />
                             )}
                           </div>
                           {activeMobileSubCategory === sub.id && (
@@ -565,6 +577,10 @@ function Header() {
           <Link href="/questions" className="flex items-center gap-x-2">
             <BsQuestion />
             <span>سوالات متداول </span>
+          </Link>
+          <Link href="/blogs" className="flex items-center gap-x-2">
+            <IoNewspaperOutline />
+            <span>وبلاگ</span>
           </Link>
         </div>
       </div>

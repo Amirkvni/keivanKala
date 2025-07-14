@@ -113,22 +113,25 @@ function QuestionBox() {
     );
   };
   return (
-    <div className="flex 2xl:flex-row flex-col mt-[130px] mx-auto 2xl:w-[1000px] w-9/12  relative gap-x-2 [&>div]:rounded-lg">
+    <div className="flex 2xl:flex-row flex-col mt-[130px] mx-auto 2xl:w-[1000px] w-9/12  relative gap-x-2 [&>div]:rounded-lg ">
       {/* search section : */}
-      <div className="w-full 2xl:w-4/12 bg-white flex flex-col gap-y-3 2xl:sticky 2xl:top-28 p-3">
+      <div
+        className="w-full 2xl:w-4/12 bg-white flex flex-col gap-y-3 2xl:sticky 2xl:top-28 p-3 dark:bg-zinc-800 dark:text-white
+      "
+      >
         <h2 className="border-b-2 border-b-green-400 w-fit">سوالات متداول</h2>
         <div className="2xl:text-base ">
-          <span className="text-xs 2xl:text-sm">
+          <span className="text-xs 2xl:text-sm ">
             سوالات خود را پیدا نکردید ؟
             <Link href="/contact-us" className="text-green-400 pr-3">
               با ما تماس بگیرید
             </Link>
           </span>
         </div>
-        <div className="relative">
+        <div className="relative ">
           <input
             type="text"
-            className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-600 text-xs 2xl:placeholder:text-sm 2xl:text-sm"
+            className="w-full  outline-none p-3 rounded-xl dark:bg-zinc-700 dark:placeholder:text-white  bg-gray-100 placeholder:text-gray-600 text-xs 2xl:placeholder:text-sm 2xl:text-sm"
             placeholder="سوال خود را جستجو کنید ..."
             onChange={searchHandler}
             value={searchText}
@@ -136,11 +139,11 @@ function QuestionBox() {
         </div>
       </div>
 
-      <div className="w-full 2xl:w-8/12 flex flex-col gap-y-4 bg-white p-3">
+      <div className="w-full 2xl:w-8/12 flex flex-col gap-y-4 bg-white p-3 dark:bg-zinc-800 dark:text-white">
         {questions.map((question, i) => (
           <div key={i} className="flex flex-col gap-y-3 ">
             {question.title && !searchText && (
-              <span className="text-sm 2xl:text-lg pr-2 font-bold">
+              <span className="text-sm 2xl:text-lg pr-2 font-bold ">
                 {question.title}
               </span>
             )}
@@ -148,7 +151,7 @@ function QuestionBox() {
               <div
                 key={item.id}
                 onClick={() => toggleQuestion(item.id)}
-                className="bg-gray-200 p-2 rounded-lg flex flex-col gap-y-2 cursor-pointer"
+                className="bg-gray-200 p-2 rounded-lg flex flex-col gap-y-2 cursor-pointer dark:bg-zinc-700"
               >
                 <div className="flex justify-between items-center ">
                   <span className="text-xs font-semibold 2xl:text-base 2xl:font-normal">
@@ -161,7 +164,7 @@ function QuestionBox() {
                   )}
                 </div>
                 <div
-                  className={`p-1 bg-gray-200 text-xs 2xl:text-base ${
+                  className={`p-1 bg-gray-200 dark:bg-zinc-700 text-xs 2xl:text-base ${
                     openQuestions.includes(item.id) ? "block" : "hidden"
                   }`}
                 >

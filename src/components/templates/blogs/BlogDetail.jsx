@@ -12,8 +12,8 @@ function BlogDetail({ blog }) {
     <div className="2xl:w-9/12 w-full  rounded-lg p-4 flex flex-col gap-y-5 bg-white dark:bg-zinc-800 dark:text-white">
       <h1 className=" text-lg 2xl:text-xl font-semibold">{blog.title}</h1>
       <div className="flex justify-between items-center text-[10px] 2xl:text-base">
-        <div className="flex 2xl:gap-x-4 items-center   ">
-          <div className="flex gap-x-2 items-center">
+        <div className="flex 2xl:gap-x-4 items-center gap-x-2">
+          <div className="flex 2xl:gap-x-2 gap-x-1 items-center">
             <IoPersonOutline />
             <span>{blog.author}</span>
           </div>

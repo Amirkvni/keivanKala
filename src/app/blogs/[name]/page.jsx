@@ -9,7 +9,7 @@ import Footer from "@/components/modules/footer/Footer";
 export const dynamic = "force-static";
 
 export async function generateStaticParams() {
-   connectToDB();
+  connectToDB();
   const blogs = await BlogModel.find({}, "link").lean();
 
   return blogs.map((blog) => ({
@@ -25,7 +25,7 @@ export default async function page({ params }) {
     <>
       <Header />
       <Breadcrumb />
-      <div className="flex gap-x-3 container mx-auto mt-5 flex-col 2xl:flex-row">
+      <div className="flex gap-x-3 container mx-auto mt-5 flex-col 2xl:flex-row gap-y-3">
         <BlogDetail blog={JSON.parse(JSON.stringify(blog))} />
         <BlogLinks blogLinks={JSON.parse(JSON.stringify(blogLinks))} />
       </div>

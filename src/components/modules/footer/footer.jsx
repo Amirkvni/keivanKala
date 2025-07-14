@@ -46,8 +46,8 @@ export default function Footer() {
             <FaWhatsapp />
           </div>
         </div>
-        <div className="flex flex-col xl:flex-row justify-between gap-y-3 items-center">
-          <div className="  flex gap-x-20 text-lg [&>div]:flex [&>div]:flex-col [&>div]:gap-y-4 [&>div>a]:text-gray-400 ">
+        <div className="flex flex-col xl:flex-row justify-between gap-y-6 items-center">
+          <div className="  flex gap-x-20 2xl:text-lg [&>div]:flex [&>div]:flex-col 2xl:[&>div]:gap-y-4 [&>div]:gap-y-6 [&>div>a]:text-gray-400 text-xs">
             <div>
               <span>کیوان کالا</span>
               <Link href="/" className="hover:text-green-400">
@@ -66,16 +66,15 @@ export default function Footer() {
             <div className="group">
               <span>دسترسی سریع</span>
               <Link href="/" className="hover:text-green-400">
-                {" "}
                 پیگیری سفارشات
               </Link>
-              <Link href="/" className="hover:text-green-400">
+              <Link href="/contact-us" className="hover:text-green-400">
                 تماس با ما
               </Link>
-              <Link href="/" className="hover:text-green-400">
-                سوالات متداول{" "}
+              <Link href="/questions" className="hover:text-green-400">
+                سوالات متداول
               </Link>
-              <Link href="/" className="hover:text-green-400">
+              <Link href="/about-us" className="hover:text-green-400">
                 درباره ما
               </Link>
             </div>
@@ -100,7 +99,7 @@ export default function Footer() {
           </div>
         </div>
         <hr className="text-gray-200" />
-        <p className="text-center text-lg text-gray-400">
+        <p className="text-center text-sm 2xl:text-lg text-gray-400">
           نوشته شده با ❤️ توسط امیرحسین کیوانی
         </p>
       </div>

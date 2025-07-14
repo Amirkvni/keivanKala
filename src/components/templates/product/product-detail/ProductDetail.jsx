@@ -92,7 +92,7 @@ function ProductDetail({ product, user }) {
 
   return (
     <>
-      <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white hidden 2xl:block mt-[140px] dark:bg-zinc-800 ">
+      <div className="container mx-auto py-4 px-2  w-3/4 my-12 rounded-lg shadow-sm bg-white  hidden 2xl:block mt-[140px] dark:bg-zinc-800 ">
         <div className="gap-x-2 flex 2xl:flex-row flex-col ">
           {/* right section : */}
           <div className="w-1/3 ">
@@ -267,14 +267,14 @@ function ProductDetail({ product, user }) {
       </div>
 
       {/* mobile : */}
-      <div className="2xl:hidden my-6 rounded-lg shadow-sm bg-white container mx-auto py-1 px-2  flex flex-col border-0.5 gap-y-1.5 mt-[130px]">
+      <div className="2xl:hidden my-6 rounded-lg shadow-sm bg-white dark:bg-zinc-800 container mx-auto py-1 px-2  flex flex-col border-0.5 gap-y-1.5 mt-[130px]">
         <div className="flex gap-x-2 items-center p-3 [&>svg]:h-5 [&>svg]:w-5 [&>svg]:cursor-pointer justify-end mb-3 ">
           {isWishlist ? (
             <FaHeart onClick={addToWishlist} className="text-red-600" />
           ) : (
-            <FaRegHeart onClick={addToWishlist} />
+            <FaRegHeart onClick={addToWishlist} className="dark:text-white" />
           )}
-          <MdShare onClick={showLightBox} />
+          <MdShare onClick={showLightBox} className="dark:text-white" />
         </div>
         <div className="h-[300px]  w-[200px]  mx-auto">
           <Swiper
@@ -294,12 +294,14 @@ function ProductDetail({ product, user }) {
           نایک
           <FaChevronLeft />
         </div>
-        <h1 className="font-semibod text-lg  mb-2">{product.persianName}</h1>
+        <h1 className="font-semibod text-lg dark:text-white  mb-2">
+          {product.persianName}
+        </h1>
         <div className="flex text-green-400 text-sm gap-x-4 ">
           <span> کد کالا 6457 # </span>
           <span>20 دیدگاه</span>
         </div>
-        <div>انتخاب رنگ</div>
+        <div className="dark:text-white">انتخاب رنگ</div>
         <div className="colors flex  gap-x-2 w-fit ">
           {/* {Object.entries(product.colors).map(([key, value]) => (
             <div
@@ -316,7 +318,7 @@ function ProductDetail({ product, user }) {
             </div>
           ))} */}
         </div>
-        <div>انتخاب سایز</div>
+        <div className="dark:text-white">انتخاب سایز</div>
         <div className="colors flex  gap-x-2 w-fit ">
           {/* {product.sizes.map((product) => (
             <div
@@ -331,19 +333,28 @@ function ProductDetail({ product, user }) {
             </div>
           ))} */}
         </div>
-        <div>انتخاب تعداد </div>
+        <div className="dark:text-white">انتخاب تعداد </div>
         <div className="flex items-center gap-x-4  border-gray-200 border-1 rounded-sm w-fit p-1.5 [&>svg]:cursor-pointer ">
           <FaPlus
             className="text-green-400"
             onClick={() => setQuantity((prev) => prev + 1)}
           />
-          <span>{quantity}</span>
+          <span className="dark:text-white">{quantity}</span>
           <FaMinus
             className="text-red-400"
             onClick={() => setQuantity((prev) => prev + 1)}
           />
         </div>
-        <div className="flex flex-col  mt-4 gap-y-2 [&>div]:flex [&>div]:px-3 [&>div]:py-2 [&>div]:w-full [&>div]:items-center [&>div]:gap-x-1 [&>div]:border [&>div]:border-gray-200 [&>div]:p-0.5 [&>div]:rounded-sm ">
+        <button
+          onClick={() => {
+            setQuantity((prev) => prev + 1);
+            addToCart(product);
+          }}
+          className="w-full rounded-lg p-1 mt-3 text-white cursor-pointer py-3 bg-green-600 dark:bg-green-500 "
+        >
+          افزودن به سبد خرید
+        </button>
+        <div className="flex flex-col  mt-4 gap-y-2 [&>div]:flex [&>div]:px-3 [&>div]:py-2 [&>div]:dark:text-white [&>div]:w-full [&>div]:items-center [&>div]:gap-x-1 [&>div]:border [&>div]:border-gray-200 [&>div]:p-0.5 [&>div]:rounded-sm ">
           <div>
             <IoIosTimer />
             <span>هفت روز ضمانت بازگشت کالا</span>
@@ -362,7 +373,7 @@ function ProductDetail({ product, user }) {
           </div>
         </div>
       </div>
-      <div className="2xl:hidden  my-6 rounded-lg shadow-sm bg-white container mx-auto py-1 px-2 border-0.5">
+      <div className="2xl:hidden  my-6 rounded-lg shadow-sm bg-white dark:bg-zinc-800 dark:text-white py-3 container mx-auto  px-2 border-0.5">
         <div className=" pb-3">ویژگی های محصول</div>
         <div>
           <ul className="flex flex-col gap-y-5">

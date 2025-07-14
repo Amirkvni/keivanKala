@@ -39,7 +39,7 @@ function Orders({ activeOrder, orders }) {
         ))}
       </div>
       <div>
-        <div className="flex flex-col gap-y-4 [&>div]:border [&>div]:rounded-lg [&>div]:p-2">
+        <div className="flex flex-col gap-y-4 [&>div]:border [&>div]:rounded-lg [&>div]:p-2 ">
           {["current", "delivered", "canceled", "returned"].includes(
             activeOrder
           ) && renderOrders()}

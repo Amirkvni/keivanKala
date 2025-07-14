@@ -10,7 +10,7 @@ import { Navigation } from "swiper/modules";
 import "./styles.css";
 export default function Subcategories({ subCategories }) {
   return (
-    <div className="container mx-auto xl:mt-12 mt=4">
+    <div className="container mx-auto xl:mt-12 mt=4 ">
       <main className="mt-5 ">
         <Swiper
           slidesPerView={"auto"}

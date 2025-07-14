@@ -6,12 +6,14 @@ import { GoPerson } from "react-icons/go";
 import { TiPhoneOutline } from "react-icons/ti";
 import Image from "next/image";
 import { RiEdit2Line } from "react-icons/ri";
-import { FaRegTrashCan } from "react-icons/fa6";
+import { FaArrowRight, FaRegTrashCan } from "react-icons/fa6";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { TbAddressBookOff } from "react-icons/tb";
 import mapImage from "@/../public/images/map.jpg";
 import { useRouter } from "next/navigation";
+import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
+import Link from "next/link";
 function Addresses({ addresses }) {
   const router = useRouter();
   const addAddress = () => {
@@ -184,10 +186,29 @@ function Addresses({ addresses }) {
 
   return (
     <div className="profile-content-box ">
-      <div className="flex justify-between items-center ">
+      <div className="hidden 2xl:flex justify-between items-center ">
         <span className=" border-b-green-400 pb-2 border-b-3 ">
           آدرس های شما
         </span>
+        <button
+          className="flex gap-x-2 items-center text-white bg-green-400 cursor-pointer rounded-lg p-2  "
+          onClick={addAddress}
+        >
+          <span> افزودن آدرس </span>
+          <MdOutlineAddLocationAlt />
+        </button>
+      </div>
+      <div className="2xl:hidden text-sm 2xl:text-base flex justify-between items-center flex-wrap  gap-x-3 gap-y-3">
+        <span className="border-b-green-400 pb-2 border-b-3 ">
+          آدرس های شما
+        </span>
+        <Link
+          href="/profile"
+          className="flex gap-x-2 items-center 2xl:text-base text-sm 2xl:hidden"
+        >
+          <FaArrowRight />
+          <span>بازگشت</span>
+        </Link>
         <button
           className="flex gap-x-2 items-center text-white bg-green-400 cursor-pointer rounded-lg p-2  "
           onClick={addAddress}
@@ -234,7 +255,7 @@ function Addresses({ addresses }) {
                   </div>
                 )}
               </div>
-              <div className="flex justify-between  items-center  p-3  text-xs 2xl:text-base">
+              <div className="flex flex-col 2xl:flex-row gap-y-3 justify-between  items-center  p-3  text-xs 2xl:text-base ">
                 <div>
                   <ul className="flex flex-col gap-y-2 [&>li]:flex [&>li]:items-center [&>li]:gap-x-2  ">
                     <li>

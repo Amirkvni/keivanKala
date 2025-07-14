@@ -176,8 +176,8 @@ function CommentItem({ comment }) {
       <div>
         <span className="text-sm 2xl:text-base">{comment.body}</span>
         <hr className="text-gray-200 my-3" />
-        <div className="flex justify-between items-center text-[10px] 2xl:text-xs">
-          <div className="flex gap-x-3 items-center">
+        <div className="flex justify-between items-center text-[9px] 2xl:text-xs ">
+          <div className="flex 2xl:gap-x-3 items-center">
             <div className="flex gap-x-1 items-center">
               <span>کیوان کالا</span>
               <AiOutlineShop />

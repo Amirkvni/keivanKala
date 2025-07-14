@@ -60,7 +60,7 @@ function OrderPreview({ delivery, orderDate, status, products }) {
           <span>{delivery.price.toLocaleString("fa")}تومان</span>
         </div>
       </div>
-      <div className="flex gap-x-3">
+      <div className="flex gap-x-3 flex-wrap gap-3">
         {products.map((product) => (
           <Link
             href={`/product/${slugify(product.englishFullName)}`}
