@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FaFilter } from "react-icons/fa6";
 import BlogBox from "./BlogBox";
 import BlogFilter from "../../blogs/BlogFilter";
