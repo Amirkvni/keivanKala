@@ -1,19 +1,21 @@
 import connectToDB from "@/configs/db";
 import UserModel from "@/models/User";
 import {
-  generateAccessToken,
+  signAccessToken,
+  signRefreshToken,
   verifyPassword,
-  generateRefreshToken,
 } from "@/utils/auth";
+import { serialize } from "cookie";
+
 export async function POST(req) {
   try {
     connectToDB();
     const body = await req.json();
-    const { phoneOrEmail, password } = body;
-    // email and mobile validate
+    const { email, password } = body;
     const user = await UserModel.findOne({
-      $or: [{ email: phoneOrEmail }, { phone: phoneOrEmail }],
+      email,
     });
+    console.log("userr===>", user);
 
     if (!user) {
       return Response.json({ message: "User not found" }, { status: 422 });
@@ -32,31 +34,55 @@ export async function POST(req) {
       );
     }
 
-    const accessToken = generateAccessToken({ phoneOrEmail });
-    const refreshToken = generateRefreshToken({ phoneOrEmail });
+    const accessToken = await signAccessToken({
+      userId: user._id.toString(),
+      email: user.email,
+      role: user.role,
+    });
+    const refreshToken = await signRefreshToken({
+      userId: user._id.toString(),
+      email: user.email,
+      role: user.role,
+    });
     await UserModel.findOneAndUpdate(
-      { phoneOrEmail },
+      { email },
       {
         $set: {
           refreshToken,
         },
       }
     );
+    const response = Response.json({ message: "Login successful" });
     const headers = new Headers();
-    headers.append("Set-Cookie", `token=${accessToken};path=/;httpOnly=true;`);
     headers.append(
       "Set-Cookie",
-      `refresh-token=${refreshToken};path=/;httpOnly=true;`
+      serialize("accessToken", accessToken, {
+        httpOnly: true,
+        path: "/",
+        maxAge: 15 * 60,
+        sameSite: "strict",
+      })
+    );
+    headers.append(
+      "Set-Cookie",
+      serialize("refreshToken", refreshToken, {
+        httpOnly: true,
+        path: "/",
+        maxAge: 7 * 24 * 60 * 60,
+        sameSite: "strict",
+      })
     );
 
-    return Response.json(
-      { message: "User logged in successfully :))" },
+    return new Response(
+      JSON.stringify({ message: "User logged in successfully" }),
       {
         status: 200,
         headers,
       }
     );
   } catch (error) {
+    console.log(error.message);
+
     return Response.json({ message: error }, { status: 500 });
   }
 }

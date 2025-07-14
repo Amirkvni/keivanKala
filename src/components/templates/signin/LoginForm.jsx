@@ -11,19 +11,19 @@ function LoginForm() {
   let { redirectPath } = useContext(CartContext);
 
   const [loginWay, setLoginWay] = useState("username");
-  const [phoneOrEmail, setPhoneOrEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [enteredPhoneOrEmail, setEnteredPhoneOrEmail] = useState(true);
   const [enteredPassword, setEnteredPassword] = useState(true);
   const loginWithPassword = async () => {
     const veryfyForm = () => {
       let isValid = true;
-      if (!phoneOrEmail.trim()) {
+      if (!email.trim()) {
         setEnteredPhoneOrEmail(false);
         isValid = false;
       } else {
-        const isEmail = validateEmail(phoneOrEmail);
-        const isPhoneNumber = validatePhone(phoneOrEmail);
+        const isEmail = validateEmail(email);
+        const isPhoneNumber = validatePhone(email);
         if (isEmail || isPhoneNumber) {
           isValid = true;
         } else {
@@ -42,7 +42,7 @@ function LoginForm() {
     };
     const isFormValid = veryfyForm();
     if (isFormValid) {
-      const user = { phoneOrEmail, password };
+      const user = { email, password };
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: {
@@ -73,14 +73,14 @@ function LoginForm() {
   return (
     <div className="w-full h-screen flex justify-center items-center bg-white dark:bg-zinc-800 dark:text-white">
       <div className="w-[340px]  border border-gray-200 rounded-2xl p-3 ">
-        <h1 className="text-center text-2xl text-green-400">keivanKala</h1>
+        <h1 className="text-center text-2xl text-green-400">کیوان کالا</h1>
         {loginWay === "username" && (
           <div className="flex flex-col gap-y-3 my-4 [&>input]:border-1 [&>input]:border-gray-200 [&>input]:outline-none [&>input]:p-1">
-            <label>ایمیل یا شماره تماس:</label>
+            <label>ایمیل :</label>
             <input
               type="text"
-              value={phoneOrEmail}
-              onChange={(event) => setPhoneOrEmail(event.target.value)}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
             {!enteredPhoneOrEmail && <span>ایمیل ؟</span>}
             {enteredPhoneOrEmail === "falseFormat" && (

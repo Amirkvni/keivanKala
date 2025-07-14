@@ -1,44 +1,63 @@
-import connectToDB from "@/configs/db";
-import UserModel from "@/models/User";
-import { verifyAccessToken } from "@/utils/auth";
+import {
+  signAccessToken,
+  verifyAccessToken,
+  verifyRefreshToken,
+} from "@/utils/auth";
 import { cookies } from "next/headers";
+import UserModel from "@/models/User";
 export async function GET() {
+  const cookieStore = await cookies();
+
+  let accessToken = cookieStore.get("accessToken")?.value;
+  const refreshToken = cookieStore.get("refreshToken")?.value;
+
+  if (!accessToken && refreshToken) {
+    try {
+
+      const payload = await verifyRefreshToken(refreshToken);
+
+
+      accessToken = await signAccessToken({
+        userId: payload.userId,
+        email: payload.email,
+        role: payload.role,
+      });
+      cookieStore.set("accessToken", accessToken, {
+        httpOnly: true,
+        path: "/",
+        maxAge: 60 * 15, // 15 دقیقه
+      });
+    } catch (err) {
+
+      return Response.json(
+        { message: "Refresh token invalid" },
+        { status: 403 }
+      );
+    }
+  }
+
+  if (!accessToken) {
+    return Response.json({ message: "No token" }, { status: 401 });
+  }
+
   try {
-    connectToDB();
-
-    const cookieStore = await cookies();
-
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) {
-      return Response.json(
-        { message: "You are not login !!" },
-        { status: 401 }
-      );
-    }
-    const tokenPayload = verifyAccessToken(token);
-
-    if (!tokenPayload) {
-      return Response.json(
-        { message: "You are not login !!" },
-        { status: 401 }
-      );
-    }
-    console.log(tokenPayload);
+    const payload = await verifyAccessToken(accessToken);
 
     const user = await UserModel.findOne(
       {
-        email: tokenPayload.phoneOrEmail,
+        email: payload.email,
       },
       "firstname lastname role"
     );
-    return Response.json({ data: user }, { status: 200 });
-  } catch (err) {
+    console.log("uesr===>", user);
+
     return Response.json(
       {
-        message: err.message,
+        message: "youe are loggin",
       },
-      { status: 500 }
+      { status: 200 }
     );
+  } catch (err) {
+    return Response.json({ message: "Token invalid" }, { status: 401 });
   }
 }

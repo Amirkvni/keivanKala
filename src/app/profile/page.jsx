@@ -7,7 +7,7 @@ import WishlistsModel from "@/models/Wishlist";
 import NotificationsModel from "@/models/Notification";
 import TicketModel from "@/models/Ticket";
 export default async function page() {
-  connectToDB();
+  // connectToDB();
   const user = await authUser();
 
   const orders = await OrderModel.find({ user: user._id });
@@ -33,6 +33,7 @@ export default async function page() {
         userWishlistsCount={userWishlistsCount}
         userNotifications={userNotifications}
       />
+      <p>salam</p>
     </>
   );
 }
