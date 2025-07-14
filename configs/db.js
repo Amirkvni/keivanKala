@@ -11,8 +11,7 @@ const connectToDB = async () => {
   if (!cached.promise) {
     cached.promise = mongoose.connect(process.env.MONGO_URL, {
       dbName: "keivankala",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+     
     });
   }
 
