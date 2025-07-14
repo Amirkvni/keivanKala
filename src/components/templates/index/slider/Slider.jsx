@@ -8,10 +8,7 @@ import "./style.css";
 import { Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 import myGif from "@/../public/gifs/main-bot.gif";
-import myPicture from "@/../public/images/main-banner-top.jpg";
-import mainSliderOne from "@/../public/images/main-slider-1.jpg";
-import mainSliderTwo from "@/../public/images/main-slider-2.jpg";
-import mainSliderThree from "@/../public/images/main-slider-3.jpg";
+
 import Link from "next/link";
 function Slider() {
   return (
@@ -29,7 +26,7 @@ function Slider() {
         <SwiperSlide>
           <Link href="/category-men-clothing">
             <Image
-              src={mainSliderOne}
+              src="https://ik.imagekit.io/bflkztneat/main-slider-1.jpg?updatedAt=1752513740379"
               alt="mainSliderOne"
               width={10000}
               height={10000}
@@ -39,7 +36,7 @@ function Slider() {
         <SwiperSlide>
           <Link href="/category-men-shoes">
             <Image
-              src={mainSliderTwo}
+              src="https://ik.imagekit.io/bflkztneat/main-slider-2.jpg?updatedAt=1752513731056"
               alt="mainSliderTwo"
               width={10000}
               height={10000}
@@ -49,7 +46,7 @@ function Slider() {
         <SwiperSlide>
           <Link href="/search/men-shirts">
             <Image
-              src={mainSliderThree}
+              src="https://ik.imagekit.io/bflkztneat/main-slider-3.jpg?updatedAt=1752513743070"
               alt="mainSliderThree"
               width={10000}
               height={10000}
@@ -61,7 +58,7 @@ function Slider() {
       <div className=" 2xl:flex-col gap-y-2  rounded-lg overflow-hidden hidden md:flex p-5 2xl:p-0 gap-x-1 ">
         <Link href="/special-offers/bags" className="w-2/4 2xl:w-[440px]">
           <Image
-            src={myPicture}
+            src="https://ik.imagekit.io/bflkztneat/main-banner-top.jpg?updatedAt=1752513729501"
             alt="GIF Animation"
             className="2xl:w-[450px] w-2/4rounded-lg overflow-hidden"
             width={10000}

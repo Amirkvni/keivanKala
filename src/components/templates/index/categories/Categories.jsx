@@ -4,36 +4,42 @@ let productCategories = [
   {
     id: 1,
     name: "جوراب مردانه",
-    imageUrl: "c1",
+    imageUrl:
+      "https://ik.imagekit.io/bflkztneat/c1.jpg?updatedAt=1752512921954",
     link: "/search/men-socks-tights",
   },
   {
     id: 2,
-    imageUrl: "c2",
+    imageUrl:
+      "https://ik.imagekit.io/bflkztneat/c2.jpg?updatedAt=1752512919394",
     name: "جوراب زنانه",
     link: "/search/men-socks-tights",
   },
   {
     id: 3,
-    imageUrl: "c3",
+    imageUrl:
+      "https://ik.imagekit.io/bflkztneat/c3.jpg?updatedAt=1752512922229",
     name: " کفش ورزشی مردانه",
     link: "/search/men-casual-shoes",
   },
   {
     id: 4,
-    imageUrl: "c4",
+    imageUrl:
+      "https://ik.imagekit.io/bflkztneat/c4.jpg?updatedAt=1752512922693",
     name: "کفش ورزشی زنانه",
     link: "/search/men-casual-shoes",
   },
   {
     id: 5,
-    imageUrl: "c5",
+    imageUrl:
+      "https://ik.imagekit.io/bflkztneat/c5.jpg?updatedAt=1752512918748",
     name: "کیف زنانه",
     link: "/search/men-casual-shoes",
   },
   {
     id: 6,
-    imageUrl: "c6",
+    imageUrl:
+      "https://ik.imagekit.io/bflkztneat/c6.jpg?updatedAt=1752513387297",
     name: "کیف مردانه",
     link: "/search/men-casual-shoes",
   },

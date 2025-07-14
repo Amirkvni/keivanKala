@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { TbAddressBookOff } from "react-icons/tb";
 import mapImage from "@/../public/images/map.jpg";
 import { useRouter } from "next/navigation";
-import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
+// import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
 import Link from "next/link";
 function Addresses({ addresses }) {
   const router = useRouter();

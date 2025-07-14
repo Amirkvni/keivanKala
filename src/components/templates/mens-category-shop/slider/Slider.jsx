@@ -7,9 +7,7 @@ import "swiper/css/navigation";
 import "./style.css";
 import { Pagination } from "swiper/modules";
 import Image from "next/image";
-import mainSliderOne from "@/../public/images/men-gold-accessories.jpg";
-import mainSliderTwo from "@/../public/images/men-watch.jpg";
-import mainSliderThree from "@/../public/images/mens-under-ware.jpg";
+
 import Link from "next/link";
 function Slider() {
   return (
@@ -27,7 +25,7 @@ function Slider() {
         <SwiperSlide>
           <Link href="/search/men-belts">
             <Image
-              src={mainSliderOne}
+              src="https://ik.imagekit.io/bflkztneat/men-gold-accessories.jpg?updatedAt=1752514580199"
               alt="mainSliderOne"
               width={5000}
               height={5000}
@@ -37,7 +35,7 @@ function Slider() {
         <SwiperSlide>
           <Link href="/search/men-watches">
             <Image
-              src={mainSliderTwo}
+              src="https://ik.imagekit.io/bflkztneat/men-watch.jpg?updatedAt=1752514587113"
               alt="mainSliderTwo"
               width={5000}
               height={5000}
@@ -47,7 +45,7 @@ function Slider() {
         <SwiperSlide>
           <Link href="/search/men-underwear">
             <Image
-              src={mainSliderThree}
+              src="https://ik.imagekit.io/bflkztneat/mens-under-ware.jpg?updatedAt=1752514596168"
               alt="mainSliderThree"
               width={5000}
               height={5000}

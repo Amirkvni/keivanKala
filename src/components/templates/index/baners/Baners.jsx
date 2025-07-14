@@ -1,6 +1,5 @@
 import React from "react";
-import categoryRightImage from "@/../public/images/category-right.jpg";
-import categoryLefyImage from "@/../public/images/category-left.jpg";
+
 import Image from "next/image";
 import Link from "next/link";
 export default function Banners() {
