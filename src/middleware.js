@@ -11,8 +11,7 @@ export async function middleware(request) {
 
   let accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
-  console.log("refreshToken===>", refreshToken);
-  console.log("accessToken===>", accessToken);
+
 
   const url = request.nextUrl;
 

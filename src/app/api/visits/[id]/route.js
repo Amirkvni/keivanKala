@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 
 export async function DELETE(req, { params }) {
   const { id } = params;
-  console.log("id===>", id);
 
   try {
     connectToDB();

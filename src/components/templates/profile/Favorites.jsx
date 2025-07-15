@@ -20,7 +20,6 @@ function Favorites({ wishlists }) {
       (a, b) => b.product.sales - a.product.sales
     );
     setProducts([...newProduct]);
-    console.log("bestSellerHandler", newProduct);
   };
   const cheapestHandler = () => {
     setActiveSort("cheapest");
@@ -28,7 +27,6 @@ function Favorites({ wishlists }) {
       (a, b) => a.product.price - b.product.price
     );
     setProducts([...newProduct]);
-    console.log("cheapestHandler", newProduct);
   };
   const mostExpensiveHandler = () => {
     setActiveSort("mostExpensive");
@@ -36,7 +34,6 @@ function Favorites({ wishlists }) {
       (a, b) => b.product.price - a.product.price
     );
     setProducts([...newProduct]);
-    console.log("mostExpensiveHandler", newProduct);
   };
   return (
     <div className="profile-content-box ">

@@ -7,7 +7,6 @@ export async function PATCH(req) {
     const user = await authUser();
 
     const { ...updatedFields } = await req.json();
-    console.log("filds", updatedFields);
 
     const updatedUser = await UserModel.findByIdAndUpdate(
       user._id,
@@ -17,7 +16,6 @@ export async function PATCH(req) {
         runValidators: true,
       }
     );
-    console.log(updatedFields);
 
     if (!updatedUser) {
       return Response.json({ message: "کاربر پیدا نشد." }, { status: 404 });

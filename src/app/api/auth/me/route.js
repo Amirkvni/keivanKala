@@ -49,7 +49,6 @@ export async function GET() {
       },
       "firstname lastname role"
     );
-    console.log("uesr===>", user);
 
     return Response.json(
       {

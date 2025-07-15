@@ -39,7 +39,6 @@ export async function PUT(request, { params }) {
       { body: text, score: rating, isAccept: false },
       { new: true, runValidators: true }
     );
-    console.log("updateComment===>", updatedComment);
 
     if (!updatedComment) {
       return Response.json({ message: "کامنت پیدا نشد" }, { status: 404 });

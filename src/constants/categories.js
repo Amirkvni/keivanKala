@@ -1,0 +1,176 @@
+export const categories = [
+  {
+    id: "1",
+    name: "مردانه",
+    submenu: [
+      {
+        id: "s1",
+        title: "لباس مردانه",
+        links: [
+          { id: "t1", title: "شلوار", address: "men-pants" },
+          { id: "t2", title: "لباس زیر", address: "men-underwear" },
+          { id: "t3", title: "پیراهن", address: "men-shirts" },
+          { id: "t4", title: "ژاکت و پلیور", address: "men-knitwear" },
+          { id: "t5", title: "شلوارک", address: "men-shorts" },
+          { id: "t6", title: "جوراب", address: "men-socks-tights" },
+        ],
+        mainLink: "/category-men-clothing",
+      },
+      {
+        id: "s2",
+        title: "کفش مردانه",
+        links: [
+          { id: "t7", title: "روزمره", address: "men-casual-shoes" },
+          { id: "t8", title: "صندل ", address: "men-sandals" },
+          { id: "t9", title: "دمپایی", address: "men-slippers" },
+          { id: "t10", title: "بوت", address: "men-boots" },
+          { id: "t11", title: "نیم بوت", address: "men-ankle-boots" },
+        ],
+        mainLink: "/category-men-shoes",
+      },
+      {
+        id: "s3",
+        title: "اکسسوری مردانه",
+        links: [
+          { id: "t12", title: "ساعت", address: "men-watches" },
+          { id: "t13", title: "عینک", address: "men-eyewear" },
+          { id: "t14", title: "کمربند", address: "men-belts" },
+          { id: "t15", title: "کروات", address: "men-ties" },
+          { id: "t16", title: "شال", address: "men-shawl" },
+        ],
+        mainLink: "/category-men-accessories",
+      },
+    ],
+    link: "/mens-category-shop",
+  },
+  {
+    id: "2",
+    name: "زنانه",
+    submenu: [
+      {
+        id: "s4",
+        title: "لباس زنانه",
+        links: [
+          { id: "t17", title: "شلوار", address: "" },
+          { id: "t18", title: "لباس زیر", address: "/" },
+          { id: "t19", title: "پیراهن", address: "/" },
+          { id: "t20", title: "ژاکت و پلیور", address: "/" },
+          { id: "t21", title: "شلوارک", address: "/" },
+          { id: "t22", title: "جوراب", address: "/" },
+        ],
+        mainLink: "/",
+      },
+      {
+        id: "s5",
+        title: "کفش زنانه",
+        links: [
+          { id: "t23", title: "روزمره", address: "/" },
+          { id: "t24", title: "صندل ", address: "/" },
+          { id: "t25", title: "دمپایی", address: "/" },
+          { id: "t26", title: "بوت", address: "/" },
+          { id: "t27", title: "نیم بوت", address: "/" },
+        ],
+        mainLink: "/",
+      },
+      {
+        id: "s6",
+        title: "اکسسوری زنانه",
+        links: [
+          { id: "t28", title: "ساعت", address: "/" },
+          { id: "t29", title: "عینک", address: "/r" },
+          { id: "t30", title: "کمربند", address: "/" },
+          { id: "t31", title: "کروات", address: "/" },
+          { id: "t32", title: "شال", address: "/" },
+        ],
+        mainLink: "/",
+      },
+    ],
+    link: "/mens-category-shop",
+  },
+  {
+    id: "3",
+    name: "بچگانه",
+    submenu: [
+      {
+        id: "s7",
+        title: "نوزادی",
+        links: [
+          { id: "t33", title: "لباس راحتی", address: "/" },
+          { id: "t34", title: "بادی و لباس زیر", address: "/" },
+          { id: "t35", title: "پیراهن و سارافون", address: "/" },
+          { id: "t36", title: "جوراب و پاپوش", address: "/" },
+          { id: "t37", title: "پالتو و بارانی", address: "/" },
+          { id: "t38", title: "سوییشرت و هودی", address: "/" },
+        ],
+        mainLink: "/",
+      },
+      {
+        id: "s8",
+        title: "دخترانه",
+        links: [
+          { id: "t39", title: "پیراهن و سارافون", address: "/" },
+          { id: "t40", title: "سرهمی ", address: "/" },
+          { id: "t41", title: "شلوار", address: "/" },
+          { id: "t42", title: "دامن", address: "/" },
+          { id: "t43", title: "لباس زیر", address: "/" },
+        ],
+        mainLink: "/",
+      },
+      {
+        id: "s9",
+        title: "پسرانه",
+        links: [
+          { id: "t45", title: "تیشرت", address: "/" },
+          { id: "t46", title: "پولوشرت", address: "/" },
+          { id: "t47", title: "پیراهن", address: "/" },
+          { id: "t48", title: "شلوار", address: "/" },
+          { id: "t49", title: "لباس زیر", address: "/" },
+        ],
+        mainLink: "/",
+      },
+    ],
+    link: "/mens-category-shop",
+  },
+  {
+    id: "4",
+    name: "زیبایی و سلامت",
+    submenu: [
+      {
+        id: "s10",
+        title: "عطر و ادکلن",
+        links: [
+          { id: "t50", title: "عطر و ادکلن مردانه", address: "/" },
+          { id: "t51", title: "عطر و ادکلن زنانه", address: "/" },
+          { id: "t52", title: "اسپری و بادی اسپلش زنانه", address: "/" },
+          { id: "t53", title: "اسپری و بادی اسپلش مردانه", address: "/" },
+        ],
+        mainLink: "/",
+      },
+      {
+        id: "s11",
+        title: "آرایش و گریم",
+        links: [
+          { id: "t54", title: "کرم پودر", address: "/" },
+          { id: "t55", title: "پنکیک ", address: "/" },
+          { id: "t56", title: "رژ گونه و هایلاتر", address: "/" },
+          { id: "t57", title: "برنز کننده", address: "/" },
+          { id: "t58", title: "رژ لب", address: "/" },
+        ],
+        mainLink: "/",
+      },
+      {
+        id: "s12",
+        title: "مراقبت پوست",
+        links: [
+          { id: "t59", title: "کرم ضد آفتاب", address: "/" },
+          { id: "t60", title: "کرم مرطوب کننده و نرم کننده", address: "/" },
+          { id: "t61", title: "لوسیون و روغن آفتاب", address: "/" },
+          { id: "t62", title: "کرم و نرم کننده لب", address: "/" },
+          { id: "t63", title: "لوسیون و روغن بدن ", address: "/" },
+        ],
+        mainLink: "/",
+      },
+    ],
+    link: "/mens-category-shop",
+  },
+];

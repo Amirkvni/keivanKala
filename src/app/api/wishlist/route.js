@@ -4,7 +4,6 @@ export async function POST(req) {
   try {
     connectToDB();
     const body = await req.json();
-    console.log(body);
 
     const { user, product } = body;
 

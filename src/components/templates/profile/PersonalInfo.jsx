@@ -8,8 +8,6 @@ import { FaArrowRight } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
 function PersonalInfo({ user }) {
-  console.log(user);
-  console.log(user.birthday.year / user.birthday.month / user.birthday.day);
 
   const router = useRouter();
   const editInfo = async (fieldName, fieldLabel, currentValue = "") => {

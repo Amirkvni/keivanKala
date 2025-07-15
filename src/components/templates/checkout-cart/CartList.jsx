@@ -27,7 +27,6 @@ function CartList({ isLogin }) {
       addToRedirectPath("/checkout-cart/shipping-method");
     }
   };
-  console.log(cart);
 
   return (
     <div className="mt-12 container flex-col xl:flex-row gap-y-5 text-xs lg:text-base  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 [&>div]:dark:bg-zinc-800 dark:text-white relative  ">

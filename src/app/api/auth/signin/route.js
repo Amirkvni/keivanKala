@@ -15,7 +15,6 @@ export async function POST(req) {
     const user = await UserModel.findOne({
       email,
     });
-    console.log("userr===>", user);
 
     if (!user) {
       return Response.json({ message: "User not found" }, { status: 422 });
@@ -81,7 +80,6 @@ export async function POST(req) {
       }
     );
   } catch (error) {
-    console.log(error.message);
 
     return Response.json({ message: error }, { status: 500 });
   }

@@ -9,6 +9,7 @@ import Slider from "@/components/templates/index/slider/Slider";
 import SpecialOffers from "@/components/templates/index/special-offers/SpecialOffers";
 export const revalidate = 60;
 export default async function Home() {
+
   return (
     <>
       <Header />
