@@ -1,5 +1,4 @@
 import { hash, compare } from "bcryptjs";
-import { sign, verify } from "jsonwebtoken";
 import { SignJWT, jwtVerify } from "jose";
 
 const hashPassword = async (password) => {
@@ -10,26 +9,6 @@ const verifyPassword = async (password, hashedPassword) => {
   const isValid = await compare(password, hashedPassword);
   return isValid;
 };
-// const generateAccessToken = (data) => {
-//   const token = sign({ ...data }, process.env.AccessTokenSecretKey, {
-//     expiresIn: "60d",
-//   });
-//   return token;
-// };
-// const verifyAccessToken = (token) => {
-//   try {
-//     const tokenPayload = verify(token, process.env.AccessTokenSecretKey);
-//     return tokenPayload;
-//   } catch (error) {
-//     return false;
-//   }
-// };
-// const generateRefreshToken = (data) => {
-//   const token = sign({ ...data }, process.env.RefreshTokenSecretKey, {
-//     expiresIn: "15d",
-//   });
-//   return token;
-// };
 const validateEmail = (email) => {
   const pattern =
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
@@ -43,9 +22,6 @@ const validatePassword = (password) => {
   const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/gm;
   return pattern.test(password);
 };
-
-// new:
-
 const accessSecret = new TextEncoder().encode(process.env.AccessTokenSecretKey);
 const refreshSecret = new TextEncoder().encode(
   process.env.RefreshTokenSecretKey
@@ -90,11 +66,7 @@ export async function verifyRefreshToken(token) {
 export {
   hashPassword,
   verifyPassword,
-  generateAccessToken,
-  verifyAccessToken,
   validateEmail,
   validatePhone,
   validatePassword,
-  generateRefreshToken,
-  signAccessToken,
 };
