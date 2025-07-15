@@ -32,9 +32,6 @@ function MobileMenu({
   cartLength,
   mobileCategoriesActive,
 }) {
-  useEffect(() => {
-    console.log("mobile menue re-redered");
-  });
   return (
     <div className="bg-white dark:bg-zinc-800">
       <div className="xl:hidden ">
@@ -82,7 +79,7 @@ function MobileMenu({
         </div>
       </div>
       <div
-        className={`xl:hidden p-4  dark:bg-zinc-900 dark:text-white fixed z-50 w-3/5 h-screen top-0 right-0 bottom-0 transform  ${
+        className={`xl:hidden p-4 bg-white dark:bg-zinc-900 dark:text-white fixed z-50 w-3/5 h-screen top-0 right-0 bottom-0 transform  ${
           isActiveHamburger ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-500 ease-in-out`}
       >

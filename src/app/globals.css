@@ -62,3 +62,21 @@
 .profile-content-box {
   @apply flex flex-col gap-y-8 bg-white w-full rounded-lg dark:bg-zinc-800 dark:text-white  2xl:w-3/4 p-3;
 }
+.swal-title {
+  font-size: 1.25rem; /* پیش‌فرض دسکتاپ */
+}
+
+.swal-popup {
+  padding: 1.5rem;
+}
+
+@media (max-width: 640px) {
+  .swal-title {
+    font-size: 0.8rem !important; /* در موبایل کوچکتر */
+  }
+
+  .swal-popup {
+    width: 60% !important;
+    padding: 1rem !important;
+  }
+}

@@ -1,6 +1,6 @@
 "use client";
 import { IoMdMore } from "react-icons/io";
-import { IoHomeOutline } from "react-icons/io5";
+import { IoCloseCircleOutline, IoHomeOutline } from "react-icons/io5";
 import { MdOutlineAddLocationAlt, MdOutlineMessage } from "react-icons/md";
 import { GoPerson } from "react-icons/go";
 import { TiPhoneOutline } from "react-icons/ti";
@@ -13,6 +13,8 @@ import { TbAddressBookOff } from "react-icons/tb";
 import mapImage from "@/../public/images/map.jpg";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import { LuMapPinned } from "react-icons/lu";
 function Addresses({ addresses }) {
   const router = useRouter();
   const addAddress = () => {
@@ -76,7 +78,14 @@ function Addresses({ addresses }) {
             body: JSON.stringify(newAddress),
           })
             .then(() => {
-              Swal.fire("تغییرات با موفقیت انجام شد");
+              Swal.fire({
+                title: "تغییرات با موفقیت انجام شد",
+                confirmButtonText: "اوکی",
+                customClass: {
+                  title: "swal-title",
+                  popup: "swal-popup",
+                },
+              });
             })
             .then(() => router.refresh());
         } catch (error) {
@@ -167,6 +176,10 @@ function Addresses({ addresses }) {
       confirmButtonText: "بله",
       confirmButtonColor: "red",
       denyButtonText: `Don't save`,
+      customClass: {
+        title: "swal-title",
+        popup: "swal-popup",
+      },
     })
       .then(async (result) => {
         if (result.isConfirmed) {
@@ -184,7 +197,7 @@ function Addresses({ addresses }) {
   };
 
   return (
-    <div className="profile-content-box ">
+    <div className="profile-content-box relative ">
       <div className="hidden 2xl:flex justify-between items-center ">
         <span className=" border-b-green-400 pb-2 border-b-3 ">
           آدرس های شما
@@ -197,7 +210,7 @@ function Addresses({ addresses }) {
           <MdOutlineAddLocationAlt />
         </button>
       </div>
-      <div className="2xl:hidden text-sm 2xl:text-base flex justify-between items-center flex-wrap  gap-x-3 gap-y-3">
+      <div className="2xl:hidden text-sm 2xl:text-base flex justify-between items-center  gap-x-3 gap-y-3 ">
         <span className="border-b-green-400 pb-2 border-b-3 ">
           آدرس های شما
         </span>
@@ -208,22 +221,22 @@ function Addresses({ addresses }) {
           <FaArrowRight />
           <span>بازگشت</span>
         </Link>
-        <button
-          className="flex gap-x-2 items-center text-white bg-green-400 cursor-pointer rounded-lg p-2  "
-          onClick={addAddress}
-        >
-          <span> افزودن آدرس </span>
-          <MdOutlineAddLocationAlt />
-        </button>
       </div>
+      <button
+        className="2xl:hidden flex gap-x-2 items-center text-white bg-green-400 cursor-pointer rounded-lg p-2 w-fit "
+        onClick={addAddress}
+      >
+        <span> افزودن آدرس </span>
+        <MdOutlineAddLocationAlt />
+      </button>
       <div className="flex flex-col gap-y-2 ">
         {addresses.length > 0 ? (
           addresses.map((address) => (
             <div
-              className="border rounded-3xl border-gray-200"
+              className="border rounded-3xl border-gray-200 "
               key={address._id}
             >
-              <div className="flex justify-between items-center  p-3 relative  text-xs 2xl:text-base ">
+              <div className="flex justify-between items-center  p-3 relative  text-xs 2xl:text-base  ">
                 <div>
                   <p>{address.fullAddress}</p>
                   <p className="pt-3">
@@ -231,7 +244,7 @@ function Addresses({ addresses }) {
                   </p>
                 </div>
                 <IoMdMore
-                  className="text-2xl cursor-pointer "
+                  className="text-2xl cursor-pointer  "
                   onMouseEnter={() => setIsEditMapOpen(address._id)}
                 />
                 {isEditMapOpen === address._id && (
@@ -256,7 +269,10 @@ function Addresses({ addresses }) {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col 2xl:flex-row gap-y-3 justify-between  items-center  p-3  text-xs 2xl:text-base ">
+              <div
+                className="flex flex-col 2xl:flex-row gap-y-3 justify-between  items-center  p-3  text-xs 2xl:text-base  "
+                onClick={() => setIsEditMapOpen(false)}
+              >
                 <div>
                   <ul className="flex flex-col gap-y-2 [&>li]:flex [&>li]:items-center [&>li]:gap-x-2  ">
                     <li>
@@ -275,18 +291,17 @@ function Addresses({ addresses }) {
                     </li>
                     <li>
                       <GoPerson />
-                      <span>امیرحسین کیوانی</span>
+                      <span>
+                        {" "}
+                        {address.userId.firstname +
+                          " " +
+                          address.userId.lastname}
+                      </span>
                     </li>
                   </ul>
                 </div>
-                <div className="w-24 h-24  rounded-xl ">
-                  <Image
-                    src={mapImage}
-                    width={500}
-                    height={500}
-                    alt="mapImage"
-                  />
-                </div>
+
+                <LuMapPinned className="text-5xl" />
               </div>
             </div>
           ))

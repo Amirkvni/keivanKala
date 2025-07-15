@@ -22,16 +22,24 @@ export default function ProfileProductCard({
 
     const res = await fetch(`${apiRoute}/${productID}`, { method: "DELETE" });
     if (res.status === 200) {
-      Swal.fire({ title: deleteMessage, icon: "success", timer: 1200 }).then(
-        () => router.refresh()
-      );
+      Swal.fire({
+        title: deleteMessage,
+        icon: "success",
+        timer: 1200,
+        confirmButtonText: "اوکی",
+        confirmButtonColor: "green",
+        customClass: {
+          title: "swal-title",
+          popup: "swal-popup",
+        },
+      }).then(() => router.refresh());
     } else {
       Swal.fire({ title: "خطا", icon: "error", timer: 1200 });
     }
   };
   return (
     <div
-      className="border p-3 border-gray-400 rounded-lg 2xl:w-52 2xl:h-[300px] w-32 h-52 flex flex-col 2xl:gap-y-3 gap-y-1"
+      className="border p-3 border-gray-400 rounded-lg 2xl:w-52 2xl:h-[300px] w-36 h-52 flex flex-col 2xl:gap-y-3 gap-y-2"
       key={_id}
     >
       <div className="2xl:w-32 w-22 2xl:h-44 h-22 mx-auto">
@@ -42,7 +50,7 @@ export default function ProfileProductCard({
           alt={persianName || productName}
         />
       </div>
-      <p className="2xl:h-40 h-20 overflow-y-hidden text-[8px] 2xl:text-sm font-bold">
+      <p className="2xl:h-40 h-20 overflow-y-hidden text-[9px] 2xl:text-sm font-bold">
         {persianName || productName}
       </p>
       <div className="flex justify-between items-center h-8">
@@ -52,7 +60,7 @@ export default function ProfileProductCard({
         />
         <span className="text-[10px] 2xl:text-lg">{priceFormatter(price)}</span>
       </div>
-      <button className="2xl:h-12 h-9 py-1 bg-green-400 text-white rounded-lg 2xl:py-2 text-[10px] 2xl:text-lg cursor-pointer">
+      <button className="2xl:h-12 h-9 py-2 bg-green-400 text-white rounded-lg  text-[10px] 2xl:text-lg cursor-pointer">
         افزودن به سبد خرید
       </button>
     </div>
