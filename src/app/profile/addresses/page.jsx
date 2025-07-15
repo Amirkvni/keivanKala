@@ -4,11 +4,12 @@ import { authUser } from "@/utils/serverHelpers";
 import React from "react";
 import AddressModel from "@/models/Address";
 export default async function page() {
-
-
   connectToDB();
   const user = await authUser();
-  const addresses = await AddressModel.find({ userId: user._id });
+  const addresses = await AddressModel.find({ userId: user._id }).populate(
+    "userId",
+    "firstname lastname phone"
+  );
 
   return <Addresses addresses={JSON.parse(JSON.stringify(addresses))} />;
 }

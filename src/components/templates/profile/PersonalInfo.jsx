@@ -8,6 +8,9 @@ import { FaArrowRight } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
 function PersonalInfo({ user }) {
+  console.log(user);
+  console.log(user.birthday.year / user.birthday.month / user.birthday.day);
+
   const router = useRouter();
   const editInfo = async (fieldName, fieldLabel, currentValue = "") => {
     const isSingleField = typeof fieldName === "string";
@@ -133,10 +136,10 @@ function PersonalInfo({ user }) {
         <div>
           <div>
             <p>تاریخ تولد</p>
-            <p className="pt-3">
+            <p className="pt-3" dir="ltr">
               {user.birthday.year == null || user.birthday == undefined
                 ? "تاریخ تولد وجود ندارد"
-                : user.birthday.year / user.birthday.month / user.birthday.day}
+                : ` ${user.birthday.year} / ${user.birthday.month} / ${user.birthday.day}`}
             </p>
           </div>
           {user.birthday.year == null ? (

@@ -80,7 +80,7 @@ function Favorites({ wishlists }) {
             <ProfileProductCard {...product.product} key={product._id} />
           ))
         ) : (
-          <div className="flex justify-center items-center flex-col gap-y-5 text-3xl mx-auto border p-8 rounded-4xl border-gray-200">
+          <div className="flex justify-center items-center flex-col gap-y-5 text-xs 2xl:text-3xl mx-auto border p-8 rounded-4xl border-gray-200">
             <FaRegEyeSlash />
             <span>هنوز محصولی را اضافه نکرده اید</span>
           </div>

@@ -12,7 +12,6 @@ import Swal from "sweetalert2";
 import { TbAddressBookOff } from "react-icons/tb";
 import mapImage from "@/../public/images/map.jpg";
 import { useRouter } from "next/navigation";
-// import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
 import Link from "next/link";
 function Addresses({ addresses }) {
   const router = useRouter();
@@ -227,7 +226,9 @@ function Addresses({ addresses }) {
               <div className="flex justify-between items-center  p-3 relative  text-xs 2xl:text-base ">
                 <div>
                   <p>{address.fullAddress}</p>
-                  <p className="pt-3">امیرحسین کیوانی</p>
+                  <p className="pt-3">
+                    {address.userId.firstname + " " + address.userId.lastname}
+                  </p>
                 </div>
                 <IoMdMore
                   className="text-2xl cursor-pointer "
@@ -236,7 +237,7 @@ function Addresses({ addresses }) {
                 {isEditMapOpen === address._id && (
                   <div
                     onMouseLeave={() => setIsEditMapOpen(false)}
-                    className=" absolute px-2 group-hover:block left-[2%] top-[70%] [&>div]:flex [&>div]:gap-x-4 [&>div]:items-center [&>div]:cursor-pointer w-42 border-gray-400 rounded-2xl border bg-white"
+                    className=" absolute dark:bg-zinc-800 px-2 group-hover:block left-[2%] top-[70%] [&>div]:flex [&>div]:gap-x-4 [&>div]:items-center [&>div]:cursor-pointer w-42 border-gray-400 rounded-2xl border bg-white"
                   >
                     <div
                       className="py-3 hover:text-green-600"
@@ -270,7 +271,7 @@ function Addresses({ addresses }) {
                     </li>
                     <li>
                       <TiPhoneOutline />
-                      <span>۰۹۱۶۲۰۳۵۹۸۷</span>
+                      <span>{address.userId.phone}</span>
                     </li>
                     <li>
                       <GoPerson />

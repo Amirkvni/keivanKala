@@ -27,6 +27,7 @@ function CartList({ isLogin }) {
       addToRedirectPath("/checkout-cart/shipping-method");
     }
   };
+  console.log(cart);
 
   return (
     <div className="mt-12 container flex-col xl:flex-row gap-y-5 text-xs lg:text-base  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 [&>div]:dark:bg-zinc-800 dark:text-white relative  ">
@@ -60,12 +61,17 @@ function CartList({ isLogin }) {
           ) : (
             cart.map((product) => (
               <div
-                key={product._id}
+                key={`${product._id}_${product.selectedColor}`}
                 className=" flex gap-x-6 p-3 border-b-gray-300 border-b "
               >
                 <div className="cursor-pointer">
                   <div
-                    onClick={() => removeFromCart(product._id)}
+                    onClick={() =>
+                      removeFromCart({
+                        _id: product._id,
+                        selectedColor: product.selectedColor,
+                      })
+                    }
                     className="w-7 h-7 text-red-700"
                   >
                     <IoCloseCircleOutline className="w-full h-full" />
@@ -85,7 +91,13 @@ function CartList({ isLogin }) {
                     value={product.quantity}
                     className="border border-gray-400 w-12"
                     onChange={(event) =>
-                      updateQuantity(product._id, Number(event.target.value))
+                      updateQuantity(
+                        {
+                          _id: product._id,
+                          selectedColor: product.selectedColor,
+                        },
+                        Number(event.target.value)
+                      )
                     }
                   />
                 </div>
@@ -93,7 +105,9 @@ function CartList({ isLogin }) {
                   <div>
                     <p className=" w-42 lg:w-full">{product.persianName}</p>
                     <div className="flex gap-x-2 items-center pt-3">
-                      <div className="w-4 h-4 rounded-full bg-amber-400"></div>
+                      <div
+                        className={`w-4 h-4 rounded-full ${product.selectedColor}`}
+                      ></div>
                       <span>ثهوه ای</span>
                     </div>
                   </div>

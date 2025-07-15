@@ -20,7 +20,7 @@ function LightBox({ mainImage, pictures }) {
         />
       </div>
 
-      <div className="flex gap-x-4 [&>img]:w-20 [&>img]:h-20 [&>img]:border justify-center">
+      <div className="flex gap-x-4 [&>img]:w-20 [&>img]:h-20 [&>img]:border justify-center  ">
         {pictures.map((pic, index) => (
           <Image
             key={Math.random()}
@@ -29,7 +29,7 @@ function LightBox({ mainImage, pictures }) {
             src={pic}
             alt={`picture-${index}`}
             onClick={() => setOpen(true)}
-            className="border border-gray-200 px-1 rounded-lg dark:border-none"
+            className="border border-gray-200 px-1 rounded-lg dark:border-gray-500 "
           />
         ))}
       </div>

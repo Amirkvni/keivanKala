@@ -8,7 +8,7 @@ export async function DELETE(req, { params }) {
   console.log("id===>", id);
 
   try {
-     connectToDB(); // 👈 خیلی مهم
+    connectToDB();
     const user = await authUser();
 
     if (!user) {

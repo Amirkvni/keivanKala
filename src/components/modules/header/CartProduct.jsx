@@ -4,12 +4,19 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import Image from "next/image";
 function CartProduct({ product, removeFromCart, addToCart, decreaseFromCart }) {
+  console.log(product);
+
   return (
     <div className="flex gap-x-3  ">
       <div>
         <IoCloseCircleOutline
           className="text-3xl cursor-pointer text-red-700"
-          onClick={() => removeFromCart(product._id)}
+          onClick={() =>
+            removeFromCart({
+              _id: product._id,
+              selectedColor: product.selectedColor,
+            })
+          }
         />
 
         <div className="w-24 h-24">
@@ -29,15 +36,33 @@ function CartProduct({ product, removeFromCart, addToCart, decreaseFromCart }) {
           <div className="flex items-center gap-x-6  border-gray-200 border-1 rounded-sm w-fit p-2">
             <FaPlus
               className="text-green-400"
-              onClick={() => addToCart(product)}
+              onClick={() =>
+                addToCart(
+                  {
+                    ...product,
+                    selectedColor: product.selectedColor,
+                  },
+                  1
+                )
+              }
             />
             <span>{product.quantity}</span>
             <FaMinus
               className="text-red-400"
-              onClick={() => decreaseFromCart(product)}
+              onClick={() =>
+                decreaseFromCart({
+                  ...product,
+                  selectedColor: product.selectedColor,
+                })
+              }
             />
           </div>
         </div>
+        {product.selectedColor && (
+          <div
+            className={`w-4 h-4 rounded-full ${product.selectedColor}`}
+          ></div>
+        )}
       </div>
     </div>
   );

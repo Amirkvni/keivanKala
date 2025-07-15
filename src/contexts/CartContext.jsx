@@ -18,31 +18,50 @@ export function CartProvider({ children }) {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart]);
-  function addToCart(product) {
+  function addToCart(product, quantity = 1) {
     setCart((prev) => {
-      let selectedProduct = prev.find((item) => item._id == product._id);
+      let selectedProduct = prev.find(
+        (item) =>
+          item._id === product._id &&
+          item.selectedColor === product.selectedColor &&
+          item.selectedSize === product.selectedSize // اگر سایز هم داری
+      );
+
       if (!selectedProduct) {
-        return [...prev, { ...product, quantity: 1 }];
+        return [...prev, { ...product, quantity }];
       } else {
         return prev.map((item) =>
-          item._id == product._id
-            ? { ...item, quantity: item.quantity + 1 }
+          item._id === product._id &&
+          item.selectedColor === product.selectedColor &&
+          item.selectedSize === product.selectedSize
+            ? {
+                ...item,
+                quantity: item.quantity + quantity,
+              }
             : item
         );
       }
     });
   }
-  function removeFromCart(productID) {
+
+  function removeFromCart(product) {
     setCart((prev) => {
-      const updatedCart = prev.filter((product) => product._id != productID);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      return updatedCart;
+      return prev.filter(
+        (item) =>
+          !(
+            item._id === product._id &&
+            item.selectedColor === product.selectedColor
+          )
+      );
     });
   }
-  function updateQuantity(productID, newQuantity) {
+
+  function updateQuantity(product, newQuantity) {
     setCart((prev) =>
       prev.map((item) =>
-        item._id == productID ? { ...item, quantity: newQuantity } : item
+        item._id === product._id && item.selectedColor === product.selectedColor
+          ? { ...item, quantity: newQuantity }
+          : item
       )
     );
   }
@@ -67,7 +86,9 @@ export function CartProvider({ children }) {
     setCart((prev) => {
       return prev
         .map((item) =>
-          item._id === product._id
+          item._id === product._id &&
+          item.selectedColor === product.selectedColor &&
+          item.selectedSize === product.selectedSize
             ? { ...item, quantity: item.quantity - 1 }
             : item
         )

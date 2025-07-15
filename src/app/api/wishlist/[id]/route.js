@@ -14,12 +14,11 @@ export async function DELETE(req, { params }) {
         { status: 400 }
       );
     }
-    console.log("user==>", user._id);
     const { id } = await params;
 
     const product = await WishlistModel.findOneAndDelete({
       user: user._id,
-      product: id,
+      product: new mongoose.Types.ObjectId(id),
     });
 
     if (!product) {

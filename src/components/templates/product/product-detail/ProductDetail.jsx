@@ -20,14 +20,19 @@ import LightBox from "./LightBox";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/contexts/CartContext";
 function ProductDetail({ product, user }) {
   let { addToCart, decreaseFromCart } = useContext(CartContext);
   const router = useRouter();
-  const [quantity, setQuantity] = useState(0);
+  const [quantitiesByColor, setQuantitiesByColor] = useState({});
+
   const [isWishlist, setIsWishList] = useState(false);
-  const [selectedProductColor, setSelectedProductColor] = useState(null);
+  const firstColorValue = Object.values(product.colors)[0];
+
+  const [selectedProductColor, setSelectedProductColor] =
+    useState(firstColorValue);
+
   const [selectedProductSize, setSelectedProductSize] = useState(null);
   const addToWishlist = async () => {
     if (user === null) {
@@ -89,6 +94,8 @@ function ProductDetail({ product, user }) {
       }
     });
   };
+
+  let quantity = quantitiesByColor[selectedProductColor] || 0;
 
   return (
     <>
@@ -162,12 +169,12 @@ function ProductDetail({ product, user }) {
                   {Object.entries(product.colors).map(([key, value]) => (
                     <div
                       className={`flex border w-fit items-center gap-x-2 cursor-pointer  ${
-                        selectedProductColor === key
+                        selectedProductColor === value
                           ? "border-green-700"
                           : "border-green-300"
                       } bg-white rounded-3xl px-4 py-2 dark:bg-zinc-800 dark:text-white`}
                       key={key}
-                      onClick={() => setSelectedProductColor(key)}
+                      onClick={() => setSelectedProductColor(value)}
                     >
                       <div className={`w-4 h-4 ${value} rounded-full`}></div>
                       <span className="font-semibold 3xl:text-lg text-sm">
@@ -211,8 +218,18 @@ function ProductDetail({ product, user }) {
                         className="text-green-400"
                         onClick={() => {
                           if (quantity < 4) {
-                            setQuantity((prev) => prev + 1);
-                            addToCart(product);
+                            setQuantitiesByColor((prev) => ({
+                              ...prev,
+                              [selectedProductColor]: quantity + 1,
+                            }));
+                            addToCart(
+                              {
+                                ...product,
+                                selectedColor: selectedProductColor,
+                                selectedSize: selectedProductSize,
+                              },
+                              1
+                            );
                           }
                         }}
                       />
@@ -220,9 +237,16 @@ function ProductDetail({ product, user }) {
                       <FaMinus
                         className="text-red-400"
                         onClick={() => {
-                          if (quantity > 1) {
-                            setQuantity((prev) => prev - 1);
-                            decreaseFromCart(product);
+                          if (quantity > 0) {
+                            setQuantitiesByColor((prev) => ({
+                              ...prev,
+                              [selectedProductColor]: quantity - 1,
+                            }));
+                            decreaseFromCart({
+                              ...product,
+                              selectedColor: selectedProductColor,
+                              selectedSize: selectedProductSize,
+                            });
                           }
                         }}
                       />
@@ -233,15 +257,27 @@ function ProductDetail({ product, user }) {
                     <span>تومان</span>
                   </div>
                 </div>
-                <button
-                  onClick={() => {
-                    setQuantity((prev) => prev + 1);
-                    addToCart(product);
-                  }}
-                  className="w-full rounded-lg p-1 mt-3 text-white cursor-pointer py-3 bg-green-600 dark:bg-green-500 "
-                >
-                  افزودن به سبد خرید
-                </button>
+                {quantity < 1 && (
+                  <button
+                    onClick={() => {
+                      setQuantitiesByColor((prev) => ({
+                        ...prev,
+                        [selectedProductColor]: quantity + 1,
+                      }));
+                      addToCart(
+                        {
+                          ...product,
+                          selectedColor: selectedProductColor,
+                          selectedSize: selectedProductSize,
+                        },
+                        1
+                      );
+                    }}
+                    className="w-full rounded-lg p-1 mt-3 text-white cursor-pointer py-3 bg-green-600 dark:bg-green-500 "
+                  >
+                    افزودن به سبد خرید
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -303,20 +339,22 @@ function ProductDetail({ product, user }) {
         </div>
         <div className="dark:text-white">انتخاب رنگ</div>
         <div className="colors flex  gap-x-2 w-fit ">
-          {/* {Object.entries(product.colors).map(([key, value]) => (
-            <div
-              className={`flex border w-fit items-center gap-x-1 cursor-pointer  ${
-                selectedProductColor === key
-                  ? "border-green-700"
-                  : "border-green-300"
-              } bg-white rounded-3xl px-4 py-2 dark:bg-zinc-800 dark:text-white`}
-              key={key}
-              onClick={() => setSelectedProductColor(key)}
-            >
-              <div className={`w-4 h-4 ${value} rounded-full`}></div>
-              <span>{key}</span>
-            </div>
-          ))} */}
+          <div className="colors flex  gap-x-2 w-fit ">
+            {Object.entries(product.colors).map(([key, value]) => (
+              <div
+                className={`flex border w-fit items-center gap-x-2 cursor-pointer  ${
+                  selectedProductColor === value
+                    ? "border-green-700"
+                    : "border-green-300"
+                } bg-white rounded-3xl px-4 py-2 dark:bg-zinc-800 dark:text-white`}
+                key={key}
+                onClick={() => setSelectedProductColor(value)}
+              >
+                <div className={`w-4 h-4 ${value} rounded-full`}></div>
+                <span className="font-semibold 3xl:text-lg text-sm">{key}</span>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="dark:text-white">انتخاب سایز</div>
         <div className="colors flex  gap-x-2 w-fit ">
@@ -337,23 +375,62 @@ function ProductDetail({ product, user }) {
         <div className="flex items-center gap-x-4  border-gray-200 border-1 rounded-sm w-fit p-1.5 [&>svg]:cursor-pointer ">
           <FaPlus
             className="text-green-400"
-            onClick={() => setQuantity((prev) => prev + 1)}
+            onClick={() => {
+              if (quantity < 4) {
+                setQuantitiesByColor((prev) => ({
+                  ...prev,
+                  [selectedProductColor]: quantity + 1,
+                }));
+                addToCart(
+                  {
+                    ...product,
+                    selectedColor: selectedProductColor,
+                    selectedSize: selectedProductSize,
+                  },
+                  1
+                );
+              }
+            }}
           />
           <span className="dark:text-white">{quantity}</span>
           <FaMinus
             className="text-red-400"
-            onClick={() => setQuantity((prev) => prev + 1)}
+            onClick={() => {
+              if (quantity > 0) {
+                setQuantitiesByColor((prev) => ({
+                  ...prev,
+                  [selectedProductColor]: quantity - 1,
+                }));
+                decreaseFromCart({
+                  ...product,
+                  selectedColor: selectedProductColor,
+                  selectedSize: selectedProductSize,
+                });
+              }
+            }}
           />
         </div>
-        <button
-          onClick={() => {
-            setQuantity((prev) => prev + 1);
-            addToCart(product);
-          }}
-          className="w-full rounded-lg p-1 mt-3 text-white cursor-pointer py-3 bg-green-600 dark:bg-green-500 "
-        >
-          افزودن به سبد خرید
-        </button>
+        {quantity < 1 && (
+          <button
+            onClick={() => {
+              setQuantitiesByColor((prev) => ({
+                ...prev,
+                [selectedProductColor]: quantity + 1,
+              }));
+              addToCart(
+                {
+                  ...product,
+                  selectedColor: selectedProductColor,
+                  selectedSize: selectedProductSize,
+                },
+                1
+              );
+            }}
+            className="w-full rounded-lg p-1 mt-3 text-white cursor-pointer py-3 bg-green-600 dark:bg-green-500 "
+          >
+            افزودن به سبد خرید
+          </button>
+        )}
         <div className="flex flex-col  mt-4 gap-y-2 [&>div]:flex [&>div]:px-3 [&>div]:py-2 [&>div]:dark:text-white [&>div]:w-full [&>div]:items-center [&>div]:gap-x-1 [&>div]:border [&>div]:border-gray-200 [&>div]:p-0.5 [&>div]:rounded-sm ">
           <div>
             <IoIosTimer />

@@ -16,9 +16,6 @@ function CommentItem({ comment }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const router = useRouter();
 
-  const showCommentMore = () => {
-    setIsDropdownOpen(true);
-  };
   const deleteHandler = async (commentId) => {
     Swal.fire({
       title: "آیا این نظر حذف شود؟",
@@ -100,7 +97,7 @@ function CommentItem({ comment }) {
   };
   return (
     <>
-      <div className=" flex justify-between ">
+      <div className=" flex justify-between  ">
         <div>
           <div className="flex 2xl:gap-x-2  ">
             <div className="w-18 h-18">
@@ -134,27 +131,24 @@ function CommentItem({ comment }) {
         <div className="relative ">
           <IoMdMore
             className="text-2xl mr-auto cursor-pointer"
-            onMouseEnter={showCommentMore}
+            onMouseEnter={() => setIsDropdownOpen(true)}
+            onClick={() => setIsDropdownOpen(true)}
           />
           <div
-            className={`2xl:w-56 2xl:h-22  w-42 h-16 absolute left-0 top-6 [&>div]:flex [&>div]:items-center [&>div]:gap-x-3 [&>div]:p-2 [&>div]:cursor-pointer  [&>div]:hover:bg-gray-300  bg-white rounded-sm ${
-              isDropdownOpen ? "block" : "hidden"
+            className={`2xl:w-56 2xl:h-22  w-44 h-18 absolute left-0 top-6 [&>div]:flex [&>div]:items-center [&>div]:gap-x-3 [&>div]:p-2 [&>div]:cursor-pointer  [&>div]:hover:bg-gray-300  bg-white rounded-sm ${
+              isDropdownOpen
+                ? "block dark:bg-zinc-800 dark:text-white dark:border-white dark:border"
+                : "hidden"
             }`}
             onMouseLeave={() => setIsDropdownOpen(false)}
           >
-            <div
-              className="dark:text-black"
-              onClick={() => editHandler(comment._id)}
-            >
+            <div onClick={() => editHandler(comment._id)}>
               <FaRegEdit />
               <span className="text-xs 2xl:text-sm ">
                 ویرایش دیدگاه و امتیاز
               </span>
             </div>
-            <div
-              className="dark:text-black"
-              onClick={() => deleteHandler(comment._id)}
-            >
+            <div onClick={() => deleteHandler(comment._id)}>
               <RiDeleteBin5Line className="text-red-400" />
               <span className="text-xs 2xl:text-sm ">حذف دیدگاه</span>
             </div>

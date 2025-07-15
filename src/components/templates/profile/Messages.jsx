@@ -58,10 +58,10 @@ function Messages({
               <span>{message.title}</span>
             </div>
             <p>{message.text}</p>
-            <div className="flex  gap-x-1">
+            <div className="flex  gap-x-3">
               {message.products.map((product) => (
-                <div className="flex items-center" key={product._id}>
-                  <div className="w-32 h-32  rounded-lg">
+                <div className="flex gap-x-4 items-center" key={product._id}>
+                  <div className="w-32 h-32  rounded-lg ">
                     <Image
                       src={product.image}
                       width={500}
@@ -69,7 +69,7 @@ function Messages({
                       alt={product._id}
                     />
                   </div>
-                  <p>لورم ایسپسوم دولار کیر خر کسکش نز جنده باز</p>
+                  <p>لورم ایسپسوم دولار </p>
                 </div>
               ))}
             </div>
