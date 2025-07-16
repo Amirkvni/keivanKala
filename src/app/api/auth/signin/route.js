@@ -51,7 +51,6 @@ export async function POST(req) {
         },
       }
     );
-    const response = Response.json({ message: "Login successful" });
     const headers = new Headers();
     headers.append(
       "Set-Cookie",

@@ -41,7 +41,7 @@ const schema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: false,
     },
     role: {
       type: String,
