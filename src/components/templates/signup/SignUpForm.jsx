@@ -93,7 +93,7 @@ export default function SignUpForm() {
   };
   return (
     <div className="w-full h-screen flex justify-center items-center bg-white dark:bg-zinc-800 dark:text-white">
-      <div className="w-[440px]  border border-gray-200 rounded-2xl p-3 ">
+      <div className="2xl:w-[440px] w-[360px]  border border-gray-200 rounded-2xl p-3 ">
         <h1 className="text-center text-2xl text-green-400">keivanKala</h1>
         <div className="flex flex-col gap-y-3 my-4 [&>input]:border-1 [&>input]:border-gray-200 [&>input]:outline-none [&>input]:p-1">
           <label>ایمیل :</label>

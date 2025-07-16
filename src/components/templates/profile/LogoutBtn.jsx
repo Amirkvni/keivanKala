@@ -9,7 +9,7 @@ function LogoutBtn() {
   const logoutHandler = () => {
     Swal.fire({
       title: "آیا از خروج مطمئنی؟",
-      icon: "question	",
+      icon: "question",
       confirmButtonText: "بله",
       confirmButtonColor: "green",
       showCancelButton: true,

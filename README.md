@@ -10,6 +10,7 @@ A modern e-commerce web app built with Next.js, Tailwind CSS and MongoDB.
 - 🌗 Light / Dark Theme Toggle
 - 🔍 Product Filtering & Search
 - 📦 REST API with MongoDB and Mongoose
+- 📱 Login with Iranian phone number and SMS verification
 
 ## 🛠️ Tech Stack
 
