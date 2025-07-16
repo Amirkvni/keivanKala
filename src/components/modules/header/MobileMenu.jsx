@@ -16,6 +16,7 @@ import { PiMoonStarsLight } from "react-icons/pi";
 import { LuShoppingCart } from "react-icons/lu";
 import Image from "next/image";
 import { memo, useEffect } from "react";
+import SearchInput from "./SearchInput";
 
 function MobileMenu({
   isActiveHamburger,
@@ -68,15 +69,8 @@ function MobileMenu({
             </Link>
           </div>
         </div>
-        {/* bottom section : */}
-        <div className="flex px-3 py-1 mt-3 relative bg-gray-200 dark:bg-zinc-700 rounded-lg ">
-          <input
-            type="text"
-            placeholder="جستجو کنید ..."
-            className="w-full p-2 mr-5 outline-none"
-          />
-          <CiSearch className="absolute text-2xl top-3 right-2.5" />
-        </div>
+
+        <SearchInput />
       </div>
       <div
         className={`xl:hidden p-4 bg-white dark:bg-zinc-900 dark:text-white fixed z-50 w-3/5 h-screen top-0 right-0 bottom-0 transform  ${

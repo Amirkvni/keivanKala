@@ -15,7 +15,7 @@ function SearchInput() {
     console.log("input changed");
   });
   return (
-    <div className="relative flex items-center gap-2 rounded-lg py-3 px-2 max-w-[576px] w-[576px] bg-slate-100 dark:bg-zinc-900 ">
+    <div className="relative flex items-center gap-2 rounded-lg py-3 px-2 2xl:max-w-[576px] 2xl:w-[576px] bg-slate-100 dark:bg-zinc-900 mt-3 2xl:mt-0">
       <CiSearch className="text-2xl cursor-pointer" onClick={searchHandler} />
       <input
         type="text"
