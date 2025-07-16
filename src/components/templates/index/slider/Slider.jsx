@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./style.css";
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import Image from "next/image";
 import myGif from "@/../public/gifs/main-bot.gif";
 
@@ -16,11 +16,15 @@ function Slider() {
       <Swiper
         slidesPerView={1}
         loop={true}
+        autoplay={{
+          delay: 1500,
+          disableOnInteraction: false,
+        }}
         pagination={{
           clickable: true,
         }}
         navigation={true}
-        modules={[Pagination, Navigation]}
+        modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper1 rounded-lg overflow-hidden "
       >
         <SwiperSlide>
