@@ -3,7 +3,7 @@ import { CartContext } from "@/contexts/CartContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
-import { FaRegTrashCan } from "react-icons/fa6";
+import { FaMinus, FaPlus, FaRegTrashCan } from "react-icons/fa6";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import emptyCartIcon from "@/../public/images/empty-cart.svg";
 function CartList({ isLogin }) {
@@ -11,11 +11,12 @@ function CartList({ isLogin }) {
   let {
     cart,
     removeFromCart,
-    updateQuantity,
     getTotal,
     addToRedirectPath,
     getTotalDiscountPrice,
     getPayableAmount,
+    addToCart,
+    decreaseFromCart,
     clearCart,
   } = useContext(CartContext);
 
@@ -84,30 +85,40 @@ function CartList({ isLogin }) {
                       alt={product._id}
                     />
                   </div>
-                  <input
-                    type="number"
-                    min="1"
-                    value={product.quantity}
-                    className="border border-gray-400 w-12"
-                    onChange={(event) =>
-                      updateQuantity(
-                        {
-                          _id: product._id,
+
+                  <div className="flex items-center gap-x-6  border-gray-200 border-1 rounded-sm w-fit p-2">
+                    <FaPlus
+                      className="text-green-400"
+                      onClick={() =>
+                        addToCart(
+                          {
+                            ...product,
+                            selectedColor: product.selectedColor,
+                          },
+                          1
+                        )
+                      }
+                    />
+                    <span>{product.quantity}</span>
+                    <FaMinus
+                      className="text-red-400"
+                      onClick={() =>
+                        decreaseFromCart({
+                          ...product,
                           selectedColor: product.selectedColor,
-                        },
-                        Number(event.target.value)
-                      )
-                    }
-                  />
+                        })
+                      }
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-col justify-between">
                   <div>
                     <p className=" w-42 lg:w-full">{product.persianName}</p>
                     <div className="flex gap-x-2 items-center pt-3">
+                      <span>رنگ :</span>
                       <div
                         className={`w-4 h-4 rounded-full ${product.selectedColor}`}
                       ></div>
-                      <span>ثهوه ای</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between gap-x-3 lg:w-54">

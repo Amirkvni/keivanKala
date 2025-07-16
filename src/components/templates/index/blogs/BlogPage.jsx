@@ -20,41 +20,34 @@ function BlogPage({ blogs }) {
       );
     });
   }, [normalizedSearch, blogs]);
+  const tabs = [
+    { key: "newest", label: "جدید ترین" },
+    { key: "mostview", label: "پربازدید ترین" },
+  ];
   return (
     <div className="container mx-auto  mt-[140px]">
       <h3 className="pr-5 dark:text-white">همه بلاگ ها</h3>
-      <div className=" flex gap-x-4">
+      <div className="flex gap-x-4">
         <BlogFilter />
         <div className=" flex flex-col gap-y-3 p-2 2xl:w-3/4 w-full">
-          <div className=" flex 2xl:gap-x-4 gap-x-2 items-center [&>button]:cursor-pointer dark:bg-zinc-800 bg-white p-4 text-[11px] 2xl:text-base rounded-xl dark:text-white">
+          <div className=" flex 2xl:gap-x-4 gap-x-2 items-center  dark:bg-zinc-800 bg-white p-4 text-[11px] 2xl:text-base rounded-xl dark:text-white">
             <div className="flex gap-x-1 items-center  ">
               <FaFilter />
               <span>مرتب سازی بر اساس</span>
             </div>
-            <button
-              onClick={() => {
-                setActiveTab("newest");
-              }}
-              className={` ${
-                activeTab === "newest"
-                  ? "bg-gray-200 dark:bg-gray-700 p-2 rounded-lg text-green-500"
-                  : null
-              }`}
-            >
-              جدید ترین
-            </button>
-            <button
-              onClick={() => {
-                setActiveTab("mostview");
-              }}
-              className={`${
-                activeTab === "mostview"
-                  ? "bg-gray-200 dark:bg-gray-700 p-2 rounded-lg text-green-500"
-                  : null
-              }`}
-            >
-              پربازدید ترین
-            </button>
+            {tabs.map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`p-2 rounded-lg transition-colors duration-200 cursor-pointer ${
+                  activeTab === tab.key
+                    ? "bg-gray-200 dark:bg-gray-700 text-green-500"
+                    : "bg-transparent text-gray-500"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
           {/* bottom : */}
           <div className="flex flex-wrap  gap-4 ">
@@ -72,7 +65,6 @@ function BlogPage({ blogs }) {
               </div>
             )}
           </div>
-          {/* <div>pagination</div> */}
         </div>
       </div>
     </div>

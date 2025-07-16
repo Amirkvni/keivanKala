@@ -7,11 +7,12 @@
 .subcategory-slider .swiper-button-next:after {
   font-size: 20px;
   color: #00dd00;
-  padding: 5px;
+  padding: 6px;
   border-radius: 50%;
   background-color: white;
+  border: 1px solid #00dd00;
 }
-@media screen and (max-width: 481px) {
+@media screen and (max-width: 769px) {
   .subcategory-slider .swiper-button-prev:after,
   .subcategory-slider .swiper-button-next:after {
     display: none;
