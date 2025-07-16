@@ -30,7 +30,7 @@ export default function SelectedProducts({ selectedProducts }) {
         }}
       >
         <SwiperSlide className="flex flex-col iconSlider justify-center ">
-          <div className="flex flex-col gap-y-1 text-white font-bold text-2xl items-center">
+          <div className="flex flex-col gap-y-1 text-white font-bold text-2xl items-center ">
             <span>شگفت</span>
             <span>انگیزهای</span>
             <span>منتخب</span>

@@ -1,19 +1,15 @@
 "use client";
 import { IoMdMore } from "react-icons/io";
-import { IoCloseCircleOutline, IoHomeOutline } from "react-icons/io5";
 import { MdOutlineAddLocationAlt, MdOutlineMessage } from "react-icons/md";
 import { GoPerson } from "react-icons/go";
 import { TiPhoneOutline } from "react-icons/ti";
-import Image from "next/image";
 import { RiEdit2Line } from "react-icons/ri";
 import { FaArrowRight, FaRegTrashCan } from "react-icons/fa6";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { TbAddressBookOff } from "react-icons/tb";
-import mapImage from "@/../public/images/map.jpg";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FaMapMarkerAlt } from "react-icons/fa";
 import { LuMapPinned } from "react-icons/lu";
 function Addresses({ addresses }) {
   const router = useRouter();

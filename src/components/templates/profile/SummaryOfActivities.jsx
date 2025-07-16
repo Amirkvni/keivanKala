@@ -8,11 +8,7 @@ import {
   IoIosNotificationsOutline,
   IoMdNotificationsOutline,
 } from "react-icons/io";
-import {
-  IoExitOutline,
-  IoHomeOutline,
-  IoLocationOutline,
-} from "react-icons/io5";
+import { IoExitOutline, IoLocationOutline } from "react-icons/io5";
 import {
   LuTicket,
   LuTicketCheck,
@@ -21,6 +17,8 @@ import {
   LuUserCog,
   LuTicketX,
 } from "react-icons/lu";
+import Swal from "sweetalert2";
+import LogoutBtn from "./LogoutBtn";
 
 function SummaryOfActivities({
   orders,
@@ -39,6 +37,7 @@ function SummaryOfActivities({
     acc[status] = (acc[status] || 0) + 1;
     return acc;
   }, {});
+
   return (
     <>
       {/* desktop profile */}
@@ -300,13 +299,7 @@ function SummaryOfActivities({
             </div>
             <FaAngleLeft />
           </Link>
-          <Link href="/">
-            <div className="flex gap-x-3 items-center">
-              <IoExitOutline className="text-2xl" />
-              <span> خروج</span>
-            </div>
-            <FaAngleLeft />
-          </Link>
+          <LogoutBtn />
         </div>
         <div>
           <span className=" border-b-green-400 pb-1 border-b-3  dark:text-white">
