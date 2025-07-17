@@ -15,10 +15,10 @@ export async function POST(req) {
     $or: [{ phone }],
   });
 
-  if (isUserExist) {
+  if (!isUserExist) {
     return Response.json(
       {
-        message: "The username or email or phone exist already !!",
+        message: "The username or email or phone dont exist already !!",
       },
       {
         status: 422,

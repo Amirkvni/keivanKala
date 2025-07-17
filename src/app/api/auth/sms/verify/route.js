@@ -22,14 +22,6 @@ export async function POST(req) {
       const accessToken = await signAccessToken({ email, role: "USER" });
       const refreshToken = await signRefreshToken({ email, role: "USER" });
 
-      const users = await UserModel.find({});
-
-      await UserModel.create({
-        email,
-        phone,
-        role: users.length > 0 ? "USER" : "ADMIN",
-      });
-
       const headers = new Headers();
       headers.append(
         "Set-Cookie",

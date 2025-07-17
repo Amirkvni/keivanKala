@@ -98,7 +98,7 @@ function LoginForm() {
     }
     if (res.status === 422) {
       Swal.fire({
-        title: "گاربر وجود دارد",
+        title: "گاربر وجود ندارد",
         icon: "error",
         confirmButtonText: "ورود",
       });
