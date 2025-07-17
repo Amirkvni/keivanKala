@@ -22,7 +22,7 @@ function MegaMenu({
         <div className="text-xl">دسته بندی ها</div>
       </div>
       <div className=" absolute top-full w-full max-w-[1000px]  ">
-        <div className="relative rounded-b-lg  shadow-base hidden  group-hover:block  ">
+        <div className="relative rounded-b-lg  shadow-base hidden  group-hover:block">
           <div
             className="flex h-[450px] max-h-[450px] w-full overflow-hidden rounded-b-lg pt-0.5 "
             onMouseLeave={() => setIsHover(false)}
@@ -36,7 +36,7 @@ function MegaMenu({
                 {categories.map((category) => (
                   <li
                     key={category.id}
-                    className="hover:bg-white hover:text-green-300 text-gray-700 dark:text-white dark:hover:bg-zinc-800"
+                    className="hover:bg-white hover:text-green-300 text-gray-700 dark:text-white dark:hover:bg-zinc-800 "
                     onMouseEnter={() => {
                       setActiveCategory(category.name);
                       setActiveSubMenu(category.submenu);
