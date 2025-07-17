@@ -196,22 +196,25 @@ export default function ShippingMethod() {
   };
 
   return (
-    <div className="mt-12 container  flex flex-col xl:flex-row gap-x-2 mx-auto gap-y-4  [&>div]:rounded-lg [&>div]:p-3 text-xs lg:text-base ">
+    <div className="2xl:mt-12 mt-6 container  flex flex-col xl:flex-row gap-x-2 mx-auto gap-y-4  [&>div]:rounded-lg [&>div]:p-3 text-xs lg:text-base ">
       <div className="xl:w-3/4 w-full border flex flex-col gap-y-4 dark:border-green-400">
-        <div className="border border-blue-400 flex justify-between p-2 rounded-lg dark:border-gray-500">
-          <div className="flex gap-x-2 items-center">
+        <div className="border border-blue-400 flex flex-col 2xl:flex-row gap-y-5 justify-between p-2 rounded-lg dark:border-gray-500 dark:text-blue-400">
+          <div className="flex gap-x-2 items-center ">
             <FaTruckFast />
-            <div>
-              <p className="text-blue-400">ارسال به آدرس انتخاب شده</p>
-              <p className="dark:text-blue-400">{address?.fullAddress}</p>
+            <div className="flex flex-col gap-y-2">
+              <p className="text-blue-400 font-bold text-sm">
+                ارسال به آدرس انتخاب شده
+              </p>
+              <p className="dark:text-blue-400 ">{address?.fullAddress}</p>
             </div>
           </div>
           <div
-            className="flex gap-x-2 text-blue-400 items-center cursor-pointer"
+            className="flex 2xl:gap-x-1 text-blue-400 items-center cursor-pointer "
+            dir="ltr"
             onClick={changeUserAddressHandler}
           >
-            <span> تغییر ادرس</span>
             <FaAngleLeft />
+            <span> تغییر ادرس</span>
           </div>
         </div>
         <div className=" flex items-center gap-x-3 p-2 rounded-lg border border-gray-400 dark:text-blue-400">
@@ -219,7 +222,7 @@ export default function ShippingMethod() {
 
           <div>
             <div>
-              <span>هزینه ارسال :</span>
+              <span className="font-bold text-sm">هزینه ارسال : </span>
               {sendTime.price ? (
                 <span>{sendTime.price} تومان </span>
               ) : (
@@ -227,7 +230,7 @@ export default function ShippingMethod() {
               )}
             </div>
             <div>
-              <span>تاریخ ارسال :</span>
+              <span className="font-bold text-sm">تاریخ ارسال : </span>
               {sendTime.day ? (
                 <span>
                   {sendTime.date} {sendTime.month}
@@ -238,7 +241,7 @@ export default function ShippingMethod() {
             </div>
           </div>
         </div>
-        <div className="flex gap-x-2 items-center [&>div]:w-20 [&>div]:h-28  dark:text-blue-400 [&>div]:border  [&>div]:cursor-pointer [&>div]:rounded-lg [&>div]:text-center [&>div]:flex [&>div]:gap-y-2 [&>div]:flex-col">
+        <div className="flex gap-x-2 items-center [&>div]:w-20 [&>div]:h-28  dark:text-blue-400 [&>div]:border  [&>div]:cursor-pointer [&>div]:rounded-lg [&>div]:text-center [&>div]:flex [&>div]:gap-y-2 [&>div]:flex-col [&>div]:pt-3 2xl:[&>div]:pt-0">
           {sendTimes.map((time) => (
             <div
               key={time.id}

@@ -113,7 +113,7 @@ function ProductsSortView({
           </div>
         </div>
       </div>
-      <div className=" 2xl:hidden flex gap-x-2 items-center [&>div]:w-1/2 [&>div]:flex [&>div]:gap-x-2 [&>div]:items-center [&>div]:bg-white [&>div]:p-3 [&>div]:text-sm  [&>div]:dark:bg-zinc-800 dark:text-white">
+      <div className=" 2xl:hidden flex gap-x-2 items-center [&>div]:w-1/2 [&>div]:flex [&>div]:gap-x-2 [&>div]:items-center [&>div]:bg-white [&>div]:p-3 [&>div]:text-sm  [&>div]:dark:bg-zinc-800 dark:text-white [&>div]:rounded-lg">
         <div onClick={() => setIsMobileFiltersActive(true)}>
           <VscFilterFilled />
           <span>فیلترها</span>
