@@ -137,8 +137,10 @@ function LoginForm() {
   };
   return (
     <div className="w-full h-screen flex justify-center items-center bg-white dark:bg-zinc-800 dark:text-white">
-      <div className="w-[340px]  border border-gray-200 rounded-2xl p-3 ">
-        <h1 className="text-center text-2xl text-green-400">کیوان کالا</h1>
+      <div className="w-[340px]  border border-gray-300 rounded-2xl p-3 ">
+        <h1 className="text-center text-2xl text-green-400 font-black">
+          کیوان کالا
+        </h1>
         {loginWay === "username" && (
           <div className="flex flex-col gap-y-3 my-4 [&>input]:border-1 [&>input]:border-gray-200 [&>input]:outline-none [&>input]:p-1">
             <label>ایمیل :</label>
