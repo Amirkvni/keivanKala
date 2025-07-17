@@ -18,7 +18,7 @@ const schema = mongoose.Schema({
       type: String,
     },
     date: {
-      type: Number,
+      type: String,
     },
     price: {
       type: Number,

@@ -8,7 +8,7 @@ import {
   IoIosNotificationsOutline,
   IoMdNotificationsOutline,
 } from "react-icons/io";
-import { IoExitOutline, IoLocationOutline } from "react-icons/io5";
+import { IoLocationOutline } from "react-icons/io5";
 import {
   LuTicket,
   LuTicketCheck,
@@ -17,7 +17,6 @@ import {
   LuUserCog,
   LuTicketX,
 } from "react-icons/lu";
-import Swal from "sweetalert2";
 import LogoutBtn from "./LogoutBtn";
 
 function SummaryOfActivities({

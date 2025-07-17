@@ -55,10 +55,9 @@ function LoginForm() {
       });
       if (res.status === 200) {
         Swal.fire({
-          icon: "success	",
+          icon: "success",
           title: "ورود موفق",
           position: "top-start",
-
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {

@@ -21,7 +21,7 @@ export default function ShippingMethod() {
     getAddress();
   }, []);
   const router = useRouter();
-  let { cart, getTotal, getTotalDiscountPrice, getPayableAmount } =
+  let { cart, getTotal, getTotalDiscountPrice, getPayableAmount, clearCart } =
     useContext(CartContext);
 
   let now = moment().locale("fa");
@@ -60,7 +60,14 @@ export default function ShippingMethod() {
       paid: getPayableAmount(),
       discount: getTotalDiscountPrice(),
     };
-
+    const neworder = {
+      products: newArray,
+      delivery: {
+        day: sendTime.day,
+        date: sendTime.date,
+        price: sendTime.price,
+      },
+    };
     if (Object.keys(sendTime).length !== 0) {
       const res = await fetch("/api/payment", {
         method: "POST",
@@ -70,11 +77,23 @@ export default function ShippingMethod() {
         body: JSON.stringify(newPayment),
       });
       if (res.status === 201) {
-        const data = await res.json();
-        const { trackingCode, orderDate } = data.data;
-        router.push(
-          `/success-payment?trackingCode=${trackingCode}&orderDate=${orderDate}`
-        );
+        const paymentResult = await res.json();
+        const { trackingCode, orderDate } = paymentResult.data;
+        const res2 = await fetch("/api/orders", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(neworder),
+        });
+        const orderResult = await res2.json();
+
+        if (orderResult) {
+          router.push(
+            `/success-payment?trackingCode=${trackingCode}&orderDate=${orderDate}`
+          );
+          clearCart();
+        }
       }
     } else {
       Swal.fire({

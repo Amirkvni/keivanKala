@@ -40,7 +40,7 @@ const schema = mongoose.Schema({
   },
   status: {
     type: String,
-    default: "pending",
+    default: "paid",
   },
   paid: {
     type: String,

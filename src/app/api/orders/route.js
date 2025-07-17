@@ -8,6 +8,10 @@ export async function POST(req) {
     const user = await authUser();
     const body = await req.json();
     const { products, delivery } = body;
+    console.log("user --->", user);
+
+    console.log("products--->", products);
+    console.log("delivert ====>", delivery);
 
     const productObjectIds = products.map((product) => ({
       _id: new mongoose.Types.ObjectId(product._id),
