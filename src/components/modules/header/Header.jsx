@@ -141,7 +141,6 @@ function Header() {
           isActiveHamburger={isActiveHamburger}
           setIsActiveHamburger={setIsActiveHamburger}
           isLogin={isLogin}
-          categories={categories}
           activeMobileCategory={activeMobileCategory}
           setActiveMobileCategory={setActiveMobileCategory}
           activeMobileSubCategory={activeMobileSubCategory}

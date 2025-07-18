@@ -48,7 +48,7 @@ function SummaryOfActivities({
             </span>
             سفارش‌های من
           </span>
-          <Link href="/" className="flex gap-x-2 items-center text-green-400">
+          <Link href="/profile/orders" className="flex gap-x-2 items-center text-green-400">
             <span> مشاهده همه </span>
             <FaAngleLeft />
           </Link>

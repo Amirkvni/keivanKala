@@ -233,7 +233,7 @@ function ProductFilter({ isMobileFiltersActive, setIsMobileFiltersActive }) {
           <div>
             <input
               type="text"
-              className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-600 placeholder:text-lg dark:bg-zinc-400 dark:text-white"
+              className="w-full  outline-none p-3 rounded-xl  bg-gray-100 placeholder:text-gray-300 placeholder:text-lg dark:bg-zinc-900 dark:text-white"
               placeholder="جستجو در بین نتایج ..."
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}

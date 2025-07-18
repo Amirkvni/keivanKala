@@ -49,7 +49,7 @@ function BlogDetail({ blog }) {
           </div>
         ))}
       </div>
-      <div className="flex gap-x-3 items-center">
+      <div className="flex 2xl:gap-x-3 flex-wrap gap-2 items-center text-xs">
         <span>برچسب ها :</span>
         {blog.tags.map((tag) => (
           <span className="p-2 rounded-lg bg-gray-100 dark:bg-black text-xs">

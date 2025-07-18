@@ -17,12 +17,12 @@ import { LuShoppingCart } from "react-icons/lu";
 import Image from "next/image";
 import { memo } from "react";
 import SearchInput from "./SearchInput";
+import { categories } from "@/constants/categories";
 
 function MobileMenu({
   isActiveHamburger,
   setIsActiveHamburger,
   isLogin,
-  categories,
   activeMobileCategory,
   setActiveMobileCategory,
   activeMobileSubCategory,

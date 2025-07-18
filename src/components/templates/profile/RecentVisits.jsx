@@ -21,7 +21,7 @@ function RecentVisits({ recentVisits }) {
             <ProfileProductCard {...product} key={product._id} />
           ))
         ) : (
-          <div className="flex justify-center items-center flex-col gap-y-5 text-3xl mx-auto border p-8 rounded-4xl border-gray-200">
+          <div className="flex justify-center items-center flex-col gap-y-5 2xl:text-3xl text-sm mx-auto border p-8 rounded-4xl border-gray-200">
             <FaRegEyeSlash />
             <span>هنوز محصولی را مشاهده نکرده‌اید</span>
           </div>

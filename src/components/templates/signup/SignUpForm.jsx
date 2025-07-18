@@ -80,14 +80,21 @@ export default function SignUpForm() {
         body: JSON.stringify(user),
       });
       if (res.status === 201) {
-        alert("ثبت نام موفق");
+        Swal.fire({
+          title: "ثبت نام موفق",
+          icon: "success",
+        });
         setPhone("");
         setPassword("");
         setVerifyPassword("");
         setEmail("");
-        router.replace("/");
+        router.replace("/profile");
       } else if (res.status === 422) {
-        alert("کاربر وجود دارد");
+        Swal.fire({
+          title: "کاربر وجود دارد",
+          icon: "error",
+          confirmButtonText: "اوکی",
+        });
       }
     }
   };

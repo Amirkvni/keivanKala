@@ -3,85 +3,14 @@ import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
+import { questions } from "@/constants/questions";
 function QuestionBox() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchText, setSearchText] = useState(searchParams.get("q") || "");
   const [openQuestions, setOpenQuestions] = useState([]);
-  const q = [
-    {
-      id: 212131,
-      title: "سوالات متداول درباره خرید",
-      qa: [
-        {
-          id: 1,
-          question: "چگونه می‌توانم محصولی را سفارش دهم؟",
-          answer:
-            "شما می‌توانید با انتخاب محصول مورد نظر و افزودن آن به سبد خرید، فرآیند خرید را تکمیل کنید.",
-        },
-        {
-          id: 2,
-          question: "آیا امکان پرداخت در محل وجود دارد؟",
-          answer:
-            "بله، ما امکان پرداخت در محل را برای سفارشات داخل شهر فراهم کرده‌ایم.",
-        },
-        {
-          id: 3,
-          question: "چگونه می‌توانم سفارش خود را پیگیری کنم؟",
-          answer:
-            "شما می‌توانید با مراجعه به بخش پیگیری سفارش و وارد کردن کد رهگیری، وضعیت سفارش خود را بررسی کنید.",
-        },
-        {
-          id: 4,
-          question: "آیا امکان بازگرداندن کالا وجود دارد؟",
-          answer:
-            "بله، در صورت وجود مشکل در کالا، شما می‌توانید تا ۷ روز پس از دریافت، کالا را بازگردانید.",
-        },
-        {
-          id: 5,
-          question: "هزینه ارسال چگونه محاسبه می‌شود؟",
-          answer: "هزینه ارسال بر اساس وزن کالا و مسافت ارسال محاسبه می‌شود.",
-        },
-      ],
-    },
-    {
-      id: 256231,
-      title: "سوالات متداول درباره حساب کاربری",
-      qa: [
-        {
-          id: 6,
-          question: "چگونه می‌توانم حساب کاربری ایجاد کنم؟",
-          answer:
-            "شما می‌توانید با کلیک روی گزینه 'ثبت نام' و پر کردن فرم مربوطه، حساب کاربری خود را ایجاد کنید.",
-        },
-        {
-          id: 7,
-          question: "چگونه رمز عبور خود را تغییر دهم؟",
-          answer:
-            "شما می‌توانید از بخش 'فراموشی رمز عبور' در صفحه ورود، رمز عبور خود را تغییر دهید.",
-        },
-        {
-          id: 8,
-          question: "آیا امکان ویرایش اطلاعات حساب کاربری وجود دارد؟",
-          answer:
-            "بله، شما می‌توانید از بخش 'ویرایش پروفایل' اطلاعات حساب کاربری خود را به روز رسانی کنید.",
-        },
-        {
-          id: 9,
-          question: "چگونه می‌توانم آدرس خود را تغییر دهم؟",
-          answer:
-            "شما می‌توانید از بخش 'مدیریت آدرس‌ها' در حساب کاربری خود، آدرس‌های ثبت شده را ویرایش یا حذف کنید.",
-        },
-        {
-          id: 10,
-          question: "آیا امکان حذف حساب کاربری وجود دارد؟",
-          answer:
-            "بله، شما می‌توانید از بخش 'تنظیمات حساب' درخواست حذف حساب کاربری خود را ارسال کنید.",
-        },
-      ],
-    },
-  ];
-  const [questions, setQuestions] = useState([...q]);
+
+  const [allQuestions, setAllQuestions] = useState([...questions]);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
@@ -93,15 +22,15 @@ function QuestionBox() {
     router.replace(`?${params.toString()}`);
 
     if (searchText.trim()) {
-      const filteredQa = q
+      const filteredQa = questions
         .flatMap((section) => section.qa)
         .filter((item) =>
           item.question.toLowerCase().includes(searchText.toLowerCase())
         );
 
-      setQuestions([{ id: "filtered", title: null, qa: filteredQa }]);
+      setAllQuestions([{ id: "filtered", title: null, qa: filteredQa }]);
     } else {
-      setQuestions([...q]);
+      setAllQuestions([...questions]);
     }
   }, [searchText]);
   const searchHandler = (e) => {
@@ -140,7 +69,7 @@ function QuestionBox() {
       </div>
 
       <div className="w-full 2xl:w-8/12 flex flex-col gap-y-4 bg-white p-3 dark:bg-zinc-800 dark:text-white">
-        {questions.map((question, i) => (
+        {allQuestions.map((question, i) => (
           <div key={i} className="flex flex-col gap-y-3 ">
             {question.title && !searchText && (
               <span className="text-sm 2xl:text-lg pr-2 font-bold ">
@@ -174,7 +103,7 @@ function QuestionBox() {
             ))}
           </div>
         ))}
-        {questions[0]?.qa.length === 0 && searchText.trim() && (
+        {allQuestions[0]?.qa.length === 0 && searchText.trim() && (
           <p className="text-center text-gray-500">
             سوالی مطابق با جستجوی شما یافت نشد.
           </p>
