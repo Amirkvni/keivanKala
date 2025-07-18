@@ -1,11 +1,10 @@
 "use client";
-import Link from "next/link";
 import ProductBox from "@/components/modules/productBox/ProductBox";
 import React, { useEffect, useState } from "react";
-import { FaChevronLeft } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
+import SectionHeader from "../sectionHeader/SectionHeader";
 
 function BestSellingProducts() {
   const [bestSellingProducts, setBestSellingProducts] = useState([]);
@@ -19,20 +18,8 @@ function BestSellingProducts() {
   }, []);
   return (
     <div className="container mx-auto mt-7">
-      <section>
-        <div className="flex justify-between items-center">
-          <span className="text-lg xl:text-2xl font-semibold dark:text-white">
-            پرفروش ترین محصولات
-          </span>
-          <Link
-            href="/special-offers"
-            className=" flex xl:gap-x-2  items-center text-green-500"
-          >
-            <span className="text-sm xl:text-xl font-semibold">مشاهده همه</span>
-            <FaChevronLeft />
-          </Link>
-        </div>
-      </section>
+      <SectionHeader title="پرفروش ترین محصولات" link="/special-offers" />
+
       <main className="mt-5">
         <Swiper
           slidesPerView={"auto"}

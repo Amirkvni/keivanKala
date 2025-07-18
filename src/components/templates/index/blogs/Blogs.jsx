@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { FaChevronLeft } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
 import "./styles.css";
 import BlogBox from "./BlogBox";
+import SectionHeader from "../sectionHeader/SectionHeader";
 function Blogs() {
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
@@ -22,20 +22,7 @@ function Blogs() {
 
   return (
     <div className="container mx-auto mt-7 ">
-      <section>
-        <div className="flex justify-between items-center">
-          <span className="text-lg xl:text-2xl font-semibold dark:text-white">
-            مطالب خواندنی
-          </span>
-          <Link
-            href="/special-offers"
-            className=" flex xl:gap-x-2 items-center text-green-500"
-          >
-            <span className="text-sm xl:text-xl font-semibold">مشاهده همه</span>
-            <FaChevronLeft />
-          </Link>
-        </div>
-      </section>
+      <SectionHeader title="مطالب خواندنی" link="/blogs" />
       <main className="mt-5">
         <Swiper
           slidesPerView={"auto"}
