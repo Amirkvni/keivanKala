@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
 import ProfileProductCard from "@/components/modules/ProfileProductCard/ProfileProductCard";
+import NoContent from "@/components/modules/noContent/NoContent";
 
 function RecentVisits({ recentVisits }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,10 +22,10 @@ function RecentVisits({ recentVisits }) {
             <ProfileProductCard {...product} key={product._id} />
           ))
         ) : (
-          <div className="flex justify-center items-center flex-col gap-y-5 2xl:text-3xl text-sm mx-auto border p-8 rounded-4xl border-gray-200">
-            <FaRegEyeSlash />
-            <span>هنوز محصولی را مشاهده نکرده‌اید</span>
-          </div>
+          <NoContent
+            title="هنوز محصولی را مشاهده نکرده‌اید"
+            Icon={FaRegEyeSlash}
+          />
         )}
       </div>
 

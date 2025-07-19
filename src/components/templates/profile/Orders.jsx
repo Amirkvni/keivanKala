@@ -1,6 +1,8 @@
 import Link from "next/link";
 import OrderPreview from "./OrderPreview";
 import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
+import NoContent from "@/components/modules/noContent/NoContent";
+import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 
 function Orders({ activeOrder, orders }) {
   const tabs = [
@@ -12,9 +14,10 @@ function Orders({ activeOrder, orders }) {
   const renderOrders = () => {
     if (orders.length === 0) {
       return (
-        <div className="border-none flex justify-center items-center m-6">
-          هیچ سفارشی وجود ندارد.
-        </div>
+        <NoContent
+          title="هیچ سفارشی وجود ندارد"
+          Icon={MdOutlineRemoveShoppingCart}
+        />
       );
     }
 

@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
 import ProfileProductCard from "@/components/modules/ProfileProductCard/ProfileProductCard";
-import { FaRegEyeSlash } from "react-icons/fa6";
+import { IoHeartDislikeOutline } from "react-icons/io5";
+
+import NoContent from "@/components/modules/noContent/NoContent";
 function Favorites({ wishlists }) {
   let [activeSort, setActiveSort] = useState("bestSeller");
   let [products, setProducts] = useState([...wishlists]);
@@ -77,10 +79,10 @@ function Favorites({ wishlists }) {
             <ProfileProductCard {...product.product} key={product._id} />
           ))
         ) : (
-          <div className="flex justify-center items-center flex-col gap-y-5 text-xs 2xl:text-3xl mx-auto border p-8 rounded-4xl border-gray-200">
-            <FaRegEyeSlash />
-            <span>هنوز محصولی را اضافه نکرده اید</span>
-          </div>
+          <NoContent
+            Icon={IoHeartDislikeOutline}
+            title="هنوز محصولی را اضافه نکرده اید"
+          />
         )}
       </div>
 

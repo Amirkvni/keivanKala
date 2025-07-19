@@ -7,10 +7,11 @@ import { RiEdit2Line } from "react-icons/ri";
 import { FaArrowRight, FaRegTrashCan } from "react-icons/fa6";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { TbAddressBookOff } from "react-icons/tb";
+import { MdOutlineLocationOff } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { LuMapPinned } from "react-icons/lu";
+import NoContent from "@/components/modules/noContent/NoContent";
 function Addresses({ addresses }) {
   const router = useRouter();
   const addAddress = () => {
@@ -302,10 +303,10 @@ function Addresses({ addresses }) {
             </div>
           ))
         ) : (
-          <div className="flex flex-col items-center gap-y-3">
-            <TbAddressBookOff className="text-6xl" />
-            <p className="font-bold">لیست ادرس های شما خالی است</p>
-          </div>
+          <NoContent
+            Icon={MdOutlineLocationOff}
+            title="لیست ادرس های شما خالی است"
+          />
         )}
       </div>
     </div>

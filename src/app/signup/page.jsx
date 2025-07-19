@@ -1,8 +1,12 @@
 import SignUpForm from "@/components/templates/signup/SignUpForm";
+import { authUser } from "@/utils/serverHelpers";
+import { redirect } from "next/navigation";
 import React from "react";
 
-function page() {
+export default async function page() {
+  const user = await authUser();
+  if (user) {
+    redirect("/profile");
+  }
   return <SignUpForm />;
 }
-
-export default page;

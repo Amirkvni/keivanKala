@@ -19,6 +19,11 @@ export default async function page() {
     userId: user._id,
     type: "orderRegistrationMessages",
   });
+  const allmessageCount = await NotificationModel.countDocuments({
+    userId: user._id,
+  });
+  console.log(allmessageCount);
+
   return (
     <Messages
       discountMessages={JSON.parse(JSON.stringify(discountMessages))}
@@ -28,6 +33,7 @@ export default async function page() {
       orderRegistrationMessages={JSON.parse(
         JSON.stringify(OrderRegistrationMessages)
       )}
+      allmessageCount={allmessageCount}
     />
   );
 }

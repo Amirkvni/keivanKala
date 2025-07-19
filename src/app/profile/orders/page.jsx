@@ -23,6 +23,7 @@ export default async function page({ searchParams }) {
   } else if (activeTab === "current") {
     filteredOrders = orders.filter((o) => o.status === "current");
   }
+
   return (
     <Orders
       activeOrder={activeTab}
