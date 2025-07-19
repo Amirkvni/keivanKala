@@ -1,39 +1,53 @@
 const mongoose = require("mongoose");
+require("./Department");
+require("./SubDepartment");
 require("./User");
-const schema = mongoose.Schema(
+
+const schema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
       required: true,
     },
-    phone: {
+    body: {
       type: String,
       required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      trim: true,
-      lowercase: true,
-    },
-    text: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      enum: ["open", "pending", "closed"],
-      default: "open",
     },
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: "User",
+      required: true,
+    },
+    department: {
+      type: mongoose.Types.ObjectId,
+      ref: "Department",
+      required: true,
+    },
+    subDepartment: {
+      type: mongoose.Types.ObjectId,
+      ref: "subDepartment",
+      required: true,
+    },
+    priority: {
+      type: Number,
+      default: 1,
+      enum: [1, 2, 3],
+    },
+    isAnswer: {
+      type: Boolean,
+      default: false,
+    },
+    mainTicket: {
+      type: mongoose.Types.ObjectId,
+      ref: "Ticket",
       required: false,
-      default: null,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 const model = mongoose.models.Ticket || mongoose.model("Ticket", schema);
+
 export default model;

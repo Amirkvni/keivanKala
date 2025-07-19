@@ -7,7 +7,7 @@ import { IoHomeOutline, IoLocationOutline } from "react-icons/io5";
 import { FaRegCommentDots, FaRegHeart } from "react-icons/fa6";
 import { GiBackwardTime } from "react-icons/gi";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { LuUserCog } from "react-icons/lu";
+import { LuMessagesSquare, LuUserCog } from "react-icons/lu";
 import { usePathname, useRouter } from "next/navigation";
 import LogoutBtn from "./LogoutBtn";
 function DashboardLinks({ phone, name = "کاربر جدید" }) {
@@ -66,6 +66,15 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
         >
           <FaRegCommentDots />
           <span>کامنت ها</span>
+        </Link>
+        <Link
+          href="/profile/tickets"
+          className={
+            pathname == "/profile/tickets" ? "activeUserDashboardLink" : null
+          }
+        >
+          <LuMessagesSquare />
+          <span>تیکت ها</span>
         </Link>
         <Link
           href="/profile/recentVisits"

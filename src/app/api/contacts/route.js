@@ -1,5 +1,5 @@
 import connectToDB from "@/configs/db";
-import TicketModel from "@/models/Ticket";
+import ContactModel from "@/models/Contact";
 import { authUser } from "@/utils/serverHelpers";
 export async function POST(req) {
   try {
@@ -9,7 +9,7 @@ export async function POST(req) {
     const { name, phone, email, text } = body;
 
     const userId = user ? user._id : null;
-    const newTicket = await TicketModel.create({
+    const newTicket = await ContactModel.create({
       name,
       phone,
       email,

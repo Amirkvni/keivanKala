@@ -9,7 +9,7 @@ function ContactForm() {
   const [text, setText] = useState("");
   const ticketHandler = async () => {
     const newTicket = { name, phone, email, text };
-    let res = await fetch("/api/ticket", {
+    let res = await fetch("/api/contacts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

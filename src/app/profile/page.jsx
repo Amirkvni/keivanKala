@@ -5,7 +5,7 @@ import AddressModel from "@/models/Address";
 import OrderModel from "@/models/Order";
 import WishlistsModel from "@/models/Wishlist";
 import NotificationsModel from "@/models/Notification";
-import TicketModel from "@/models/Ticket";
+import TicketModel from "@/models/Contact";
 export default async function page() {
   connectToDB();
   const user = await authUser();
