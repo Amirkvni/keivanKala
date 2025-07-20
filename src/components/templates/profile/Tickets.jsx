@@ -12,7 +12,7 @@ function Tickets({ tickets }) {
         <span className="border-b-green-400 pb-2 border-b-3">تیکت های شما</span>
         <Link
           href="/profile/tickets/sendTicket"
-          className="flex gap-x-2 items-center 2xl:text-base text-sm p-2 bg-green-400 rounded-lg text-white"
+          className="flex gap-x-2 items-center 2xl:text-base text-sm p-2 bg-green-700 rounded-lg text-white"
         >
           ارسال تیکت
         </Link>

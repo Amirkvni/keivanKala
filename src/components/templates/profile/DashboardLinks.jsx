@@ -70,7 +70,9 @@ function DashboardLinks({ phone, name = "کاربر جدید" }) {
         <Link
           href="/profile/tickets"
           className={
-            pathname == "/profile/tickets" ? "activeUserDashboardLink" : null
+            pathname.startsWith("/profile/tickets")
+              ? "activeUserDashboardLink"
+              : undefined
           }
         >
           <LuMessagesSquare />

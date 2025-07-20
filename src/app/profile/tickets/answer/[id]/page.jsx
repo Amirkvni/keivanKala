@@ -31,7 +31,7 @@ export default async function Page({ params }) {
         {mainTicket.status !== "closed" && (
           <Link
             href={`/profile/tickets/sendTicket?mainTicket=${ticketID}`}
-            className="flex gap-x-2 items-center bg-green-400 rounded-lg p-2 text-white"
+            className="flex gap-x-2 items-center bg-green-700 rounded-lg p-2 text-white"
           >
             افزودن تیکت جدید
           </Link>
@@ -46,6 +46,11 @@ export default async function Page({ params }) {
           />
         ))}
       </div>
+      {allMessages.length === 1 && (
+        <div className="p-2 text-center bg-red-400 rounded-sm text-white">
+          هیچ پاسخی وجود ندارد
+        </div>
+      )}
     </div>
   );
 }

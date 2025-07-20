@@ -89,7 +89,7 @@ export default function page() {
         </span>
         <Link
           href="/profile/tickets"
-          className="flex gap-x-2 items-center 2xl:text-base text-sm bg-green-400 p-2 rounded-lg text-white"
+          className="flex gap-x-2 items-center 2xl:text-base text-sm bg-green-700 p-2 rounded-lg text-white"
         >
           <span>همه تیکت ها</span>
         </Link>

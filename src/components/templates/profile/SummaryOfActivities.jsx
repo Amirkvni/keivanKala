@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import TicketModel from "@/models/Ticket";
 import { BiBasket } from "react-icons/bi";
 import { FaAngleLeft, FaRegCommentDots, FaRegHeart } from "react-icons/fa6";
 import { FiShoppingBag } from "react-icons/fi";
@@ -18,20 +19,35 @@ import {
   LuTicketX,
 } from "react-icons/lu";
 import LogoutBtn from "./LogoutBtn";
+import connectToDB from "@/configs/db";
+import { authUser } from "@/utils/serverHelpers";
 
-function SummaryOfActivities({
+export default async function SummaryOfActivities({
   orders,
   userAddressesCount,
   userNotifications,
   userWishlistsCount,
   userTickets,
 }) {
+  connectToDB();
+  const user = await authUser();
+  const userTicketsCount = await TicketModel.countDocuments({
+    user: user._id,
+    mainTicket: { $exists: false },
+  });
+  const userAnsweredTicketsCount = await TicketModel.countDocuments({
+    user: user._id,
+    status: "answered",
+  });
+  const userClosedTicketsCount = await TicketModel.countDocuments({
+    user: user._id,
+    status: "closed",
+  });
+  const userRewiTicketsCount = await TicketModel.countDocuments({
+    user: user._id,
+    status: "review",
+  });
   const ordersStatusCount = orders.reduce((acc, order) => {
-    const status = order.status || "unknown";
-    acc[status] = (acc[status] || 0) + 1;
-    return acc;
-  }, {});
-  const ticketsStatusCount = userTickets.reduce((acc, order) => {
     const status = order.status || "unknown";
     acc[status] = (acc[status] || 0) + 1;
     return acc;
@@ -48,7 +64,10 @@ function SummaryOfActivities({
             </span>
             سفارش‌های من
           </span>
-          <Link href="/profile/orders" className="flex gap-x-2 items-center text-green-400">
+          <Link
+            href="/profile/orders"
+            className="flex gap-x-2 items-center text-green-400"
+          >
             <span> مشاهده همه </span>
             <FaAngleLeft />
           </Link>
@@ -149,52 +168,67 @@ function SummaryOfActivities({
             وضعیت تیکت‌ها
           </span>
         </div>
-        <div className="flex gap-x-3 justify-between [&>div]:w-[200px]">
-          <div className="bg-green-600 flex gap-x-5  rounded-2xl p-2 text-white items-center">
+        <div className="flex gap-x-3 justify-between [&>a]:w-[200px]">
+          <Link
+            href="/profile/tickets"
+            className="bg-green-600 flex gap-x-5  rounded-2xl p-2 text-white items-center"
+          >
             <div className="shadow-lg w-12 h-12 flex items-center justify-center  text-2xl rounded-lg">
               <LuTicketPlus />
             </div>
             <div className="flex gap-x-2 items-center">
-              <span>{ticketsStatusCount["open"] || 0}</span>
+              <span>0</span>
               <span>جدید</span>
             </div>
-          </div>
-          <div className="bg-yellow-600 flex gap-x-5  rounded-2xl p-2 text-white items-center">
+          </Link>
+          <Link
+            href="/profile/tickets"
+            className="bg-yellow-600 flex gap-x-5  rounded-2xl p-2 text-white items-center"
+          >
             <div className="shadow-lg w-12 h-12 flex items-center justify-center  text-2xl rounded-lg">
               <LuTicket />
             </div>
             <div className="flex gap-x-2 items-center">
-              <span>0</span>
+              <span>{userRewiTicketsCount}</span>
               <span>درحال بررسی</span>
             </div>
-          </div>
-          <div className="bg-red-600 flex gap-x-5  rounded-2xl p-2 text-white items-center">
+          </Link>
+          <Link
+            href="/profile/tickets"
+            className="bg-red-600 flex gap-x-5  rounded-2xl p-2 text-white items-center"
+          >
             <div className="shadow-lg w-12 h-12 flex items-center justify-center  text-2xl rounded-lg">
               <LuTicketX />
             </div>
             <div className="flex gap-x-2 items-center">
-              <span>0</span>
+              <span>{userClosedTicketsCount}</span>
               <span>بسته شده</span>
             </div>
-          </div>
-          <div className="bg-blue-600 flex gap-x-5  rounded-2xl p-2 text-white items-center">
+          </Link>
+          <Link
+            href="/profile/tickets"
+            className="bg-blue-600 flex gap-x-5  rounded-2xl p-2 text-white items-center"
+          >
             <div className="shadow-lg w-12 h-12 flex items-center justify-center  text-2xl rounded-lg">
               <LuTicketCheck />
             </div>
             <div className="flex gap-x-2 items-center text-sm">
-              <span>0</span>
+              <span>{userAnsweredTicketsCount}</span>
               <span>پاسخ داده شده</span>
             </div>
-          </div>
-          <div className="bg-amber-600 flex gap-x-5  rounded-2xl p-2 text-white items-center">
+          </Link>
+          <Link
+            href="/profile/tickets"
+            className="bg-amber-600 flex gap-x-5  rounded-2xl p-2 text-white items-center"
+          >
             <div className="shadow-lg w-12 h-12 flex items-center justify-center  text-2xl rounded-lg">
               <LuTickets />
             </div>
             <div className="flex gap-x-2 items-center">
-              <span>0</span>
+              <span>{userTicketsCount}</span>
               <span>همه</span>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
       {/* mobile profile */}
@@ -354,5 +388,3 @@ function SummaryOfActivities({
     </>
   );
 }
-
-export default SummaryOfActivities;

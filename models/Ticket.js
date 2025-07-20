@@ -33,9 +33,9 @@ const schema = new mongoose.Schema(
       default: 1,
       enum: [1, 2, 3],
     },
-    hasAnswer: {
-      type: Boolean,
-      default: false,
+    status: {
+      type: String,
+      default: "review",
     },
     isAnswer: {
       type: Boolean,
