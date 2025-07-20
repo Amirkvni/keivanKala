@@ -7,18 +7,22 @@ export async function POST(req) {
     connectToDB();
     const user = await authUser();
     const reqBody = await req.json();
-    const { title, body, department, subDepartment, priority } = reqBody;
+    const { title, body, department, subDepartment, priority, mainTicket } =
+      reqBody;
 
-    // Validation
-
-    await TicketModel.create({
+    const newTicketData = {
       title,
       body,
       department,
       subDepartment,
       priority,
       user: user._id,
-    });
+    };
+    if (mainTicket) {
+      newTicketData.mainTicket = mainTicket;
+    }
+
+    await TicketModel.create(newTicketData);
 
     return Response.json(
       { message: "Ticket created successfully " },

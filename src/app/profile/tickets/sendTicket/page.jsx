@@ -1,10 +1,24 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function page() {
+  const searchParams = useSearchParams();
+  const mainTicket = searchParams.get("mainTicket");
+  useEffect(() => {
+    const getMainTicketData = async () => {
+      if (!mainTicket) return;
+      const res = await fetch(`/api/tickets/${mainTicket}`);
+      if (res.ok) {
+        const data = await res.json();
+        setDepartmentID(data.department);
+        setSubDepartmentID(data.subDepartment);
+      }
+    };
+    getMainTicketData();
+  }, [mainTicket]);
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -26,7 +40,6 @@ export default function page() {
   useEffect(() => {
     const getSubDepartments = async () => {
       const res = await fetch(`/api/departments/sub/${departmentID}`);
-      console.log(res.status);
 
       if (res.status === 200) {
         const data = await res.json();
@@ -44,6 +57,7 @@ export default function page() {
       department: departmentID,
       subDepartment: subDepartmentID,
       priority,
+      ...(mainTicket && { mainTicket }),
     };
     const res = await fetch("/api/tickets", {
       method: "POST",
@@ -58,7 +72,11 @@ export default function page() {
         icon: "success",
         confirmButtonText: "مشاهده همه تیکت ها",
       }).then(() => {
-        router.push("/profile/tickets");
+        if (!mainTicket) {
+          router.push("/profile/tickets");
+        } else {
+          router.push(`/profile/tickets/answer/${mainTicket}`);
+        }
       });
     }
   };
@@ -66,12 +84,12 @@ export default function page() {
   return (
     <div className="profile-content-box">
       <div className="text-sm 2xl:text-base flex justify-between items-center">
-        <span className="border-b-green-400 pb-2 border-b-3">
+        <span className="border-b-green-400 pb-2 border-b-3 ">
           ارسال تیکت جدید
         </span>
         <Link
           href="/profile/tickets"
-          className="flex gap-x-2 items-center 2xl:text-base text-sm bg-green-400 p-2 rounded-lg"
+          className="flex gap-x-2 items-center 2xl:text-base text-sm bg-green-400 p-2 rounded-lg text-white"
         >
           <span>همه تیکت ها</span>
         </Link>
@@ -79,7 +97,11 @@ export default function page() {
       <div className="grid grid-cols-2 [&>div]:flex [&>div]:flex-col [&>div]:gap-2 gap-3 [&>div>select]:border-green-400 [&>div>select]:border [&>div>select]:rounded-sm [&>div>select]:p-1 [&>div>select]:cursor-pointer">
         <div>
           <label>دپارتمان را انتخاب کنید :</label>
-          <select onChange={(even) => setDepartmentID(even.target.value)}>
+          <select
+            onChange={(even) => setDepartmentID(even.target.value)}
+            disabled={!!mainTicket}
+            value={departmentID}
+          >
             <option value={-1}>لطفا یک مورد را انتخاب کنید</option>
             {departments.map((department) => (
               <option key={department._id} value={department._id}>
@@ -90,7 +112,11 @@ export default function page() {
         </div>
         <div>
           <label>نوع تیکت را انتخاب کنید :</label>
-          <select onChange={(e) => setSubDepartmentID(e.target.value)}>
+          <select
+            onChange={(e) => setSubDepartmentID(e.target.value)}
+            disabled={!!mainTicket}
+            value={subDepartmentID}
+          >
             <option value={-1}>لطفا یک مورد را انتخاب کنید</option>
             {subDepartments.map((subDepartment) => (
               <option key={subDepartment._id} value={subDepartment._id}>
@@ -128,7 +154,10 @@ export default function page() {
           rows={12}
         ></textarea>
       </div>
-      <button className="bg-green-600 p-2 rounded-lg" onClick={sendTicket}>
+      <button
+        className="bg-green-600 p-2 rounded-l text-white"
+        onClick={sendTicket}
+      >
         ارسال تیکت
       </button>
     </div>

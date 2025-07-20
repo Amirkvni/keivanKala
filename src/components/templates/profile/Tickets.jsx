@@ -5,7 +5,6 @@ import NoContent from "@/components/modules/noContent/NoContent";
 import { LuTicketX } from "react-icons/lu";
 
 function Tickets({ tickets }) {
-  console.log("ticket===>", tickets);
 
   return (
     <div className="profile-content-box">

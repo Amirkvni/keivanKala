@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-const Ticket = ({ _id, title, createdAt, department, hasAnswer }) => {
+const Ticket = ({ _id, title, createdAt, department, status }) => {
   return (
-    <Link href={`/p-user/tickets/answer/${_id}`}>
+    <Link href={`/profile/tickets/answer/${_id}`}>
       <div>
         <p>{title}</p>
         <p className="bg-gray-200 p-1.5 rounded-sm text-sm text-center dark:text-black">
@@ -13,10 +13,18 @@ const Ticket = ({ _id, title, createdAt, department, hasAnswer }) => {
         <p>{new Date(createdAt).toLocaleDateString("fa-IR")}</p>
         <p
           className={`p-2 rounded-lg text-sm text-white ${
-            hasAnswer ? "bg-green-400" : "bg-red-900"
+            status === "answered"
+              ? "bg-green-400"
+              : status === "closed"
+              ? "bg-red-900"
+              : "bg-blue-400"
           }`}
         >
-          {hasAnswer ? "پاسخ داده شده" : "پاسخ داده نشده"}
+          {status === "closed"
+            ? "بسته شده"
+            : status === "answered"
+            ? "پاسخ داده شده"
+            : "درحال بررسی"}
         </p>
       </div>
     </Link>
