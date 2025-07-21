@@ -74,7 +74,9 @@
   .swal-title {
     font-size: 0.8rem !important; /* در موبایل کوچکتر */
   }
-
+  .swal2-confirm {
+    font-size: 0.8rem !important; /* در موبایل کوچکتر */
+  }
   .swal-popup {
     width: 60% !important;
     padding: 1rem !important;

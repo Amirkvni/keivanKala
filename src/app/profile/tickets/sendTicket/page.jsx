@@ -71,6 +71,7 @@ export default function page() {
         title: "تیکت شما با موفقیت ثبت شد !",
         icon: "success",
         confirmButtonText: "مشاهده همه تیکت ها",
+        customClass: { title: "swal-title", popup: "swal-popup" },
       }).then(() => {
         if (!mainTicket) {
           router.push("/profile/tickets");
@@ -94,7 +95,7 @@ export default function page() {
           <span>همه تیکت ها</span>
         </Link>
       </div>
-      <div className="grid grid-cols-2 [&>div]:flex [&>div]:flex-col [&>div]:gap-2 gap-3 [&>div>select]:border-green-400 [&>div>select]:border [&>div>select]:rounded-sm [&>div>select]:p-1 [&>div>select]:cursor-pointer">
+      <div className="grid 2xl:grid-cols-2 grid-cols-1 [&>div]:flex [&>div]:flex-col [&>div]:gap-2 gap-3 [&>div>select]:border-green-400 [&>div>select]:border [&>div>select]:rounded-sm [&>div>select]:p-1 [&>div>select]:cursor-pointer [&>div>label]:text-sm ">
         <div>
           <label>دپارتمان را انتخاب کنید :</label>
           <select

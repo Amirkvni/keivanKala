@@ -17,6 +17,7 @@ import {
   LuTickets,
   LuUserCog,
   LuTicketX,
+  LuMessagesSquare,
 } from "react-icons/lu";
 import LogoutBtn from "./LogoutBtn";
 import connectToDB from "@/configs/db";
@@ -302,6 +303,13 @@ export default async function SummaryOfActivities({
             <div className="flex gap-x-3 items-center">
               <FaRegCommentDots />
               <span> کامنت ها</span>
+            </div>
+            <FaAngleLeft />
+          </Link>
+          <Link href="/profile/tickets">
+            <div className="flex gap-x-3 items-center">
+              <LuMessagesSquare />
+              <span> تیکت ها </span>
             </div>
             <FaAngleLeft />
           </Link>

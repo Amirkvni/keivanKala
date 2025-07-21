@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { LuMapPinned } from "react-icons/lu";
 import NoContent from "@/components/modules/noContent/NoContent";
+import { IoHomeOutline } from "react-icons/io5";
 function Addresses({ addresses }) {
   const router = useRouter();
   const addAddress = () => {
@@ -220,7 +221,7 @@ function Addresses({ addresses }) {
         </Link>
       </div>
       <button
-        className="2xl:hidden flex gap-x-2 items-center text-white bg-green-400 cursor-pointer rounded-lg p-2 w-fit "
+        className="2xl:hidden absolute top-[200%] left-0 flex gap-x-2 items-center text-white bg-green-400 cursor-pointer rounded-xl p-3 w-fit "
         onClick={addAddress}
       >
         <span> افزودن آدرس </span>

@@ -23,7 +23,7 @@ export default async function Page({ params }) {
 
   return (
     <div className="profile-content-box">
-      <div className="flex justify-between items-center p-1">
+      <div className="flex justify-between items-center p-1 text-sm">
         <Link href="/profile/tickets" className="flex gap-x-2 items-center">
           <FaArrowRight />
           <span>بازگشت</span>
