@@ -72,13 +72,34 @@
 
 @media (max-width: 640px) {
   .swal-title {
-    font-size: 0.8rem !important; /* در موبایل کوچکتر */
+    font-size: 0.8rem !important;
   }
   .swal2-confirm {
-    font-size: 0.8rem !important; /* در موبایل کوچکتر */
+    font-size: 0.8rem !important;
   }
   .swal-popup {
     width: 60% !important;
     padding: 1rem !important;
   }
+}
+
+/* dashboard scrollbar styles: */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #14ef14;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb:hover {
+  background-color: #abec83;
 }

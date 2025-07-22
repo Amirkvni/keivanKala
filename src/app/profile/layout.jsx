@@ -3,7 +3,7 @@ import DashboardLinks from "@/components/templates/profile/DashboardLinks";
 import { authUser } from "@/utils/serverHelpers";
 import { redirect } from "next/navigation";
 
-export default async function DashboardLayout({ children }) {
+export default async function profileLayout({ children }) {
   const user = await authUser();
   if (!user) {
     redirect("/signin");
