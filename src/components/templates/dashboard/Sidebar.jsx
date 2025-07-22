@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
+import { RiShoppingBag4Line } from "react-icons/ri";
 export default function Sidebar() {
   const [openAccount, setOpenAccount] = useState(false);
   const pathname = usePathname();
@@ -66,7 +67,52 @@ export default function Sidebar() {
               </ul>
             )}
           </li>
+          <li>
+            <div
+              className={`flex items-center justify-between cursor-pointer ${
+                pathname == "/dashboard/all-products" ||
+                pathname == "/dashboard/product-creation"
+                  ? "bg-green-100 text-green-400"
+                  : undefined
+              } p-2 rounded-sm  font-semibold`}
+              onClick={() => setOpenAccount((v) => !v)}
+            >
+              <div className="flex items-center gap-2 ">
+                <RiShoppingBag4Line />
+                <span>محصولات</span>
+              </div>
+              {openAccount ? <FaAngleUp /> : <FaAngleDown />}
+            </div>
 
+            {openAccount && (
+              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc ">
+                <li>
+                  <Link
+                    href="/dashboard/all-products"
+                    className={`block hover:text-blue-600 ${
+                      pathname == "/dashboard/all-products"
+                        ? "text-blue-600"
+                        : null
+                    }`}
+                  >
+                    لیست محصولات
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/dashboard/product-creation"
+                    className={`block hover:text-blue-600 ${
+                      pathname == "/dashboard/product-creation"
+                        ? "text-blue-600"
+                        : null
+                    }`}
+                  >
+                    ایجاد محصول
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
           {/* سایر لینک‌ها */}
         </ul>
       </div>
