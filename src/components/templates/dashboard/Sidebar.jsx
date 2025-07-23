@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
+import { FiUsers } from "react-icons/fi";
 import { RiShoppingBag4Line, RiShoppingCart2Line } from "react-icons/ri";
 export default function Sidebar() {
   const [openAccount, setOpenAccount] = useState(false);
@@ -127,6 +128,50 @@ export default function Sidebar() {
               <RiShoppingCart2Line />
               سفارشات
             </Link>
+          </li>
+          <li>
+            <div
+              className={`flex items-center justify-between cursor-pointer ${
+                pathname == "/dashboard/all-users" ||
+                pathname == "/dashboard/add-user"
+                  ? "bg-green-100 text-green-400"
+                  : undefined
+              } p-2 rounded-sm  font-semibold`}
+              onClick={() => setOpenAccount((v) => !v)}
+            >
+              <div className="flex items-center gap-2 ">
+                <FiUsers />
+                <span>کاربران</span>
+              </div>
+              {openAccount ? <FaAngleUp /> : <FaAngleDown />}
+            </div>
+
+            {openAccount && (
+              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc ">
+                <li>
+                  <Link
+                    href="/dashboard/all-users"
+                    className={`block hover:text-blue-600 ${
+                      pathname == "/dashboard/all-users"
+                        ? "text-blue-600"
+                        : null
+                    }`}
+                  >
+                    لیست کاربران
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/dashboard/add-user"
+                    className={`block hover:text-blue-600 ${
+                      pathname == "/dashboard/add-user" ? "text-blue-600" : null
+                    }`}
+                  >
+                    ایجاد کاربر جدید
+                  </Link>
+                </li>
+              </ul>
+            )}
           </li>
         </ul>
       </div>
