@@ -4,6 +4,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import productPic from "@/assets/ex.jpg";
+import Link from "next/link";
 function page() {
   return (
     <div className="p-12">
@@ -108,7 +109,12 @@ function page() {
                     <div className="flex justify-center gap-2 text-gray-600 [&>svg]:text-xl">
                       <FaRegEdit className="cursor-pointer hover:text-blue-600" />
                       <MdDeleteOutline className="cursor-pointer hover:text-red-600" />
-                      <MdOutlineRemoveRedEye className="cursor-pointer hover:text-green-800" />
+                      <Link
+                        href="/dashboard/all-orders/123"
+                        className="cursor-pointer hover:text-green-800"
+                      >
+                        <MdOutlineRemoveRedEye />
+                      </Link>
                     </div>
                   </td>
                 </tr>
