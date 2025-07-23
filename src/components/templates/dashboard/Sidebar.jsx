@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
-import { RiShoppingBag4Line } from "react-icons/ri";
+import { RiShoppingBag4Line, RiShoppingCart2Line } from "react-icons/ri";
 export default function Sidebar() {
   const [openAccount, setOpenAccount] = useState(false);
   const pathname = usePathname();
@@ -113,7 +113,21 @@ export default function Sidebar() {
               </ul>
             )}
           </li>
-          {/* سایر لینک‌ها */}
+          <li
+            className={`p-2 flex items-center justify-between cursor-pointer ${
+              pathname == "/dashboard/all-orders"
+                ? "bg-green-100 text-green-400"
+                : undefined
+            }  rounded-sm  font-semibold`}
+          >
+            <Link
+              href="/dashboard/all-orders"
+              className="flex items-center gap-2"
+            >
+              <RiShoppingCart2Line />
+              سفارشات
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
