@@ -3,12 +3,30 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
+import { FaRegComments } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
+import { LuMessageSquareMore } from "react-icons/lu";
 import { RiShoppingBag4Line, RiShoppingCart2Line } from "react-icons/ri";
+
 export default function Sidebar() {
-  const [openAccount, setOpenAccount] = useState(false);
   const pathname = usePathname();
+
+  // وضعیت باز بودن منوها به صورت آبجکت
+  const [openMenus, setOpenMenus] = useState({
+    account: false,
+    products: false,
+    users: false,
+  });
+
+  // تابع برای باز/بسته کردن منوها
+  const toggleMenu = (menuName) => {
+    setOpenMenus((prev) => ({
+      ...prev,
+      [menuName]: !prev[menuName],
+    }));
+  };
+
   return (
     <div className="bg-white w-64 fixed top-0 bottom-0 right-0 overflow-y-auto scrollbar-custom">
       <div className="p-4">
@@ -16,38 +34,44 @@ export default function Sidebar() {
           کیوان کالا
         </h2>
         <ul className="space-y-2">
+          {/* داشبورد */}
           <li className="p-2">
-            <Link href="/dashboard" className="flex items-center gap-2">
+            <Link
+              href="/dashboard"
+              className={`flex items-center gap-2 ${
+                pathname === "/dashboard"
+                  ? "bg-green-100 text-green-400 font-semibold rounded-sm p-2"
+                  : ""
+              }`}
+            >
               داشبورد
             </Link>
           </li>
 
+          {/* حساب کاربری */}
           <li>
             <div
-              className={`flex items-center justify-between cursor-pointer ${
-                pathname == "/dashboard/adminInfo" ||
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
+                pathname === "/dashboard/adminInfo" ||
                 pathname.startsWith("/dashboard/editAdmininfo")
                   ? "bg-green-100 text-green-400"
-                  : undefined
-              } p-2 rounded-sm  font-semibold`}
-              onClick={() => setOpenAccount((v) => !v)}
+                  : ""
+              }`}
+              onClick={() => toggleMenu("account")}
             >
               <div className="flex items-center gap-2 ">
                 <CgProfile />
                 <span>حساب کاربری</span>
               </div>
-              {openAccount ? <FaAngleUp /> : <FaAngleDown />}
+              {openMenus.account ? <FaAngleUp /> : <FaAngleDown />}
             </div>
-
-            {openAccount && (
-              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc ">
+            {openMenus.account && (
+              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc">
                 <li>
                   <Link
                     href="/dashboard/adminInfo"
                     className={`block hover:text-blue-600 ${
-                      pathname == "/dashboard/adminInfo"
-                        ? "text-blue-600"
-                        : null
+                      pathname === "/dashboard/adminInfo" ? "text-blue-600" : ""
                     }`}
                   >
                     مشخصات
@@ -59,7 +83,7 @@ export default function Sidebar() {
                     className={`block hover:text-blue-600 ${
                       pathname.startsWith("/dashboard/editAdmininfo")
                         ? "text-blue-600"
-                        : null
+                        : ""
                     }`}
                   >
                     ویرایش مشخصات
@@ -68,32 +92,33 @@ export default function Sidebar() {
               </ul>
             )}
           </li>
+
+          {/* محصولات */}
           <li>
             <div
-              className={`flex items-center justify-between cursor-pointer ${
-                pathname == "/dashboard/all-products" ||
-                pathname == "/dashboard/product-creation"
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
+                pathname === "/dashboard/all-products" ||
+                pathname === "/dashboard/product-creation"
                   ? "bg-green-100 text-green-400"
-                  : undefined
-              } p-2 rounded-sm  font-semibold`}
-              onClick={() => setOpenAccount((v) => !v)}
+                  : ""
+              }`}
+              onClick={() => toggleMenu("products")}
             >
               <div className="flex items-center gap-2 ">
                 <RiShoppingBag4Line />
                 <span>محصولات</span>
               </div>
-              {openAccount ? <FaAngleUp /> : <FaAngleDown />}
+              {openMenus.products ? <FaAngleUp /> : <FaAngleDown />}
             </div>
-
-            {openAccount && (
-              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc ">
+            {openMenus.products && (
+              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc">
                 <li>
                   <Link
                     href="/dashboard/all-products"
                     className={`block hover:text-blue-600 ${
-                      pathname == "/dashboard/all-products"
+                      pathname === "/dashboard/all-products"
                         ? "text-blue-600"
-                        : null
+                        : ""
                     }`}
                   >
                     لیست محصولات
@@ -103,9 +128,9 @@ export default function Sidebar() {
                   <Link
                     href="/dashboard/product-creation"
                     className={`block hover:text-blue-600 ${
-                      pathname == "/dashboard/product-creation"
+                      pathname === "/dashboard/product-creation"
                         ? "text-blue-600"
-                        : null
+                        : ""
                     }`}
                   >
                     ایجاد محصول
@@ -114,12 +139,14 @@ export default function Sidebar() {
               </ul>
             )}
           </li>
+
+          {/* سفارشات */}
           <li
-            className={`p-2 flex items-center justify-between cursor-pointer ${
+            className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
               pathname.startsWith("/dashboard/all-orders")
                 ? "bg-green-100 text-green-400"
-                : undefined
-            }  rounded-sm  font-semibold`}
+                : ""
+            }`}
           >
             <Link
               href="/dashboard/all-orders"
@@ -129,32 +156,31 @@ export default function Sidebar() {
               سفارشات
             </Link>
           </li>
+
+          {/* کاربران */}
           <li>
             <div
-              className={`flex items-center justify-between cursor-pointer ${
-                pathname == "/dashboard/all-users" ||
-                pathname == "/dashboard/add-user"
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
+                pathname === "/dashboard/all-users" ||
+                pathname === "/dashboard/add-user"
                   ? "bg-green-100 text-green-400"
-                  : undefined
-              } p-2 rounded-sm  font-semibold`}
-              onClick={() => setOpenAccount((v) => !v)}
+                  : ""
+              }`}
+              onClick={() => toggleMenu("users")}
             >
               <div className="flex items-center gap-2 ">
                 <FiUsers />
                 <span>کاربران</span>
               </div>
-              {openAccount ? <FaAngleUp /> : <FaAngleDown />}
+              {openMenus.users ? <FaAngleUp /> : <FaAngleDown />}
             </div>
-
-            {openAccount && (
-              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc ">
+            {openMenus.users && (
+              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc">
                 <li>
                   <Link
                     href="/dashboard/all-users"
                     className={`block hover:text-blue-600 ${
-                      pathname == "/dashboard/all-users"
-                        ? "text-blue-600"
-                        : null
+                      pathname === "/dashboard/all-users" ? "text-blue-600" : ""
                     }`}
                   >
                     لیست کاربران
@@ -164,7 +190,7 @@ export default function Sidebar() {
                   <Link
                     href="/dashboard/add-user"
                     className={`block hover:text-blue-600 ${
-                      pathname == "/dashboard/add-user" ? "text-blue-600" : null
+                      pathname === "/dashboard/add-user" ? "text-blue-600" : ""
                     }`}
                   >
                     ایجاد کاربر جدید
@@ -172,6 +198,36 @@ export default function Sidebar() {
                 </li>
               </ul>
             )}
+          </li>
+          <li
+            className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
+              pathname.startsWith("/dashboard/all-tickets")
+                ? "bg-green-100 text-green-400"
+                : ""
+            }`}
+          >
+            <Link
+              href="/dashboard/all-tickets"
+              className="flex items-center gap-2"
+            >
+              <LuMessageSquareMore />
+              تیکت ها
+            </Link>
+          </li>
+          <li
+            className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
+              pathname.startsWith("/dashboard/all-comments")
+                ? "bg-green-100 text-green-400"
+                : ""
+            }`}
+          >
+            <Link
+              href="/dashboard/all-comments"
+              className="flex items-center gap-2"
+            >
+              <FaRegComments />
+              نظرات{" "}
+            </Link>
           </li>
         </ul>
       </div>

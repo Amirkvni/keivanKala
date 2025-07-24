@@ -19,6 +19,13 @@ function page() {
           حذف <FiTrash2 />
         </button>
       </div>
+      <div className="flex flex-col gap-y-2 ">
+        <label>بیوگرافی :</label>
+        <textarea
+          row="24"
+          className="resize-none outline-none rounded-md bg-gray-200 p-2 "
+        ></textarea>
+      </div>
       <div className="flex gap-x-3 [&>div>input]:outline-none [&>div>input]:p-2 [&>div>input]:rounded-md [&>div>input]:bg-gray-200 [&>div>input]:mr-3">
         <div>
           <span>نام :</span>
@@ -30,9 +37,15 @@ function page() {
         </div>
       </div>
       <div className="flex flex-col gap-y-2  [&>input]:outline-none  [&>input]:rounded-md [&>input]:bg-gray-200 [&>input]:w-[500px] [&>input]:p-2">
+        <p>شغل :</p>
+        <input type="text" />
         <p>ایمیل :</p>
         <input type="text" />
         <p>شماره تماس :</p>
+        <input type="text" />
+        <p> کد ملی :</p>
+        <input type="text" />
+        <p>  تحصیلات :</p>
         <input type="text" />
       </div>
       <p className="text-lg font-bold">اطلاعات ادرس </p>

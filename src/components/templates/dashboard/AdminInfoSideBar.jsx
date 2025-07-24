@@ -2,9 +2,10 @@
 import React from "react";
 import Link from "next/link";
 import { CgProfile } from "react-icons/cg";
-import { IoIosNotifications } from "react-icons/io";
 import { TbLockPassword } from "react-icons/tb";
 import { usePathname } from "next/navigation";
+import { FaMobileAlt } from "react-icons/fa";
+import { RiNewspaperLine } from "react-icons/ri";
 function AdminInfoSideBar() {
   const pathname = usePathname();
   return (
@@ -27,9 +28,14 @@ function AdminInfoSideBar() {
         <TbLockPassword />
         امنیت
       </Link>
-      {/* <Link href="/">
-        <IoIosNotifications /> اعلان
-      </Link> */}
+      <Link href="/">
+        <FaMobileAlt />
+        سوشال مدیا
+      </Link>
+      <Link href="/">
+        <RiNewspaperLine />
+        سوابق
+      </Link>
     </div>
   );
 }
