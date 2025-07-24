@@ -5,21 +5,22 @@ import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
-import { FiUsers } from "react-icons/fi";
+import { FiPercent, FiUsers } from "react-icons/fi";
+import { IoGiftOutline } from "react-icons/io5";
 import { LuMessageSquareMore } from "react-icons/lu";
 import { RiShoppingBag4Line, RiShoppingCart2Line } from "react-icons/ri";
 
 export default function Sidebar() {
   const pathname = usePathname();
 
-  // وضعیت باز بودن منوها به صورت آبجکت
   const [openMenus, setOpenMenus] = useState({
     account: false,
     products: false,
     users: false,
+    speicalOffers: false,
+    discounts: false,
   });
 
-  // تابع برای باز/بسته کردن منوها
   const toggleMenu = (menuName) => {
     setOpenMenus((prev) => ({
       ...prev,
@@ -228,6 +229,96 @@ export default function Sidebar() {
               <FaRegComments />
               نظرات{" "}
             </Link>
+          </li>
+          <li>
+            <div
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
+                pathname === "/dashboard/all-discountCodes" ||
+                pathname === "/dashboard/add-discountCode"
+                  ? "bg-green-100 text-green-400"
+                  : ""
+              }`}
+              onClick={() => toggleMenu("discounts")}
+            >
+              <div className="flex items-center gap-2 ">
+                <FiPercent />
+                <span>تخفیفات</span>
+              </div>
+              {openMenus.discounts ? <FaAngleUp /> : <FaAngleDown />}
+            </div>
+            {openMenus.discounts && (
+              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc">
+                <li>
+                  <Link
+                    href="/dashboard/all-discountCodes"
+                    className={`block hover:text-blue-600 ${
+                      pathname === "/dashboard/all-products"
+                        ? "text-blue-600"
+                        : ""
+                    }`}
+                  >
+                    کدهای تخفیف
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/dashboard/add-discountCode"
+                    className={`block hover:text-blue-600 ${
+                      pathname === "/dashboard/product-creation"
+                        ? "text-blue-600"
+                        : ""
+                    }`}
+                  >
+                    افزودن کد تخفیف
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+          <li>
+            <div
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
+                pathname === "/dashboard/all-specialsales" ||
+                pathname === "/dashboard/add-specialoffer"
+                  ? "bg-green-100 text-green-400"
+                  : ""
+              }`}
+              onClick={() => toggleMenu("speicalOffers")}
+            >
+              <div className="flex items-center gap-2 ">
+                <IoGiftOutline />
+                <span> فروش ویژه</span>
+              </div>
+              {openMenus.speicalOffers ? <FaAngleUp /> : <FaAngleDown />}
+            </div>
+            {openMenus.speicalOffers && (
+              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc">
+                <li>
+                  <Link
+                    href="/dashboard/all-specialsales"
+                    className={`block hover:text-blue-600 ${
+                      pathname === "/dashboard/all-specialsales"
+                        ? "text-blue-600"
+                        : ""
+                    }`}
+                  >
+                    لیست فروش‌های ویژه
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/dashboard/add-specialoffer"
+                    className={`block hover:text-blue-600 ${
+                      pathname === "/dashboard/add-specialoffer"
+                        ? "text-blue-600"
+                        : ""
+                    }`}
+                  >
+                    ایجاد کمپین جدید{" "}
+                  </Link>
+                </li>
+              </ul>
+            )}
           </li>
         </ul>
       </div>

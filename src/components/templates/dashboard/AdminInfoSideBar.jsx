@@ -6,6 +6,7 @@ import { TbLockPassword } from "react-icons/tb";
 import { usePathname } from "next/navigation";
 import { FaMobileAlt } from "react-icons/fa";
 import { RiNewspaperLine } from "react-icons/ri";
+import { FiPercent } from "react-icons/fi";
 function AdminInfoSideBar() {
   const pathname = usePathname();
   return (
