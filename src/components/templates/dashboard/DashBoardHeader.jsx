@@ -22,7 +22,7 @@ export default function DashBoardHeader() {
 
   return (
     <header className="bg-white p-4 sticky top-0 z-10 flex justify-between items-center shadow-sm">
-      <div className="text-lg font-bold">پنل مدیریت</div>
+      <div className="text-lg font-bold"> سلام امیرحسین عزیز - خوش آمدی</div>
 
       <div ref={ref} className="relative">
         <div
