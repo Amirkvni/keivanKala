@@ -18,9 +18,8 @@ const COLORS = ["#34d399", "#60a5fa", "#fbbf24"];
 
 export default function TicketStatusPieChart() {
   return (
-    <div className="bg-white p-4 rounded-xl shadow-md">
-      <h3 className="text-lg font-semibold mb-4 text-center">وضعیت تیکت‌ها</h3>
-      <div className="w-full h-64">
+    <div>
+      <div className="w-full h-64 mt-8" dir="ltr">
         <ResponsiveContainer>
           <PieChart>
             <Pie

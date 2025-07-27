@@ -2,44 +2,77 @@ import OrderChart from "@/components/templates/dashboard/OrderChart";
 import RevenueChart from "@/components/templates/dashboard/RevenueChart";
 import TicketStatusPieChart from "@/components/templates/dashboard/TicketStatusPieChart";
 import React from "react";
+import { BiEdit } from "react-icons/bi";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
-import { LuTicket } from "react-icons/lu";
+import { LuEye, LuTicket } from "react-icons/lu";
 import { PiShoppingBagBold } from "react-icons/pi";
 
 function page() {
+  const tickets = [
+    {
+      title: "مشکل در پرداخت",
+      status: "باز",
+      statusColor: "bg-blue-100 text-blue-700",
+      user: "محمدرضا جلالی",
+      date: "۱۴۰۳/۰۵/۰۲",
+      priority: "بالا",
+      priorityColor: "text-red-500",
+      icon: <LuEye className="text-blue-500 text-xl" />,
+    },
+    {
+      title: "درخواست بازگشت وجه",
+      status: "بسته",
+      statusColor: "bg-green-100 text-green-700",
+      user: "فاطمه سادات حسینی",
+      date: "۱۴۰۳/۰۴/۲۸",
+      priority: "متوسط",
+      priorityColor: "text-yellow-600",
+      icon: <LuEye className="text-green-500 text-xl" />,
+    },
+    {
+      title: "عدم دریافت ایمیل تأیید",
+      status: "پاسخ داده نشده",
+      statusColor: "bg-yellow-100 text-yellow-800",
+      user: "علی احمدی",
+      date: "۱۴۰۳/۰۵/۰۱",
+      priority: "کم",
+      priorityColor: "text-gray-500",
+      icon: <LuEye className="text-yellow-500 text-xl" />,
+    },
+  ];
   return (
     <div className="p-12">
       <div className="grid grid-cols-4 gap-x-4 [&>div]:p-3 [&>div]:rounded-sm [&>div]:bg-white">
-        <div>
+        <div style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
           <div className="flex justify-between items-center text-sm">
             <span className=" text-gray-600">درامد امروز</span>
-            <span className="text-green-500"> 16.24+ %</span>
+            <span className="text-green-500"> % 16.24+</span>
           </div>
-          <div className="my-4 font-black ">۶۰۷۶۵۹۶ تومان </div>
+          <div className="my-4 font-black">۶۰۷۶۵۹۶ تومان </div>
           <div
             className="flex items-center justify-between
           "
           >
-            <span className="text-xs border-b border-b-blue-500">
+            <span className="text-xs border-b border-b-blue-500 text-blue-800">
               مشاهده کل درامد
             </span>
-            <div className="p-4 rounded-lg text-blue-200 bg-blue-500">
+            <div className="p-4 rounded-lg text-blue-200 bg-blue-500 ">
               <FaMoneyBillTrendUp />
             </div>
           </div>
         </div>
-        <div>
+        <div style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
           <div className="flex justify-between items-center text-sm">
             <span className=" text-gray-600">سفارشات امروز</span>
-            <span className="text-green-500"> 18.24- %</span>
+            <span className="text-green-500"> % 32-</span>
           </div>
           <div className="my-4 font-black">647215</div>
           <div
             className="flex items-center justify-between
           "
           >
-            <span className="text-xs border-b border-b-blue-500">
+            <span className="text-xs border-b border-b-blue-500 text-blue-800">
               مشاهده همه سفارش ها
             </span>
             <div className="p-4 rounded-lg text-green-200 bg-green-500">
@@ -47,17 +80,17 @@ function page() {
             </div>
           </div>
         </div>
-        <div>
+        <div style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
           <div className="flex justify-between items-center text-sm">
             <span className=" text-gray-600">کل کاربران</span>
-            <span className="text-green-500">+2</span>
+            <span className="text-green-500"> 2+</span>
           </div>
           <div className="my-4 font-black">6782255 نفر </div>
           <div
             className="flex items-center justify-between
           "
           >
-            <span className="text-xs border-b border-b-blue-500">
+            <span className="text-xs border-b border-b-blue-500 text-blue-800">
               مشاهده همه کاربران
             </span>
             <div className="p-4 rounded-lg text-amber-100 bg-amber-400">
@@ -65,17 +98,17 @@ function page() {
             </div>
           </div>
         </div>
-        <div>
+        <div style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
           <div className="flex justify-between items-center text-sm">
             <span className=" text-gray-600">تیکت ها</span>
-            <span className="text-green-500"> 7+ %</span>
+            <span className="text-green-500"> 6+</span>
           </div>
           <div className="my-4 font-black">558323</div>
           <div
             className="flex items-center justify-between
           "
           >
-            <span className="text-xs border-b border-b-blue-500">
+            <span className="text-xs border-b border-b-blue-500 text-blue-800">
               مشاهده همه تیکت ها
             </span>
             <div className="p-4 rounded-lg text-purple-300 bg-purple-500">
@@ -85,10 +118,13 @@ function page() {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 [&>div]:p-3 [&>div]:rounded-sm [&>div]:bg-white my-12">
-        <div className="flex flex-col gap-y-4">
+        <div
+          className="flex flex-col gap-y-4"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+        >
           <div className="flex justify-between items-center">
-            <span>درآمد</span>
-            <div className="flex items-center gap-x-4 [&>button]:text-xs [&>button]:rounded-xs [&>button]:p-1.5 [&>button]:bg-blue-100 [&>button]:text-blue-700">
+            <span className="text-gray-600 text-lg font-semibold">درآمد</span>
+            <div className="flex items-center gap-x-2 [&>button]:text-xs [&>button]:rounded-lg [&>button]:px-1.5 [&>button]:cursor-pointer [&>button]:py-1 [&>button]:bg-blue-100 [&>button]:text-blue-700">
               <button>همه</button>
               <button>سال ۱</button>
               <button>۶ماه</button>
@@ -114,32 +150,36 @@ function page() {
             </div>
           </div>
 
-          <div className="w-full h-64">
+          <div className="w-full h-64" dir="ltr">
             <RevenueChart />
           </div>
         </div>
-        <div>
+        <div style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
           <div className="flex justify-between items-center">
-            <span>سفارش ها</span>
-            <div className="flex items-center gap-x-4 [&>button]:text-xs [&>button]:rounded-xs [&>button]:p-1.5 [&>button]:bg-blue-100 [&>button]:text-blue-700">
+            <span className="text-gray-600 text-lg font-semibold">
+              سفارش ها
+            </span>
+            <div className="flex items-center gap-x-2 [&>button]:text-xs [&>button]:rounded-lg [&>button]:px-1.5 [&>button]:cursor-pointer [&>button]:py-1 [&>button]:bg-blue-100 [&>button]:text-blue-700">
               <button>همه</button>
               <button>سال ۱</button>
               <button>۶ماه</button>
               <button>۱ هفته</button>
             </div>
           </div>
-          <div className="w-full h-64 mt-12">
+          <div className="w-full h-64 mt-24" dir="ltr">
             <OrderChart />
           </div>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4  rounded-lg">
-        {/* کاربران جدید */}
-        <div className="bg-white rounded-lg shadow-md p-4 flex flex-col">
-          <h3 className="text-xl font-semibold mb-4 border-b pb-2">
+        <div
+          className="bg-white rounded-lg shadow-md p-4 flex flex-col"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+        >
+          <h3 className="text-gray-600 text-lg font-semibold mb-4 border-b pb-4">
             کاربران جدید
           </h3>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto mb-3">
             <table className="w-full text-center table-auto border-collapse">
               <thead className="bg-indigo-100 text-indigo-800 font-semibold">
                 <tr>
@@ -154,19 +194,19 @@ function page() {
                   (name, i) => (
                     <tr
                       key={i}
-                      className="odd:bg-white even:bg-indigo-50 hover:bg-indigo-100 transition-colors"
+                      className="odd:bg-white even:bg-green-50 hover:bg-green-100 transition-colors text-xs"
                     >
-                      <td className="p-3 border border-indigo-200">{name}</td>
+                      <td className="p-3 border border-pink-200 overflow-hidden whitespace-nowrap text-ellipsis max-w-[110px]">
+                        {name}
+                      </td>
                       <td className="p-3 border border-indigo-200">
                         کاربر عادی
                       </td>
                       <td className="p-3 border border-indigo-200 text-green-600 font-medium">
                         فعال
                       </td>
-                      <td className="p-3 border border-indigo-200">
-                        <button className="text-indigo-600 hover:text-indigo-900 font-semibold transition">
-                          ویرایش
-                        </button>
+                      <td className="p-3 border border-indigo-200 ">
+                        <BiEdit className="text-indigo-600 hover:text-indigo-900 font-semibold transition mx-auto text-xl cursor-pointer" />
                       </td>
                     </tr>
                   )
@@ -175,7 +215,7 @@ function page() {
             </table>
           </div>
           {/* صفحه بندی */}
-          <div className="mt-4 flex justify-center space-x-2">
+          <div className="mt-auto flex justify-center space-x-2">
             {[1, 2, 3].map((p) => (
               <button
                 key={p}
@@ -188,11 +228,14 @@ function page() {
         </div>
 
         {/* نظرات اخیر */}
-        <div className="bg-white rounded-lg shadow-md p-4 flex flex-col">
-          <h3 className="text-xl font-semibold mb-4 border-b pb-2">
+        <div
+          className="bg-white rounded-lg shadow-md p-4 flex flex-col"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+        >
+          <h3 className="text-gray-600 text-lg font-semibold mb-4 border-b pb-4">
             نظرات اخیر
           </h3>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto mb-3">
             <table className="w-full text-center table-auto border-collapse">
               <thead className="bg-green-100 text-green-800 font-semibold">
                 <tr>
@@ -218,11 +261,8 @@ function page() {
                     status: "در انتظار",
                   },
                 ].map((item, i) => (
-                  <tr
-                    key={i}
-                    className="odd:bg-white even:bg-green-50 hover:bg-green-100 transition-colors"
-                  >
-                    <td className="p-3 border border-green-200">
+                  <tr className="odd:bg-white even:bg-green-50 hover:bg-green-100 transition-colors text-xs">
+                    <td className="p-3 border border-pink-200 overflow-hidden whitespace-nowrap text-ellipsis max-w-[110px]">
                       {item.product}
                     </td>
                     <td className="p-3 border border-green-200">{item.user}</td>
@@ -231,9 +271,7 @@ function page() {
                       {item.status}
                     </td>
                     <td className="p-3 border border-green-200">
-                      <button className="text-green-600 hover:text-green-900 font-semibold transition">
-                        مشاهده
-                      </button>
+                      <LuEye className="text-green-600 hover:text-green-900 font-semibold transition mx-auto text-xl cursor-pointer" />
                     </td>
                   </tr>
                 ))}
@@ -241,7 +279,7 @@ function page() {
             </table>
           </div>
           {/* صفحه بندی */}
-          <div className="mt-4 flex justify-center space-x-2">
+          <div className="mt-auto flex justify-center space-x-2">
             {[1, 2].map((p) => (
               <button
                 key={p}
@@ -254,11 +292,14 @@ function page() {
         </div>
 
         {/* پرفروش‌ترین محصولات */}
-        <div className="bg-white rounded-lg shadow-md p-4 flex flex-col">
-          <h3 className="text-xl font-semibold mb-4 border-b pb-2">
+        <div
+          className="bg-white rounded-lg shadow-md p-4 flex flex-col"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+        >
+          <h3 className="text-gray-600 text-lg font-semibold mb-4 border-b pb-4">
             پرفروش‌ترین محصولات
           </h3>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto mb-3">
             <table className="w-full text-center table-auto border-collapse">
               <thead className="bg-pink-100 text-pink-800 font-semibold">
                 <tr>
@@ -286,9 +327,9 @@ function page() {
                 ].map((item, i) => (
                   <tr
                     key={i}
-                    className="odd:bg-white even:bg-pink-50 hover:bg-pink-100 transition-colors"
+                    className="odd:bg-white even:bg-pink-50 hover:bg-pink-100 transition-colors text-xs"
                   >
-                    <td className="p-3 border border-pink-200">
+                    <td className="p-3 border border-pink-200 overflow-hidden whitespace-nowrap text-ellipsis max-w-[110px]">
                       {item.product}
                     </td>
                     <td className="p-3 border border-pink-200">
@@ -299,9 +340,7 @@ function page() {
                       {item.status}
                     </td>
                     <td className="p-3 border border-pink-200">
-                      <button className="text-pink-600 hover:text-pink-900 font-semibold transition">
-                        مشاهده
-                      </button>
+                      <LuEye className="text-pink-600 hover:text-pink-900 font-semibold transition mx-auto text-xl cursor-pointer" />
                     </td>
                   </tr>
                 ))}
@@ -309,11 +348,11 @@ function page() {
             </table>
           </div>
           {/* صفحه بندی */}
-          <div className="mt-4 flex justify-center space-x-2">
+          <div className="mt-auto flex justify-center space-x-2">
             {[1, 2].map((p) => (
               <button
                 key={p}
-                className="px-3 py-1 rounded border border-pink-300 bg-pink-50 hover:bg-pink-200 transition"
+                className="px-3 py-1 rounded border border-pink-300 bg-pink-50 hover:bg-pink-200 transition "
               >
                 {p}
               </button>
@@ -322,20 +361,22 @@ function page() {
         </div>
       </div>
       <div className="mt-12 flex gap-x-4">
-        <div className="bg-white p-5 rounded-xl shadow-md w-8/12">
-          {/* Header with Filters */}
+        <div
+          className="bg-white p-5 rounded-xl shadow-md w-8/12"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+        >
           <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-            <h2 className="text-lg font-semibold text-gray-800">
+            <h2 className="text-gray-600 text-lg font-semibold ">
               تیکت‌های اخیر
             </h2>
-            <div className="flex gap-2">
-              <select className="border border-gray-300 rounded-md px-3 py-1 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-200">
+            <div className="flex gap-2 [&>select]:focus:outline-none [&>select]:focus:ring-0 [&>select]:cursor-pointer">
+              <select className=" border border-gray-300 rounded-md px-3 py-1 text-sm text-gray-700 ">
                 <option value="all">وضعیت: همه</option>
                 <option value="open">باز</option>
                 <option value="closed">بسته</option>
                 <option value="unanswered">پاسخ داده نشده</option>
               </select>
-              <select className="border border-gray-300 rounded-md px-3 py-1 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-200">
+              <select className="border border-gray-300 rounded-md px-3 py-1 text-sm text-gray-700  ">
                 <option value="all">اولویت: همه</option>
                 <option value="high">بالا</option>
                 <option value="medium">متوسط</option>
@@ -344,67 +385,46 @@ function page() {
             </div>
           </div>
 
-          {/* Ticket List */}
-          <ul className="space-y-4">
-            {/* Ticket Item */}
-            <li className="p-4 border rounded-md hover:bg-gray-50 transition">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-800">
-                  مشکل در پرداخت
-                </span>
-                <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
-                  باز
-                </span>
-              </div>
-              <div className="text-xs text-gray-600 flex items-center justify-between">
-                <span>کاربر: محمدرضا جلالی</span>
-                <span>تاریخ: ۱۴۰۳/۰۵/۰۲</span>
-                <span>
-                  اولویت: <span className="text-red-500 font-medium">بالا</span>
-                </span>
-              </div>
-            </li>
-
-            <li className="p-4 border rounded-md hover:bg-gray-50 transition">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-800">
-                  درخواست بازگشت وجه
-                </span>
-                <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-                  بسته
-                </span>
-              </div>
-              <div className="text-xs text-gray-600 flex items-center justify-between">
-                <span>کاربر: فاطمه سادات حسینی</span>
-                <span>تاریخ: ۱۴۰۳/۰۴/۲۸</span>
-                <span>
-                  اولویت:{" "}
-                  <span className="text-yellow-600 font-medium">متوسط</span>
-                </span>
-              </div>
-            </li>
-
-            <li className="p-4 border rounded-md hover:bg-gray-50 transition">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-800">
-                  عدم دریافت ایمیل تأیید
-                </span>
-                <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">
-                  پاسخ داده نشده
-                </span>
-              </div>
-              <div className="text-xs text-gray-600 flex items-center justify-between">
-                <span>کاربر: علی احمدی</span>
-                <span>تاریخ: ۱۴۰۳/۰۵/۰۱</span>
-                <span>
-                  اولویت: <span className="text-gray-500 font-medium">کم</span>
-                </span>
-              </div>
-            </li>
+          <ul className="space-y-5">
+            {tickets.map((item, index) => (
+              <li
+                key={index}
+                className="flex items-start gap-4 p-5 rounded-xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition"
+              >
+                <div className="p-2 bg-gray-100 rounded-full cursor-pointer">
+                  {item.icon}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-sm font-semibold text-gray-800">
+                      {item.title}
+                    </h3>
+                    <span
+                      className={`text-xs font-medium px-2.5 py-1 rounded-full ${item.statusColor}`}
+                    >
+                      {item.status}
+                    </span>
+                  </div>
+                  <div className="text-xs text-gray-600 flex flex-wrap gap-3">
+                    <span>👤 {item.user}</span>
+                    <span>📅 {item.date}</span>
+                    <span>
+                      ⚠️ اولویت:{" "}
+                      <span className={`font-semibold ${item.priorityColor}`}>
+                        {item.priority}
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
-        <div className="w-4/12">
-          <span>وضغیت ایمت های پسشتی</span>
+        <div
+          className="w-4/12 bg-white p-4 rounded-lg"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+        >
+          <h2 className="text-gray-600 text-lg font-semibold">وضعیت تیکت ها</h2>
           <TicketStatusPieChart />
         </div>
       </div>

@@ -23,7 +23,26 @@ const data = [
   { name: "بهمن", revenue: 6579281 },
   { name: "اسفند", revenue: 52423 },
 ];
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        dir="rtl"
+        style={{
+          background: "#fff",
+          border: "1px solid #ccc",
+          padding: "8px",
+          borderRadius: "6px",
+          fontSize: "14px",
+        }}
+      >
+        {` ${payload[0].value.toLocaleString()}تومان`}
+      </div>
+    );
+  }
 
+  return null;
+};
 export default function RevenueChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -31,11 +50,11 @@ export default function RevenueChart() {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis tickFormatter={(v) => `${v / 1000}k`} />
-        <Tooltip formatter={(value) => `${value.toLocaleString()} تومان`} />
+        <Tooltip content={<CustomTooltip />} />
         <Line
           type="monotone"
           dataKey="revenue"
-          stroke="#0ea5e9"
+          stroke="#52b69a"
           strokeWidth={3}
           dot={{ r: 5 }}
           activeDot={{ r: 6 }}

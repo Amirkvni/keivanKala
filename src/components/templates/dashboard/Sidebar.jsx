@@ -143,21 +143,6 @@ export default function Sidebar() {
           </li>
 
           {/* سفارشات */}
-          <li
-            className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
-              pathname.startsWith("/dashboard/all-orders")
-                ? "bg-green-100 text-green-400"
-                : ""
-            }`}
-          >
-            <Link
-              href="/dashboard/all-orders"
-              className="flex items-center gap-2"
-            >
-              <RiShoppingCart2Line />
-              سفارشات
-            </Link>
-          </li>
 
           {/* کاربران */}
           <li>
@@ -201,36 +186,7 @@ export default function Sidebar() {
               </ul>
             )}
           </li>
-          <li
-            className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
-              pathname.startsWith("/dashboard/all-tickets")
-                ? "bg-green-100 text-green-400"
-                : ""
-            }`}
-          >
-            <Link
-              href="/dashboard/all-tickets"
-              className="flex items-center gap-2"
-            >
-              <LuMessageSquareMore />
-              تیکت ها
-            </Link>
-          </li>
-          <li
-            className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
-              pathname.startsWith("/dashboard/all-comments")
-                ? "bg-green-100 text-green-400"
-                : ""
-            }`}
-          >
-            <Link
-              href="/dashboard/all-comments"
-              className="flex items-center gap-2"
-            >
-              <FaRegComments />
-              نظرات{" "}
-            </Link>
-          </li>
+
           <li>
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
@@ -361,6 +317,51 @@ export default function Sidebar() {
                 </li>
               </ul>
             )}
+          </li>
+          <li
+            className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
+              pathname.startsWith("/dashboard/all-orders")
+                ? "bg-green-100 text-green-400"
+                : ""
+            }`}
+          >
+            <Link
+              href="/dashboard/all-orders"
+              className="flex items-center gap-2"
+            >
+              <RiShoppingCart2Line />
+              سفارشات
+            </Link>
+          </li>
+          <li
+            className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
+              pathname.startsWith("/dashboard/all-comments")
+                ? "bg-green-100 text-green-400"
+                : ""
+            }`}
+          >
+            <Link
+              href="/dashboard/all-comments"
+              className="flex items-center gap-2"
+            >
+              <FaRegComments />
+              نظرات{" "}
+            </Link>
+          </li>
+          <li
+            className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
+              pathname.startsWith("/dashboard/all-tickets")
+                ? "bg-green-100 text-green-400"
+                : ""
+            }`}
+          >
+            <Link
+              href="/dashboard/all-tickets"
+              className="flex items-center gap-2"
+            >
+              <LuMessageSquareMore />
+              تیکت ها
+            </Link>
           </li>
         </ul>
       </div>
