@@ -10,11 +10,13 @@ import { FiPercent } from "react-icons/fi";
 function AdminInfoSideBar() {
   const pathname = usePathname();
   return (
-    <div className="w-[350px]  flex flex-col  gap-y-3  bg-white p-8 [&>a]:flex [&>a]:items-center [&>a]:gap-x-2  [&>a]:p-2 [&>a]:rounded-sm">
+    <div className="w-[350px]  flex flex-col  gap-y-3  bg-white p-8 [&>a]:flex [&>a]:items-center [&>a]:gap-x-2  [&>a]:p-2 [&>a]:text-lg [&>a]:rounded-sm">
       <Link
         href="/dashboard/editAdmininfo"
         className={`${
-          pathname == "/dashboard/editAdmininfo" ? "bg-zinc-200" : null
+          pathname == "/dashboard/editAdmininfo"
+            ? "bg-[#d0f4de] text-green-600"
+            : null
         }`}
       >
         <CgProfile />
@@ -23,7 +25,9 @@ function AdminInfoSideBar() {
       <Link
         href="/dashboard/editAdmininfo/password"
         className={`${
-          pathname == "/dashboard/editAdmininfo/password" ? "bg-zinc-200" : null
+          pathname == "/dashboard/editAdmininfo/password"
+            ? "bg-[#d0f4de] text-green-600"
+            : null
         }`}
       >
         <TbLockPassword />

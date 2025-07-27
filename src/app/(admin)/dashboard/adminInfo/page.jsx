@@ -12,7 +12,10 @@ function page() {
       <div>پروفایل شما </div>
 
       <div className=" gap-x-6 [&>div]:rounded-sm  [&>div]: mt-6 flex">
-        <div className="w-[500px]  flex flex-col items-center gap-y-4  bg-white p-3">
+        <div
+          className="w-[500px]  flex flex-col items-center gap-y-4  bg-white p-3 rounded-lg  overflow-hidden"
+          style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+        >
           <div className="w-24 h-24 rounded-full overflow-hidden">
             <Image src={adminPic} width={500} height={500} alt="adminPic" />
           </div>
@@ -131,7 +134,10 @@ function page() {
           </div>
           {status === "aboutme" ? (
             <>
-              <div className="bg-white grid grid-cols-2 w-full [&>div]:flex [&>div]:flex-col [&>div]:gap-y-3 p-3">
+              <div
+                className="bg-white grid grid-cols-2 w-full [&>div]:flex [&>div]:flex-col [&>div]:gap-y-3 p-3 rounded-lg overflow-hidden"
+                style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+              >
                 <div>
                   <span>نام کامل :</span>
                   <span>ایمیل :</span>
@@ -153,7 +159,10 @@ function page() {
                   <span>مدیراصلی </span>
                 </div>
               </div>
-              <div className="p-3 bg-white flex flex-col gap-y-3 [&>div]:border-b [&>div]:border-b-gray-200 [&>div]:p-2">
+              <div
+                className="p-3 bg-white flex flex-col gap-y-3 [&>div]:border-b [&>div]:border-b-gray-200 [&>div]:p-2 rounded-lg overflow-hidden"
+                style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+              >
                 <span>سوابق :</span>
                 <div>
                   <p>سازنده اپلیکیشن های مالی</p>
@@ -173,8 +182,8 @@ function page() {
               </div>
             </>
           ) : (
-            <div className="p-3 [&>div]:bg-white flex flex-col gap-y-5 [&>div]:p-6  [&>div]:flex  [&>div]:flex-col  [&>div]:gap-y-4  [&>div]:rounded-lg">
-              <div>
+            <div className="p-3 [&>div]:bg-white flex flex-col gap-y-5 [&>div]:p-6  [&>div]:flex  [&>div]:flex-col  [&>div]:gap-y-4   [&>div]:rounded-lg">
+              <div style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
                 <div className="flex items-center gap-x-3 ">
                   <div className="w-12 h-12 rounded-full overflow-hidden">
                     <Image
@@ -200,7 +209,7 @@ function page() {
                 </p>
                 <div className="w-[800px] mx-auto">
                   <Image width={1000} height={1000} src={s1} alt="postPic" />
-                </div>{" "}
+                </div>
                 <p>
                   Nu kek vuzkibsu mooruno ejepogojo uzjon gag fa ezik disan he
                   nah. Wij wo pevhij tumbug rohsa ahpi ujisapse lo vap labkez
@@ -211,7 +220,7 @@ function page() {
                   lo vap labkez eddu suk.
                 </p>
               </div>
-              <div>
+              <div style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}>
                 <div className="flex items-center gap-x-3 ">
                   <div className="w-12 h-12 rounded-full overflow-hidden">
                     <Image

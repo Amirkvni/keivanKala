@@ -22,69 +22,69 @@ function page() {
       <div className="flex flex-col gap-y-2 ">
         <label>بیوگرافی :</label>
         <textarea
-          row="24"
-          className="resize-none outline-none rounded-md bg-gray-200 p-2 "
+          rows={10}
+          className="resize-none outline-none rounded-md  p-2 edit-profile-input"
         ></textarea>
       </div>
-      <div className="flex gap-x-3 [&>div>input]:outline-none [&>div>input]:p-2 [&>div>input]:rounded-md [&>div>input]:bg-gray-200 [&>div>input]:mr-3">
+      <div className="flex gap-x-3 [&>div>input]:outline-none [&>div>input]:p-2  [&>div>input]:edit-profile-input [&>div>input]:rounded-md  [&>div>input]:mr-3">
         <div>
           <span>نام :</span>
-          <input type="text" />
+          <input type="text" className=" edit-profile-input" />
         </div>
         <div>
           <span>فامیل :</span>
-          <input type="text" />
+          <input type="text" className=" edit-profile-input" />
         </div>
       </div>
-      <div className="flex flex-col gap-y-2  [&>input]:outline-none  [&>input]:rounded-md [&>input]:bg-gray-200 [&>input]:w-[500px] [&>input]:p-2">
+      <div className="flex flex-col gap-y-2  [&>input]:outline-none  [&>input]:rounded-md  [&>input]:w-[500px] [&>input]:p-2  ">
         <p>شغل :</p>
-        <input type="text" />
+        <input type="text" className=" edit-profile-input" />
         <p>ایمیل :</p>
-        <input type="text" />
+        <input type="text" className=" edit-profile-input" />
         <p>شماره تماس :</p>
-        <input type="text" />
+        <input type="text" className=" edit-profile-input" />
         <p> کد ملی :</p>
-        <input type="text" />
-        <p>  تحصیلات :</p>
-        <input type="text" />
+        <input type="text" className=" edit-profile-input" />
+        <p> تحصیلات :</p>
+        <input type="text" className=" edit-profile-input" />
       </div>
       <p className="text-lg font-bold">اطلاعات ادرس </p>
-      <div className=" grid grid-cols-2 gap-4 [&>div]:flex [&>div]:gap-x-3 [&>div>input]:p-2 [&>div>input]:rounded-md [&>div>input]:bg-gray-200 [&>div>input]:outline-none">
+      <div className=" grid grid-cols-2 gap-4 [&>div]:flex  [&>div]:items-center [&>div]:gap-x-3 [&>div>input]:p-2  [&>div>input]:rounded-md [&>div>input]:outline-none">
         <div>
           <p>شهر :</p>
-          <input type="text" name="" id="" />
+          <input type="text" name="" id="" className="edit-profile-input" />
         </div>
         <div>
           {" "}
           <p>شهر :</p>
-          <input type="text" name="" id="" />
+          <input type="text" name="" id="" className="edit-profile-input" />
         </div>
         <div>
           {" "}
           <p>شهر :</p>
-          <input type="text" name="" id="" />
+          <input type="text" name="" id="" className="edit-profile-input" />
         </div>
         <div>
           {" "}
           <p>شهر :</p>
-          <input type="text" name="" id="" />
+          <input type="text" name="" id="" className="edit-profile-input" />
         </div>
         <div>
           {" "}
           <p>کدپستی :</p>
-          <input type="text" name="" id="" />
+          <input type="text" name="" id="" className="edit-profile-input" />
         </div>
         <div>
           <p>یه چی :</p>
-          <input type="text" />
+          <input type="text" className="edit-profile-input" />
         </div>
-        <div className="flex flex-col gap-y-2  ">
-          <p>ادرس کامل</p>
+        <section className="flex flex-col gap-y-2 mt-4">
+          <p>ادرس کامل :</p>
           <textarea
             rows={8}
-            className="outline-none p-2 rounded-md bg-gray-200 resize-none "
+            className="outline-none p-2 rounded-lg resize-none edit-profile-input"
           ></textarea>
-        </div>
+        </section>
       </div>
       <button className="bg-emerald-400 w-fit mr-auto p-3 rounded-lg text-white cursor-pointer">
         ذخیره تغییرات

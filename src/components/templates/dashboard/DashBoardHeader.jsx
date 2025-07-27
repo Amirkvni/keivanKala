@@ -26,16 +26,16 @@ export default function DashBoardHeader() {
 
       <div ref={ref} className="relative">
         <div
-          className="w-9 h-9 rounded-full border overflow-hidden cursor-pointer"
+          className="w-9 h-9 rounded-full  overflow-hidden cursor-pointer"
           onClick={() => setOpen((prev) => !prev)}
         >
           <Image src={adminPic} width={36} height={36} alt="adminPicture" />
         </div>
 
         {open && (
-          <div className="absolute left-0 mt-2 w-64 bg-white border shadow-lg rounded-md p-4">
+          <div className="absolute left-0 mt-2 w-64 bg-white border border-gray-300 shadow-lg rounded-md p-4">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full overflow-hidden border">
+              <div className="w-10 h-10 rounded-full overflow-hidden ">
                 <Image src={adminPic} width={40} height={40} alt="Admin" />
               </div>
               <div>

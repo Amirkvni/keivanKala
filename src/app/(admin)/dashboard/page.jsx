@@ -1,12 +1,17 @@
 import OrderChart from "@/components/templates/dashboard/OrderChart";
 import RevenueChart from "@/components/templates/dashboard/RevenueChart";
 import TicketStatusPieChart from "@/components/templates/dashboard/TicketStatusPieChart";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { BiEdit } from "react-icons/bi";
+import { FaRegEdit } from "react-icons/fa";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
 import { LuEye, LuTicket } from "react-icons/lu";
+import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import { PiShoppingBagBold } from "react-icons/pi";
+import productPic from "@/assets/ex.jpg";
 
 function page() {
   const tickets = [
@@ -304,9 +309,9 @@ function page() {
               <thead className="bg-pink-100 text-pink-800 font-semibold">
                 <tr>
                   <th className="p-3 border border-pink-200">محصول</th>
-                  <th className="p-3 border border-pink-200">مشتری</th>
-                  <th className="p-3 border border-pink-200">تاریخ</th>
-                  <th className="p-3 border border-pink-200">وضعیت</th>
+                  <th className="p-3 border border-pink-200">تعداد فروش</th>
+                  <th className="p-3 border border-pink-200">موجودی</th>
+                  <th className="p-3 border border-pink-200">قیمت</th>
                   <th className="p-3 border border-pink-200">اقدام</th>
                 </tr>
               </thead>
@@ -314,15 +319,15 @@ function page() {
                 {[
                   {
                     product: "کیف درسا مدل یبسب",
-                    customer: "امیرحسین کیوانی",
-                    date: "۲۰۱۹/۰۵/۰۸",
-                    status: "تایید شده",
+                    customer: "64754",
+                    date: "523",
+                    status: "4242",
                   },
                   {
-                    product: "لباس مردانه مدل A",
-                    customer: "علیرضا محمدی",
-                    date: "۲۰۱۹/۰۶/۱۵",
-                    status: "در انتظار",
+                    product: "لباس مردانه مل A",
+                    customer: "123213",
+                    date: "432",
+                    status: " 4324",
                   },
                 ].map((item, i) => (
                   <tr
@@ -426,6 +431,78 @@ function page() {
         >
           <h2 className="text-gray-600 text-lg font-semibold">وضعیت تیکت ها</h2>
           <TicketStatusPieChart />
+        </div>
+      </div>
+      <div
+        className="mt-12 bg-white p-4 rounded-lg"
+        style={{ boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }}
+      >
+        <h3 className="text-gray-600 text-lg font-semibold">سفارشات اخیر</h3>
+        <div>
+          <table className="w-full text-center border border-gray-200 rounded-xl overflow-hidden mt-4">
+            <thead className="bg-gray-100">
+              <tr className="text-sm text-gray-700">
+                <th className="p-3">کد سفارش</th>
+                <th className="p-3">تصویر محصول</th>
+                <th className="p-3">مشتری</th>
+                <th className="p-3">تاریخ</th>
+                <th className="p-3">وضعیت سفارش</th>
+                <th className="p-3">وضعیت پرداخت</th>
+                <th className="p-3">مجموع</th>
+                <th className="p-3">اقدام</th>
+              </tr>
+            </thead>
+            <tbody className="text-sm">
+              {[1, 2, 3].map((item, index) => (
+                <tr key={index} className="border-t border-t-gray-300">
+                  <td className="p-3">425253# </td>
+                  <td className="p-3">
+                    <div className="flex justify-center gap-1">
+                      <div className="w-12 h-12 overflow-hidden rounded-md ">
+                        <Image
+                          src={productPic}
+                          alt="product image"
+                          width={48}
+                          height={48}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                      <div className="w-12 h-12 overflow-hidden rounded-md ">
+                        <Image
+                          src={productPic}
+                          alt="product image"
+                          width={48}
+                          height={48}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="p-3">امیرحسین کیوانی</td>
+                  <td className="p-3">1403/04/01</td>
+                  <td className="p-3 text-green-600">در حال ارسال</td>
+                  <td className="p-3 text-emerald-500 ">
+                    <span className="bg-green-100 p-1 rounded-lg text-green-600">
+                      پرداخت شده
+                    </span>
+                  </td>
+                  <td className="p-3 font-semibold">151,000,000 تومان</td>
+                  <td className="p-3">
+                    <div className="flex justify-center gap-2 text-gray-600 [&>svg]:text-xl">
+                      <FaRegEdit className="cursor-pointer hover:text-blue-600" />
+                      <MdDeleteOutline className="cursor-pointer hover:text-red-600" />
+                      <Link
+                        href="/dashboard/all-orders/123"
+                        className="cursor-pointer hover:text-green-800 text-xl"
+                      >
+                        <MdOutlineRemoveRedEye />
+                      </Link>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
