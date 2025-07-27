@@ -8,7 +8,11 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { FiPercent, FiUsers } from "react-icons/fi";
 import { IoGiftOutline } from "react-icons/io5";
 import { LuMessageSquareMore, LuNewspaper } from "react-icons/lu";
-import { RiShoppingBag4Line, RiShoppingCart2Line } from "react-icons/ri";
+import {
+  RiShieldCheckLine,
+  RiShoppingBag4Line,
+  RiShoppingCart2Line,
+} from "react-icons/ri";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -20,6 +24,7 @@ export default function Sidebar() {
     speicalOffers: false,
     discounts: false,
     blogs: false,
+    rolesAndPermissions: false,
   });
 
   const toggleMenu = (menuName) => {
@@ -313,6 +318,49 @@ export default function Sidebar() {
                     }`}
                   >
                     افزودن وبلاگ
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+          <li>
+            <div
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
+                pathname === "/dashboard/all-roles" ||
+                pathname === "/dashboard/all-permissions"
+                  ? "bg-green-100 text-green-400"
+                  : ""
+              }`}
+              onClick={() => toggleMenu("rolesAndPermissions")}
+            >
+              <div className="flex items-center gap-2 ">
+                <RiShieldCheckLine />
+                <span>سطوح دسترسی </span>
+              </div>
+              {openMenus.rolesAndPermissions ? <FaAngleUp /> : <FaAngleDown />}
+            </div>
+            {openMenus.rolesAndPermissions && (
+              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc">
+                <li>
+                  <Link
+                    href="/dashboard/all-roles"
+                    className={`block hover:text-blue-600 ${
+                      pathname === "/dashboard/all-roles" ? "text-blue-600" : ""
+                    }`}
+                  >
+                    نقش ها{" "}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/dashboard/all-permissions"
+                    className={`block hover:text-blue-600 ${
+                      pathname === "/dashboard/all-permissions"
+                        ? "text-blue-600"
+                        : ""
+                    }`}
+                  >
+                    مجوزها
                   </Link>
                 </li>
               </ul>
