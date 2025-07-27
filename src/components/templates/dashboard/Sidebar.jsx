@@ -7,7 +7,7 @@ import { FaRegComments } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { FiPercent, FiUsers } from "react-icons/fi";
 import { IoGiftOutline } from "react-icons/io5";
-import { LuMessageSquareMore } from "react-icons/lu";
+import { LuMessageSquareMore, LuNewspaper } from "react-icons/lu";
 import { RiShoppingBag4Line, RiShoppingCart2Line } from "react-icons/ri";
 
 export default function Sidebar() {
@@ -19,6 +19,7 @@ export default function Sidebar() {
     users: false,
     speicalOffers: false,
     discounts: false,
+    blogs: false,
   });
 
   const toggleMenu = (menuName) => {
@@ -315,6 +316,47 @@ export default function Sidebar() {
                     }`}
                   >
                     ایجاد کمپین جدید{" "}
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+          <li>
+            <div
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
+                pathname === "/dashboard/all-blogs" ||
+                pathname === "/dashboard/add-blog"
+                  ? "bg-green-100 text-green-400"
+                  : ""
+              }`}
+              onClick={() => toggleMenu("blogs")}
+            >
+              <div className="flex items-center gap-2 ">
+                <LuNewspaper />
+                <span>وبلاگ ها</span>
+              </div>
+              {openMenus.discounts ? <FaAngleUp /> : <FaAngleDown />}
+            </div>
+            {openMenus.blogs && (
+              <ul className="mt-2 space-y-2 pr-6 text-sm list-disc">
+                <li>
+                  <Link
+                    href="/dashboard/all-blogs"
+                    className={`block hover:text-blue-600 ${
+                      pathname === "/dashboard/all-blogs" ? "text-blue-600" : ""
+                    }`}
+                  >
+                    وبلاگ ها
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/dashboard/add-blog"
+                    className={`block hover:text-blue-600 ${
+                      pathname === "/dashboard/add-blog" ? "text-blue-600" : ""
+                    }`}
+                  >
+                    افزودن وبلاگ
                   </Link>
                 </li>
               </ul>
