@@ -209,7 +209,7 @@ export default function Sidebar() {
                   <Link
                     href="/dashboard/all-discountCodes"
                     className={`block hover:text-blue-600 ${
-                      pathname === "/dashboard/all-products"
+                      pathname === "/dashboard/all-discountCodes"
                         ? "text-blue-600"
                         : ""
                     }`}
@@ -221,7 +221,7 @@ export default function Sidebar() {
                   <Link
                     href="/dashboard/add-discountCode"
                     className={`block hover:text-blue-600 ${
-                      pathname === "/dashboard/product-creation"
+                      pathname === "/dashboard/add-discountCode"
                         ? "text-blue-600"
                         : ""
                     }`}

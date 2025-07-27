@@ -7,9 +7,9 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 export default function page() {
   return (
     <div className="p-12">
-      <div className="bg-white p-3 rounded-lg">
+      <div className="bg-white p-3 dashboard-box-shadow rounded-lg">
         <div className="flex justify-between items-center">
-          <span>کاربران </span>
+          <span className="text-xl font-bold">کاربران </span>
           <div className="flex items-center gap-x-5">
             <Link
               href="/dashboard/add-user"
@@ -26,15 +26,15 @@ export default function page() {
           <input
             type="text"
             placeholder="جستجو"
-            className="px-4 py-2 w-40 md:w-52 lg:w-64 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 w-40 md:w-52 lg:w-64 rounded-lg border border-gray-300 focus:outline-none "
           />
 
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select className="px-4 py-2 focus:ring-0 rounded-lg border border-gray-300 bg-white focus:outline-none  cursor-pointer ">
             <option value="-1">همه</option>
             <option value="paid">مسدود شده</option>
             <option value="canceled">فعال </option>
           </select>
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-0  cursor-pointer">
             <option value="-1">همه</option>
             <option value="paid">مدیر</option>
             <option value="canceled">کاربر معمولی </option>
@@ -61,7 +61,7 @@ export default function page() {
             </thead>
             <tbody className="text-sm">
               {[1, 2, 3].map((item, index) => (
-                <tr key={index} className="border-t">
+                <tr key={index} className="border-t border-gray-200">
                   <td className="p-3">
                     <input type="checkbox" />
                   </td>
@@ -79,7 +79,7 @@ export default function page() {
                       <MdDeleteOutline className="cursor-pointer hover:text-red-600" />
                       <Link
                         href="/dashboard/all-orders/123"
-                        className="cursor-pointer hover:text-green-800"
+                        className="cursor-pointer hover:text-green-800 text-xl"
                       >
                         <MdOutlineRemoveRedEye />
                       </Link>

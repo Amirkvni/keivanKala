@@ -9,7 +9,7 @@ function page() {
   const [status, setStatus] = useState("aboutme");
   return (
     <div className="p-12">
-      <div>پروفایل شما </div>
+      <div className="text-xl font-bold">پروفایل شما </div>
 
       <div className=" gap-x-6 [&>div]:rounded-sm  [&>div]: mt-6 flex">
         <div
@@ -52,7 +52,7 @@ function page() {
           </div>
           <div className=" w-full">
             <span>سوشال مدیا :</span>
-            <div className="flex flex-col gap-y-2 [&>div]:flex [&>div]:gap-x-4 [&>div]:items-center [&>div>svg]:text-3xl [&>div>div]:text-sm">
+            <div className="mt-3 flex flex-col gap-y-2 [&>div]:flex [&>div]:gap-x-4 [&>div]:items-center [&>div>svg]:text-3xl [&>div>div]:text-sm">
               <div>
                 <FaGithub className="" />
                 <div>
@@ -85,7 +85,7 @@ function page() {
           </div>
           <div className="w-full ">
             <span>مهارت ها :</span>
-            <div className="flex flex-col gap-y-6">
+            <div className="mt-3 flex flex-col gap-y-6">
               <div>
                 <span>html :</span>
                 <div className="w-full h-2 rounded-sm bg-gray-200 relative overflow-hidden p-0.5">

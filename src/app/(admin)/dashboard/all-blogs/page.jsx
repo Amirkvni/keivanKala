@@ -38,9 +38,9 @@ function page() {
   ];
   return (
     <div className="p-12">
-      <div className="bg-white p-4">
+      <div className="bg-white p-4 dashboard-box-shadow rounded-lg">
         <div className="flex justify-between items-center">
-          <span>محصولات</span>
+          <span className="text-xl font-bold">وبلاگ ها</span>
           <Link
             href="/"
             className="flex items-center gap-x-2 p-2 rounded-lg bg-green-400 text-white cursor-pointer"
@@ -53,15 +53,15 @@ function page() {
           <input
             type="text"
             placeholder="جستجو"
-            className="px-4 py-2 w-40 md:w-52 lg:w-64 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 w-40 md:w-52 lg:w-64 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 "
           />
 
           <input
             type="date"
-            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-0 "
           />
 
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-0 ">
             <option value="-1">همه</option>
             <option value="paid">وبلاگ های من</option>
           </select>

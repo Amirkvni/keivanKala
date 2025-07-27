@@ -250,7 +250,10 @@ export default function ProductsTable({ selected, setSelected }) {
       </thead>
       <tbody>
         {sortedProducts.map((product) => (
-          <tr key={product.id} className="border-b hover:bg-gray-50">
+          <tr
+            key={product.id}
+            className="border-b hover:bg-gray-50 border-gray-300"
+          >
             <td className="p-2">
               <input
                 type="checkbox"

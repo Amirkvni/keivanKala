@@ -23,7 +23,7 @@ export default function AddSpecialOffer() {
   };
 
   return (
-    <div className="p-6 bg-white rounded-xl shadow max-w-2xl mx-auto">
+    <div className="p-8 bg-white rounded-xl shadow max-w-2xl mx-auto mt-12 dashboard-box-shadow">
       <h2 className="text-xl font-bold mb-6">ایجاد فروش ویژه جدید</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -34,7 +34,7 @@ export default function AddSpecialOffer() {
             value={form.title}
             onChange={handleChange}
             required
-            className="w-full border rounded px-4 py-2 focus:outline-none focus:ring"
+            className="w-full edit-profile-input rounded px-4 py-2 focus:outline-none focus:ring"
           />
         </div>
 
@@ -48,7 +48,7 @@ export default function AddSpecialOffer() {
             required
             min="1"
             max="100"
-            className="w-full border rounded px-4 py-2 focus:outline-none focus:ring"
+            className="w-full edit-profile-input rounded px-4 py-2 focus:outline-none focus:ring"
           />
         </div>
 
@@ -61,7 +61,7 @@ export default function AddSpecialOffer() {
               value={form.startDate}
               onChange={handleChange}
               required
-              className="w-full border rounded px-4 py-2"
+              className="w-full edit-profile-input rounded px-4 py-2 outline-none cursor-pointer"
             />
           </div>
           <div>
@@ -72,7 +72,7 @@ export default function AddSpecialOffer() {
               value={form.endDate}
               onChange={handleChange}
               required
-              className="w-full border rounded px-4 py-2"
+              className="w-full edit-profile-input rounded px-4 py-2 outline-none cursor-pointer"
             />
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function AddSpecialOffer() {
             name="status"
             value={form.status}
             onChange={handleChange}
-            className="w-full border rounded px-4 py-2"
+            className="w-full edit-profile-input rounded px-4 py-2 focus:outline-none focus:ring-0"
           >
             <option value="active">فعال</option>
             <option value="inactive">غیرفعال</option>
@@ -95,10 +95,10 @@ export default function AddSpecialOffer() {
           <input
             type="text"
             placeholder="(مثلاً: گوشی سامسونگ، لپتاپ دل...)"
-            className="w-full border rounded px-4 py-2 text-gray-400"
+            className="w-full edit-profile-input rounded px-4 py-2 text-gray-400"
             disabled
           />
-          <small className="text-gray-500">
+          <small className="text-gray-500 mt-2 block">
             * انتخاب محصول واقعی را در نسخه نهایی از لیست یا مولتی‌سلکت
             پیاده‌سازی کن.
           </small>
@@ -106,7 +106,7 @@ export default function AddSpecialOffer() {
 
         <button
           type="submit"
-          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
+          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition cursor-pointer"
         >
           ثبت کمپین
         </button>

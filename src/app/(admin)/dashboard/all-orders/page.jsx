@@ -8,9 +8,9 @@ import Link from "next/link";
 function page() {
   return (
     <div className="p-12">
-      <div className="bg-white p-3 rounded-lg">
+      <div className="bg-white p-3 rounded-lg dashboard-box-shadow">
         <div className="flex justify-between items-center">
-          <span>تاریخچه سفارشات</span>
+          <span onClick="text-xl font-bold">تاریخچه سفارشات</span>
           <div className="flex items-center gap-x-5">
             <button className="p-2 rounded-sm text-white bg-green-400 cursor-pointer">
               افزودن سفارش
@@ -24,29 +24,29 @@ function page() {
           <input
             type="text"
             placeholder="جستجو"
-            className="px-4 py-2 w-40 md:w-52 lg:w-64 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 w-40 md:w-52 lg:w-64 rounded-lg border border-gray-300 focus:outline-none "
           />
 
           <input
             type="date"
-            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none "
           />
 
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none ">
             <option value="-1">همه</option>
             <option value="paid">پرداخت شده</option>
             <option value="canceled">لغو پرداخت</option>
             <option value="processing">درحال پرداخت</option>
           </select>
 
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none ">
             <option value="-1">همه</option>
             <option value="paid">پرداخت شده</option>
             <option value="canceled">لغو پرداخت</option>
             <option value="processing">درحال پرداخت</option>
           </select>
 
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none ">
             <option value="-1">همه</option>
             <option value="cheap">ارزان‌ترین</option>
             <option value="expensive">گران‌ترین</option>
@@ -73,7 +73,7 @@ function page() {
             </thead>
             <tbody className="text-sm">
               {[1, 2, 3].map((item, index) => (
-                <tr key={index} className="border-t">
+                <tr key={index} className="border-t border-gray-300">
                   <td className="p-3">
                     <input type="checkbox" />
                   </td>

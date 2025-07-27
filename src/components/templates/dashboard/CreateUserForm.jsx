@@ -5,7 +5,7 @@ import { useState } from "react";
 function CreateUserForm() {
   const [acrtiveTab, setActiveTab] = useState("userAccount");
   return (
-    <div className="rounded-lg bg-white p-8 mt-3">
+    <div className="rounded-lg bg-white p-8 mt-4 dashboard-box-shadow">
       <div className="text-sm [&>button]:cursor-pointer">
         <button
           className={`ml-6 ${
@@ -28,31 +28,35 @@ function CreateUserForm() {
       </div>
       <div className="mt-9">
         {acrtiveTab === "userAccount" ? (
-          <div className="flex flex-col gap-y-4 [&>div>input]:mr-5 [&>div>input]:outline-none [&>div>input]:p-2 [&>div>input]:bg-gray-200 [&>div>input]:rounded-sm">
-            <p>جزئیات حساب</p>
+          <div className="flex flex-col gap-y-4 [&>div>input]:mr-5 [&>div>input]:outline-none [&>div>input]:p-2  [&>div>label]:text-red-500  [&>div>input]:rounded-sm">
+            <p className="font-extrabold text-lg">جزئیات حساب</p>
             <div>
-              <label> * نام کوچک </label>
-              <input type="text" />
+              <label> * نام کوچک :</label>
+              <input type="text" editAdmininfo />
             </div>
             <div>
-              <label> * نام خانوادگی</label>
-              <input type="text" />
+              <label> * نام خانوادگی :</label>
+              <input type="text" className="edit-profile-input" />
             </div>
             <div>
-              <label> * ایمیل</label>
-              <input type="text" />
+              <label> * ایمیل :</label>
+              <input type="text" className="edit-profile-input" />
             </div>
             <div>
-              <label> * پسورد</label>
-              <input type="text" />
+              <label> * پسورد : </label>
+              <input type="text" className="edit-profile-input" />
             </div>
             <div>
-              <label> * نکرار پسورد</label>
-              <input type="text" />
+              <label> * تکرار پسورد :</label>
+              <input type="text" className="edit-profile-input" />
             </div>
             <div>
-              <label> *نقش</label>
-              <select name="" id="" className="mr-12">
+              <label> *نقش :</label>
+              <select
+                name=""
+                id=""
+                className="mr-12 edit-profile-input px-2 py-0.5"
+              >
                 <option value="">ادمین</option>
                 <option value="">کاربر</option>
               </select>

@@ -13,9 +13,9 @@ function page() {
 
   return (
     <div className="p-12 [&>div]:rounded-lg ">
-      <div className="bg-white flex flex-col gap-y-4 p-3 ">
+      <div className="bg-white flex flex-col gap-y-4 p-3 dashboard-box-shadow rounded-lg ">
         <div className="flex justify-between items-center">
-          <span>محصولات</span>
+          <span className="text-xl font-bold">محصولات</span>
           <Link
             href="/"
             className="flex items-center gap-x-2 p-2 rounded-lg bg-green-400 text-white cursor-pointer"
