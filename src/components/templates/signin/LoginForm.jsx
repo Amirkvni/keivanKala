@@ -54,6 +54,10 @@ function LoginForm() {
         body: JSON.stringify(user),
       });
       if (res.status === 200) {
+        const user = await fetch("/api/auth/me");
+        const data = await user.json();
+        console.log(data);
+
         Swal.fire({
           icon: "success",
           title: "ورود موفق",
@@ -64,7 +68,11 @@ function LoginForm() {
           if (redirectPath) {
             router.replace(redirectPath);
           } else {
-            router.replace("/");
+            if (data.user.role === "ADMIN") {
+              router.push("/dashboard");
+            } else {
+              router.push("/profile");
+            }
           }
         });
       } else {

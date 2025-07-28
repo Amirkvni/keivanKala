@@ -12,7 +12,6 @@ export async function middleware(request) {
   let accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
 
-
   const url = request.nextUrl;
 
   let payload;
@@ -47,7 +46,7 @@ export async function middleware(request) {
     }
   }
 
-  if (url.pathname.startsWith("/admins") && payload.role !== "admin") {
+  if (url.pathname.startsWith("/dashboard") && payload.role !== "ADMIN") {
     return NextResponse.redirect(new URL("/not-authorized", request.url));
   }
 
@@ -55,5 +54,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/profile/:path*"],
+  matcher: ["/profile/:path*", "/dashboard/:path*"],
 };

@@ -6,7 +6,11 @@ import React from "react";
 
 export default async function page() {
   const user = await authUser();
-  if (user) {
+  if (user?.role === "ADMIN") {
+    redirect("/dashboard");
+  }
+
+  if (!user?.role === "ADMIN" || user?.role === "USER") {
     redirect("/profile");
   }
   return <LoginForm />;

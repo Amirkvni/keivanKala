@@ -39,8 +39,9 @@ function Header() {
         if (!res.ok) return;
 
         const data = await res.json();
+
         setIsLogin(true);
-        setUser(data.data);
+        setUser(data.user);
       } catch (err) {
         setIsLogin(false);
       }
@@ -84,7 +85,11 @@ function Header() {
               <SearchInput />
               <div className="flex gap-x-4 items-center">
                 {isLogin ? (
-                  <Link href="/profile">
+                  <Link
+                    href={`${
+                      user.role === "ADMIN" ? "/dashboard" : "/profile"
+                    }`}
+                  >
                     <CiUser className="text-2xl" />
                   </Link>
                 ) : (

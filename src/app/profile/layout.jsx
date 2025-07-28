@@ -8,7 +8,9 @@ export default async function profileLayout({ children }) {
   if (!user) {
     redirect("/signin");
   }
-
+  if (user.role === "ADMIN") {
+    redirect("/dashboard");
+  }
   return (
     <>
       <Header isLogin={user ? true : false} />

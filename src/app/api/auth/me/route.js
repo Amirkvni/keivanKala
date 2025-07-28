@@ -13,9 +13,7 @@ export async function GET() {
 
   if (!accessToken && refreshToken) {
     try {
-
       const payload = await verifyRefreshToken(refreshToken);
-
 
       accessToken = await signAccessToken({
         userId: payload.userId,
@@ -28,7 +26,6 @@ export async function GET() {
         maxAge: 60 * 15, // 15 دقیقه
       });
     } catch (err) {
-
       return Response.json(
         { message: "Refresh token invalid" },
         { status: 403 }
@@ -48,11 +45,12 @@ export async function GET() {
         email: payload.email,
       },
       "firstname lastname role"
-    );
+    ).lean();
 
     return Response.json(
       {
-        message: "youe are loggin",
+        user,
+        message: "You are logged in",
       },
       { status: 200 }
     );
