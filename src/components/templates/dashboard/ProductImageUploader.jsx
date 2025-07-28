@@ -1,4 +1,5 @@
 "use client";
+
 import { useDropzone } from "react-dropzone";
 import { useEffect, useState } from "react";
 import { FaImage, FaTrashAlt } from "react-icons/fa";

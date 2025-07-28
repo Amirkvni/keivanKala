@@ -1,12 +1,11 @@
 "use client";
-import Link from "next/link";
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { MdOutlineAdd } from "react-icons/md";
 import { GrFilter } from "react-icons/gr";
 import ProductsTable from "@/components/templates/dashboard/ProductTable";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import AddButton from "@/components/templates/dashboard/AddButton";
+import Paginations from "@/components/templates/dashboard/Paginations";
 
 function page() {
   const [selected, setSelected] = useState([]);
@@ -16,13 +15,10 @@ function page() {
       <div className="bg-white flex flex-col gap-y-4 p-3 dashboard-box-shadow rounded-lg ">
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold">محصولات</span>
-          <Link
-            href="/"
-            className="flex items-center gap-x-2 p-2 rounded-lg bg-green-400 text-white cursor-pointer"
-          >
-            <MdOutlineAdd />
-            افزودن محصول
-          </Link>
+          <AddButton
+            title="افزودن محصول جدید"
+            address="/dashboard/product-creation"
+          />
         </div>
         <div className="flex justify-between  items-center">
           <div className="flex items-center w-[90%] bg-gray-200 p-3 rounded-lg">
@@ -39,11 +35,7 @@ function page() {
           </button>
         </div>
         <ProductsTable selected={selected} setSelected={setSelected} />
-        <div className="border rounded-sm border-gray-200 w-16 flex items-center justify-between p-1">
-          <FaAngleRight />
-          <span>1</span>
-          <FaAngleLeft />
-        </div>
+        <Paginations />
       </div>
       {selected.length > 0 && (
         <div className="sticky bottom-0 flex justify-between items-center bg-white p-4 mt-3">
