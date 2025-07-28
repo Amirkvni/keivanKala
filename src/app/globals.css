@@ -110,3 +110,6 @@
 .dashboard-box-shadow {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+.dashboard-header-box {
+  @apply text-gray-600 text-lg font-semibold;
+}

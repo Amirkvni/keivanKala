@@ -22,7 +22,7 @@ export default function DashBoardHeader() {
 
   return (
     <header className="bg-white p-4 sticky top-0 z-10 flex justify-between items-center shadow-sm">
-      <div className="text-lg font-bold"> سلام امیرحسین عزیز - خوش آمدی</div>
+      <h1 className="text-lg font-bold"> سلام امیرحسین عزیز - خوش آمدی</h1>
 
       <div ref={ref} className="relative">
         <div
@@ -43,16 +43,14 @@ export default function DashBoardHeader() {
                 <p className="text-xs text-gray-500">ادمین</p>
               </div>
             </div>
-            <ul className="text-sm space-y-2">
-              <li className="hover:text-blue-600 cursor-pointer">
+            <ul className="text-sm space-y-2 [&>li]:cursor-pointer">
+              <li className="hover:text-blue-600 ">
                 <Link href="/dashboard/adminInfo"> مشخصات</Link>
               </li>
-              <li className="hover:text-blue-600 cursor-pointer">
+              <li className="hover:text-blue-600 ">
                 <Link href="/dashboard/editAdmininfo"> ویرایش مشخصات</Link>
               </li>
-              <li className="text-red-500 hover:text-red-700 cursor-pointer">
-                خروج
-              </li>
+              <li className="text-red-500 hover:text-red-700 ">خروج</li>
             </ul>
           </div>
         )}

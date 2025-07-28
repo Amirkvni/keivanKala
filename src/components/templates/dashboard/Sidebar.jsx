@@ -37,9 +37,12 @@ export default function Sidebar() {
   return (
     <div className="bg-white w-64 fixed top-0 bottom-0 right-0 overflow-y-auto scrollbar-custom">
       <div className="p-4">
-        <h2 className="text-lg font-bold mb-4 text-center border-b pb-4">
+        <Link
+          href="/"
+          className="block text-lg font-bold mb-4 text-center border-b pb-4"
+        >
           کیوان کالا
-        </h2>
+        </Link>
         <ul className="space-y-2">
           {/* داشبورد */}
           <li className="p-2">
