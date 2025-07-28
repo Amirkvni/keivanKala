@@ -1,5 +1,6 @@
 // DiscountCodesList.jsx
 "use client";
+import AddButton from "@/components/templates/dashboard/AddButton";
 import React from "react";
 import { FaTrash, FaEdit, FaPlus } from "react-icons/fa";
 
@@ -32,9 +33,10 @@ export default function DiscountCodesList() {
       <div className="bg-white p-4 dashboard-box-shadow rounded-lg">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold">کدهای تخفیف</h2>
-          <button className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition cursor-pointer">
-            <FaPlus /> افزودن کد جدید
-          </button>
+          <AddButton
+            title="افزودن کد جدید"
+            address="/dashboard/add-discountCode"
+          />
         </div>
 
         <table className="w-full text-sm border rounded overflow-hidden text-right">

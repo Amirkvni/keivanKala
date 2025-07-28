@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
-import productPic from "@/assets/adminProfile.jpg";
 import { FaRegEdit } from "react-icons/fa";
 import Link from "next/link";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import AddButton from "@/components/templates/dashboard/AddButton";
+import Paginations from "@/components/templates/dashboard/Paginations";
 export default function page() {
   return (
     <div className="p-12">
@@ -11,12 +11,7 @@ export default function page() {
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold">کاربران </span>
           <div className="flex items-center gap-x-5">
-            <Link
-              href="/dashboard/add-user"
-              className="p-2 rounded-sm text-white bg-green-400 cursor-pointer"
-            >
-              افزودن کاربر
-            </Link>
+            <AddButton title="افزودن کاربر" address="/dashboard/add-user" />
             <button className="cursor-pointer text-red-600 border-red-600 border p-2 rounded-sm">
               <MdDeleteOutline />
             </button>
@@ -90,11 +85,7 @@ export default function page() {
             </tbody>
           </table>
         </div>
-        <div className="border rounded-sm border-gray-200 w-16 flex items-center justify-between p-1">
-          <FaAngleRight />
-          <span>1</span>
-          <FaAngleLeft />
-        </div>
+        <Paginations />
       </div>
     </div>
   );

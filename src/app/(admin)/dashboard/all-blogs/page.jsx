@@ -1,3 +1,4 @@
+import AddButton from "@/components/templates/dashboard/AddButton";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -41,13 +42,7 @@ function page() {
       <div className="bg-white p-4 dashboard-box-shadow rounded-lg">
         <div className="flex justify-between items-center">
           <span className="text-xl font-bold">وبلاگ ها</span>
-          <Link
-            href="/"
-            className="flex items-center gap-x-2 p-2 rounded-lg bg-green-400 text-white cursor-pointer"
-          >
-            <MdOutlineAdd />
-            افزودن وبلاگ
-          </Link>
+          <AddButton address="/dashboard/add-blog" title="افزودن وبلاگ" />
         </div>
         <div className="my-6 flex flex-wrap items-center gap-4 md:gap-6 lg:gap-8">
           <input

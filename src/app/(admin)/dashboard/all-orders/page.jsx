@@ -5,6 +5,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import productPic from "@/assets/ex.jpg";
 import Link from "next/link";
+import Paginations from "@/components/templates/dashboard/Paginations";
 function page() {
   return (
     <div className="p-12">
@@ -122,11 +123,7 @@ function page() {
             </tbody>
           </table>
         </div>
-        <div className="border rounded-sm border-gray-200 w-16 flex items-center justify-between p-1">
-          <FaAngleRight />
-          <span>1</span>
-          <FaAngleLeft />
-        </div>
+        <Paginations />
       </div>
     </div>
   );

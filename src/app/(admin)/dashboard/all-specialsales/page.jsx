@@ -1,4 +1,5 @@
 "use client";
+import AddButton from "@/components/templates/dashboard/AddButton";
 import React from "react";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 
@@ -28,9 +29,10 @@ export default function page() {
         {" "}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold">فروش‌های ویژه</h2>
-          <button className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-            <FaPlus /> افزودن فروش ویژه
-          </button>
+          <AddButton
+            title="افزودن فروش ویژه "
+            address="/dashboard/add-specialoffer"
+          />
         </div>
         <table className="w-full text-sm border rounded overflow-hidden">
           <thead className="bg-gray-100 text-right">
