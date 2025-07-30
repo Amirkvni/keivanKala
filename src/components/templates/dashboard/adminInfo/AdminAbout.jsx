@@ -1,7 +1,16 @@
 import React from "react";
 import WorkHistory from "./WorkHistory";
 
-function AdminAbout() {
+function AdminAbout({
+  fullName,
+  email,
+  phone,
+  nationalcode,
+  role,
+  birthday,
+  education,
+  experiences,
+}) {
   const titles = [
     {
       id: 1,
@@ -39,15 +48,15 @@ function AdminAbout() {
   const descs = [
     {
       id: 1,
-      desc: "پریسا توکلی",
+      desc: fullName,
     },
     {
       id: 2,
-      desc: "tavakooli@gmail.com",
+      desc: email,
     },
     {
       id: 3,
-      desc: "09123456789",
+      desc: phone,
     },
     {
       id: 4,
@@ -55,19 +64,19 @@ function AdminAbout() {
     },
     {
       id: 5,
-      desc: "4124124124",
+      desc: nationalcode,
     },
     {
       id: 6,
-      desc: "1382/1/15",
+      desc: birthday,
     },
     {
       id: 7,
-      desc: "کارشناسی ارشد طراحی تعاملی از دانشگاه هنر تهران",
+      desc: education,
     },
     {
       id: 8,
-      desc: "مدیراصلی",
+      desc: role === "ADMIN" && "مدیر اصلی",
     },
   ];
   return (
@@ -86,9 +95,9 @@ function AdminAbout() {
       </div>
       <div className="p-3 bg-white flex flex-col gap-y-3 dashboard-box-shadow [&>div]:border-b [&>div]:border-b-gray-200 [&>div]:p-2 rounded-lg overflow-hidden">
         <span>سوابق :</span>
-        <WorkHistory />
-        <WorkHistory />
-        <WorkHistory />
+        {experiences.map((exprience) => (
+          <WorkHistory key={exprience._id} {...exprience} />
+        ))}
       </div>
     </>
   );

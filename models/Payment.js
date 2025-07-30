@@ -1,62 +1,66 @@
 const mongoose = require("mongoose");
 require("./User");
 require("./Address");
-
-const schema = mongoose.Schema({
-  user: {
-    type: mongoose.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  products: [
-    {
-      _id: {
-        type: mongoose.Types.ObjectId,
-        ref: "Product",
-        required: true,
+require("./Order");
+const schema = mongoose.Schema(
+  {
+    order: { type: mongoose.Types.ObjectId, ref: "Order" },
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    products: [
+      {
+        _id: {
+          type: mongoose.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        persianName: {
+          type: String,
+        },
+        quantity: {
+          type: String,
+        },
       },
-      persianName: {
+    ],
+    orderDate: {
+      type: Date,
+      default: () => Date.now(),
+    },
+    delivery: {
+      day: {
         type: String,
       },
-      quantity: {
+      date: {
         type: String,
       },
+      price: {
+        type: Number,
+      },
     },
-  ],
-  orderDate: {
-    type: Date,
-    default: () => Date.now(),
-  },
-  delivery: {
-    day: {
+    status: {
+      type: String,
+      default: "paid",
+    },
+    paid: {
       type: String,
     },
-    date: {
+    discount: {
       type: String,
     },
-    price: {
-      type: Number,
+    address: {
+      type: mongoose.Types.ObjectId,
+      ref: "Address",
+    },
+    trackingCode: {
+      type: String,
+      required: true,
+      unique: true,
     },
   },
-  status: {
-    type: String,
-    default: "paid",
-  },
-  paid: {
-    type: String,
-  },
-  discount: {
-    type: String,
-  },
-  address: {
-    type: mongoose.Types.ObjectId,
-    ref: "Address",
-  },
-  trackingCode: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-});
+  { timestamps: true }
+);
 const model = mongoose.models.Payment || mongoose.model("Payment", schema);
 export default model;

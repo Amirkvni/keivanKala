@@ -60,14 +60,7 @@ export default function ShippingMethod() {
       paid: getPayableAmount(),
       discount: getTotalDiscountPrice(),
     };
-    const neworder = {
-      products: newArray,
-      delivery: {
-        day: sendTime.day,
-        date: sendTime.date,
-        price: sendTime.price,
-      },
-    };
+
     if (Object.keys(sendTime).length !== 0) {
       const res = await fetch("/api/payment", {
         method: "POST",
@@ -78,7 +71,17 @@ export default function ShippingMethod() {
       });
       if (res.status === 201) {
         const paymentResult = await res.json();
-        const { trackingCode, orderDate } = paymentResult.data;
+        const { trackingCode, orderDate, _id: paymentId } = paymentResult.data;
+        const neworder = {
+          products: newArray,
+          delivery: {
+            day: sendTime.day,
+            date: sendTime.date,
+            price: sendTime.price,
+          },
+          paymentId: paymentId,
+        };
+
         const res2 = await fetch("/api/orders", {
           method: "POST",
           headers: {
@@ -87,8 +90,17 @@ export default function ShippingMethod() {
           body: JSON.stringify(neworder),
         });
         const orderResult = await res2.json();
+        if (orderResult?.data?._id) {
+          const orderId = orderResult.data._id;
 
-        if (orderResult) {
+          await fetch(`/api/payment/${paymentId}`, {
+            method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ order: orderId }), // 👈 اتصال پرداخت به سفارش
+          });
+
           router.push(
             `/success-payment?trackingCode=${trackingCode}&orderDate=${orderDate}`
           );

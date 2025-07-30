@@ -47,6 +47,39 @@ const schema = mongoose.Schema(
       type: String,
       default: "User",
     },
+    job: {
+      type: String,
+      required: false,
+    },
+    socials: [
+      {
+        platform: {
+          type: String,
+          required: false,
+        },
+        url: {
+          type: String,
+          required: false,
+        },
+      },
+    ],
+    skills: [
+      {
+        name: { type: String, required: false },
+        level: { type: Number, required: false },
+      },
+    ],
+
+    education: { type: String, required: false },
+    experiences: [
+      {
+        title: { type: String, required: false },
+        company: { type: String, required: false },
+        startDate: { type: Date, required: false },
+        endDate: { type: Date, required: false },
+        description: { type: String, required: false },
+      },
+    ],
     refreshToken: String,
   },
   { timestamps: true }

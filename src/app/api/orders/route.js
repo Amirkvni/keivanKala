@@ -7,11 +7,7 @@ export async function POST(req) {
     connectToDB();
     const user = await authUser();
     const body = await req.json();
-    const { products, delivery } = body;
-    console.log("user --->", user);
-
-    console.log("products--->", products);
-    console.log("delivert ====>", delivery);
+    const { products, delivery, paymentId } = body;
 
     const productObjectIds = products.map((product) => ({
       _id: new mongoose.Types.ObjectId(product._id),
@@ -21,6 +17,7 @@ export async function POST(req) {
       user: user._id,
       products: productObjectIds,
       delivery,
+      payment: paymentId,
     });
 
     return Response.json(
@@ -32,7 +29,6 @@ export async function POST(req) {
       }
     );
   } catch (error) {
-
     return Response.json({ message: error }, { status: 500 });
   }
 }

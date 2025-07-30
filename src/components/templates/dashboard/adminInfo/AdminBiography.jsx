@@ -3,15 +3,15 @@ import Link from "next/link";
 import adminPic from "@/assets/adminProfile.jpg";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
-function AdminBiography() {
+function AdminBiography({ fullName, job, socials, skills }) {
   return (
     <div className="w-[500px]  flex flex-col items-center gap-y-4  bg-white p-3 rounded-lg  overflow-hidden dashboard-box-shadow">
       <div className="w-24 h-24 rounded-full overflow-hidden">
         <Image src={adminPic} width={500} height={500} alt="adminPic" />
       </div>
       <div className="flex flex-col gap-y-2 items-center">
-        <span className="text-xl">پریسا توکلی</span>
-        <span className="text-sm">توسعه دهنده فرانت اند</span>
+        <span className="text-xl">{fullName}</span>
+        <span className="text-sm">{job}</span>
         <span className="text-sm">ایران، تهران</span>
       </div>
 
@@ -43,63 +43,31 @@ function AdminBiography() {
       <div className=" w-full">
         <span>سوشال مدیا :</span>
         <div className="mt-3 flex flex-col gap-y-2 [&>div]:flex [&>div]:gap-x-4 [&>div]:items-center [&>div>svg]:text-3xl [&>div>div]:text-sm">
-          <div>
-            <FaGithub className="" />
-            <div>
-              <p>githun</p>
-              <Link href="/">github.com/spruko</Link>
+          {socials.map((social) => (
+            <div key={social._id}>
+              <FaGithub />
+              <div>
+                <p>{social.platform}</p>
+                <Link href={social.url}>{social.url}</Link>
+              </div>
             </div>
-          </div>{" "}
-          <div>
-            <FaGithub />
-            <div>
-              <p>githun</p>
-              <Link href="/">github.com/spruko</Link>
-            </div>
-          </div>{" "}
-          <div>
-            <FaGithub />
-            <div>
-              <p>githun</p>
-              <Link href="/">github.com/spruko</Link>
-            </div>
-          </div>{" "}
-          <div>
-            <FaGithub />
-            <div>
-              <p>githun</p>
-              <Link href="/">github.com/spruko</Link>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
       <div className="w-full ">
         <span>مهارت ها :</span>
         <div className="mt-3 flex flex-col gap-y-6 [&>div>div]:w-full [&>div>div]:h-2 [&>div>div]:rounded-sm [&>div>div]:bg-gray-200 [&>div>div]:relative [&>div>div]:overflow-hidden [&>div>div]:p-0 [&>div>div>div]:absolute [&>div>div>div]:top-0 [&>div>div>div]:left-0 [&>div>div>div]:h-full">
-          <div>
-            <span>html :</span>
-            <div>
-              <div className=" w-1/4 bg-red-500"></div>
+          {skills.map((skill) => (
+            <div key={skill._id}>
+              <span>{skill.name} :</span>
+              <div>
+                <div
+                  className="bg-green-500 h-2 rounded "
+                  style={{ width: `${skill.level}%` }}
+                ></div>
+              </div>
             </div>
-          </div>
-          <div>
-            <span>html :</span>
-            <div>
-              <div className="w-1/4 bg-red-500"></div>
-            </div>
-          </div>
-          <div>
-            <span>html :</span>
-            <div>
-              <div className=" w-1/4 bg-red-500"></div>
-            </div>
-          </div>
-          <div>
-            <span>html :</span>
-            <div>
-              <div className=" w-1/4 bg-red-500"></div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

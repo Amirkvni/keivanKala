@@ -35,7 +35,7 @@ const schema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "review",
+      default: "new",
     },
     isAnswer: {
       type: Boolean,

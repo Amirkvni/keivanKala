@@ -28,6 +28,7 @@ export async function POST(req) {
       {
         message: "payment created succesfully",
         data: {
+          _id: payment._id, // ← اضافه کن
           trackingCode: payment.trackingCode,
           orderDate: payment.orderDate,
         },

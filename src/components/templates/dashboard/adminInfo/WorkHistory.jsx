@@ -1,11 +1,15 @@
 import React from "react";
 
-function WorkHistory() {
+function WorkHistory({ title, company, description, startDate, endDate }) {
   return (
     <div>
-      <p>سازنده اپلیکیشن های مالی</p>
-      <span>www.xxdaf.com</span>
-      <p>2014-2016</p>
+      <p>{title}</p>
+      <span>{company}</span>
+      <p>{description}</p>
+      <p>
+        {new Date(startDate).toLocaleDateString("fa")}-
+        {new Date(endDate).toLocaleDateString("fa")}
+      </p>
     </div>
   );
 }

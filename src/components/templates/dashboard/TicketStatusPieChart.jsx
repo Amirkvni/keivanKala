@@ -8,15 +8,9 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { name: "باز", value: 8 },
-  { name: "بسته", value: 12 },
-  { name: "در حال پاسخ", value: 5 },
-];
+const COLORS = ["#f472b6", "#fbbf24", "#60a5fa", "#34d399"];
 
-const COLORS = ["#34d399", "#60a5fa", "#fbbf24"];
-
-export default function TicketStatusPieChart() {
+export default function TicketStatusPieChart({ data }) {
   return (
     <div>
       <div className="w-full h-64 mt-8" dir="ltr">
@@ -34,7 +28,10 @@ export default function TicketStatusPieChart() {
               }
             >
               {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
               ))}
             </Pie>
             <Tooltip />

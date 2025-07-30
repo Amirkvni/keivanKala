@@ -1,5 +1,4 @@
 import React from "react";
-import { LuEye } from "react-icons/lu";
 
 function DashboardTable({
   title,
@@ -8,6 +7,7 @@ function DashboardTable({
   bgColor = "bg-gray-100",
   textColor = "text-gray-800",
   borderColor = "border-gray-300",
+  renderRow,
 }) {
   return (
     <div className="dashboard-box-shadow bg-white rounded-lg flex flex-col p-4">
@@ -21,50 +21,16 @@ function DashboardTable({
                   {col}
                 </th>
               ))}
-              <th className={`p-3 border ${borderColor}`}>اقدام</th>
+              <th className={`p-3 border ${borderColor}`}>مشاهده</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((row, i) => (
+            {data.map((item) => (
               <tr
-                key={i}
-                className={`odd:bg-white even:${bgColor} hover:${bgColor.replace(
-                  "100",
-                  "200"
-                )} transition-colors text-xs`}
+                key={item._id}
+                className={`border text-center ${borderColor}`}
               >
-                {columns.map((col, j) => (
-                  <td key={j} className={`p-3 border ${borderColor}`}>
-                    {row[col]}
-                  </td>
-                ))}
-                <td className={`p-3 border ${borderColor}`}>
-                  <LuEye
-                    className={`${textColor} hover:text-black font-semibold transition mx-auto text-xl cursor-pointer`}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-          <tbody>
-            {data.map((row, i) => (
-              <tr
-                key={i}
-                className={`odd:bg-white even:${bgColor} hover:${bgColor.replace(
-                  "100",
-                  "200"
-                )} transition-colors text-xs`}
-              >
-                {columns.map((col, j) => (
-                  <td key={j} className={`p-3 border ${borderColor}`}>
-                    {row[col]}
-                  </td>
-                ))}
-                <td className={`p-3 border ${borderColor}`}>
-                  <LuEye
-                    className={`${textColor} hover:text-black font-semibold transition mx-auto text-xl cursor-pointer`}
-                  />
-                </td>
+                {renderRow(item)}
               </tr>
             ))}
           </tbody>

@@ -3,7 +3,16 @@ import React, { useState } from "react";
 import { FaNewspaper, FaRegUserCircle } from "react-icons/fa";
 import AdminAbout from "./AdminAbout";
 import AdminPosts from "./AdminPosts";
-function AdminProfile() {
+function AdminProfile({
+  fullName,
+  email,
+  phone,
+  nationalcode,
+  role,
+  birthday,
+  education,
+  experiences,
+}) {
   const [status, setStatus] = useState("aboutme");
   return (
     <div className="flex-1  flex flex-col gap-y-6 ">
@@ -23,7 +32,20 @@ function AdminProfile() {
           پست ها <FaNewspaper />
         </button>
       </div>
-      {status === "aboutme" ? <AdminAbout /> : <AdminPosts />}
+      {status === "aboutme" ? (
+        <AdminAbout
+          fullName={fullName}
+          email={email}
+          phone={phone}
+          nationalcode={nationalcode}
+          role={role}
+          birthday={birthday}
+          education={education}
+          experiences={experiences}
+        />
+      ) : (
+        <AdminPosts />
+      )}
     </div>
   );
 }
