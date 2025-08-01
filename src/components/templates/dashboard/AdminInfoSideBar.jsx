@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { FaMobileAlt } from "react-icons/fa";
 import { RiNewspaperLine } from "react-icons/ri";
 import { MdOutlineEditLocation } from "react-icons/md";
+import { GiSpanner } from "react-icons/gi";
 function AdminInfoSideBar() {
   const pathname = usePathname();
   return (
@@ -54,8 +55,19 @@ function AdminInfoSideBar() {
         <FaMobileAlt />
         سوشال مدیا
       </Link>
+      <Link
+        href="/dashboard/editAdmininfo/skills"
+        className={`${
+          pathname == "/dashboard/editAdmininfo/skills"
+            ? "bg-[#d0f4de] text-green-600"
+            : null
+        }`}
+      >
+        <FaMobileAlt />
+        مهارت ها
+      </Link>
       <Link href="/">
-        <RiNewspaperLine />
+        <GiSpanner />
         سوابق
       </Link>
     </div>
