@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
-
+const SocialSchema = new mongoose.Schema(
+  {
+    platform: { type: String },
+    url: { type: String },
+  },
+  { _id: true }
+);
 const schema = mongoose.Schema(
   {
     firstname: {
@@ -51,18 +57,8 @@ const schema = mongoose.Schema(
       type: String,
       required: false,
     },
-    socials: [
-      {
-        platform: {
-          type: String,
-          required: false,
-        },
-        url: {
-          type: String,
-          required: false,
-        },
-      },
-    ],
+    socials: [SocialSchema],
+
     skills: [
       {
         name: { type: String, required: false },

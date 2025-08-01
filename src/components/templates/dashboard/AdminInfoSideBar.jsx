@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { CgProfile } from "react-icons/cg";
-import { TbLockPassword } from "react-icons/tb";
+import { TbLockPassword, TbUserEdit } from "react-icons/tb";
 import { usePathname } from "next/navigation";
 import { FaMobileAlt } from "react-icons/fa";
 import { RiNewspaperLine } from "react-icons/ri";
-import { FiPercent } from "react-icons/fi";
+import { MdOutlineEditLocation } from "react-icons/md";
 function AdminInfoSideBar() {
   const pathname = usePathname();
   return (
@@ -19,8 +18,19 @@ function AdminInfoSideBar() {
             : null
         }`}
       >
-        <CgProfile />
+        <TbUserEdit />
         پروفایل
+      </Link>
+      <Link
+        href="/dashboard/editAdmininfo/address"
+        className={`${
+          pathname == "/dashboard/editAdmininfo/address"
+            ? "bg-[#d0f4de] text-green-600"
+            : null
+        }`}
+      >
+        <MdOutlineEditLocation />
+        آدرس
       </Link>
       <Link
         href="/dashboard/editAdmininfo/password"
@@ -33,7 +43,14 @@ function AdminInfoSideBar() {
         <TbLockPassword />
         امنیت
       </Link>
-      <Link href="/">
+      <Link
+        href="/dashboard/editAdmininfo/socials"
+        className={`${
+          pathname == "/dashboard/editAdmininfo/socials"
+            ? "bg-[#d0f4de] text-green-600"
+            : null
+        }`}
+      >
         <FaMobileAlt />
         سوشال مدیا
       </Link>
