@@ -1,42 +1,111 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp, IoIosStar } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
+import Swal from "sweetalert2";
 
 function AdminSkillsUpdate({ userSkills }) {
-  const [socials, setSocials] = useState(userSkills);
+  const router = useRouter();
+  const [skills, setSkills] = useState(userSkills);
   const [openSkillbox, setOpenSkillbox] = useState(null);
+  const isChanged = JSON.stringify(skills) !== JSON.stringify(userSkills);
 
   const handleRemove = (idToRemove) => {
-    setSocials((prev) => prev.filter((s) => s._id !== idToRemove));
+    Swal.fire({
+      title: "از حذف مهارت مطمئنید؟",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonText: "بیخیال",
+      confirmButtonText: "بله، حذف کن",
+      confirmButtonColor: "red",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const updatedSkills = skills.filter((s) => s._id !== idToRemove);
+        const res = await editAdminSkills(updatedSkills);
+        if (res?.success !== false) {
+          setSkills(updatedSkills);
+          Swal.fire({
+            title: "مهارت حذف شد",
+            icon: "success",
+            confirmButtonText: "اوکی",
+            confirmButtonColor: "green",
+          });
+        } else {
+          Swal.fire({
+            title: "خطا",
+            text: res?.message || "مشکلی پیش آمد",
+            icon: "error",
+            confirmButtonText: "باشه",
+          });
+        }
+      }
+    });
   };
 
   const handleChange = (index, field, value) => {
-    const updated = [...socials];
+    const updated = [...skills];
     updated[index] = {
       ...updated[index],
       [field]: field === "level" ? parseInt(value) : value,
     };
-    setSocials(updated);
+    setSkills(updated);
   };
 
   const handleAdd = () => {
     const newSkill = {
-      _id: crypto.randomUUID(), // یا یه روش دیگه برای ساخت آیدی موقت
+      _id: crypto.randomUUID(), // برای کلاینت فقط
       name: "",
       level: 0,
     };
-    setSocials([...socials, newSkill]);
+    setSkills([...skills, newSkill]);
+  };
+
+  const editAdminSkills = async (updatedSkills) => {
+    try {
+      const res = await fetch(`/api/skills`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ skills: updatedSkills }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "خطای ذخیره‌سازی");
+      return data;
+    } catch (err) {
+      console.error(err);
+      return { success: false, message: err.message };
+    }
+  };
+
+  const handleSave = async () => {
+    const res = await editAdminSkills(skills);
+    if (res?.success !== false) {
+      Swal.fire({
+        title: "تغییرات ذخیره شد",
+        icon: "success",
+        confirmButtonText: "باشه",
+      });
+    } else {
+      Swal.fire({
+        title: "خطا در ذخیره‌سازی",
+        text: res?.message || "مشکلی پیش آمد",
+        icon: "error",
+        confirmButtonText: "باشه",
+      });
+    }
   };
 
   return (
     <div className="p-3">
       <p className="text-lg font-bold">مهارت‌ها</p>
       <div className="flex flex-col gap-y-5 mt-4">
-        {socials.map((social, index) => (
+        {skills.map((skill, index) => (
           <div
-            key={social._id}
+            key={skill._id || `temp-${index}`}
             className="w-[600px] border rounded-lg p-4 border-gray-300"
           >
             <div
@@ -46,25 +115,25 @@ function AdminSkillsUpdate({ userSkills }) {
               }
             >
               <div>
-                <div>{social.name || "بدون عنوان"}</div>
+                <div>{skill.name || "بدون عنوان"}</div>
                 <div className="flex items-center gap-x-3">
                   <div className="flex gap-x-0.5 text-yellow-500">
-                    {[...Array(Math.round((social.level / 100) * 5))].map(
+                    {[...Array(Math.round((skill.level / 100) * 5))].map(
                       (_, i) => (
                         <IoIosStar key={i} />
                       )
                     )}
                   </div>
                   <span className="text-sm text-gray-600">
-                    {social.level === 20
+                    {skill.level === 20
                       ? "(در حال یادگیری)"
-                      : social.level === 40
+                      : skill.level === 40
                       ? "(کم تجربه)"
-                      : social.level === 60
+                      : skill.level === 60
                       ? "(تسلط نسبی)"
-                      : social.level === 80
+                      : skill.level === 80
                       ? "(تسلط کامل)"
-                      : social.level === 100
+                      : skill.level === 100
                       ? "(حرفه‌ای)"
                       : "(بدون سطح بندی)"}
                   </span>
@@ -75,7 +144,7 @@ function AdminSkillsUpdate({ userSkills }) {
                   className="text-2xl text-red-400 hover:text-red-600 cursor-pointer"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleRemove(social._id);
+                    handleRemove(skill._id);
                   }}
                 />
                 {openSkillbox === index ? (
@@ -93,7 +162,7 @@ function AdminSkillsUpdate({ userSkills }) {
                   <input
                     type="text"
                     className="w-52 p-1 edit-profile-input outline-none border border-gray-300 rounded"
-                    value={social.name}
+                    value={skill.name}
                     onChange={(e) =>
                       handleChange(index, "name", e.target.value)
                     }
@@ -103,7 +172,7 @@ function AdminSkillsUpdate({ userSkills }) {
                   <label className="text-sm text-gray-600">سطح</label>
                   <select
                     className="w-52 p-1 edit-profile-input outline-none border border-gray-300 rounded"
-                    value={social.level}
+                    value={String(skill.level || "")}
                     onChange={(e) =>
                       handleChange(index, "level", e.target.value)
                     }
@@ -129,7 +198,11 @@ function AdminSkillsUpdate({ userSkills }) {
             <FaPlus />
             افزودن مهارت جدید
           </button>
-          <button className="bg-emerald-400 w-fit mr-auto p-3 rounded-lg text-white cursor-pointer">
+          <button
+            className="bg-emerald-400 w-fit mr-auto p-3 rounded-lg text-white cursor-pointer"
+            onClick={handleSave}
+            disabled={!isChanged}
+          >
             ذخیره تغییرات
           </button>
         </div>

@@ -6,8 +6,7 @@ export async function PATCH(req) {
     await connectToDB();
     const user = await authUser();
 
-    const socialsToUpdate = await req.json(); // اصلاح شد
-    console.log("داده‌های ارسالی:", socialsToUpdate);
+    const socialsToUpdate = await req.json(); 
 
     if (!socialsToUpdate || !Array.isArray(socialsToUpdate)) {
       return Response.json({ message: "داده نامعتبر است" }, { status: 400 });
