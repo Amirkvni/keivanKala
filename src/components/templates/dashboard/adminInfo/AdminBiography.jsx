@@ -68,15 +68,17 @@ function AdminBiography({
       </div>
       <div className="w-full ">
         <span>مهارت ها :</span>
-        <div className="mt-3 flex flex-col gap-y-6 [&>div>div]:w-full [&>div>div]:h-2 [&>div>div]:rounded-sm [&>div>div]:bg-gray-200 [&>div>div]:relative [&>div>div]:overflow-hidden [&>div>div]:p-0 [&>div>div>div]:absolute [&>div>div>div]:top-0 [&>div>div>div]:left-0 [&>div>div>div]:h-full">
+        <div className="mt-3 flex flex-col gap-y-6 [&>div>div]:w-full [&>div>div]:h-3 [&>div>div]:rounded-sm [&>div>div]:bg-gray-200 [&>div>div]:relative [&>div>div]:overflow-hidden [&>div>div]:p-0 [&>div>div>div]:absolute [&>div>div>div]:top-0 [&>div>div>div]:left-0 [&>div>div>div]:h-full">
           {skills.map((skill) => (
             <div key={skill._id}>
               <span>{skill.name} :</span>
               <div>
                 <div
-                  className="bg-green-500 h-2 rounded "
+                  className="bg-green-500 h-3 rounded text-center text-[8px] py-0.25 text-white font-bold"
                   style={{ width: `${skill.level}%` }}
-                ></div>
+                >
+                  {skill.level}%
+                </div>
               </div>
             </div>
           ))}
