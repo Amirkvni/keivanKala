@@ -12,6 +12,7 @@ function AdminProfile({
   birthday,
   education,
   experiences,
+  fullAddress,
 }) {
   const [status, setStatus] = useState("aboutme");
   return (
@@ -42,6 +43,7 @@ function AdminProfile({
           birthday={birthday}
           education={education}
           experiences={experiences}
+          fullAddress={fullAddress}
         />
       ) : (
         <AdminPosts />

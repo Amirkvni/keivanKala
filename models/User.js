@@ -58,14 +58,19 @@ const schema = mongoose.Schema(
       required: false,
     },
     socials: [SocialSchema],
-
+    biography: {
+      type: String,
+    },
     skills: [
       {
         name: { type: String, required: false },
         level: { type: Number, required: false },
       },
     ],
-
+    profileUrl: {
+      type: String,
+      required: false,
+    },
     education: { type: String, required: false },
     experiences: [
       {

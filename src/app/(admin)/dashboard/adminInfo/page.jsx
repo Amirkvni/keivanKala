@@ -1,10 +1,13 @@
 import AdminBiography from "@/components/templates/dashboard/adminInfo/AdminBiography";
 import AdminProfile from "@/components/templates/dashboard/adminInfo/AdminProfile";
 import { authUser } from "@/utils/serverHelpers";
-
+import AddressModel from "@/models/Address";
 export default async function page() {
   const user = await authUser();
-  console.log(user);
+  const userAddress = await AddressModel.findOne(
+    { userId: user._id },
+    "province city fullAddress  -_id"
+  );
 
   return (
     <div className="p-12">
@@ -14,7 +17,10 @@ export default async function page() {
           fullName={user.firstname + " " + user.lastname}
           job={user.job}
           socials={user.socials}
+          biography={user.biography}
           skills={user.skills}
+          userAddress={userAddress}
+          profileUrl={user.profileUrl}
         />
         <AdminProfile
           fullName={user.firstname + " " + user.lastname}
@@ -25,6 +31,7 @@ export default async function page() {
           role={user.role}
           education={user.education}
           experiences={JSON.parse(JSON.stringify(user.experiences))}
+          fullAddress={userAddress.fullAddress}
         />
       </div>
     </div>

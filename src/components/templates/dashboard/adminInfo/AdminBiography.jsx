@@ -1,29 +1,32 @@
 import React from "react";
 import Link from "next/link";
-import adminPic from "@/assets/adminProfile.jpg";
 import Image from "next/image";
-import { FaGithub } from "react-icons/fa";
-function AdminBiography({ fullName, job, socials, skills }) {
+import GetSocialIconComponent from "../editAdmininfo/getSocialIconComponent";
+function AdminBiography({
+  fullName,
+  job,
+  socials,
+  skills,
+  biography,
+  userAddress,
+  profileUrl,
+}) {
   return (
     <div className="w-[500px]  flex flex-col items-center gap-y-4  bg-white p-3 rounded-lg  overflow-hidden dashboard-box-shadow">
       <div className="w-24 h-24 rounded-full overflow-hidden">
-        <Image src={adminPic} width={500} height={500} alt="adminPic" />
+        <Image src={profileUrl} width={500} height={500} alt="adminPic" />
       </div>
       <div className="flex flex-col gap-y-2 items-center">
         <span className="text-xl">{fullName}</span>
         <span className="text-sm">{job}</span>
-        <span className="text-sm">ایران، تهران</span>
+        <span className="text-sm">
+          ایران,{userAddress.province},{userAddress.city}
+        </span>
       </div>
 
       <div className="text-sm text-gray-600 ">
         <p>بیوگرافی</p>
-        <p className="mt-2">
-          سارا نادری یکی از طراحان موفق در حوزه طراحی رابط کاربری است که با بیش
-          از ۷ سال تجربه در شرکت‌های نوآور ایرانی، توانسته پروژه‌های بزرگی مانند
-          اپلیکیشن‌های مالی، فروشگاه‌های اینترنتی و سامانه‌های دولتی را طراحی
-          کند. او به خاطر توجه بالا به جزئیات و درک عمیق از تجربه کاربری، بارها
-          از سوی مشتریان مورد تقدیر قرار گرفته است.
-        </p>
+        <p className="mt-2">{biography}</p>
       </div>
 
       <div className=" flex justify-around w-full [&>div]:text-center">
@@ -42,13 +45,22 @@ function AdminBiography({ fullName, job, socials, skills }) {
       </div>
       <div className=" w-full">
         <span>سوشال مدیا :</span>
-        <div className="mt-3 flex flex-col gap-y-2 [&>div]:flex [&>div]:gap-x-4 [&>div]:items-center [&>div>svg]:text-3xl [&>div>div]:text-sm">
+        <div className="mt-3 flex flex-col gap-y-2 [&>div]:flex [&>div]:gap-x-3 [&>div]:items-center [&>div>svg]:text-3xl [&>div>div]:text-sm">
           {socials.map((social) => (
-            <div key={social._id}>
-              <FaGithub />
+            <div key={social._id} className="[&>div>svg]:text-xl">
+              <div className="w-8 h-8  flex justify-center items-center border rounded-full border-gray-200">
+                {GetSocialIconComponent(social.platform)}
+              </div>
               <div>
                 <p>{social.platform}</p>
-                <Link href={social.url}>{social.url}</Link>
+                <Link
+                  className="hover:text-blue-500"
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {social.url}
+                </Link>
               </div>
             </div>
           ))}

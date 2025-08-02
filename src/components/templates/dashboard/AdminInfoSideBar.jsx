@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { TbLockPassword, TbUserEdit } from "react-icons/tb";
+import { TbUserEdit } from "react-icons/tb";
 import { usePathname } from "next/navigation";
-import { FaMobileAlt } from "react-icons/fa";
-import { RiNewspaperLine } from "react-icons/ri";
-import { MdOutlineEditLocation } from "react-icons/md";
+import { SlSocialGithub } from "react-icons/sl";
+import { MdOutlineEditLocation, MdOutlineWorkHistory } from "react-icons/md";
 import { GiSpanner } from "react-icons/gi";
+import { BsPersonLock } from "react-icons/bs";
 function AdminInfoSideBar() {
   const pathname = usePathname();
   return (
@@ -41,7 +41,7 @@ function AdminInfoSideBar() {
             : null
         }`}
       >
-        <TbLockPassword />
+        <BsPersonLock />
         امنیت
       </Link>
       <Link
@@ -52,7 +52,7 @@ function AdminInfoSideBar() {
             : null
         }`}
       >
-        <FaMobileAlt />
+        <SlSocialGithub />
         سوشال مدیا
       </Link>
       <Link
@@ -63,11 +63,18 @@ function AdminInfoSideBar() {
             : null
         }`}
       >
-        <FaMobileAlt />
+        <GiSpanner />
         مهارت ها
       </Link>
-      <Link href="/">
-        <GiSpanner />
+      <Link
+        href="/dashboard/editAdmininfo/work-experiences"
+        className={`${
+          pathname == "/dashboard/editAdmininfo/work-experiences"
+            ? "bg-[#d0f4de] text-green-600"
+            : null
+        }`}
+      >
+        <MdOutlineWorkHistory />
         سوابق
       </Link>
     </div>

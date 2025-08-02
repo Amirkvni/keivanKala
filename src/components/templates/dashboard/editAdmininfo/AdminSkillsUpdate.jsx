@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoIosArrowDown, IoIosArrowUp, IoIosStar } from "react-icons/io";
@@ -7,7 +6,6 @@ import { MdDeleteOutline } from "react-icons/md";
 import Swal from "sweetalert2";
 
 function AdminSkillsUpdate({ userSkills }) {
-  const router = useRouter();
   const [skills, setSkills] = useState(userSkills);
   const [openSkillbox, setOpenSkillbox] = useState(null);
   const isChanged = JSON.stringify(skills) !== JSON.stringify(userSkills);
@@ -55,7 +53,7 @@ function AdminSkillsUpdate({ userSkills }) {
 
   const handleAdd = () => {
     const newSkill = {
-      _id: crypto.randomUUID(), // برای کلاینت فقط
+      _id: crypto.randomUUID(), 
       name: "",
       level: 0,
     };

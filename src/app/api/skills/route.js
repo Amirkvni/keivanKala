@@ -24,7 +24,6 @@ export async function PATCH(req) {
       );
     }
 
-    // حذف مهارت‌هایی که دیگه تو لیست نیستن
     const updatedIds = skillsToUpdate
       .filter(
         (skill) => skill._id && mongoose.Types.ObjectId.isValid(skill._id)
@@ -35,7 +34,6 @@ export async function PATCH(req) {
       updatedIds.includes(String(skill._id))
     );
 
-    // اضافه یا ویرایش مهارت‌ها
     skillsToUpdate.forEach((updatedSkill) => {
       const isValidMongoId = mongoose.Types.ObjectId.isValid(updatedSkill._id);
 
@@ -46,13 +44,11 @@ export async function PATCH(req) {
         : -1;
 
       if (index !== -1) {
-        // ویرایش
         userDoc.skills[index] = {
           ...userDoc.skills[index],
           ...updatedSkill,
         };
       } else {
-        // اضافه
         userDoc.skills.push({
           name: updatedSkill.name,
           level: updatedSkill.level,

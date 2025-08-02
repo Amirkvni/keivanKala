@@ -10,6 +10,7 @@ function AdminAbout({
   birthday,
   education,
   experiences,
+  fullAddress,
 }) {
   const titles = [
     {
@@ -60,7 +61,7 @@ function AdminAbout({
     },
     {
       id: 4,
-      desc: "میدان یامنی، پلاستیک، تهران",
+      desc: fullAddress,
     },
     {
       id: 5,

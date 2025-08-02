@@ -1,12 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import adminPic from "@/assets/adminProfile.jpg";
 import { GoPlus } from "react-icons/go";
 import { FiTrash2 } from "react-icons/fi";
 import InputField from "../InputField";
-import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const AdminProfileUpdate = ({
   name,
@@ -16,8 +15,9 @@ const AdminProfileUpdate = ({
   phone,
   nationalcode,
   education,
+  biography,
+  profileUrl,
 }) => {
-  const router = useRouter();
   const [updatedData, setUpdatedData] = useState({
     name: name || "",
     family: family || "",
@@ -26,7 +26,32 @@ const AdminProfileUpdate = ({
     phone: phone || "",
     nationalcode: nationalcode || "",
     education: education || "",
+    biography: biography || "",
   });
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewImageUrl, setPreviewImageUrl] = useState("");
+  const [profileImage, setProfileImage] = useState(profileUrl || "");
+
+  // ایجاد URL برای نمایش پیش‌نمایش تصویر انتخاب‌شده
+  useEffect(() => {
+    if (!selectedImage) {
+      setPreviewImageUrl("");
+      return;
+    }
+    const objectUrl = URL.createObjectURL(selectedImage);
+    setPreviewImageUrl(objectUrl);
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedImage]);
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+      // اگر میخوای در لحظه عکس رو تغییر بدی، میتونی profileImage رو هم پاک کنی
+      setProfileImage("");
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,23 +63,47 @@ const AdminProfileUpdate = ({
 
   const editAdmininfo = async () => {
     try {
-      const res = await fetch("/api/user", {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedData),
+      const formData = new FormData();
+
+      Object.entries(updatedData).forEach(([key, value]) => {
+        formData.append(key, value);
       });
 
+      if (selectedImage) {
+        formData.append("profile", selectedImage);
+      } else if (profileImage === "") {
+        // وقتی عکس حذف شده باشه مقدار profileUrl رو خالی میفرستیم
+        formData.append("profileUrl", "");
+      }
+
+      const res = await fetch("/api/user", {
+        method: "PATCH",
+        body: formData,
+      });
+
+      const data = await res.json();
+
       if (res.ok) {
+        if (
+          data.user &&
+          typeof data.user.profileUrl === "string" &&
+          data.user.profileUrl.trim() !== ""
+        ) {
+          setProfileImage(data.user.profileUrl);
+          setSelectedImage(null);
+          setPreviewImageUrl("");
+        } else if (profileImage === "") {
+          setProfileImage("");
+          setSelectedImage(null);
+          setPreviewImageUrl("");
+        }
+
         Swal.fire({
           title: "اطلاعات با موفقیت به‌روزرسانی شد",
           icon: "success",
-          showConfirmButton: true,
           confirmButtonText: "باشه",
           confirmButtonColor: "green",
         });
-        router.refresh();
       } else {
         Swal.fire("خطا در به‌روزرسانی اطلاعات");
       }
@@ -63,18 +112,55 @@ const AdminProfileUpdate = ({
       Swal.fire("خطایی رخ داده است");
     }
   };
+
+  const removeProfileHandler = () => {
+    setProfileImage("");
+    setSelectedImage(null);
+    setPreviewImageUrl("");
+  };
+
   return (
     <div className="flex flex-col gap-y-6 flex-1 p-3">
       <p className="text-lg font-bold">اطلاعات شخصی</p>
 
-      <div className="flex gap-x-3 items-center">
-        <div className="w-16 h-16 rounded-full overflow-hidden">
-          <Image alt="admin profile" src={adminPic} width={64} height={64} />
+      <div className="flex gap-x-3 items-center [&>button]:cursor-pointer">
+        <div className="w-16 h-16 rounded-full overflow-hidden flex justify-center items-center">
+          {selectedImage ? (
+            <img
+              src={previewImageUrl || undefined}
+              alt="preview"
+              width={64}
+              height={64}
+              style={{ borderRadius: "9999px", objectFit: "cover" }}
+            />
+          ) : profileImage ? (
+            <Image
+              src={profileImage + "?t=" + Date.now()}
+              alt="profile"
+              width={64}
+              height={64}
+              style={{ borderRadius: "9999px" }}
+              priority
+            />
+          ) : (
+            <FaRegUserCircle className="text-3xl" />
+          )}
         </div>
-        <button className="flex items-center gap-x-2 bg-green-700 text-white px-3 py-2 rounded-sm">
+
+        <label className="flex items-center gap-x-2 bg-green-700 text-white px-3 py-2 rounded-sm cursor-pointer">
           آپلود تصویر <GoPlus />
-        </button>
-        <button className="flex items-center gap-x-2 border border-gray-400 px-3 py-2 rounded-sm">
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+        </label>
+
+        <button
+          className="flex items-center gap-x-2 border border-gray-400 px-3 py-2 rounded-sm"
+          onClick={removeProfileHandler}
+        >
           حذف <FiTrash2 />
         </button>
       </div>
@@ -84,7 +170,10 @@ const AdminProfileUpdate = ({
         <textarea
           rows={6}
           className="edit-profile-input resize-none outline-none rounded-md p-2"
-        ></textarea>
+          value={updatedData.biography}
+          name="biography"
+          onChange={handleChange}
+        />
       </div>
 
       <div className="flex gap-x-4">
@@ -137,7 +226,7 @@ const AdminProfileUpdate = ({
 
       <button
         className="bg-emerald-500 text-white w-fit mr-auto px-6 py-2 rounded-lg mt-6"
-        onClick={() => editAdmininfo()}
+        onClick={editAdmininfo}
       >
         ذخیره تغییرات
       </button>

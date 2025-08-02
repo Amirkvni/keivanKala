@@ -2,7 +2,6 @@ import AdminProfileUpdate from "@/components/templates/dashboard/editAdmininfo/A
 import { authUser } from "@/utils/serverHelpers";
 export default async function page() {
   const user = await await authUser();
- 
 
   return (
     <AdminProfileUpdate
@@ -13,6 +12,8 @@ export default async function page() {
       phone={user.phone}
       nationalcode={user.nationalcode}
       education={user.education}
+      biography={user.biography}
+      profileUrl={user.profileUrl}
     />
   );
 }
