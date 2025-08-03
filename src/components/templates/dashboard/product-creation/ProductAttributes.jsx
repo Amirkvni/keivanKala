@@ -1,6 +1,6 @@
 import React from "react";
 
-function ProductAttributes() {
+function ProductAttributes({ attributes }) {
   return (
     <div className="bg-white dashboard-box-shadow rounded-lg">
       <div className="flex justify-between items-center">
@@ -10,32 +10,23 @@ function ProductAttributes() {
         </button>
       </div>
       <div className="mt-3 [&>div>input]:outline-none  [&>div>input]:p-2 [&>div>input]:rounded-sm flex flex-col gap-y-3  [&>div]:flex [&>div]:gap-x-3 [&>div]:items-center">
-        <div>
-          <input
-            className="edit-profile-input"
-            type="text"
-            placeholder="عنوان"
-          />
-          <span>:</span>
-          <input
-            className="edit-profile-input"
-            type="text"
-            placeholder="توضیحات"
-          />
-        </div>
-        <div>
-          <input
-            className="edit-profile-input"
-            type="text"
-            placeholder="عنوان"
-          />
-          <span>:</span>
-          <input
-            className="edit-profile-input"
-            type="text"
-            placeholder="توضیحات"
-          />
-        </div>
+        {Object.entries(attributes).map(([key, value], index) => (
+          <div key={index}>
+            <input
+              className="edit-profile-input"
+              type="text"
+              // value={key}
+              placeholder="عنوان"
+            />
+            <span>:</span>
+            <input
+              className="edit-profile-input"
+              type="text"
+              // value={value}
+              placeholder="توضیحات"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

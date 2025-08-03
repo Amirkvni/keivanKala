@@ -1,13 +1,19 @@
 import DashBoardHeader from "@/components/templates/dashboard/DashBoardHeader";
 import Sidebar from "@/components/templates/dashboard/Sidebar";
+import { authUser } from "@/utils/serverHelpers";
 
 export default async function DashboardLayout({ children }) {
-  
+  const user = await authUser();
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
       <div className="flex-1 mr-64 overflow-y-auto scrollbar-custom">
-        <DashBoardHeader />
+        <DashBoardHeader
+          role={user.role}
+          name={user.firstname}
+          lastName={user.lastname}
+          profile={user.profileUrl}
+        />
         <main>{children}</main>
       </div>
     </div>

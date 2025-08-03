@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa6";
 import { priceFormatter } from "@/utils/priceFormatter ";
+import Link from "next/link";
 export default function ProductsTable({ selected, setSelected, allProducts }) {
   const [products] = useState(allProducts);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
@@ -178,7 +179,9 @@ export default function ProductsTable({ selected, setSelected, allProducts }) {
               </td>
               <td className="p-2 text-center">{product.sales}</td>
               <td className="p-2 flex gap-2 justify-center">
-                <FaEdit className="text-blue-500 cursor-pointer" />
+                <Link href={`/dashboard/edit-product/${product._id}`}>
+                  <FaEdit className="text-blue-500 cursor-pointer" />
+                </Link>
                 <FaTrash className="text-red-500 cursor-pointer" />
               </td>
             </tr>
