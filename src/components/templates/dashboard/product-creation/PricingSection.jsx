@@ -1,6 +1,25 @@
 import React from "react";
 
-function PricingSection({ price, secondPrice = "ندارد" }) {
+function PricingSection({
+  price = "",
+  secondPrice = "",
+  setMainProduct,
+  mainProduct,
+}) {
+  const changePrice = (type, value) => {
+    if (type === "mainPrice") {
+      setMainProduct({
+        ...mainProduct,
+        price: Number(value),
+      });
+    }
+    if (type === "secondPrice") {
+      setMainProduct({
+        ...mainProduct,
+        secondPrice: Number(value),
+      });
+    }
+  };
   return (
     <div className="[&>div]:flex dashboard-box-shadow ">
       <span className="font-extrabold text-lg">قیمت گذاری</span>
@@ -11,6 +30,9 @@ function PricingSection({ price, secondPrice = "ندارد" }) {
             type="text"
             className="edit-profile-input"
             defaultValue={price.toLocaleString()}
+            onChange={(e) => {
+              changePrice("mainPrice", e.target.value);
+            }}
           />
         </div>
         <div>
@@ -19,6 +41,9 @@ function PricingSection({ price, secondPrice = "ندارد" }) {
             type="text"
             className="edit-profile-input"
             defaultValue={secondPrice.toLocaleString()}
+            onChange={(e) => {
+              changePrice("secondPrice", e.target.value);
+            }}
           />
         </div>
         <div>
@@ -27,6 +52,9 @@ function PricingSection({ price, secondPrice = "ندارد" }) {
             type="text"
             className="edit-profile-input"
             defaultValue={secondPrice.toLocaleString()}
+            onChange={(e) => {
+              changePrice("discount", e.target.value);
+            }}
           />
         </div>
       </div>

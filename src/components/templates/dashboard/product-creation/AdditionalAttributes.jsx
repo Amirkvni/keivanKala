@@ -1,6 +1,19 @@
 import React from "react";
 
-function AdditionalAttributes({ category, parentCategory }) {
+function AdditionalAttributes({
+  category = "",
+  parentCategory = "",
+  mainProduct,
+  setMainProduct,
+}) {
+  const categoryHandler = (type, value) => {
+    if (type === "category") {
+      setMainProduct({ ...mainProduct, category: value });
+    }
+    if (type === "parentCategory") {
+      setMainProduct({ ...mainProduct, parentCategory: value });
+    }
+  };
   return (
     <div className="bg-white dashboard-box-shadow">
       <p className="font-extrabold text-lg">ویژگی ها</p>
@@ -11,6 +24,7 @@ function AdditionalAttributes({ category, parentCategory }) {
             type="text"
             className="edit-profile-input"
             defaultValue={category}
+            onChange={(e) => categoryHandler("category", e.target.value)}
           />
         </div>
         <div>
@@ -19,6 +33,7 @@ function AdditionalAttributes({ category, parentCategory }) {
             type="text"
             className="edit-profile-input"
             defaultValue={parentCategory}
+            onChange={(e) => categoryHandler("parentCategory", e.target.value)}
           />
         </div>
       </div>

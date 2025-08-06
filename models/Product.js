@@ -11,6 +11,9 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    productCode: {
+      type: Number,
+    },
     description: {
       type: String,
       required: true,

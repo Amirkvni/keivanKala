@@ -1,6 +1,11 @@
 import React from "react";
 
-function BasicInfoForm({ persianName = "", englishFullName = "" }) {
+function BasicInfoForm({
+  persianName,
+  englishFullName,
+  setMainProduct,
+  mainProduct,
+}) {
   return (
     <div className="bg-white rounded-lg dashboard-box-shadow flex flex-col gap-y-6 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-2  [&>div>input]:p-2 [&>div>input]:rounded-sm [&>div>input]:outline-none ">
       <span className="font-extrabold text-lg">اطلاعات پایه</span>
@@ -9,7 +14,10 @@ function BasicInfoForm({ persianName = "", englishFullName = "" }) {
         <input
           type="text"
           className="edit-profile-input"
-          // value={persianName}
+          value={persianName}
+          onChange={(e) =>
+            setMainProduct({ ...mainProduct, persianName: e.target.value })
+          }
         />
       </div>
       <div className="">
@@ -17,7 +25,10 @@ function BasicInfoForm({ persianName = "", englishFullName = "" }) {
         <input
           type="text"
           className="edit-profile-input"
-          // value={englishFullName}
+          value={englishFullName}
+          onChange={(e) =>
+            setMainProduct({ ...mainProduct, englishFullName: e.target.value })
+          }
         />
       </div>
       <div className="">

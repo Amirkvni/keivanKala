@@ -35,8 +35,7 @@ export default function ProductImageUploader({ onDrop }) {
   }, [files]);
 
   return (
-    <section className="w-full">
-      {/* Dropzone */}
+    <div className="w-full ">
       <div
         {...getRootProps({
           className:
@@ -44,9 +43,9 @@ export default function ProductImageUploader({ onDrop }) {
         })}
       >
         <input {...getInputProps()} />
-        <FaImage className="text-4xl text-blue-400 mb-3" />
-        <p className="text-sm">تصاویر خود را اینجا رها کنید یا</p>
-        <p className="text-sm text-blue-500 underline">برای مرور کلیک کنید</p>
+        <FaImage className="text-2xl text-blue-400 mb-3" />
+        <p className="text-xs">تصاویر خود را اینجا رها کنید یا</p>
+        <p className="text-xs text-blue-500 underline">برای مرور کلیک کنید</p>
       </div>
 
       {files.length > 0 && (
@@ -80,6 +79,6 @@ export default function ProductImageUploader({ onDrop }) {
           ))}
         </div>
       )}
-    </section>
+    </div>
   );
 }

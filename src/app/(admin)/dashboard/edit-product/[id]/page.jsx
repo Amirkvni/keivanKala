@@ -5,7 +5,7 @@ export default async function page({ params }) {
 
   const product = await productModel.findOne(
     { _id: id },
-    "persianName englishFullName price secondPrice stock category images attributes colors parentCategory"
+    "persianName englishFullName price secondPrice stock category images attributes colors parentCategory mainImage"
   );
 
   return <EditProductPage product={JSON.parse(JSON.stringify(product))} />;
