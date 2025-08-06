@@ -98,8 +98,10 @@ function UsersTable({ allUsers, selected, setSelected }) {
                 <td>۲ روز قبل</td>
                 <td className="p-3 text-green-600">1 روز قبل</td>
                 <td className="p-3">
-                  <div className="flex justify-center gap-2 text-gray-600 [&>svg]:text-xl">
-                    <FaRegEdit className="cursor-pointer hover:text-blue-600" />
+                  <div className="flex justify-center gap-2 text-gray-600 [&>a>svg]:text-xl">
+                    <Link href={`user/${user._id}`}>
+                      <FaRegEdit className="cursor-pointer hover:text-blue-600" />
+                    </Link>
                     <MdDeleteOutline className="cursor-pointer hover:text-red-600" />
                     <Link
                       href="/dashboard/all-orders/123"
