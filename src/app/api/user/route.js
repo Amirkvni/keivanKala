@@ -59,3 +59,23 @@ export async function PATCH(req) {
     );
   }
 }
+export async function DELETE(req) {
+  try {
+    connectToDB();
+    const { ids } = await req.json();
+
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return Response.json(
+        { message: "هیچ شناسه‌ای ارسال نشده" },
+        { status: 400 }
+      );
+    }
+
+    await UserModel.deleteMany({ _id: { $in: ids } });
+
+    return Response.json({ message: "کاربران با موفقیت حذف شدند" });
+  } catch (error) {
+    console.error(error);
+    return Response.json({ message: "خطا در حذف کاربران" }, { status: 500 });
+  }
+}
