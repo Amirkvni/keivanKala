@@ -2,7 +2,13 @@ import React, { useMemo, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import Link from "next/link";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/fa";
+dayjs.extend(relativeTime);
+dayjs.locale("fa");
 function UsersTable({ allUsers, selected, setSelected }) {
+
   const [users, setUsers] = useState(allUsers);
   const [searchQuery, setSearchQuery] = useState("");
   const filteredUsers = useMemo(() => {
@@ -87,16 +93,24 @@ function UsersTable({ allUsers, selected, setSelected }) {
                 <td className="p-3">{user.email}</td>
                 <td className="p-3">{user.phone} </td>
                 <td className="p-3">
-                  {user.birthday
+                  {user.birthday.day !== null
                     ? `${user.birthday.day} / ${user.birthday.month} / ${user.birthday.year}`
-                    : "نداره"}
+                    : "وارد نشده"}
                 </td>
-                <td className="p-3 text-emerald-500">
-                  {user.role === "ADMIN" ? "ادمین" : "کاربرعادی"}
-                </td>{" "}
-                <td>فعال</td>
-                <td>۲ روز قبل</td>
-                <td className="p-3 text-green-600">1 روز قبل</td>
+                <td>{user.role === "ADMIN" ? "ادمین" : "کاربرعادی"}</td>{" "}
+                <td>
+                  <span
+                    className={` px-2 py-1 text-xs rounded-sm ${
+                      user.accountStatus === "active"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
+                    }`}
+                  >
+                    {user.accountStatus === "active" ? "فعال" : "غیرفعال"}
+                  </span>
+                </td>
+                <td>{dayjs(user.createdAt).fromNow()}</td>
+                <td>{dayjs(user.lastLogin).fromNow()}</td>
                 <td className="p-3">
                   <div className="flex justify-center gap-2 text-gray-600 [&>a>svg]:text-xl">
                     <Link href={`edit-user/${user._id}`}>

@@ -48,6 +48,7 @@ export async function POST(req) {
       {
         $set: {
           refreshToken,
+          lastLogin: new Date(),
         },
       }
     );
@@ -79,7 +80,6 @@ export async function POST(req) {
       }
     );
   } catch (error) {
-
     return Response.json({ message: error }, { status: 500 });
   }
 }

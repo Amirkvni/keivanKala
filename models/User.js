@@ -71,6 +71,10 @@ const schema = mongoose.Schema(
       type: String,
       required: false,
     },
+    lastLogin: {
+      type: Date,
+      default: null,
+    },
     education: { type: String, required: false },
     experiences: [
       {
@@ -81,6 +85,10 @@ const schema = mongoose.Schema(
         description: { type: String, required: false },
       },
     ],
+    accountStatus: {
+      type: String,
+      default: "active",
+    },
     refreshToken: String,
   },
   { timestamps: true }
