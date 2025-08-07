@@ -228,10 +228,10 @@ function LoginForm() {
         )}
         <div>
           <span>
-            اکانت کاربری ندارید ؟
+            اکانت کاربری ندارید؟
             <Link href="/signup" className="text-blue-600 px-1">
               ثبت نام
-            </Link>
+            </Link>{" "}
             کنید
           </span>
         </div>

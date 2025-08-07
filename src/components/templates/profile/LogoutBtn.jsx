@@ -41,7 +41,7 @@ function LogoutBtn() {
   return (
     <button
       onClick={logoutHandler}
-      className="2xl:p-4 p-2 rounded-lg flex items-center gap-x-2 2xl:hover:bg-red-500 2xl:hover:text-white cursor-pointer text-red-600 2xl:hover:font-bold"
+      className="2xl:p-4 p-2 rounded-lg flex items-center gap-x-2 2xl:hover:bg-red-500 2xl:hover:text-white cursor-pointer text-red-600 2xl:hover:font-bold "
     >
       <IoExitOutline className="text-2xl" />
       <span>خروج</span>

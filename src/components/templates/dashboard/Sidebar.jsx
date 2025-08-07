@@ -1,22 +1,23 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import { FiPercent, FiUsers } from "react-icons/fi";
-import { IoGiftOutline } from "react-icons/io5";
+import { IoExitOutline, IoGiftOutline } from "react-icons/io5";
 import { LuMessageSquareMore, LuNewspaper } from "react-icons/lu";
 import {
   RiShieldCheckLine,
   RiShoppingBag4Line,
   RiShoppingCart2Line,
 } from "react-icons/ri";
+import Swal from "sweetalert2";
 
 export default function Sidebar() {
   const pathname = usePathname();
-
+  const router = useRouter();
   const [openMenus, setOpenMenus] = useState({
     account: false,
     products: false,
@@ -33,7 +34,38 @@ export default function Sidebar() {
       [menuName]: !prev[menuName],
     }));
   };
-
+  const logoutHandler = () => {
+    Swal.fire({
+      title: "آیا از خروج مطمئنی؟",
+      icon: "question",
+      confirmButtonText: "بله",
+      confirmButtonColor: "green",
+      showCancelButton: true,
+      cancelButtonText: "نه",
+      cancelButtonColor: "red",
+      customClass: {
+        title: "swal-title",
+        popup: "swal-popup",
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await fetch("/api/auth/signout", {
+          method: "POST",
+        });
+        if (res.status === 200) {
+          Swal.fire({
+            title: "با موفقیت خارج شدی",
+            icon: "success",
+            confirmButtonText: "اوکی",
+            customClass: {
+              title: "swal-title",
+              popup: "swal-popup",
+            },
+          }).then(() => router.replace("/"));
+        }
+      }
+    });
+  };
   return (
     <div className="bg-white w-64 fixed top-0 bottom-0 right-0 overflow-y-auto scrollbar-custom">
       <div className="p-4">
@@ -58,7 +90,6 @@ export default function Sidebar() {
             </Link>
           </li>
 
-          {/* حساب کاربری */}
           <li>
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
@@ -103,7 +134,6 @@ export default function Sidebar() {
             )}
           </li>
 
-          {/* محصولات */}
           <li>
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
@@ -150,9 +180,6 @@ export default function Sidebar() {
             )}
           </li>
 
-          {/* سفارشات */}
-
-          {/* کاربران */}
           <li>
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
@@ -413,6 +440,13 @@ export default function Sidebar() {
               <LuMessageSquareMore />
               تیکت ها
             </Link>
+          </li>
+          <li
+            onClick={logoutHandler}
+            className="p-2 flex items-center gap-x-3  rounded-sm font-semibold hover:bg-red-500 cursor-pointer hover:text-white"
+          >
+            <IoExitOutline />
+            خروج
           </li>
         </ul>
       </div>
