@@ -5,7 +5,7 @@ import path from "path";
 import { v4 as uuidv4 } from "uuid";
 import connectToDB from "@/configs/db";
 import { NextResponse } from "next/server";
-
+import AddressModel from "@/models/Address";
 export async function PATCH(req) {
   try {
     connectToDB();
@@ -77,5 +77,19 @@ export async function DELETE(req) {
   } catch (error) {
     console.error(error);
     return Response.json({ message: "خطا در حذف کاربران" }, { status: 500 });
+  }
+}
+export async function POST(req) {
+  try {
+    connectToDB();
+    const data = await req.json();
+    const { mainUser, mainAddress } = data;
+    const createdUser = await UserModel.create(mainUser);
+    mainAddress.userId = createdUser._id;
+    const createdAddress = await AddressModel.create(mainAddress);
+    return Response.json({ message: "کاربر با موفقیت ایجاد شد" });
+  } catch (error) {
+    console.error(error);
+    return Response.json({ message: "خطا در  ایجاد کاربر " }, { status: 500 });
   }
 }

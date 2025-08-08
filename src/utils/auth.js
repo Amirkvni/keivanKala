@@ -22,6 +22,12 @@ const validatePassword = (password) => {
   const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/gm;
   return pattern.test(password);
 };
+function checkPasswordStrength(pw) {
+  const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+  if (strongRegex.test(pw)) return "قوی";
+  if (pw.length >= 6) return "متوسط";
+  return "ضعیف";
+}
 const accessSecret = new TextEncoder().encode(process.env.AccessTokenSecretKey);
 const refreshSecret = new TextEncoder().encode(
   process.env.RefreshTokenSecretKey
@@ -66,6 +72,7 @@ export async function verifyRefreshToken(token) {
 export {
   hashPassword,
   verifyPassword,
+  checkPasswordStrength,
   validateEmail,
   validatePhone,
   validatePassword,
