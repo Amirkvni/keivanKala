@@ -2,16 +2,14 @@
 import BasicInfoForm from "@/components/templates/dashboard/product-creation/BasicInfoForm";
 import PricingSection from "@/components/templates/dashboard/product-creation/PricingSection";
 import ProductAttributes from "@/components/templates/dashboard/product-creation/ProductAttributes";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Uploader from "@/components/templates/dashboard/product-creation/Uploader";
 import ColorSelector from "@/components/templates/dashboard/product-creation/ColorSelector";
 import AdditionalAttributes from "@/components/templates/dashboard/product-creation/AdditionalAttributes";
 import ActionButtons from "@/components/templates/dashboard/product-creation/ActionButtons";
 function EditProductPage({ product }) {
   const [mainProduct, setMainProduct] = useState(product);
-  useEffect(() => {
-    console.log(mainProduct);
-  }, [mainProduct]);
+
   return (
     <div className="p-12">
       <span className="text-xl font-bold">ویرایش محصول </span>

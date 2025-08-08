@@ -5,10 +5,12 @@ import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/fa";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 dayjs.extend(relativeTime);
 dayjs.locale("fa");
 function UsersTable({ allUsers, selected, setSelected }) {
-
+  const router = useRouter();
   const [users, setUsers] = useState(allUsers);
   const [searchQuery, setSearchQuery] = useState("");
   const filteredUsers = useMemo(() => {
@@ -32,6 +34,29 @@ function UsersTable({ allUsers, selected, setSelected }) {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((pid) => pid !== id) : [...prev, id]
     );
+  };
+  const userDeleteHandler = (id) => {
+    Swal.fire({
+      title: "آیا از حذف کاربر اطمینان دارید؟",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "بله",
+      cancelButtonText: "خیر",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await fetch(`/api/user/delete/${id}`, {
+          method: "DELETE",
+        });
+        if (res.status === 200) {
+          Swal.fire("حذف شد", "", "success").then((result) => {
+            location.reload();
+          });
+        } else {
+        }
+      }
+    });
   };
   return (
     <>
@@ -116,7 +141,12 @@ function UsersTable({ allUsers, selected, setSelected }) {
                     <Link href={`edit-user/${user._id}`}>
                       <FaRegEdit className="cursor-pointer hover:text-blue-600" />
                     </Link>
-                    <MdDeleteOutline className="cursor-pointer hover:text-red-600" />
+                    {user.email !== "admin@gmail.com" && (
+                      <button onClick={() => userDeleteHandler(user._id)}>
+                        <MdDeleteOutline className="cursor-pointer hover:text-red-600 text-xl" />
+                      </button>
+                    )}
+
                     <Link
                       href={`user/${user._id}`}
                       className="cursor-pointer hover:text-green-800 text-xl"

@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddressInformation({ userAddress }) {
+function AddressInformation({ mainAddress, setMainAddress }) {
   return (
     <div className="bg-white rounded-lg dashboard-box-shadow flex flex-col gap-y-6 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-2  [&>div>input]:p-2 [&>div>input]:rounded-sm [&>div>input]:outline-none ">
       <span className="font-extrabold text-lg">اطلاعات آدرس</span>
@@ -9,7 +9,10 @@ function AddressInformation({ userAddress }) {
         <input
           type="text"
           className="edit-profile-input"
-          defaultValue={userAddress?.province}
+          value={mainAddress?.province}
+          onChange={(e) =>
+            setMainAddress({ ...mainAddress, province: e.target.value })
+          }
         />
       </div>
       <div className="">
@@ -17,7 +20,10 @@ function AddressInformation({ userAddress }) {
         <input
           type="text"
           className="edit-profile-input"
-          defaultValue={userAddress?.city}
+          value={mainAddress?.city}
+          onChange={(e) =>
+            setMainAddress({ ...mainAddress, city: e.target.value })
+          }
         />
       </div>
       <div className="">
@@ -25,7 +31,10 @@ function AddressInformation({ userAddress }) {
         <input
           type="text"
           className="edit-profile-input"
-          defaultValue={userAddress?.district}
+          value={mainAddress?.district}
+          onChange={(e) =>
+            setMainAddress({ ...mainAddress, district: e.target.value })
+          }
         />
       </div>
       <div className="">
@@ -33,7 +42,10 @@ function AddressInformation({ userAddress }) {
         <input
           type="text"
           className="edit-profile-input"
-          defaultValue={userAddress?.plaque}
+          value={mainAddress?.plaque}
+          onChange={(e) =>
+            setMainAddress({ ...mainAddress, plaque: e.target.value })
+          }
         />
       </div>
       <div className="">
@@ -41,7 +53,10 @@ function AddressInformation({ userAddress }) {
         <input
           type="text"
           className="edit-profile-input"
-          defaultValue={userAddress?.unit}
+          value={mainAddress?.unit}
+          onChange={(e) =>
+            setMainAddress({ ...mainAddress, unit: e.target.value })
+          }
         />
       </div>
     </div>

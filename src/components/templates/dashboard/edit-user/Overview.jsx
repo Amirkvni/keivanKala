@@ -1,19 +1,29 @@
 import React from "react";
 
-function Overview({ name, family, email, phone, natinalcode }) {
+function Overview({ setMainUser, mainUser }) {
   return (
     <div className="bg-white rounded-lg dashboard-box-shadow flex flex-col gap-y-6 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-2  [&>div>input]:p-2 [&>div>input]:rounded-sm [&>div>input]:outline-none ">
       <span className="font-extrabold text-lg">نمای کلی</span>
       <div className="mt-4">
         <label htmlFor="">نام :</label>
-        <input type="text" className="edit-profile-input" defaultValue={name} />
+        <input
+          type="text"
+          className="edit-profile-input"
+          value={mainUser?.firstname}
+          onChange={(e) =>
+            setMainUser({ ...mainUser, firstname: e.target.value })
+          }
+        />
       </div>
       <div className="">
         <label htmlFor="">نام خانوادگی :</label>
         <input
           type="text"
           className="edit-profile-input"
-          defaultValue={family}
+          value={mainUser?.lastname}
+          onChange={(e) =>
+            setMainUser({ ...mainUser, lastname: e.target.value })
+          }
         />
       </div>
       <div className="">
@@ -21,7 +31,8 @@ function Overview({ name, family, email, phone, natinalcode }) {
         <input
           type="text"
           className="edit-profile-input"
-          defaultValue={email}
+          value={mainUser?.email}
+          onChange={(e) => setMainUser({ ...mainUser, email: e.target.value })}
         />
       </div>
       <div className="">
@@ -29,7 +40,8 @@ function Overview({ name, family, email, phone, natinalcode }) {
         <input
           type="text"
           className="edit-profile-input"
-          defaultValue={phone}
+          value={mainUser?.phone}
+          onChange={(e) => setMainUser({ ...mainUser, phone: e.target.value })}
         />
       </div>
       <div className="">
@@ -37,7 +49,10 @@ function Overview({ name, family, email, phone, natinalcode }) {
         <input
           type="text"
           className="edit-profile-input"
-          defaultValue={natinalcode}
+          value={mainUser?.nationalcode}
+          onChange={(e) =>
+            setMainUser({ ...mainUser, nationalcode: e.target.value })
+          }
         />
       </div>
     </div>

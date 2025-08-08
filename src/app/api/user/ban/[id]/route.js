@@ -1,6 +1,5 @@
 import connectToDB from "@/configs/db";
 import UserModel from "@/models/User";
-import { NextResponse } from "next/server";
 
 export async function PATCH(request, { params }) {
   connectToDB();
