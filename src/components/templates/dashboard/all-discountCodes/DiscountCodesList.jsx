@@ -1,11 +1,38 @@
-// DiscountCodesList.jsx
 "use client";
 import AddButton from "@/components/templates/dashboard/AddButton";
 import { priceFormatter } from "@/utils/priceFormatter ";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
-import { FaTrash, FaEdit, FaPlus } from "react-icons/fa";
+import { FaTrash, FaEdit } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 export default function DiscountCodesList({ discountCodes }) {
+  const router = useRouter();
+  const removeCodeHandler = async (id) => {
+    Swal.fire({
+      title: "آیا از حذف کد اطمینان دارید؟",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "بله",
+      cancelButtonText: "خیر",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await fetch(`/api/discountcode/${id}`, {
+          method: "DELETE",
+        });
+        if (res.status === 200) {
+          Swal.fire("حذف شد", "", "success").then((result) => {
+            router.refresh();
+          });
+        } else {
+          alert("خطا درحذف کد");
+        }
+      }
+    });
+  };
   return (
     <div className="p-12  ">
       <div className="bg-white p-4 dashboard-box-shadow rounded-lg">
@@ -73,11 +100,17 @@ export default function DiscountCodesList({ discountCodes }) {
                   </span>
                 </td>
                 <td className="p-3 text-center flex justify-center gap-2">
-                  <button className="text-blue-600 hover:text-blue-800">
-                    <FaEdit />
-                  </button>
-                  <button className="text-red-600 hover:text-red-800">
-                    <FaTrash />
+                  <Link
+                    className="text-blue-600 hover:text-blue-800 cursor-pointer"
+                    href={`/dashboard/edit-discountCode/${code._id}`}
+                  >
+                    <FaEdit className="text-lg" />
+                  </Link>
+                  <button
+                    className="text-red-600 hover:text-red-800 cursor-pointer"
+                    onClick={() => removeCodeHandler(code._id)}
+                  >
+                    <FaTrash className="text-lg" />
                   </button>
                 </td>
               </tr>

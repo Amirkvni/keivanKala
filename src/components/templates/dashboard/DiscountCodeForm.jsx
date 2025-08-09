@@ -8,7 +8,13 @@ moment.loadPersian({ dialect: "persian-modern", usePersianDigits: false });
 
 const animatedComponents = makeAnimated();
 
-export default function AddDiscountCode({ products, users }) {
+export default function DiscountCodeForm({
+  products,
+  users,
+  initialData = {},
+  onSubmit,
+}) {
+  // مقدار اولیه فرم یا داده های خالی
   const [form, setForm] = useState({
     code: "",
     discountType: "",
@@ -18,8 +24,10 @@ export default function AddDiscountCode({ products, users }) {
     endDate: "",
     applicableUsers: [],
     applicableProducts: [],
+    ...initialData, // مقدار اولیه اگر وجود داشت جایگزین کن
   });
 
+  // جداکردن تاریخ شروع و پایان برای نمایش در select ها
   const [startDay, setStartDay] = useState("");
   const [startMonth, setStartMonth] = useState("");
   const [startYear, setStartYear] = useState("");
@@ -28,14 +36,26 @@ export default function AddDiscountCode({ products, users }) {
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState("");
 
-  const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  // به محض mount کامپوننت، اگر initialData تاریخ داشت آن را به قسمت های روز/ماه/سال جدا کن
+  useEffect(() => {
+    if (form.startDate) {
+      const m = moment(form.startDate);
+      setStartDay(m.jDate().toString());
+      setStartMonth((m.jMonth() + 1).toString());
+      setStartYear(m.jYear().toString());
+    }
+    if (form.endDate) {
+      const m = moment(form.endDate);
+      setEndDay(m.jDate().toString());
+      setEndMonth((m.jMonth() + 1).toString());
+      setEndYear(m.jYear().toString());
+    }
+  }, []);
 
+  // وقتی day/month/year تغییر کرد، تاریخ ISO جدید محاسبه و در فرم ذخیره شود
   const handleDateChange = (type, day, month, year) => {
     if (day && month && year) {
       const date = moment(`${year}/${month}/${day}`, "jYYYY/jM/jD").toDate();
-
       setForm((prev) => ({
         ...prev,
         [type]: date.toISOString(),
@@ -43,19 +63,23 @@ export default function AddDiscountCode({ products, users }) {
     }
   };
 
+  // هر بار تغییر startDate یا قسمت‌های روز/ماه/سال آن، مقدار فرم به‌روز شود
   useEffect(() => {
-    if (startDay && startMonth && startYear) {
-      handleDateChange("startDate", startDay, startMonth, startYear);
-    }
+    handleDateChange("startDate", startDay, startMonth, startYear);
   }, [startDay, startMonth, startYear]);
 
+  // هر بار تغییر endDate یا قسمت‌های روز/ماه/سال آن، مقدار فرم به‌روز شود
   useEffect(() => {
-    if (endDay && endMonth && endYear) {
-      handleDateChange("endDate", endDay, endMonth, endYear);
-    }
+    handleDateChange("endDate", endDay, endMonth, endYear);
   }, [endDay, endMonth, endYear]);
 
-  const createCodeHandler = async () => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // تابع پیش‌فرض ارسال فرم اگر onSubmit پاس داده نشده بود
+  const defaultSubmitHandler = async () => {
     const requiredFields = [
       "code",
       "discountType",
@@ -79,37 +103,46 @@ export default function AddDiscountCode({ products, users }) {
 
     const res = await fetch("/api/discountcode", {
       method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
-      headers: {
-        "Content-Type": "application/json",
-      },
     });
 
     if (res.status === 201) {
       alert("کد تخفیف با موفقیت ایجاد شد");
-      setForm({
-        code: "",
-        discountType: "",
-        discountValue: "",
-        usageLimit: "",
-        startDate: "",
-        endDate: "",
-        applicableUsers: [],
-        applicableProducts: [],
-      });
-      setStartDay("");
-      setStartMonth("");
-      setStartYear("");
-      setEndDay("");
-      setEndMonth("");
-      setEndYear("");
+      // در حالت افزودن فرم را ریست کن
+      if (!initialData.code) {
+        setForm({
+          code: "",
+          discountType: "",
+          discountValue: "",
+          usageLimit: "",
+          startDate: "",
+          endDate: "",
+          applicableUsers: [],
+          applicableProducts: [],
+        });
+        setStartDay("");
+        setStartMonth("");
+        setStartYear("");
+        setEndDay("");
+        setEndMonth("");
+        setEndYear("");
+      }
     } else {
       alert("خطا در ایجاد کد تخفیف");
     }
   };
 
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (onSubmit) {
+      onSubmit(form);
+    } else {
+      defaultSubmitHandler();
+    }
+  };
 
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
   const months = [
     "فروردین",
     "اردیبهشت",
@@ -124,14 +157,16 @@ export default function AddDiscountCode({ products, users }) {
     "بهمن",
     "اسفند",
   ];
-
   const years = Array.from({ length: 1404 - 1300 + 1 }, (_, i) => 1404 - i);
 
   return (
-    <div className="p-12 ">
+    <form onSubmit={handleSubmit} className="p-12">
       <div className="bg-white p-4 dashboard-box-shadow rounded-lg">
-        <h2 className="text-xl font-bold mb-4">افزودن کد تخفیف جدید</h2>
+        <h2 className="text-xl font-bold mb-4">
+          {initialData.code ? "ویرایش کد تخفیف" : "افزودن کد تخفیف جدید"}
+        </h2>
         <div className="grid grid-cols-2 gap-4 text-sm [&>div>label]:block [&>div>label]:mb-1  [&>div>input]:w-full  [&>div>input]:p-2  [&>div>input]:rounded ">
+          {/* کد تخفیف */}
           <div>
             <label>کد تخفیف</label>
             <input
@@ -142,9 +177,11 @@ export default function AddDiscountCode({ products, users }) {
               className="edit-profile-input"
               placeholder="مثلاً: OFF50"
               required
+              disabled={!!initialData.code} // اگر در حالت ویرایش، غیر فعال کن
             />
           </div>
 
+          {/* نوع تخفیف */}
           <div>
             <label>نوع تخفیف</label>
             <select
@@ -160,6 +197,7 @@ export default function AddDiscountCode({ products, users }) {
             </select>
           </div>
 
+          {/* مقدار تخفیف */}
           <div>
             <label>مقدار تخفیف</label>
             <input
@@ -173,6 +211,7 @@ export default function AddDiscountCode({ products, users }) {
             />
           </div>
 
+          {/* محدودیت تعداد استفاده */}
           <div>
             <label>محدودیت تعداد استفاده</label>
             <input
@@ -195,6 +234,7 @@ export default function AddDiscountCode({ products, users }) {
                 <select
                   value={startDay}
                   onChange={(e) => setStartDay(e.target.value)}
+                  required
                 >
                   <option value="">انتخاب کنید</option>
                   {days.map((day) => (
@@ -210,6 +250,7 @@ export default function AddDiscountCode({ products, users }) {
                 <select
                   value={startMonth}
                   onChange={(e) => setStartMonth(e.target.value)}
+                  required
                 >
                   <option value="">انتخاب کنید</option>
                   {months.map((month, index) => (
@@ -225,6 +266,7 @@ export default function AddDiscountCode({ products, users }) {
                 <select
                   value={startYear}
                   onChange={(e) => setStartYear(e.target.value)}
+                  required
                 >
                   <option value="">انتخاب کنید</option>
                   {years.map((year) => (
@@ -246,6 +288,7 @@ export default function AddDiscountCode({ products, users }) {
                 <select
                   value={endDay}
                   onChange={(e) => setEndDay(e.target.value)}
+                  required
                 >
                   <option value="">انتخاب کنید</option>
                   {days.map((day) => (
@@ -261,6 +304,7 @@ export default function AddDiscountCode({ products, users }) {
                 <select
                   value={endMonth}
                   onChange={(e) => setEndMonth(e.target.value)}
+                  required
                 >
                   <option value="">انتخاب کنید</option>
                   {months.map((month, index) => (
@@ -276,6 +320,7 @@ export default function AddDiscountCode({ products, users }) {
                 <select
                   value={endYear}
                   onChange={(e) => setEndYear(e.target.value)}
+                  required
                 >
                   <option value="">انتخاب کنید</option>
                   {years.map((year) => (
@@ -332,14 +377,15 @@ export default function AddDiscountCode({ products, users }) {
 
           <div className="md:col-span-2 mt-4">
             <button
-              onClick={createCodeHandler}
+              type="submit"
               className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded flex items-center gap-2"
             >
-              <FaCheck /> ثبت کد تخفیف
+              <FaCheck />
+              {initialData.code ? "ویرایش کد تخفیف" : "ثبت کد تخفیف"}
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
