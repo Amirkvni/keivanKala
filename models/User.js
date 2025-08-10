@@ -49,10 +49,7 @@ const schema = mongoose.Schema(
       type: String,
       required: false,
     },
-    role: {
-      type: String,
-      default: "User",
-    },
+
     job: {
       type: String,
       required: false,
@@ -88,6 +85,10 @@ const schema = mongoose.Schema(
     accountStatus: {
       type: String,
       default: "active",
+    },
+    role: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role",
     },
     refreshToken: String,
   },

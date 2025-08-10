@@ -2,12 +2,14 @@ import connectToDB from "@/configs/db";
 import { cookies } from "next/headers";
 import UserModel from "@/models/User";
 import { verifyAccessToken } from "./auth";
+import "@/models/Role";
 
 export const authUser = async () => {
   await connectToDB();
   const cookieStore = await cookies();
 
   const token = cookieStore.get("accessToken")?.value;
+
   if (!token) return null;
 
   try {
@@ -15,7 +17,7 @@ export const authUser = async () => {
 
     const user = await UserModel.findOne({
       email: tokenPayload.email,
-    });
+    }).populate("role");
 
     return user || null;
   } catch (err) {

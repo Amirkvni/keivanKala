@@ -62,7 +62,7 @@ export async function POST(req) {
       email,
       phone,
       password: hashedPassword,
-      role: "USER",
+      role: "6898dbe57a30ad58485233de",
     });
     return new Response(
       JSON.stringify({ message: "User create successfully" }),

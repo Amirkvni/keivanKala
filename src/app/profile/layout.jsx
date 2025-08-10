@@ -2,15 +2,14 @@ import Header from "@/components/modules/header/Header";
 import DashboardLinks from "@/components/templates/profile/DashboardLinks";
 import { authUser } from "@/utils/serverHelpers";
 import { redirect } from "next/navigation";
-
 export default async function profileLayout({ children }) {
   const user = await authUser();
-  if (!user) {
-    redirect("/signin");
-  }
-  if (user.role === "ADMIN") {
+
+  if (user.role.name === "ADMIN") {
     redirect("/dashboard");
   }
+
+
   return (
     <>
       <Header isLogin={user ? true : false} />

@@ -6,7 +6,7 @@ import React from "react";
 export default async function page() {
   const user = await authUser();
   if (user) {
-    redirect("/profile");
+    redirect("/");
   }
   return <SignUpForm />;
 }
