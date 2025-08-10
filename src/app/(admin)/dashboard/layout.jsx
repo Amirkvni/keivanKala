@@ -5,8 +5,9 @@ import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({ children }) {
   const user = await authUser();
+  console.log(user);
 
-  if (user?.role?.name !== "ADMIN") {
+  if (user?.role?.name === "USER") {
     redirect("/profile");
   }
 

@@ -4,7 +4,7 @@ import { FaRegChessKing } from "react-icons/fa6";
 
 import { AiOutlineEye } from "react-icons/ai";
 
-function RolesList() {
+function RolesList({ allRoles }) {
   return (
     <div className="mt-4 dashboard-box-shadow bg-white p-5">
       <div className="flex justify-between items-center">
@@ -23,53 +23,42 @@ function RolesList() {
           <td>وضعیت</td>
           <td>اقدام</td>
         </tr>
-        <tr>
-          <td>علی رضایی</td>
-          <td>مدیر کل</td>
-          <td>دسترسی کامل</td>
-          <td>همیسشه فعال</td>
-          <td>
-            <FaRegChessKing />
-          </td>
-        </tr>
-        <tr>
-          <td>مینا مرادی</td>
-          <td>نویسنده</td>
-          <td className="flex gap-x-1 item-center">
-            <span className="bg-green-100 px-1 py-0.5 rounded-lg text-xs text-green-500">
-              وبلاگ
-            </span>
-            <span className="bg-blue-100 px-1 py-0.5 rounded-lg text-xs text-blue-500">
-              عمومی
-            </span>
-          </td>
-          <td>فعال</td>
-          <td>
-            <div className="flex items-center gap-x-2">
-              <AiOutlineEye />
-              <FaRegEdit />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>زهرا نجفی </td>
-          <td>پشتیبان</td>
-          <td className="flex gap-x-1 item-center">
-            <span className="bg-amber-100 px-1 py-0.5 rounded-lg text-xs text-amber-500">
-              تیکت
-            </span>
-            <span className="bg-blue-100 px-1 py-0.5 rounded-lg text-xs text-blue-500">
-              عمومی
-            </span>
-          </td>
-          <td>غیرفعال</td>
-          <td>
-            <div className="flex items-center gap-x-2">
-              <AiOutlineEye />
-              <FaRegEdit />
-            </div>
-          </td>
-        </tr>
+        {allRoles.map((role) => (
+          <tr>
+            <td>
+              {role.firstname} {role.lastname}
+            </td>
+            <td>
+              {role.role.name === "SUPERADMIN"
+                ? "سوپر ادمین"
+                : role.role.name === "ADMIN"
+                ? "ادمین"
+                : role.role.name === "USER"
+                ? "کاربر عادی"
+                : role.role.name === "AUTHOR"
+                ? "نویسنده"
+                : role.role.name === "SUPPORTER"
+                ? "پشتیبان"
+                : role.role.name}
+            </td>
+            <td>
+              {role.role.permissions.map((per) => (
+                <span>{per.name}</span>
+              ))}
+            </td>
+            <td>{role.accountStatus === "active" ? "فعال" : "غیرفعال"}</td>
+            <td>
+              {role.role.name === "SUPERADMIN" ? (
+                <FaRegChessKing className="text-xl" />
+              ) : (
+                <div className="flex gap-x-2 [&>svg]:text-xl [&>svg]:cursor-pointer">
+                  <FaRegEdit className="text-blue-400" />
+                  <AiOutlineEye className="text-green-400" />
+                </div>
+              )}
+            </td>
+          </tr>
+        ))}
       </table>
     </div>
   );
