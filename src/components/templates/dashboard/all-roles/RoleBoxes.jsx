@@ -3,15 +3,15 @@ import Image from "next/image";
 import rolePic from "@/assets/new-role.png";
 import RoleBox from "@/components/templates/dashboard/all-roles/RoleBox";
 
-function RoleBoxes({ setAction }) {
+function RoleBoxes({ setAction, allRoles }) {
   return (
     <>
       <span className="text-xl font-bold">لیست نقش ها</span>
       <div className="grid grid-cols-3 gap-6 [&>div]:bg-white [&>div]:p-4 [&>div]:rounded-lg mt-4 [&>div>div]:flex [&>div>div]:justify-between [&>div>div]:items-center ">
-        <RoleBox role="سوپر ادمین" />
-        <RoleBox role="ادمین" />
-        <RoleBox role="نویسنده" />
-        <RoleBox role="ادمین" />
+        {allRoles.map((role) => (
+          <RoleBox roleName={role.name} roleID={role._id} key={role._id} />
+        ))}
+
         <div className="flex justify-between dashboard-box-shadow">
           <div className="w-20 h-20 mt-auto">
             <Image src={rolePic} width={700} height={700} alt="rolePic" />

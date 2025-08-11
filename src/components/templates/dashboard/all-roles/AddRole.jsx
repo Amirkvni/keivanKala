@@ -4,7 +4,7 @@ import makeAnimated from "react-select/animated";
 
 const animatedComponents = makeAnimated();
 
-function AddRole({ setAction, users, permissions }) {
+function AddRole({ setAction, permissions }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedPermissions, setSelectedPermissions] = useState([]);
   const [name, setName] = useState("");
@@ -40,18 +40,6 @@ function AddRole({ setAction, users, permissions }) {
             />
           </label>
 
-          <label className="flex flex-col">
-            <span className="text-sm text-gray-600">اختصاص یافته به</span>
-            <Select
-              closeMenuOnSelect={true}
-              components={animatedComponents}
-              options={users}
-              getOptionLabel={(option) => option.email}
-              getOptionValue={(option) => option._id}
-              onChange={(val) => setSelectedUser(val)}
-              value={selectedUser}
-            />
-          </label>
           <label className="flex flex-col">
             <span className="text-sm text-gray-600">مجوزها</span>
             <Select

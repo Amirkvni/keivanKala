@@ -9,6 +9,10 @@ const roleSchema = new mongoose.Schema({
     },
   ],
   createdAt: { type: Date, default: Date.now },
+  status: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 export default mongoose.models.Role || mongoose.model("Role", roleSchema);

@@ -2,60 +2,59 @@ import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegChessKing } from "react-icons/fa6";
 
-import { AiOutlineEye } from "react-icons/ai";
+import { LuEye } from "react-icons/lu";
+import { MdDeleteOutline } from "react-icons/md";
 
 function RolesList({ allRoles }) {
+
   return (
     <div className="mt-4 dashboard-box-shadow bg-white p-5">
       <div className="flex justify-between items-center">
         <input type="text" placeholder="جستجو" />
         <select name="" id="">
-          <option value="-1">نفش</option>
-          <option value="-1">نفش</option>
-          <option value="-1">نفش</option>
+          <option value="-1">نقش</option>
+          <option value="-1">نقش</option>
+          <option value="-1">نقش</option>
         </select>
       </div>
-      <table className="w-full mt-5 [&>tr>td]:p-2 [&>tr>td]:border-b [&>tr>td]:border-gray-200 border-collapse">
+      <table className="w-full mt-5 [&>tr>td]:p-2 [&>tr>td]:border-b [&>tr>td]:border-gray-200 border-collapse text-center">
         <tr className="bg-gray-100 text-gray-600">
-          <td>کاربر</td>
           <td>نقش</td>
+          <td>تعداد کاربران</td>
           <td>مجوزها</td>
+          <td>تاریخ ایجاد</td>
           <td>وضعیت</td>
           <td>اقدام</td>
         </tr>
         {allRoles.map((role) => (
-          <tr>
+          <tr key={role._id}>
             <td>
-              {role.firstname} {role.lastname}
-            </td>
-            <td>
-              {role.role.name === "SUPERADMIN"
+              {role.name === "SUPERADMIN"
                 ? "سوپر ادمین"
-                : role.role.name === "ADMIN"
+                : role.name === "ADMIN"
                 ? "ادمین"
-                : role.role.name === "USER"
+                : role.name === "USER"
                 ? "کاربر عادی"
-                : role.role.name === "AUTHOR"
+                : role.name === "AUTHOR"
                 ? "نویسنده"
-                : role.role.name === "SUPPORTER"
+                : role.name === "SUPPORTER"
                 ? "پشتیبان"
-                : role.role.name}
+                : role.name}
             </td>
+            <td></td>
             <td>
-              {role.role.permissions.map((per) => (
-                <span>{per.name}</span>
+              {role.permissions.map((per) => (
+                <span key={per._id}>{per.name}</span>
               ))}
             </td>
-            <td>{role.accountStatus === "active" ? "فعال" : "غیرفعال"}</td>
+            <td>{new Date(role.createdAt).toLocaleDateString("fa-IR")}</td>
+            <td>فعال</td>
             <td>
-              {role.role.name === "SUPERADMIN" ? (
-                <FaRegChessKing className="text-xl" />
-              ) : (
-                <div className="flex gap-x-2 [&>svg]:text-xl [&>svg]:cursor-pointer">
-                  <FaRegEdit className="text-blue-400" />
-                  <AiOutlineEye className="text-green-400" />
-                </div>
-              )}
+              <div className="flex gap-x-1 items-center [&>svg]:cursor-pointer [&>svg]:text-xl justify-center">
+                <LuEye className="hover:text-blue-600" />
+                <FaRegEdit className="hover:text-green-600" />
+                <MdDeleteOutline className="hover:text-red-700" />
+              </div>
             </td>
           </tr>
         ))}
