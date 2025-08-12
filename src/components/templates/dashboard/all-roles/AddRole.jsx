@@ -1,11 +1,13 @@
+import { useRouter } from "next/navigation";
 import React, { use, useEffect, useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import Swal from "sweetalert2";
 
 const animatedComponents = makeAnimated();
 
-function AddRole({ setAction, permissions }) {
-  const [selectedUser, setSelectedUser] = useState(null);
+function AddRole({ permissions, setModalState }) {
+  const router = useRouter();
   const [selectedPermissions, setSelectedPermissions] = useState([]);
   const [name, setName] = useState("");
 
@@ -14,13 +16,32 @@ function AddRole({ setAction, permissions }) {
 
     const payload = {
       name,
-      user: selectedUser ? selectedUser._id : null,
-      permissions: selectedPermissions.map((p) => p._id),
+      permissions: selectedPermissions,
     };
 
-    console.log(payload);
+    try {
+      const res = await fetch("/api/role", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    // ارسال payload به API
+      const data = await res.json();
+
+      if (res.ok) {
+        Swal.fire("نقش با موفقیت ایجاد شد").then(() => {
+          router.refresh();
+          setModalState({ mode: "", _id: "" });
+        });
+      } else {
+        alert(data.error || "خطا در ایجاد نقش");
+      }
+    } catch (error) {
+      console.error("Error creating role:", error);
+      alert("خطای سرور، لطفا دوباره تلاش کنید");
+    }
   };
 
   return (
@@ -57,7 +78,7 @@ function AddRole({ setAction, permissions }) {
             <button
               type="button"
               className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"
-              onClick={() => setAction("")}
+              onClick={() => setModalState({ mode: "", _id: "" })}
             >
               انصراف
             </button>

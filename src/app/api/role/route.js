@@ -7,15 +7,14 @@ export async function POST(request) {
   connectToDB();
   try {
     const body = await request.json();
-    const { name, permissions, user } = body;
+    const { name, permissions } = body;
 
     if (
       !name ||
       typeof name !== "string" ||
       !permissions ||
       !Array.isArray(permissions) ||
-      permissions.length === 0 ||
-      !user
+      permissions.length === 0
     ) {
       return NextResponse.json(
         { error: "پارامترهای ورودی ناقص یا اشتباه است" },
@@ -23,7 +22,6 @@ export async function POST(request) {
       );
     }
 
-    // بررسی وجود نقش با همان نام
     const existingRole = await Role.findOne({ name });
     if (existingRole) {
       return NextResponse.json(
@@ -35,24 +33,9 @@ export async function POST(request) {
     const newRole = new Role({ name, permissions });
     await newRole.save();
 
-    const updatedUser = await User.findByIdAndUpdate(
-      user,
-      { role: newRole._id },
-      { new: true }
-    );
-
-    if (!updatedUser) {
-      return NextResponse.json(
-        { error: "کاربر مورد نظر یافت نشد" },
-        { status: 404 }
-      );
-    }
-
     return NextResponse.json(
       {
-        message: "نقش ساخته شد و به کاربر اختصاص داده شد",
-        role: newRole,
-        user: updatedUser,
+        message: "نقش با موفقیت ساخته شد",
       },
       { status: 201 }
     );

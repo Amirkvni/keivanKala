@@ -11,7 +11,7 @@ const roles = [
   { label: "پشتیبان", value: "support" },
 ];
 
-function EditPermission({ setAction }) {
+function EditPermission({ setAction, setModalState }) {
   const [selectedRoles, setSelectedRoles] = useState([]);
 
   const handleSubmit = (e) => {
@@ -21,6 +21,7 @@ function EditPermission({ setAction }) {
       // اینجا بقیه فیلدها رو هم اضافه کن
     });
     setAction("");
+    setModalState({ mode: "", _id: "" });
   };
 
   return (
@@ -54,7 +55,9 @@ function EditPermission({ setAction }) {
             <button
               type="button"
               className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"
-              onClick={() => setAction("")}
+              onClick={() => {
+                setModalState({ mode: "", _id: "" });
+              }}
             >
               انصراف
             </button>

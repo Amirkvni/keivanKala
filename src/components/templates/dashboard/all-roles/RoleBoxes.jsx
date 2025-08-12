@@ -3,7 +3,7 @@ import Image from "next/image";
 import rolePic from "@/assets/new-role.png";
 import RoleBox from "@/components/templates/dashboard/all-roles/RoleBox";
 
-function RoleBoxes({ setAction, allRoles }) {
+function RoleBoxes({ setAction, allRoles, setModalState }) {
   return (
     <>
       <span className="text-xl font-bold">لیست نقش ها</span>
@@ -19,7 +19,8 @@ function RoleBoxes({ setAction, allRoles }) {
           <div className="flex flex-col">
             <button
               className="bg-green-500 text-white p-2 rounded-lg cursor-pointer"
-              onClick={() => setAction("addRole")}
+              // onClick={() => setAction("addRole")}
+              onClick={() => setModalState({ mode: "add", _id: null })}
             >
               افزودن نقش جدید
             </button>
