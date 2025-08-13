@@ -18,20 +18,12 @@ function PermissionsList({ setAction }) {
         <table className="w-full mt-5 [&>tr>td]:p-2 [&>tr>td]:border-b [&>tr>td]:border-gray-200 border-collapse">
           <tr className="bg-gray-100 text-gray-600">
             <td>نام</td>
-            <td>اختصاص یافته به</td>
             <td>تاریخ ایجاد</td>
             <td>اقدام</td>
           </tr>
           <tr>
             <td>مدیریت</td>
-            <td className="flex gap-x-1 item-center">
-              <span className="bg-green-100 px-1 py-0.5 rounded-lg text-xs text-green-500">
-                سرپرست
-              </span>
-              <span className="bg-blue-100 px-1 py-0.5 rounded-lg text-xs text-blue-500">
-                مدسر
-              </span>
-            </td>
+
             <td>14 فروردین 1401، 8:43 ب.ظ</td>
             <td>
               <div className="flex items-center gap-x-2 [&>svg]:cursor-pointer [&>svg]:text-lg">
@@ -42,14 +34,7 @@ function PermissionsList({ setAction }) {
           </tr>
           <tr>
             <td>مدیریت</td>
-            <td className="flex gap-x-1 item-center">
-              <span className="bg-green-100 px-1 py-0.5 rounded-lg text-xs text-green-500">
-                سرپرست
-              </span>
-              <span className="bg-blue-100 px-1 py-0.5 rounded-lg text-xs text-blue-500">
-                مدسر
-              </span>
-            </td>
+
             <td>14 فروردین 1401، 8:43 ب.ظ</td>
             <td>
               <div className="flex items-center gap-x-2 [&>svg]:cursor-pointer [&>svg]:text-lg">

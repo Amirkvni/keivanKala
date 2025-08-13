@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import imagepic from "@/assets/adminProfile.jpg";
 import { FaRegEdit } from "react-icons/fa";
 import { CiUser } from "react-icons/ci";
 
-function RoleBox({ roleName, roleID }) {
+function RoleBox({ roleName, roleID, setModalState }) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
@@ -61,7 +60,15 @@ function RoleBox({ roleName, roleID }) {
             ? "پشتیبان"
             : roleName}
         </span>
-        <FaRegEdit className="hover:text-green-500 cursor-pointer" />
+        <FaRegEdit
+          className="hover:text-green-500 cursor-pointer"
+          onClick={() =>
+            setModalState({
+              mode: "edit",
+              _id: roleID,
+            })
+          }
+        />
       </div>
     </div>
   );

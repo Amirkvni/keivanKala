@@ -3,13 +3,18 @@ import Image from "next/image";
 import rolePic from "@/assets/new-role.png";
 import RoleBox from "@/components/templates/dashboard/all-roles/RoleBox";
 
-function RoleBoxes({ setAction, allRoles, setModalState }) {
+function RoleBoxes({ allRoles, setModalState }) {
   return (
     <>
       <span className="text-xl font-bold">لیست نقش ها</span>
       <div className="grid grid-cols-3 gap-6 [&>div]:bg-white [&>div]:p-4 [&>div]:rounded-lg mt-4 [&>div>div]:flex [&>div>div]:justify-between [&>div>div]:items-center ">
         {allRoles.map((role) => (
-          <RoleBox roleName={role.name} roleID={role._id} key={role._id} />
+          <RoleBox
+            roleName={role.name}
+            roleID={role._id}
+            key={role._id}
+            setModalState={setModalState}
+          />
         ))}
 
         <div className="flex justify-between dashboard-box-shadow">
@@ -19,7 +24,6 @@ function RoleBoxes({ setAction, allRoles, setModalState }) {
           <div className="flex flex-col">
             <button
               className="bg-green-500 text-white p-2 rounded-lg cursor-pointer"
-              // onClick={() => setAction("addRole")}
               onClick={() => setModalState({ mode: "add", _id: null })}
             >
               افزودن نقش جدید

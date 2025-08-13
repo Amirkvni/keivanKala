@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import Swal from "sweetalert2";
-
 const animatedComponents = makeAnimated();
-
 export default function RoleFormModal({
   mode,
   roleId,
@@ -16,11 +14,11 @@ export default function RoleFormModal({
   const [selectedPermissions, setSelectedPermissions] = useState([]);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState([]);
   const isView = mode === "view";
   const isEdit = mode === "edit";
   const isAdd = mode === "add";
   const [userPermissions, setUserPermissions] = useState([]);
+  const [status, setStatus] = useState(true);
   useEffect(() => {
     if (isEdit || isView) {
       const fetchRole = async () => {
@@ -28,13 +26,8 @@ export default function RoleFormModal({
         try {
           const res = await fetch(`/api/role/${roleId}`);
           const data = await res.json();
-          console.log(data);
 
           setName(data.role[0].name || "");
-          setSelectedPermissions(data.permissions || []);
-          setUsers(
-            data.users.map((user) => ({ _id: user._id, email: user.email }))
-          );
           setUserPermissions(
             data.role[0].permissions.map((per) => ({
               _id: per._id,
@@ -56,7 +49,8 @@ export default function RoleFormModal({
 
     const payload = {
       name,
-      permissions: selectedPermissions.map((p) => p._id),
+      permissions: selectedPermissions,
+      status,
     };
 
     try {
@@ -113,45 +107,39 @@ export default function RoleFormModal({
               className="border rounded-lg px-3 py-2 outline-none text-gray-600  disabled:bg-gray-100"
             />
           </label>
-          {isView && (
-            <label className="flex flex-col">
-              <span className="text-sm text-gray-600">کاربران</span>
 
-              <Select
-                options={users}
-                isMulti
-                isDisabled={true}
-                defaultValue={users}
-                getOptionLabel={(option) => option.email}
-              />
-            </label>
-          )}
-          {isView && (
+          <label className="flex flex-col">
+            <span className="text-sm text-gray-600">مجوزها</span>
+            <Select
+              isMulti
+              isDisabled={isView}
+              options={permissions}
+              defaultValue={userPermissions}
+              getOptionLabel={(option) => option.name}
+              getOptionValue={(option) => option._id}
+              components={animatedComponents}
+              onChange={(selected) =>
+                setSelectedPermissions(selected.map((p) => p._id))
+              }
+            />
+          </label>
+          {!isAdd && (
             <label className="flex flex-col">
-              <span className="text-sm text-gray-600">مجوزها</span>
-              <Select
-                isMulti
-                isDisabled={true}
-                options={userPermissions}
-                defaultValue={userPermissions}
-                getOptionLabel={(option) => option.name}
-              />
+              <span className="text-sm text-gray-600">وضعیت</span>
+              <div className="inline-flex items-center cursor-pointer w-fit">
+                <input
+                  type="checkbox"
+                  disabled={isView}
+                  value=""
+                  checked={status}
+                  className="sr-only peer"
+                  onChange={(e) => setStatus(e.target.checked)}
+                />
+                <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600 dark:peer-checked:bg-green-600"></div>
+              </div>
             </label>
           )}
-          {!isView && (
-            <label className="flex flex-col">
-              <span className="text-sm text-gray-600">مجوزها</span>
-              <Select
-                isMulti
-                isDisabled={false}
-                defaultValue={userPermissions}
-                options={permissions}
-                getOptionLabel={(option) => option.name}
-                getOptionValue={(option) => option._id}
-                components={animatedComponents}
-              />
-            </label>
-          )}
+
           <div className="flex justify-end gap-2 mt-4">
             <button
               type="button"

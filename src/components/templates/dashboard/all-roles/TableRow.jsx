@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegChessKing } from "react-icons/fa6";
 import { LuEye } from "react-icons/lu";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 import { MdDeleteOutline } from "react-icons/md";
 function TableRow({
   _id,
@@ -9,24 +11,48 @@ function TableRow({
   permissions,
   name,
   createdAt,
-  setAction,
   setModalState,
 }) {
-  console.log(_id);
+  const [usersCount, setUsersCount] = useState([]);
+  const router = useRouter();
 
-  const [users, setUsers] = useState([]);
   useEffect(() => {
     const getUsers = async () => {
       const res = await fetch(`/api/role/${_id}`);
       const data = await res.json();
 
       if (res.status === 200) {
-        setUsers(data.users);
+        setUsersCount(data.users.length);
       }
     };
     getUsers();
   }, []);
+  const deleteRole = async (id) => {
+    const confirmResult = await Swal.fire({
+      title: "آیا مطمئن هستید؟",
+      text: "نقش حذف خواهد شد و قابل بازگشت نیست!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "بله، حذف کن",
+      cancelButtonText: "لغو",
+    });
 
+    if (confirmResult.isConfirmed) {
+      try {
+        const res = await fetch(`/api/role/${id}`, { method: "DELETE" });
+        const data = await res.json();
+
+        if (res.ok) {
+          await Swal.fire("حذف شد!", data.message, "success");
+          router.refresh();
+        } else {
+          Swal.fire("خطا!", data.message || "خطایی رخ داد", "error");
+        }
+      } catch (error) {
+        Swal.fire("خطا!", "خطای شبکه رخ داد", "error");
+      }
+    }
+  };
   return (
     <tr>
       <td>
@@ -42,7 +68,7 @@ function TableRow({
           ? "پشتیبان"
           : name}
       </td>
-      <td>{users.length}</td>
+      <td>{usersCount}</td>
       <td>
         <div className="flex gap-x-0.5 items-center justify-center text-xs">
           {permissions.slice(0, 3).map((per) => (
@@ -54,7 +80,15 @@ function TableRow({
             </span>
           ))}
           {permissions.length > 3 && (
-            <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded-sm">
+            <span
+              className="bg-gray-100 text-gray-700 px-2 py-1 rounded-sm cursor-pointer"
+              onClick={() =>
+                setModalState({
+                  mode: "view",
+                  _id,
+                })
+              }
+            >
               {permissions.length - 3} بیشتر
             </span>
           )}
@@ -62,7 +96,13 @@ function TableRow({
       </td>
       <td>{new Date(createdAt).toLocaleDateString("fa-IR")}</td>
       <td>
-        {name === "SUPERADMIN" ? "همیشه فعال" : status ? "فعال" : "غیرفعال"}
+        <span
+          className={`px-1 py-0.5 rounded-sm text-xs ${
+            status ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
+          }`}
+        >
+          {name === "SUPERADMIN" ? "همیشه فعال" : status ? "فعال" : "غیرفعال"}
+        </span>
       </td>
       <td>
         {name === "SUPERADMIN" ? (
@@ -76,7 +116,6 @@ function TableRow({
                   _id,
                 })
               }
-              // onClick={() => setAction("showRole")}
               className="hover:text-blue-600"
             />
             <FaRegEdit
@@ -88,7 +127,10 @@ function TableRow({
                 })
               }
             />
-            <MdDeleteOutline className="hover:text-red-700" />
+            <MdDeleteOutline
+              className="hover:text-red-700"
+              onClick={() => deleteRole(_id)}
+            />
           </div>
         )}
       </td>
