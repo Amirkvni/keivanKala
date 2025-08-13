@@ -98,7 +98,11 @@ function TableRow({
       <td>
         <span
           className={`px-1 py-0.5 rounded-sm text-xs ${
-            status ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
+            name === "SUPERADMIN"
+              ? "bg-fuchsia-100 text-fuchsia-600"
+              : status
+              ? "bg-green-100 text-green-600"
+              : "bg-red-100 text-red-600"
           }`}
         >
           {name === "SUPERADMIN" ? "همیشه فعال" : status ? "فعال" : "غیرفعال"}

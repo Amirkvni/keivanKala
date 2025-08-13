@@ -40,3 +40,36 @@ export async function POST(req) {
     return Response.json({ message: error }, { status: 500 });
   }
 }
+
+export async function DELETE(req) {
+  try {
+     connectToDB();
+    const { ids } = await req.json();
+    const idArray = Array.isArray(ids) ? ids : [ids];
+
+    if (!idArray.length) {
+      return Response.json(
+        { message: "لیست آیدی معتبر نیست" },
+        { status: 400 }
+      );
+    }
+
+    const result = await CommentModel.deleteMany({ _id: { $in: idArray } });
+
+    await ProductModel.updateMany(
+      { comments: { $in: idArray } },
+      { $pull: { comments: { $in: idArray } } }
+    );
+
+    return Response.json(
+      {
+        message: "کامنت‌ها با موفقیت حذف شدند",
+        deletedCount: result.deletedCount,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("DELETE Comment Error:", error);
+    return Response.json({ message: "خطا در حذف کامنت‌ها" }, { status: 500 });
+  }
+}
