@@ -12,12 +12,16 @@ export default async function Page({ params }) {
     .lean();
 
   const allMessages = await TicketModel.find({
-    $or: [
-      { _id: mainTicket._id }, // خود تیکت اصلی
-      { mainTicket: mainTicket._id }, // پاسخ‌ها
-    ],
+    $or: [{ _id: mainTicket._id }, { mainTicket: mainTicket._id }],
   })
-    .populate("user", "firstname lastname role")
+    .populate({
+      path: "user",
+      select: "firstname lastname role",
+      populate: {
+        path: "role",
+        select: "name",
+      },
+    })
     .sort({ createdAt: 1 })
     .lean();
 
@@ -41,7 +45,12 @@ export default async function Page({ params }) {
         {allMessages.map((msg) => (
           <Answer
             key={msg._id}
-            type={msg.user?.role === "ADMIN" ? "admin" : "user"}
+            type={
+              msg.user?.role.name === "ADMIN" ||
+              msg.user?.role.name === "SUPERADMIN"
+                ? "admin"
+                : "user"
+            }
             {...msg}
           />
         ))}

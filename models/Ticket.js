@@ -25,7 +25,7 @@ const schema = new mongoose.Schema(
     },
     subDepartment: {
       type: mongoose.Types.ObjectId,
-      ref: "subDepartment",
+      ref: "SubDepartment",
       required: true,
     },
     priority: {
