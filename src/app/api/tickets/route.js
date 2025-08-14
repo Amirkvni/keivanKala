@@ -1,6 +1,6 @@
 import connectToDB from "@/configs/db";
-import { authUser } from "@/utils/serverHelpers";
 import TicketModel from "@/models/Ticket";
+import { authUser } from "@/utils/serverHelpers";
 
 export async function POST(req) {
   try {
@@ -23,6 +23,12 @@ export async function POST(req) {
     }
 
     await TicketModel.create(newTicketData);
+    if (mainTicket) {
+      await TicketModel.findByIdAndUpdate(mainTicket, {
+        status: "answered",
+        isAnswer: true,
+      });
+    }
 
     return Response.json(
       { message: "Ticket created successfully " },

@@ -9,10 +9,32 @@ async function Page() {
     .populate("department", "title -_id")
     .populate("user", "email -_id")
     .populate("subDepartment", "title -_id");
+  const ticketsCounts = await TicketModel.aggregate([
+    { $match: { mainTicket: { $exists: false } } },
+    {
+      $group: {
+        _id: null,
+        total: { $sum: 1 },
+        closed: { $sum: { $cond: [{ $eq: ["$status", "closed"] }, 1, 0] } },
+        new: { $sum: { $cond: [{ $eq: ["$status", "new"] }, 1, 0] } },
+        answered: { $sum: { $cond: [{ $eq: ["$status", "answered"] }, 1, 0] } },
+      },
+    },
+  ]);
+
+  const totalTicketsCount = ticketsCounts[0]?.total || 0;
+  const closedTicketsCount = ticketsCounts[0]?.closed || 0;
+  const newTicketsCount = ticketsCounts[0]?.new || 0;
+  const answeredTicketsCount = ticketsCounts[0]?.answered || 0;
 
   return (
     <div className="p-12">
-      <TicketBoxes />
+      <TicketBoxes
+        closedTicketsCount={closedTicketsCount}
+        newTicketsCount={newTicketsCount}
+        answeredTicketsCount={answeredTicketsCount}
+        totalTicketsCount={totalTicketsCount}
+      />
       <TicketsTable tickets={JSON.parse(JSON.stringify(tickets))} />
     </div>
   );

@@ -24,3 +24,20 @@ export async function GET(request, context) {
     return Response.json({ message: err.message }, { status: 500 });
   }
 }
+export async function DELETE(request, { params }) {
+  try {
+    const { id } = params;
+
+     connectToDB();
+    const deletedTicket = await TicketModel.findByIdAndDelete(id);
+
+    if (!deletedTicket) {
+      return Response.json({ message: "تیکت پیدا نشد" }, { status: 404 });
+    }
+
+    return Response.json({ message: "تیکت با موفقیت حذف شد" }, { status: 200 });
+  } catch (err) {
+    console.error(err);
+    return Response.json({ message: "خطا در حذف تیکت" }, { status: 500 });
+  }
+}
