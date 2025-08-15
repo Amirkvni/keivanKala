@@ -12,6 +12,7 @@ export async function POST(req) {
     const productObjectIds = products.map((product) => ({
       _id: new mongoose.Types.ObjectId(product._id),
     }));
+    console.log("productObjectIds====>", productObjectIds);
 
     const newOrder = await OrderModel.create({
       user: user._id,

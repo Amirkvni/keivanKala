@@ -1,6 +1,6 @@
 "use client";
-import { CartContext } from "@/contexts/CartContext";
 import { useRouter } from "next/navigation";
+import { CartContext } from "@/contexts/CartContext";
 import "moment/locale/fa";
 
 import { useContext, useEffect, useState } from "react";
@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
 export default function ShippingMethod() {
+  const router = useRouter();
   const [address, setAddress] = useState(null);
   useEffect(() => {
     const getAddress = async () => {
@@ -20,7 +21,6 @@ export default function ShippingMethod() {
     };
     getAddress();
   }, []);
-  const router = useRouter();
   let { cart, getTotal, getTotalDiscountPrice, getPayableAmount, clearCart } =
     useContext(CartContext);
 
@@ -89,18 +89,7 @@ export default function ShippingMethod() {
           },
           body: JSON.stringify(neworder),
         });
-        const orderResult = await res2.json();
-        if (orderResult?.data?._id) {
-          const orderId = orderResult.data._id;
-
-          await fetch(`/api/payment/${paymentId}`, {
-            method: "PATCH",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({ order: orderId }), // 👈 اتصال پرداخت به سفارش
-          });
-
+        if (res2.status === 201) {
           router.push(
             `/success-payment?trackingCode=${trackingCode}&orderDate=${orderDate}`
           );

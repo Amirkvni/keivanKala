@@ -30,8 +30,12 @@ function CartList({ isLogin }) {
   };
 
   return (
-    <div className="mt-12 container flex-col xl:flex-row gap-y-5 text-xs lg:text-base  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 [&>div]:dark:bg-zinc-800 dark:text-white relative  ">
-      <div className="xl:w-3/4 border w-full ">
+    <div className="mt-12  container flex-col xl:flex-row gap-y-5 text-xs lg:text-base  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 [&>div]:dark:bg-zinc-800 dark:text-white relative  ">
+      <div
+        className={` ${
+          cart.length > 0 ? "xl:w-3/4" : "xl:w-full"
+        }border w-full `}
+      >
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-x-2 ">
             <span>سبد خرید</span>
@@ -146,32 +150,34 @@ function CartList({ isLogin }) {
           )}
         </div>
       </div>
-      <div className="xl:w-1/4 text-xs xl:text-base w-full h-fit  border [&>div]:flex  [&>div]:py-5 [&>div]:justify-between items-center sticky top-[120px]">
-        <div>
-          <span>قیمت کالا ها ({cart.length})</span>
-          <span className="text-green-400">
-            {getTotal().toLocaleString()} تومان
-          </span>
+      {cart.length > 0 && (
+        <div className="xl:w-1/4 text-xs xl:text-base w-full h-fit  border [&>div]:flex  [&>div]:py-5 [&>div]:justify-between items-center sticky top-[120px]">
+          <div>
+            <span>قیمت کالا ها ({cart.length})</span>
+            <span className="text-green-400">
+              {getTotal().toLocaleString()} تومان
+            </span>
+          </div>
+          <div className="border-y border-y-gray-400">
+            <span>تخفیف</span>
+            <span className="text-red-400">
+              {getTotalDiscountPrice().toLocaleString()} تومان
+            </span>
+          </div>
+          <div>
+            <span>مبلغ قابل پرداخت</span>
+            <span className="text-green-500 font-bold">
+              {getPayableAmount().toLocaleString()} تومان
+            </span>
+          </div>
+          <button
+            className="bg-green-500 text-white cursor-pointer p-3 rounded-lg w-full"
+            onClick={shippingMethodHandler}
+          >
+            ادامه فرایند خرید
+          </button>
         </div>
-        <div className="border-y border-y-gray-400">
-          <span>تخفیف</span>
-          <span className="text-red-400">
-            {getTotalDiscountPrice().toLocaleString()} تومان
-          </span>
-        </div>
-        <div>
-          <span>مبلغ قابل پرداخت</span>
-          <span className="text-green-500 font-bold">
-            {getPayableAmount().toLocaleString()} تومان
-          </span>
-        </div>
-        <button
-          className="bg-green-500 text-white cursor-pointer p-3 rounded-lg w-full"
-          onClick={shippingMethodHandler}
-        >
-          ادامه فرایند خرید
-        </button>
-      </div>
+      )}
     </div>
   );
 }

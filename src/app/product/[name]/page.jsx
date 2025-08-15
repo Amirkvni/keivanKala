@@ -48,8 +48,15 @@ async function ProductDetailPage({ params }) {
       />
       <RelatedProducts category={product.category} />
       <Tabs
-        product={JSON.parse(JSON.stringify(product))}
         user={JSON.parse(JSON.stringify(user))}
+        product={JSON.parse(
+          JSON.stringify({
+            mainImage: product.mainImage,
+            attributes: product.attributes,
+            score: product.score,
+            comments: product.comments,
+          })
+        )}
       />
       <Footer />
     </div>

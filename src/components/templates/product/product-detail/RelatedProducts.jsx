@@ -20,17 +20,9 @@ export default function RelatedProducts({ category }) {
   return (
     <div className="container mx-auto mt-7 ">
       <section>
-        <div className="flex justify-between items-center">
-          <span className="text-sm 2xl:text-2xl font-semibold dark:text-white">
-            کالاهای مرتبط
-          </span>
-          <Link href="/" className=" flex gap-x-2 items-center text-green-500">
-            <span className="text-sm 2xl:text-2xl font-semibold">
-              مشاهده همه
-            </span>
-            <FaChevronLeft />
-          </Link>
-        </div>
+        <span className="text-sm 2xl:text-xl font-semibold dark:text-white ">
+          کالاهای مرتبط
+        </span>
       </section>
       <main className="mt-5">
         <Swiper

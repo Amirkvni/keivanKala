@@ -60,11 +60,10 @@ function Comments({ product, user }) {
         امتیاز و دیدگاه کاربران
       </p>
       <div className="  flex gap-x-2 2xl:flex-row flex-col">
-        {/* Write  comment section */}
         <div className=" w-1/4 ">
           <div className="sticky top-28 flex flex-row 2xl:flex-col gap-x-3 gap-y-6">
             <div className="flex items-center gap-x-1">
-              <span className="font-bold text-xl">۳.۶</span>
+              <span className="font-bold text-xl">{product.score}</span>
               <span>از </span>
               <span>۵</span>
             </div>

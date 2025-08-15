@@ -20,7 +20,7 @@ import LightBox from "./LightBox";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "@/contexts/CartContext";
 function ProductDetail({ product, user }) {
   let { addToCart, decreaseFromCart } = useContext(CartContext);
@@ -76,7 +76,7 @@ function ProductDetail({ product, user }) {
     Swal.fire({
       title: "اشتراک گذاری",
       text: "این کالا را با دوستان خود به اشتراک بگذارید!",
-      confirmButtonText: "کپی لینک 📋",
+      confirmButtonText: "کپی لینک ",
       confirmButtonColor: "#00C923",
       showCloseButton: true,
       customClass: {
@@ -130,7 +130,7 @@ function ProductDetail({ product, user }) {
                   {product.englishFullName}
                 </p>
                 <div className="flex text-green-400 text-base items-center gap-x-3 ">
-                  <span>کد کالا 6457#</span>
+                  <span>کد کالا #{product._id.slice(-5)}</span>
                   <span>|</span>
                   <span>
                     {
@@ -143,7 +143,8 @@ function ProductDetail({ product, user }) {
                 <div className="flex  items-center 3xl:gap-x-2 gap-x-1 ">
                   <BiLike className="text-green-300 text-xl" />
                   <p className=" text-gray-400 3xl:text-base text-xs">
-                    80% از خریداران، خرید این کالا را پیشنهاد کرده‌اند
+                    {product.score * 20}% از خریداران، خرید این کالا را پیشنهاد
+                    کرده‌اند
                   </p>
                 </div>
                 <div className="font-semibold 3xl:text-xl text-lg dark:text-white">

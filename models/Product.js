@@ -68,6 +68,10 @@ const schema = new mongoose.Schema(
         },
       ],
     },
+    score: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

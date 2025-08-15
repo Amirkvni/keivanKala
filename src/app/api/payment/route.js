@@ -7,9 +7,11 @@ export async function POST(req) {
   try {
     connectToDB();
     const user = await authUser();
+
     const reqBody = await req.json();
-    const { products, orderDate, delivery, status, paid, discount } = reqBody;
+    const { products, orderDate, delivery, paid, discount } = reqBody;
     const userAddress = await AddressModel.findOne({ userId: user._id });
+
     const trackingCode = await generateUniqueTrackingCode();
 
     const payment = await PaymenttModel.create({
@@ -17,7 +19,6 @@ export async function POST(req) {
       products,
       orderDate,
       delivery,
-      status,
       paid,
       discount,
       address: userAddress._id,
@@ -28,7 +29,7 @@ export async function POST(req) {
       {
         message: "payment created succesfully",
         data: {
-          _id: payment._id, // ← اضافه کن
+          _id: payment._id,
           trackingCode: payment.trackingCode,
           orderDate: payment.orderDate,
         },

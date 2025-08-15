@@ -37,7 +37,6 @@ function Tabs({ product, user }) {
           </span>
         </button>
       </div>
-      {/* contents : */}
       <div>
         <section>
           {tab === "description" && <Description product={product} />}

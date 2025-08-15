@@ -24,7 +24,7 @@ export function CartProvider({ children }) {
         (item) =>
           item._id === product._id &&
           item.selectedColor === product.selectedColor &&
-          item.selectedSize === product.selectedSize // اگر سایز هم داری
+          item.selectedSize === product.selectedSize
       );
 
       if (!selectedProduct) {
