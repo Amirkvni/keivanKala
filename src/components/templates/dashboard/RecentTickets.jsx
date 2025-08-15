@@ -29,16 +29,15 @@ function RecentTickets({ tickets }) {
             <option value="new">جدید</option>
             <option value="closed">بسته</option>
             <option value="answered">پاسخ داده شده</option>
-            <option value="review">درحال بررسی</option>
           </select>
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
           >
             <option value="all">اولویت: همه</option>
-            <option value={1}>بالا</option>
+            <option value={3}>بالا</option>
             <option value={2}>متوسط</option>
-            <option value={3}>کم</option>
+            <option value={1}>کم</option>
           </select>
         </div>
       </div>

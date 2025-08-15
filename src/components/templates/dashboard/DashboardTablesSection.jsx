@@ -7,14 +7,15 @@ import ProductModel from "@/models/Product";
 import Image from "next/image";
 import { priceFormatter } from "@/utils/priceFormatter ";
 import Link from "next/link";
-
 export default async function DashboardTablesSection() {
   const recentUsers = await UserModel.find(
     {},
     "firstname lastname role phone createdAt"
   )
+    .populate("role", "name")
     .sort({ createdAt: -1 })
     .limit(5);
+
   const recentComments = await CommentModel.find({}, "username date  isAccept ")
     .populate("productID", "mainImage -_id")
     .sort({ date: -1 })
@@ -41,14 +42,20 @@ export default async function DashboardTablesSection() {
               {user.firstname} {user.lastname}
             </td>
             <td className="py-2 px-3">
-              {user.role === "ADMIN" ? "ادمین" : "کاربر"}
+              {user.role.name === "ADMIN"
+                ? "ادمین"
+                : user.role.name === "SUPERADMIN"
+                ? "سوپرادمین"
+                : user.role.name}
             </td>
             <td className="py-2 px-3">{user.phone}</td>
             <td className="py-2 px-3">
               {new Date(user.createdAt).toLocaleDateString("fa-IR")}
             </td>
-            <td className="py-2 px-3 ">
-              <LuEye className="text-xl mx-auto" />
+            <td csName="py-2 px-3 cursor-pointer">
+              <Link href={`/dashboard/user/${user._id}`}>
+                <LuEye className="text-xl mx-auto" />
+              </Link>
             </td>
           </>
         )}
@@ -77,8 +84,10 @@ export default async function DashboardTablesSection() {
               {new Date(user.date).toLocaleDateString("fa-IR")}
             </td>
             <td> {user.isAccept === false ? "تایید نشده" : "تایید شده"}</td>
-            <td className="py-2 px-3">
-              <LuEye />
+            <td csName="py-2 px-3 cursor-pointer">
+              <Link href="/dashboard/all-comments">
+                <LuEye className="text-xl mx-auto" />
+              </Link>
             </td>
           </>
         )}
@@ -91,23 +100,25 @@ export default async function DashboardTablesSection() {
         bgColor="bg-pink-100"
         textColor="text-pink-800"
         borderColor="border-pink-200"
-        renderRow={(user) => (
+        renderRow={(product) => (
           <>
             <td className="py-2 px-3">
               <div className="w-8 h-8 rounded-full overflow-hidden mx-auto">
                 <Image
-                  src={user.mainImage}
+                  src={product.mainImage}
                   alt="product"
                   width={64}
                   height={64}
                 />
               </div>
             </td>
-            <td className="py-2 px-3">{user.stock} </td>
-            <td className="py-2 px-3"> {user.sales}</td>
-            <td className="py-2 px-3">{priceFormatter(user.price)} </td>
-            <td className="py-2 px-3">
-              <LuEye />
+            <td className="py-2 px-3">{product.stock} </td>
+            <td className="py-2 px-3"> {product.sales}</td>
+            <td className="py-2 px-3">{priceFormatter(product.price)} </td>
+            <td csName="py-2 px-3 cursor-pointer">
+              <Link href="/">
+                <LuEye className="text-xl mx-auto" />
+              </Link>
             </td>
           </>
         )}

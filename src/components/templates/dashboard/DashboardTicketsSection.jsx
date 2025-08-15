@@ -3,12 +3,22 @@ import TicketStatusPieChart from "@/components/templates/dashboard/TicketStatusP
 import TicketModel from "@/models/Ticket";
 import RecentTickets from "./RecentTickets";
 export default async function DashboardTicketsSection() {
-  const recentTickets = await TicketModel.find({}, "createdAt priority status")
+  const recentTickets = await TicketModel.find(
+    {
+      mainTicket: { $exists: false },
+    },
+    "createdAt priority status"
+  )
     .populate("department", "title")
     .populate("user", "firstname lastname")
     .sort({ createdAt: -1 })
     .limit(3);
   const ticketCounts = await TicketModel.aggregate([
+    {
+      $match: {
+        mainTicket: { $exists: false },
+      },
+    },
     {
       $group: {
         _id: "$status",
@@ -25,7 +35,6 @@ export default async function DashboardTicketsSection() {
   const chartData = [
     { name: "بسته", value: countsMap["closed"] || 0 },
     { name: "پاسخ داده‌شده", value: countsMap["answered"] || 0 },
-    { name: "در حال بررسی", value: countsMap["review"] || 0 },
     { name: "جدید", value: countsMap["new"] || 0 },
   ];
   const simpleChartData = JSON.parse(JSON.stringify(chartData));

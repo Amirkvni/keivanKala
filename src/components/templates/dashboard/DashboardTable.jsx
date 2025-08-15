@@ -14,10 +14,10 @@ function DashboardTable({
       <h3 className="dashboard-header-box mb-4 border-b pb-4">{title}</h3>
       <div className="overflow-x-auto mb-3">
         <table className="w-full text-center table-auto border-collapse">
-          <thead className={`${bgColor} ${textColor} font-semibold`}>
+          <thead className={`${bgColor} ${textColor} text-[14px]`}>
             <tr>
               {columns.map((col, i) => (
-                <th key={i} className={`p-3 border ${borderColor}`}>
+                <th key={i} className={`p-2 border ${borderColor}`}>
                   {col}
                 </th>
               ))}
@@ -28,7 +28,7 @@ function DashboardTable({
             {data.map((item) => (
               <tr
                 key={item._id}
-                className={`border text-center ${borderColor}`}
+                className={`border text-center ${borderColor} text-sm`}
               >
                 {renderRow(item)}
               </tr>
@@ -36,7 +36,6 @@ function DashboardTable({
           </tbody>
         </table>
       </div>
-      {/* صفحه بندی */}
       <div className="mt-auto flex justify-center space-x-2">
         {[1, 2].map((p) => (
           <button

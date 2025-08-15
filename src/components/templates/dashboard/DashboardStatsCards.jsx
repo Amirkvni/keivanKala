@@ -10,12 +10,14 @@ import OrderModel from "@/models/Order";
 export default async function DashboardStatsCards() {
   connectToDB();
   const usersCount = await UserModel.countDocuments();
-  const ticketsCount = await TicketModel.countDocuments();
+  const ticketsCount = await TicketModel.countDocuments({
+    mainTicket: { $exists: false },
+  });
   const startOfToday = new Date();
-  startOfToday.setHours(0, 0, 0, 0); // ساعت 00:00:00
+  startOfToday.setHours(0, 0, 0, 0);
 
   const endOfToday = new Date();
-  endOfToday.setHours(23, 59, 59, 999); // ساعت 23:59:59
+  endOfToday.setHours(23, 59, 59, 999);
 
   const todayOrderCount = await OrderModel.countDocuments({
     createdAt: {
@@ -47,7 +49,7 @@ export default async function DashboardStatsCards() {
       />
       <DashboardStatCard
         title="کل کاربران"
-        value={`${usersCount}نفر`}
+        value={`${usersCount} نفر `}
         percentage="+2"
         percentColor="text-green-500"
         address="/dashboard/all-users"
@@ -58,7 +60,7 @@ export default async function DashboardStatsCards() {
       <DashboardStatCard
         title=" کل تیکت‌ها"
         value={`${ticketsCount} تا `}
-        percentage="+6"
+        percentage="+1"
         percentColor="text-green-500"
         description="مشاهده همه تیکت‌ها"
         address="/dashboard/all-tickets"

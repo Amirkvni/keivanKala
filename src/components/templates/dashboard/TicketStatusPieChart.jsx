@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const COLORS = ["#f472b6", "#fbbf24", "#60a5fa", "#34d399"];
+const COLORS = ["#f472b6", "#60a5fa", "#34d399"];
 
 export default function TicketStatusPieChart({ data }) {
   return (
