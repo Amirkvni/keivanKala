@@ -1,10 +1,51 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import Link from "next/link";
 import Paginations from "@/components/templates/dashboard/Paginations";
+import { useRouter } from "next/navigation";
 function DashboardOrders({ allOredrs }) {
+  console.log(allOredrs);
+
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [paidFilter, setPaidFilter] = useState("-1");
+  const [discountFilter, setDiscountFilter] = useState("-1");
+  const [orderFilter, setOrderFilter] = useState("-1");
+  const [amountPaidFilter, setAmountPaidFilter] = useState("-1");
+  const filteredOrders = useMemo(() => {
+    const query = search.toLowerCase();
+
+    return allOredrs.filter((order) => {
+      const matchesSearch =
+        order._id.slice(-5).includes(query) ||
+        order.user.email.toLowerCase().includes(query);
+
+      const matchesOrderStatus =
+        orderFilter === "-1" ||
+        (orderFilter === "pending" && order.status === "pending") ||
+        (orderFilter === "preparing" && order.status === "preparing") ||
+        (orderFilter === "readytoship" && order.status === "readytoship") ||
+        (orderFilter === "shipped" && order.status === "shipped") ||
+        (orderFilter === "delivered" && order.status === "delivered") ||
+        (orderFilter === "canceled" && order.status === "canceled") ||
+        (orderFilter === "returned" && order.status === "returned");
+      // const matchesamountPaid =
+      //   amountPaidFilter === "-1" ||
+      //   (amountPaidFilter === "highestpaid" && "") ||
+      //   (amountPaidFilter === "lowestpaid" && "");
+
+      // const matchesDiscount =
+      //   matchesDiscount === "-1" ||
+      //   (matchesDiscount === "new" && ticket.status === "new") ||
+      //   (matchesDiscount === "answered" && ticket.status === "answered") ||
+      //   (matchesDiscount === "closed" && ticket.status === "closed");
+
+      return matchesSearch && matchesOrderStatus;
+    });
+  }, [allOredrs, search, paidFilter, discountFilter, orderFilter]);
   return (
     <div className="p-12">
       <div className="bg-white p-3 rounded-lg dashboard-box-shadow">
@@ -24,9 +65,14 @@ function DashboardOrders({ allOredrs }) {
             type="text"
             placeholder="جستجو"
             className="px-4 py-2 w-40 md:w-52 lg:w-64 rounded-lg border border-gray-300 focus:outline-none "
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
 
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none ">
+          <select
+            className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none "
+            onChange={(e) => setOrderFilter(e.target.value)}
+          >
             <option value="-1">همه</option>
             <option value="pending">در انتظار بررسی</option>
             <option value="preparing">در حال آماده‌سازی</option>
@@ -37,7 +83,10 @@ function DashboardOrders({ allOredrs }) {
             <option value="returned">مرجوع شده </option>
           </select>
 
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none ">
+          <select
+            className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none "
+            onChange={(e) => setPaidFilter(e.target.value)}
+          >
             <option value="-1">همه</option>
             <option value="paid">پرداخت شده</option>
             <option value="pending">درانتظار پرداخت</option>
@@ -45,12 +94,18 @@ function DashboardOrders({ allOredrs }) {
             <option value="refunded">بازگشت وجه</option>
           </select>
 
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none ">
+          <select
+            className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none "
+            onChange={(e) => setAmountPaidFilter(e.target.value)}
+          >
             <option value="-1">همه</option>
             <option value="highestpaid">بیشترین پرداختی</option>
             <option value="lowestpaid">کمترین پرداختی</option>
           </select>
-          <select className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none ">
+          <select
+            className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none "
+            onChange={(e) => setDiscountFilter(e.target.value)}
+          >
             <option value="-1">همه</option>
             <option value="highestdiscount">بیشترین تخفیف</option>
             <option value="lowestdiscount">کمترین تخفیف</option>
@@ -77,7 +132,7 @@ function DashboardOrders({ allOredrs }) {
               </tr>
             </thead>
             <tbody className="text-sm">
-              {allOredrs.map((order) => (
+              {filteredOrders.map((order) => (
                 <tr key={order._id} className="border-t border-gray-300">
                   <td className="p-3">
                     <input type="checkbox" />

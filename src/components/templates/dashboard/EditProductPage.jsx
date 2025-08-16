@@ -9,6 +9,7 @@ import AdditionalAttributes from "@/components/templates/dashboard/product-creat
 import ActionButtons from "@/components/templates/dashboard/product-creation/ActionButtons";
 function EditProductPage({ product }) {
   const [mainProduct, setMainProduct] = useState(product);
+  console.log(mainProduct);
 
   return (
     <div className="p-12">
