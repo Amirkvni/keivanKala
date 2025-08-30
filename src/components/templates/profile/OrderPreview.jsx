@@ -8,14 +8,15 @@ import { MdOutlineCancel } from "react-icons/md";
 import { RiFilePaperLine } from "react-icons/ri";
 import { TbTruckReturn } from "react-icons/tb";
 import { slugify } from "@/utils/slugify";
+import { priceFormatter } from "@/utils/priceFormatter ";
 moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
-function OrderPreview({ delivery, orderDate, status, products }) {
+function OrderPreview({ orderDate, status, products, _id, payment }) {
   const formatted = moment(orderDate).format("jD jMMMM jYYYY");
   const statusMap = {
-    current: {
+    pending: {
       icon: <CiCircleCheck />,
-      label: "فعلی",
+      label: "جاری",
       className: "text-gray-700 dark:text-gray-400",
     },
     delivered: {
@@ -53,11 +54,11 @@ function OrderPreview({ delivery, orderDate, status, products }) {
         </div>
         <div className="flex items-center gap-x-1">
           <span>کد سفارش :</span>
-          <span>{delivery.id}</span>
+          <span>#{_id.slice(0, 6)}</span>
         </div>
         <div className="flex items-center gap-x-1">
           <span>مبلغ :</span>
-          <span>{delivery.price.toLocaleString("fa")}تومان</span>
+          <span>{priceFormatter(payment.paid)}</span>
         </div>
       </div>
       <div className="flex gap-x-3 flex-wrap gap-3">
@@ -79,7 +80,7 @@ function OrderPreview({ delivery, orderDate, status, products }) {
       </div>
       <div>
         <Link
-          href={`/profile/orders/${delivery.id}`}
+          href={`/profile/orders/${_id}`}
           className="flex gap-x-1 items-center mr-auto w-fit text-xs 2xl:text-base hover:text-green-500"
         >
           <span>مشاهده فاکتور</span>

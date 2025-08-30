@@ -8,10 +8,10 @@ export default async function page({ searchParams }) {
   const activeTab = searchParams.activeTab || "current";
   connectToDB();
   const user = await authUser();
-  const orders = await OrderModel.find({ user: user._id }).populate(
-    "products",
-    "mainImage englishFullName"
-  );
+  const orders = await OrderModel.find({ user: user._id })
+    .populate("products", "mainImage englishFullName")
+    .populate("payment", "paid");
+  console.log(orders);
 
   let filteredOrders = orders;
   if (activeTab === "delivered") {
@@ -21,7 +21,7 @@ export default async function page({ searchParams }) {
   } else if (activeTab === "returned") {
     filteredOrders = orders.filter((o) => o.status === "returned");
   } else if (activeTab === "current") {
-    filteredOrders = orders.filter((o) => o.status === "current");
+    filteredOrders = orders.filter((o) => o.status === "pending");
   }
 
   return (

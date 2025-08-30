@@ -8,9 +8,12 @@ import { slugify } from "@/utils/slugify";
 import { priceFormatter } from "@/utils/priceFormatter ";
 moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 export default function OrderDetail({ order, address }) {
+  console.log(order);
+  console.log(address);
+
   const formatted = moment(order.orderDate).format("jD jMMMM jYYYY");
   return (
-    <div className="flex flex-col gap-y-8 p-2 2xl:p-3 2xl:w-3/4 w-full rounded-sm shadow-2xl dark:bg-zinc-800 dark:text-white  divide-y divide-gray-300 [&>*]:pb-4 text-sm">
+    <div className="flex flex-col gap-y-8 p-2 2xl:p-3 2xl:w-3/4 w-full rounded-sm  bg-white dark:bg-zinc-800 dark:text-white  divide-y divide-gray-300 [&>*]:pb-4 text-sm">
       <Link
         href="/profile/orders"
         className="flex gap-x-2 items-center 2xl:text-base text-sm hover:text-green-400"
@@ -21,7 +24,7 @@ export default function OrderDetail({ order, address }) {
       <div className="orderDetails">
         <div>
           <span className="order-detail__label-text">کد پیگیری سفارش:</span>
-          <span>{order.delivery.id}</span>
+          <span>#{order._id.slice(0, 6)}</span>
         </div>
         <div>
           <span className="order-detail__label-text">تاریخ ثبت سفارش:</span>
@@ -46,8 +49,8 @@ export default function OrderDetail({ order, address }) {
       </div>
       <div className="orderDetails ">
         <div>
-          <span className="order-detail__label-text">مبلغ :</span>
-          <span>{priceFormatter(order.delivery.price)}</span>
+          <span className="order-detail__label-text">تاریخ ارسال :</span>
+          <span>{order.delivery.day}</span>
         </div>
         <div>
           <span className="order-detail__label-text">هزینه ارسال :</span>
@@ -79,12 +82,16 @@ export default function OrderDetail({ order, address }) {
                 <LuShieldCheck /> <span>گارانتی اصالت و سلامت فیزیکی کالا</span>
               </div>
             </div>
-            <p className="text-red-400 text-[12px] ">
-              {(product.price - product.secondPrice).toLocaleString("fa")} تومان
-              تخفیف
-            </p>
+            {product.secondPrice && (
+              <p className="text-red-400 text-[12px] ">
+                {priceFormatter(product.price - product.secondPrice)} تخفیف
+              </p>
+            )}
+
             <p className="text-sm 2xl:text-lg">
-              {product.secondPrice.toLocaleString("fa")} تومان
+              {product.secondPrice
+                ? priceFormatter(product.secondPrice)
+                : priceFormatter(product.price)}
             </p>
           </div>
         </div>

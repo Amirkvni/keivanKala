@@ -32,11 +32,11 @@ function CartList({ isLogin }) {
   return (
     <div className="mt-12  container flex-col xl:flex-row gap-y-5 text-xs lg:text-base  flex gap-x-2 mx-auto  [&>div]:rounded-lg [&>div]:p-3 [&>div]:dark:bg-zinc-800 dark:text-white relative  ">
       <div
-        className={` ${
+        className={`bg-white ${
           cart.length > 0 ? "xl:w-3/4" : "xl:w-full"
         }border w-full `}
       >
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center ">
           <div className="flex items-center gap-x-2 ">
             <span>سبد خرید</span>
             <span>( {cart.length} کالا )</span>
@@ -66,7 +66,7 @@ function CartList({ isLogin }) {
             cart.map((product) => (
               <div
                 key={`${product._id}_${product.selectedColor}`}
-                className=" flex gap-x-6 p-3 border-b-gray-300 border-b "
+                className=" flex gap-x-6 p-3 border-gray-200 border rounded-lg"
               >
                 <div className="cursor-pointer">
                   <div
@@ -129,7 +129,7 @@ function CartList({ isLogin }) {
                     <span
                       className={`${
                         product.secondPrice
-                          ? "line-through decoration-red-500 "
+                          ? "line-through decoration-red-500  text-gray-500"
                           : ""
                       }`}
                     >
@@ -140,7 +140,10 @@ function CartList({ isLogin }) {
                     </span>
                     {product.secondPrice && (
                       <span className="text-green-400 ">
-                        {product.secondPrice.toLocaleString()}تومان
+                        {Number(
+                          product.quantity * product.secondPrice
+                        ).toLocaleString()}
+                        تومان
                       </span>
                     )}
                   </div>
@@ -151,25 +154,22 @@ function CartList({ isLogin }) {
         </div>
       </div>
       {cart.length > 0 && (
-        <div className="xl:w-1/4 text-xs xl:text-base w-full h-fit  border [&>div]:flex  [&>div]:py-5 [&>div]:justify-between items-center sticky top-[120px]">
-          <div>
+        <div className="xl:w-1/4 text-xs xl:text-sm w-full h-fit   bg-white [&>div]:flex  [&>div]:py-5 [&>div]:justify-between items-center sticky top-[120px]">
+          <div className="text-gray-400">
             <span>قیمت کالا ها ({cart.length})</span>
-            <span className="text-green-400">
-              {getTotal().toLocaleString()} تومان
-            </span>
-          </div>
-          <div className="border-y border-y-gray-400">
-            <span>تخفیف</span>
-            <span className="text-red-400">
-              {getTotalDiscountPrice().toLocaleString()} تومان
-            </span>
+            <span>{getTotal().toLocaleString()} تومان</span>
           </div>
           <div>
-            <span>مبلغ قابل پرداخت</span>
-            <span className="text-green-500 font-bold">
-              {getPayableAmount().toLocaleString()} تومان
-            </span>
+            <span>جمع سبد خرید</span>
+            <span>{getPayableAmount().toLocaleString()} تومان</span>
           </div>
+          {cart.some((item) => item.secondPrice) && (
+            <div className="text-green-700">
+              <span>سود شما از خرید</span>
+              <span>{getTotalDiscountPrice().toLocaleString()} تومان</span>
+            </div>
+          )}
+
           <button
             className="bg-green-500 text-white cursor-pointer p-3 rounded-lg w-full"
             onClick={shippingMethodHandler}

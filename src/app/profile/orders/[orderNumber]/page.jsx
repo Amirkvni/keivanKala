@@ -5,22 +5,22 @@ import connectToDB from "@/configs/db";
 import AddressModel from "@/models/Address";
 import OrderDetail from "@/components/templates/profile/OrderDetail";
 import { authUser } from "@/utils/serverHelpers";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 export default async function page({ params }) {
   const { orderNumber } = await params;
 
   connectToDB();
   const user = await authUser();
   const order = await OrderModel.findOne({
-    "delivery.id": orderNumber,
+    _id: orderNumber,
   })
     .populate("user", "firstname lastname phone")
     .populate(
       "products",
-      "_id persianName price mainImage secondPrice englishFullName secondPrice"
+      "_id persianName price mainImage englishFullName secondPrice"
     );
   if (!order) {
-    notFound();
+    redirect("/profile/orders/");
   }
   const address = await AddressModel.findOne(
     {

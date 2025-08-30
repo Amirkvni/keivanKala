@@ -13,6 +13,9 @@ moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 export default function ShippingMethod() {
   const router = useRouter();
   const [address, setAddress] = useState(null);
+  if (localStorage.getItem("cart") === null) {
+    router.push("/");
+  }
   useEffect(() => {
     const getAddress = async () => {
       const res = await fetch("/api/addresses");
@@ -61,7 +64,7 @@ export default function ShippingMethod() {
       discount: getTotalDiscountPrice(),
     };
 
-    if (Object.keys(sendTime).length !== 0) {
+    if (Object.keys(sendTime).length !== 0 && address !== null) {
       const res = await fetch("/api/payment", {
         method: "POST",
         headers: {
@@ -96,6 +99,8 @@ export default function ShippingMethod() {
           clearCart();
         }
       }
+    } else if (address === null) {
+      router.push("/profile/addresses");
     } else {
       Swal.fire({
         text: "لطفا تاریخ ارسال را مشخص کنید",
@@ -198,7 +203,7 @@ export default function ShippingMethod() {
 
   return (
     <div className="2xl:mt-12 mt-6 container  flex flex-col xl:flex-row gap-x-2 mx-auto gap-y-4  [&>div]:rounded-lg [&>div]:p-3 text-xs lg:text-base ">
-      <div className="xl:w-3/4 w-full border flex flex-col gap-y-4 dark:border-green-400">
+      <div className="xl:w-3/4 w-full flex flex-col gap-y-4  bg-white dark:bg-zinc-800">
         <div className="border border-blue-400 flex flex-col 2xl:flex-row gap-y-5 justify-between p-2 rounded-lg dark:border-gray-500 dark:text-blue-400">
           <div className="flex gap-x-2 items-center ">
             <FaTruckFast />
@@ -262,25 +267,21 @@ export default function ShippingMethod() {
           ))}
         </div>
       </div>
-      <div className="xl:w-1/4 w-full h-fit  border [&>div]:flex  [&>div]:py-5 [&>div]:justify-between items-center dark:text-green-400">
-        <div>
+      <div className="xl:w-1/4 w-full h-fit  [&>div]:flex bg-white dark:bg-zinc-800 [&>div]:py-5 [&>div]:justify-between items-center dark:text-green-400">
+        <div className="text-gray-400">
           <span>قیمت کالا ها ({cart.length})</span>
-          <span className="text-green-400">
-            {getTotal().toLocaleString()} تومان
-          </span>
-        </div>
-        <div className="border-y border-y-gray-400">
-          <span>تخفیف</span>
-          <span className="text-red-400">
-            {getTotalDiscountPrice().toLocaleString()} تومان
-          </span>
+          <span>{getTotal().toLocaleString()} تومان</span>
         </div>
         <div>
-          <span>مبلغ قابل پرداخت</span>
-          <span className="text-green-500 font-bold">
-            {getPayableAmount().toLocaleString()} تومان
-          </span>
+          <span>جمع سبد خرید</span>
+          <span>{getPayableAmount().toLocaleString()} تومان</span>
         </div>
+        {cart.some((item) => item.secondPrice) && (
+          <div className="text-green-700">
+            <span>سود شما از خرید</span>
+            <span>{getTotalDiscountPrice().toLocaleString()} تومان</span>
+          </div>
+        )}
         <button
           className="bg-green-500 text-white cursor-pointer p-3 rounded-lg w-full"
           onClick={() => paymentHandler()}

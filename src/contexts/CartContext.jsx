@@ -73,8 +73,8 @@ export function CartProvider({ children }) {
   function getTotalDiscountPrice() {
     let total = 0;
     cart.forEach((item) => {
-      if (item.discountPrice != null) {
-        total += item.quantity * item.discountPrice;
+      if (item.secondPrice != null) {
+        total += item.quantity * (item.price - item.secondPrice);
       }
     });
     return total;

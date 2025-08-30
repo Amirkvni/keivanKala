@@ -5,8 +5,9 @@ import NoContent from "@/components/modules/noContent/NoContent";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 
 function Orders({ activeOrder, orders }) {
+
   const tabs = [
-    { id: "current", label: "فعلی" },
+    { id: "current", label: "جاری" },
     { id: "delivered", label: "تحویل شده" },
     { id: "canceled", label: "لغو شده" },
     { id: "returned", label: "مرجوع شده" },

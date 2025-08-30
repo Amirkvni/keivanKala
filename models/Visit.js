@@ -9,7 +9,6 @@ const schema = mongoose.Schema({
   pageName: {
     type: String,
     required: true,
-    unique: true,
   },
   productName: {
     type: String,
@@ -28,5 +27,7 @@ const schema = mongoose.Schema({
     default: Date.now,
   },
 });
+schema.index({ userId: 1, pageName: 1 }, { unique: true });
+
 const model = mongoose.models.Visit || mongoose.model("Visit", schema);
 export default model;
