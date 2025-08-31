@@ -1,10 +1,8 @@
 "use client";
 import SectionHeader from "@/components/modules/SectionHeader/SectionHeader";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { FaRegEdit, FaPlus } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
 function PersonalInfo({ user }) {

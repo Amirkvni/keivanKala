@@ -15,7 +15,9 @@ function DashboardStatCard({
     <div className="dashboard-box-shadow">
       <div className="flex justify-between items-center text-sm">
         <span className="text-gray-600">{title}</span>
-        <span className={percentColor}>{percentage}</span>
+        <span className={percentColor} dir="ltr">
+          {percentage}
+        </span>
       </div>
       <div className="my-4 font-black">{value}</div>
       <div className="flex items-center justify-between">

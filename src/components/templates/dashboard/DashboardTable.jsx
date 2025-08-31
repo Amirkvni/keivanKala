@@ -1,14 +1,30 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
 function DashboardTable({
   title,
   columns,
   data,
+  itemsPerPage = 5,
   bgColor = "bg-gray-100",
   textColor = "text-gray-800",
   borderColor = "border-gray-300",
   renderRow,
 }) {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const currentData = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const paginationStart = Math.floor((currentPage - 1) / 5) * 5 + 1;
+  const paginationEnd = Math.min(paginationStart + 4, totalPages);
+  const pages = [];
+  for (let i = paginationStart; i <= paginationEnd; i++) pages.push(i);
+
   return (
     <div className="dashboard-box-shadow bg-white rounded-lg flex flex-col p-4">
       <h3 className="dashboard-header-box mb-4 border-b pb-4">{title}</h3>
@@ -25,7 +41,7 @@ function DashboardTable({
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {currentData.map((item) => (
               <tr
                 key={item._id}
                 className={`border text-center ${borderColor} text-sm`}
@@ -36,14 +52,16 @@ function DashboardTable({
           </tbody>
         </table>
       </div>
+
       <div className="mt-auto flex justify-center space-x-2">
-        {[1, 2].map((p) => (
+        {pages.map((p) => (
           <button
             key={p}
-            className={`px-3 py-1 rounded border ${borderColor} ${bgColor} hover:${bgColor.replace(
-              "100",
-              "300"
-            )} transition`}
+            onClick={() => setCurrentPage(p)}
+            className={`px-3 py-1 rounded border cursor-pointer ${borderColor} === currentPage ? bgColor.replace("100", "500") : bgColor
+            } ${p === currentPage ? bgColor.replace("100", "500") : bgColor} ${
+              p === currentPage ? textColor.replace("800", "100") : textColor
+            } ${borderColor} transition`}
           >
             {p}
           </button>

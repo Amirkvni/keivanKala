@@ -94,8 +94,11 @@ export default async function DashboardStatsCards() {
   });
   const todayIncome = todayAgg[0]?.totalPaid || 0;
   const yesterdayIncome = yesterdayAgg[0]?.totalPaid || 0;
+
   let incomeGrowthPercent = 0;
+
   let orderGrowthCount = todayOrderCount - yesterdayOrderCount;
+
   let userGrowthCount = todayUserCount - yesterdayUserCount;
   let ticketGrowthCount = todayTicketCount - yesterdayTicketCount;
   if (yesterdayIncome > 0) {
@@ -113,9 +116,7 @@ export default async function DashboardStatsCards() {
       <DashboardStatCard
         title="درآمد امروز"
         value={`${todayIncome.toLocaleString() || 0} تومان `}
-        percentage={`${incomeGrowthPercent}%${
-          incomeGrowthPercent >= 0 ? "+" : "-"
-        } `}
+        percentage={`${Math.trunc(incomeGrowthPercent)}% `}
         percentColor={`${
           incomeGrowthPercent > 0
             ? "text-green-500"
@@ -130,7 +131,7 @@ export default async function DashboardStatsCards() {
       <DashboardStatCard
         title="سفارشات امروز"
         value={`${todayOrderCount.toLocaleString() || 0} تا `}
-        percentage={`${orderGrowthCount}${orderGrowthCount >= 0 ? "+" : "-"} `}
+        percentage={`${orderGrowthCount} `}
         percentColor={`${
           orderGrowthCount > 0
             ? "text-green-500"

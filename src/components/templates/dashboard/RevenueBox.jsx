@@ -5,7 +5,7 @@ import FilterButtons from "./FilterButtons";
 import RevenueChart from "./RevenueChart";
 import StatGrid from "./StatGrid";
 
-function RevenueBox() {
+function RevenueBox({ incomes, monthData, weekData }) {
   const [revenueFilter, setRevenueFilter] = useState("۱ سال");
 
   return (
@@ -17,9 +17,13 @@ function RevenueBox() {
           onFilterChange={setRevenueFilter}
         />
       </div>
-      <StatGrid />
+      <StatGrid incomes={incomes} />
       <div className="w-full h-64" dir="ltr">
-        <RevenueChart filter={revenueFilter} />
+        <RevenueChart
+          filter={revenueFilter}
+          monthData={monthData}
+          weekData={weekData}
+        />
       </div>
     </div>
   );
