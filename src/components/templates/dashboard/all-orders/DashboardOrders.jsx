@@ -32,16 +32,6 @@ function DashboardOrders({ allOredrs }) {
         (orderFilter === "delivered" && order.status === "delivered") ||
         (orderFilter === "canceled" && order.status === "canceled") ||
         (orderFilter === "returned" && order.status === "returned");
-      // const matchesamountPaid =
-      //   amountPaidFilter === "-1" ||
-      //   (amountPaidFilter === "highestpaid" && "") ||
-      //   (amountPaidFilter === "lowestpaid" && "");
-
-      // const matchesDiscount =
-      //   matchesDiscount === "-1" ||
-      //   (matchesDiscount === "new" && ticket.status === "new") ||
-      //   (matchesDiscount === "answered" && ticket.status === "answered") ||
-      //   (matchesDiscount === "closed" && ticket.status === "closed");
 
       return matchesSearch && matchesOrderStatus;
     });
@@ -181,7 +171,7 @@ function DashboardOrders({ allOredrs }) {
                           : ""
                       }
                     >
-                      {order.status === "pending" && "در انتظار بررسی"}
+                      {order.status === "pending" && "جاری"}
                       {order.status === "preparing" && "در حال آماده‌سازی"}
                       {order.status === "readytoship" && "آماده برای ارسال"}
                       {order.status === "shipped" && "ارسال شده"}

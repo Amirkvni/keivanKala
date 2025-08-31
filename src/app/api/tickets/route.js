@@ -1,7 +1,7 @@
 import connectToDB from "@/configs/db";
 import TicketModel from "@/models/Ticket";
 import { authUser } from "@/utils/serverHelpers";
-
+import UserModel from "@/models/User";
 export async function POST(req) {
   try {
     connectToDB();
@@ -23,10 +23,24 @@ export async function POST(req) {
     }
 
     await TicketModel.create(newTicketData);
+
     if (mainTicket) {
+      const main = await TicketModel.findById(mainTicket).populate(
+        "user",
+        "_id"
+      );
+
+      const currentUser = await UserModel.findById(user._id).populate(
+        "role",
+        "name"
+      );
+
+      const isAdminReply = currentUser.role?.name !== "USER";
+      const newStatus = isAdminReply ? "answered" : "new";
+
       await TicketModel.findByIdAndUpdate(mainTicket, {
-        status: "answered",
-        isAnswer: true,
+        status: newStatus,
+        isAnswer: isAdminReply,
       });
     }
 

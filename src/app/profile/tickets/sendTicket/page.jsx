@@ -31,7 +31,6 @@ export default function page() {
     const getDepartments = async () => {
       const res = await fetch("/api/departments");
       const data = await res.json();
-      console.log(data.departments);
 
       setDepartments([...data.departments]);
     };
@@ -50,7 +49,6 @@ export default function page() {
     getSubDepartments();
   }, [departmentID]);
   const sendTicket = async () => {
-    //validation
     const ticket = {
       title,
       body,

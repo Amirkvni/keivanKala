@@ -24,7 +24,7 @@ const Ticket = ({ _id, title, createdAt, department, status }) => {
             ? "بسته شده"
             : status === "answered"
             ? "پاسخ داده شده"
-            : "درحال بررسی"}
+            : "جدید"}
         </p>
       </div>
     </Link>

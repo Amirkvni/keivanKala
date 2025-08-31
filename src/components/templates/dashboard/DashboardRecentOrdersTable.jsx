@@ -13,10 +13,11 @@ export default async function DashboardRecentOrdersTable() {
         .populate("products", "mainImage")
         .populate("payment", "status paid")
         .sort({ orderDate: -1 })
-        .limit(2)
+        .limit(5)
         .lean()
     )
   );
+
   return (
     <div className="bg-white p-4 rounded-lg dashboard-box-shadow">
       <h3 className="dashboard-header-box">سفارشات اخیر</h3>
@@ -37,10 +38,12 @@ export default async function DashboardRecentOrdersTable() {
           <tbody className="text-sm">
             {recentOrders.map((item) => (
               <tr key={item._id} className="border-t border-t-gray-300">
-                <td className="p-3">425253# </td>
+                <td className="p-3" dir="ltr">
+                  {item._id.slice(0, 6)}#
+                </td>
                 <td className="p-3">
                   <div className="flex justify-center gap-1">
-                    {item.products.map((product) => (
+                    {item.products.slice(0, 4).map((product) => (
                       <div
                         className="w-12 h-12 overflow-hidden rounded-md "
                         key={product._id}
@@ -54,6 +57,11 @@ export default async function DashboardRecentOrdersTable() {
                         />
                       </div>
                     ))}
+                    {item.products.length > 4 && (
+                      <div className="w-12 h-12 flex justify-center items-center ">
+                        ...
+                      </div>
+                    )}
                   </div>
                 </td>
                 <td className="p-3">
@@ -62,10 +70,22 @@ export default async function DashboardRecentOrdersTable() {
                 <td className="p-3">
                   {new Date(item.orderDate).toLocaleString("fa-IR")}
                 </td>
-                <td className="p-3 text-green-600">{item.status}</td>
+                <td className="p-3">
+                  {item.status === "pending"
+                    ? "جاری"
+                    : item.status === "delivered"
+                    ? "تحویل شده"
+                    : item.status === "returned"
+                    ? "مرجوع شده"
+                    : item.status === "canceled"
+                    ? "لغو شده"
+                    : item.status}
+                </td>
                 <td className="p-3 text-emerald-500 ">
                   <span className="bg-green-100 p-1 rounded-lg text-green-600">
-                    {item.payment.status}
+                    {item.payment.status === "paid"
+                      ? "پرداخت شده"
+                      : "پرداخت نشده"}
                   </span>
                 </td>
                 <td className="p-3 font-semibold">
