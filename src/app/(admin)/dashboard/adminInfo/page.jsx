@@ -28,7 +28,7 @@ export default async function page() {
           phone={user.phone}
           nationalcode={user.nationalcode}
           birthday={`${user.birthday.year}/${user.birthday.month}/${user.birthday.day}`}
-          role={user.role}
+          role={user.role.name}
           education={user.education}
           experiences={JSON.parse(JSON.stringify(user.experiences))}
           fullAddress={userAddress.fullAddress}

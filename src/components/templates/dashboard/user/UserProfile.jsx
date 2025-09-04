@@ -4,7 +4,7 @@ import { FaStreetView } from "react-icons/fa";
 import { MdPayment } from "react-icons/md";
 import UserBilling from "./UserBilling";
 import UserActivities from "./UserActivities";
-function UserProfile() {
+function UserProfile({ userPurchases, userAddresses }) {
   const [status, setStatus] = useState("invoice");
   return (
     <div className="flex-1  flex flex-col gap-y-6 bg-white p-5 rounded-xl dashboard-box-shadow">
@@ -26,7 +26,14 @@ function UserProfile() {
           فعالیت ها <FaStreetView />
         </button>
       </div>
-      {status === "invoice" ? <UserBilling /> : <UserActivities />}
+      {status === "invoice" ? (
+        <UserBilling
+          userPurchases={userPurchases}
+          userAddresses={userAddresses}
+        />
+      ) : (
+        <UserActivities />
+      )}
     </div>
   );
 }

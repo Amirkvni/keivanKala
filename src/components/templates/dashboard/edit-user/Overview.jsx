@@ -5,7 +5,7 @@ function Overview({ setMainUser, mainUser }) {
     <div className="bg-white rounded-lg dashboard-box-shadow flex flex-col gap-y-6 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-2  [&>div>input]:p-2 [&>div>input]:rounded-sm [&>div>input]:outline-none ">
       <span className="font-extrabold text-lg">نمای کلی</span>
       <div className="mt-4">
-        <label htmlFor="">نام :</label>
+        <label>نام :</label>
         <input
           type="text"
           className="edit-profile-input"
@@ -15,8 +15,8 @@ function Overview({ setMainUser, mainUser }) {
           }
         />
       </div>
-      <div className="">
-        <label htmlFor="">نام خانوادگی :</label>
+      <div>
+        <label>نام خانوادگی :</label>
         <input
           type="text"
           className="edit-profile-input"
@@ -26,8 +26,8 @@ function Overview({ setMainUser, mainUser }) {
           }
         />
       </div>
-      <div className="">
-        <label htmlFor="">ایمیل :</label>
+      <div>
+        <label>ایمیل :</label>
         <input
           type="text"
           className="edit-profile-input"
@@ -35,8 +35,8 @@ function Overview({ setMainUser, mainUser }) {
           onChange={(e) => setMainUser({ ...mainUser, email: e.target.value })}
         />
       </div>
-      <div className="">
-        <label htmlFor="">شماره تلفن :</label>
+      <div>
+        <label>شماره تلفن :</label>
         <input
           type="text"
           className="edit-profile-input"
@@ -44,12 +44,12 @@ function Overview({ setMainUser, mainUser }) {
           onChange={(e) => setMainUser({ ...mainUser, phone: e.target.value })}
         />
       </div>
-      <div className="">
-        <label htmlFor=""> کدملی :</label>
+      <div>
+        <label> کدملی :</label>
         <input
           type="text"
           className="edit-profile-input"
-          value={mainUser?.nationalcode}
+          value={mainUser?.nationalcode ? mainUser.nationalcode : ""}
           onChange={(e) =>
             setMainUser({ ...mainUser, nationalcode: e.target.value })
           }

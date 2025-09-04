@@ -58,6 +58,7 @@ function UsersTable({ allUsers, selected, setSelected }) {
       }
     });
   };
+
   return (
     <>
       <div className="my-6 flex flex-wrap items-center gap-4 md:gap-6 lg:gap-8">
@@ -122,7 +123,19 @@ function UsersTable({ allUsers, selected, setSelected }) {
                     ? `${user.birthday.day} / ${user.birthday.month} / ${user.birthday.year}`
                     : "وارد نشده"}
                 </td>
-                <td>{user.role === "ADMIN" ? "ادمین" : "کاربرعادی"}</td>{" "}
+                <td>
+                  {user.role.name === "ADMIN"
+                    ? "ادمین"
+                    : user.role.name === "SUPERADMIN"
+                    ? "سوپرادمین"
+                    : user.role.name === "AUTHOR"
+                    ? "نویسنده"
+                    : user.role.name === "USER"
+                    ? "کاربرمعمولی"
+                    : user.role.name === "SUPPORTER"
+                    ? "پشتیبان"
+                    : user.role.name}
+                </td>
                 <td>
                   <span
                     className={` px-2 py-1 text-xs rounded-sm ${
