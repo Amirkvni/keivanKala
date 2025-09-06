@@ -5,11 +5,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import Link from "next/link";
 import Paginations from "@/components/templates/dashboard/Paginations";
-import { useRouter } from "next/navigation";
 function DashboardOrders({ allOredrs }) {
-  console.log(allOredrs);
-
-  const router = useRouter();
   const [search, setSearch] = useState("");
   const [paidFilter, setPaidFilter] = useState("-1");
   const [discountFilter, setDiscountFilter] = useState("-1");
@@ -40,7 +36,7 @@ function DashboardOrders({ allOredrs }) {
     <div className="p-12">
       <div className="bg-white p-3 rounded-lg dashboard-box-shadow">
         <div className="flex justify-between items-center">
-          <span onClick="text-xl font-bold">تاریخچه سفارشات</span>
+          <span className="text-xl font-bold">تاریخچه سفارشات</span>
           <div className="flex items-center gap-x-5">
             <button className="p-2 rounded-sm text-white bg-green-400 cursor-pointer">
               افزودن سفارش
@@ -109,7 +105,7 @@ function DashboardOrders({ allOredrs }) {
                 <th className="p-3">
                   <input type="checkbox" />
                 </th>
-                <th className="p-3">#کد سفارش</th>
+                <th className="p-3">کد سفارش</th>
                 <th className="p-3">تصویر محصول</th>
                 <th className="p-3">مشتری</th>
                 <th className="p-3">تاریخ سفارش</th>
@@ -127,10 +123,12 @@ function DashboardOrders({ allOredrs }) {
                   <td className="p-3">
                     <input type="checkbox" />
                   </td>
-                  <td className="p-3">{order._id.slice(-5)}</td>
+                  <td className="p-3" dir="ltr">
+                    {order._id.slice(-5)}#
+                  </td>
                   <td className="p-3">
                     <div className="flex justify-center gap-1">
-                      {order.products.map((product) => (
+                      {order.products.slice(0, 3).map((product) => (
                         <div
                           className="w-12 h-12 overflow-hidden rounded-md "
                           key={product._id}
@@ -144,6 +142,11 @@ function DashboardOrders({ allOredrs }) {
                           />
                         </div>
                       ))}
+                      {order.products.length > 3 && (
+                        <div className="text-gray-500 w-12 h-12 flex justify-center items-center ">
+                          ...
+                        </div>
+                      )}
                     </div>
                   </td>
                   <td className="p-3">{order.user.email}</td>
@@ -153,23 +156,23 @@ function DashboardOrders({ allOredrs }) {
                   <td className="p-3">1403/04/06</td>
                   <td className="p-3">
                     <span
-                      className={
+                      className={`font-semibold text-xs  rounded-lg w-fit py-1 px-2 ${
                         order.status === "pending"
-                          ? "bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full"
+                          ? "bg-yellow-100 text-yellow-600"
                           : order.status === "preparing"
-                          ? "bg-blue-100 text-blue-800 px-2 py-1 rounded-full"
+                          ? "bg-blue-100 text-blue-600"
                           : order.status === "readytoship"
-                          ? "bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full"
+                          ? "bg-indigo-100 text-indigo-600"
                           : order.status === "shipped"
-                          ? "bg-orange-100 text-orange-800 px-2 py-1 rounded-full"
+                          ? "bg-orange-100 text-orange-600"
                           : order.status === "delivered"
-                          ? "bg-green-100 text-green-800 px-2 py-1 rounded-full"
+                          ? "bg-green-100 text-green-600"
                           : order.status === "canceled"
-                          ? "bg-red-100 text-red-800 px-2 py-1 rounded-full"
+                          ? "bg-red-100 text-red-600"
                           : order.status === "returned"
-                          ? "bg-purple-100 text-purple-800 px-2 py-1 rounded-full"
+                          ? "bg-purple-100 text-purple-600"
                           : ""
-                      }
+                      }`}
                     >
                       {order.status === "pending" && "جاری"}
                       {order.status === "preparing" && "در حال آماده‌سازی"}
@@ -188,10 +191,10 @@ function DashboardOrders({ allOredrs }) {
                       <FaRegEdit className="cursor-pointer hover:text-blue-600" />
                       <MdDeleteOutline className="cursor-pointer hover:text-red-600" />
                       <Link
-                        href="/dashboard/all-orders/123"
+                        href={`/dashboard/all-orders/${order._id}`}
                         className="cursor-pointer hover:text-green-800"
                       >
-                        <MdOutlineRemoveRedEye />
+                        <MdOutlineRemoveRedEye className="text-xl" />
                       </Link>
                     </div>
                   </td>
