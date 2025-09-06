@@ -2,7 +2,18 @@ import Link from "next/link";
 
 const Ticket = ({ _id, title, createdAt, department, status }) => {
   return (
-    <Link href={`/profile/tickets/answer/${_id}`}>
+    <Link
+      className={`border ${
+        status === "closed"
+          ? "border-red-500"
+          : status === "answered"
+          ? "border-blue-500"
+          : status === "new"
+          ? "border-green-500"
+          : ""
+      }`}
+      href={`/profile/tickets/answer/${_id}`}
+    >
       <div>
         <p>{title}</p>
         <p className="bg-gray-200 p-1.5 rounded-sm text-sm text-center dark:text-black">
@@ -14,17 +25,19 @@ const Ticket = ({ _id, title, createdAt, department, status }) => {
         <p
           className={`p-2 rounded-lg text-sm text-white ${
             status === "answered"
-              ? "bg-green-400"
+              ? "bg-blue-400"
               : status === "closed"
               ? "bg-red-900"
-              : "bg-blue-400"
+              : "bg-green-400"
           }`}
         >
           {status === "closed"
             ? "بسته شده"
             : status === "answered"
             ? "پاسخ داده شده"
-            : "جدید"}
+            : status === "new"
+            ? "جدید"
+            : status}
         </p>
       </div>
     </Link>

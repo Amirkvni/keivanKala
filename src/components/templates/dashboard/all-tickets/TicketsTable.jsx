@@ -136,7 +136,9 @@ function TicketsTable({ tickets }) {
             {filteredTickets.length > 0 ? (
               filteredTickets.map((ticket) => (
                 <tr key={ticket._id} className="border-t border-gray-300">
-                  <td className="p-3">{ticket._id.slice(0, 6)}# </td>
+                  <td className="p-3" dir="ltr">
+                    {ticket._id.slice(0, 6)}#
+                  </td>
 
                   <td className="p-3">{ticket.user.email}</td>
                   <td>{ticket.title}</td>

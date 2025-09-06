@@ -3,9 +3,8 @@ import TicketModel from "@/models/Ticket";
 export default async function Page({ params }) {
   const ticketID = params.id;
   const mainTicket = await TicketModel.findOne({ _id: ticketID })
-    .select("title subDepartment department priority user")
-    .populate("user", "firstname lastname ")
-    .lean();
+    .select("title subDepartment department status priority user")
+    .populate("user", "firstname lastname ");
 
   const allMessages = await TicketModel.find({
     $or: [{ _id: mainTicket._id }, { mainTicket: mainTicket._id }],
@@ -18,13 +17,13 @@ export default async function Page({ params }) {
         select: "name",
       },
     })
-    .sort({ createdAt: 1 })
-    .lean();
+    .sort({ createdAt: 1 });
 
   return (
     <TicketAnswer
       allMessages={JSON.parse(JSON.stringify(allMessages))}
       mainTicket={JSON.parse(JSON.stringify(mainTicket))}
+      ticketID={ticketID}
     />
   );
 }

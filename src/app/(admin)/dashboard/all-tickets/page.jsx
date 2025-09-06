@@ -8,7 +8,8 @@ async function Page() {
     .select("user department createdAt priority status title")
     .populate("department", "title -_id")
     .populate("user", "email -_id")
-    .populate("subDepartment", "title -_id");
+    .populate("subDepartment", "title -_id")
+    .sort({ createdAt: -1 });
   const ticketsCounts = await TicketModel.aggregate([
     { $match: { mainTicket: { $exists: false } } },
     {

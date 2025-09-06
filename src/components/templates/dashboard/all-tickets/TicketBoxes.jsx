@@ -20,7 +20,7 @@ function TicketBoxes({
         </div>
         <LuTicketPlus />
       </div>
-      <div className="bg-yellow-500 text-yellow-100   dashboard-box-shadow ">
+      <div className="bg-blue-500 text-yellow-100   dashboard-box-shadow ">
         <div>
           <p>{answeredTicketsCount}</p>
           <p>پاسخ داده شده</p>
@@ -34,7 +34,7 @@ function TicketBoxes({
         </div>
         <LuTicketX />
       </div>
-      <div className="bg-blue-500 text-blue-100  dashboard-box-shadow  ">
+      <div className="bg-yellow-500 text-blue-100  dashboard-box-shadow  ">
         <div>
           <p>{totalTicketsCount}</p>
           <p>مجموع تیکت ها</p>

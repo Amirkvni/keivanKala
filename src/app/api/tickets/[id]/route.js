@@ -28,7 +28,7 @@ export async function DELETE(request, { params }) {
   try {
     const { id } = params;
 
-     connectToDB();
+    connectToDB();
     const deletedTicket = await TicketModel.findByIdAndDelete(id);
 
     if (!deletedTicket) {
@@ -39,5 +39,30 @@ export async function DELETE(request, { params }) {
   } catch (err) {
     console.error(err);
     return Response.json({ message: "خطا در حذف تیکت" }, { status: 500 });
+  }
+}
+export async function PATCH(request, { params }) {
+  try {
+    const { id } = params;
+
+     connectToDB();
+
+    const ticket = await TicketModel.findById(id);
+    if (!ticket) {
+      return Response.json({ message: "Ticket not found" }, { status: 404 });
+    }
+
+    const newStatus = ticket.status === "closed" ? "answered" : "closed";
+
+    ticket.status = newStatus;
+    await ticket.save();
+
+    return Response.json(
+      { message: `Ticket status changed to ${newStatus}`, ticket },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error(error);
+    return Response.json({ message: "Server error" }, { status: 500 });
   }
 }

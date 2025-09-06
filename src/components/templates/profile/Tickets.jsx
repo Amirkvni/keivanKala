@@ -3,7 +3,6 @@ import React from "react";
 import Ticket from "./Ticket";
 import NoContent from "@/components/modules/noContent/NoContent";
 import { LuTicketX } from "react-icons/lu";
-import { FaArrowAltCircleRight } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa6";
 
 function Tickets({ tickets }) {
@@ -28,7 +27,7 @@ function Tickets({ tickets }) {
           ارسال تیکت
         </Link>
       </div>
-      <div className="flex flex-col gap-y-2 [&>a]:border  [&>a]:border-red-900 [&>a]:p-2 [&>a]:rounded-lg [&>a]:flex [&>a]:justify-between [&>a]:items-center [&>a>div]:flex [&>a>div]:flex-col [&>a>div]:gap-y-3">
+      <div className="flex flex-col gap-y-2  [&>a]:p-2 [&>a]:rounded-lg [&>a]:flex [&>a]:justify-between [&>a]:items-center [&>a>div]:flex [&>a>div]:flex-col [&>a>div]:gap-y-3">
         {tickets.map((ticket) => (
           <Ticket {...ticket} key={ticket._id} />
         ))}

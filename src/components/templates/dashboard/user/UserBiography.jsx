@@ -7,9 +7,9 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/fa";
 import Image from "next/image";
 import DeleteBtn from "./DeleteBtn";
+import GetSocialIconComponent from "../editAdmininfo/getSocialIconComponent";
 function UserBiography({ user }) {
   dayjs.extend(relativeTime);
-
   dayjs.locale("fa");
   return (
     <div className="w-[500px] h-[600px] flex flex-col  gap-y-4  bg-white p-3 rounded-lg  overflow-hidden dashboard-box-shadow">
@@ -62,18 +62,19 @@ function UserBiography({ user }) {
         </div>
         <div>
           <span>آخرین ورود</span>
-          <span>{<td>{dayjs(user.lastLogin).fromNow()}</td>}</span>
+          <span>{dayjs(user.lastLogin).fromNow()}</span>
         </div>
         <div>
           <span>سوشال مدیا</span>
           {user.socials.length === 0 ? (
             <div className="text-xs text-gray-500"> وارد نشده</div>
           ) : (
-            <div className="flex items-center gap-x-3 [&>div]:w-9 [&>div]:h-9 [&>div]:border [&>div]:border-gray-400 [&>div]:flex [&>div]:justify-center [&>div]:items-center  [&>div]:rounded-xl">
-              <div>1</div>
-              <div>2</div>
-              <div>3</div>
-              <div>4</div>
+            <div className="flex items-center gap-x-3 [&>a]:w-9 [&>a]:h-9 [&>a]:border [&>a]:rounded-full [&>a]:border-gray-400 [&>a]:flex [&>a]:justify-center [&>a]:items-center  [&>div]:rounded-xl">
+              {user.socials.map((social) => (
+                <Link href={social.url} key={social._id}>
+                  {GetSocialIconComponent(social.platform)}
+                </Link>
+              ))}
             </div>
           )}
         </div>

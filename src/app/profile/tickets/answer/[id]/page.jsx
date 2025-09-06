@@ -55,6 +55,11 @@ export default async function Page({ params }) {
           />
         ))}
       </div>
+      {mainTicket.status === "closed" && (
+        <div className="border border-red-500 text-red-500 p-3 rounded-lg text-center">
+          تیکت بسته شد !!
+        </div>
+      )}{" "}
       {allMessages.length === 1 && (
         <div className="p-2 text-center bg-red-400 rounded-sm text-white">
           هیچ پاسخی وجود ندارد
