@@ -69,7 +69,7 @@ function TicketAnswer({ allMessages, mainTicket, ticketID }) {
     <div className="p-8">
       <div className=" max-w-xl mx-auto">
         <h1 className="text-xl font-bold mb-4">موضوع : {mainTicket.title} </h1>
-        <div className=" rounded-lg p-4 mb-4 h-[700px] overflow-y-auto flex flex-col gap-2 bg-white">
+        <div className=" rounded-lg p-4  h-[700px] overflow-y-auto flex flex-col gap-2 bg-white">
           {messages.map((msg) => (
             <AnswerBox
               key={msg._id}
@@ -86,7 +86,7 @@ function TicketAnswer({ allMessages, mainTicket, ticketID }) {
           )}
           <div ref={messagesEndRef} />
         </div>
-        <div className="flex justify-between items-center bg-white rounded-lg px-3 py-1.5">
+        <div className="flex justify-between items-center bg-white rounded-lg mt-4 px-3 py-1.5">
           <div className="flex gap-x-2  w-full">
             {mainTicket.status === "closed" ? (
               <button className=" text-red-400 text-2xl px-1 py-2 rounded-lg hover:text-red-600 cursor-pointer">

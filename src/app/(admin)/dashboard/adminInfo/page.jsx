@@ -2,11 +2,16 @@ import AdminBiography from "@/components/templates/dashboard/adminInfo/AdminBiog
 import AdminProfile from "@/components/templates/dashboard/adminInfo/AdminProfile";
 import { authUser } from "@/utils/serverHelpers";
 import AddressModel from "@/models/Address";
+import BlogModel from "@/models/Blog";
 export default async function page() {
   const user = await authUser();
   const userAddress = await AddressModel.findOne(
     { userId: user._id },
     "province city fullAddress  -_id"
+  );
+  const userPosts = await BlogModel.find({ author: user._id }).populate(
+    "author",
+    "firstname lastname profileUrl"
   );
 
   return (
@@ -32,6 +37,7 @@ export default async function page() {
           education={user.education}
           experiences={JSON.parse(JSON.stringify(user.experiences))}
           fullAddress={userAddress.fullAddress}
+          userPosts={JSON.parse(JSON.stringify(userPosts))}
         />
       </div>
     </div>

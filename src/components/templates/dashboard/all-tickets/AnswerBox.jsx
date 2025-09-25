@@ -17,7 +17,19 @@ function AnswerBox({ type, message, user, createdAt }) {
         }`}
       >
         <div className="text-xs mb-1 font-semibold">
-          {user.firstname} {user.lastname} ({user.role.name})
+          {user.firstname} {user.lastname} (
+          {user.role.name === "ADMIN"
+            ? "ادمین"
+            : user.role.name === "SUPERADMIN"
+            ? "سوپر ادمین"
+            : user.role.name === "AUTHOR"
+            ? "نویسنده"
+            : user.role.name === "USER"
+            ? "کاربر معمولی"
+            : user.role.name === "SUPPORTER"
+            ? "پشتیبان"
+            : user.role.name}
+          )
         </div>
         <div>{message}</div>
         <div className="text-right text-xs mt-1 text-white">

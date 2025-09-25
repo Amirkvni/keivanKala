@@ -1,11 +1,12 @@
 import React from "react";
 
 import AdminPost from "./AdminPost";
-function AdminPosts() {
+function AdminPosts({ userPosts }) {
   return (
     <div className="p-3  flex flex-col gap-y-5  ">
-      <AdminPost />
-      <AdminPost />
+      {userPosts.map((post) => {
+        return <AdminPost key={post._id} {...post} />;
+      })}
     </div>
   );
 }

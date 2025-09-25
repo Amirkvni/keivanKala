@@ -1,18 +1,10 @@
 const mongoose = require("mongoose");
+require("./User");
 const schema = mongoose.Schema(
   {
     title: { type: String },
-    introduction: { type: String },
-    content: [
-      {
-        title: { type: String },
-        text: { type: String },
-        image: { type: String },
-      },
-    ],
-    author: {
-      type: String,
-    },
+    content: { type: String, required: true },
+    author: { type: mongoose.Types.ObjectId, ref: "User" },
     mainImage: {
       type: String,
     },

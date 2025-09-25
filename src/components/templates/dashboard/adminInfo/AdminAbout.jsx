@@ -77,7 +77,8 @@ function AdminAbout({
     },
     {
       id: 8,
-      desc: role === "ADMIN" && "مدیر اصلی",
+      desc:
+        role === "SUPERADMIN" ? "مدیر اصلی" : role === "ADMIN" ? "ادمین" : role,
     },
   ];
   return (

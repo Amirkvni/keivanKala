@@ -1,16 +1,19 @@
 "use client";
 import Link from "next/link";
 import React, { useMemo, useState } from "react";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { RiSendPlaneFill } from "react-icons/ri";
+import Paginations from "../Paginations";
 function TicketsTable({ tickets }) {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("-1");
   const [statusFilter, setStatusFilter] = useState("-1");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ticketsPerPage = 10;
+
   const deleteHandler = async (id) => {
     Swal.fire({
       title: "حذف تیکت",
@@ -85,10 +88,14 @@ function TicketsTable({ tickets }) {
       return matchesSearch && matchesPriority && matchesStatus;
     });
   }, [tickets, search, priorityFilter, statusFilter]);
+  const indexOfLast = currentPage * ticketsPerPage;
+  const indexOfFirst = indexOfLast - ticketsPerPage;
+  const currentTickets = filteredTickets.slice(indexOfFirst, indexOfLast);
 
+  const totalPages = Math.ceil(filteredTickets.length / ticketsPerPage);
   return (
     <div className="bg-white p-4 mt-5 dashboard-box-shadow ">
-      <div className="my-6 flex flex-wrap items-center gap-4 md:gap-6 lg:gap-8">
+      <div className="my-6 flex flex-wrap items-center gap-4 md:gap-6 lg:gap-8  [&>select]:py-2 [&>select]:rounded-lg [&>select]:border [&>select]:border-gray-300 [&>select]:bg-white [&>select]:focus:outline-none">
         <input
           type="text"
           placeholder="جستجو"
@@ -97,20 +104,14 @@ function TicketsTable({ tickets }) {
           className="px-4 py-2 w-40 md:w-52 lg:w-64 rounded-lg border border-gray-300 focus:outline-none "
         />
 
-        <select
-          className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none "
-          onChange={(e) => setPriorityFilter(e.target.value)}
-        >
+        <select onChange={(e) => setPriorityFilter(e.target.value)}>
           <option value="-1">الویت</option>
           <option value="3">بالا</option>
           <option value="2">متوسط</option>
           <option value="1">پایین</option>
         </select>
 
-        <select
-          className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none "
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
+        <select onChange={(e) => setStatusFilter(e.target.value)}>
           <option value="-1">وضعیت</option>
           <option value="answered">پاسخ داده شده</option>
           <option value="new">جدید</option>
@@ -120,21 +121,21 @@ function TicketsTable({ tickets }) {
       <div>
         <table className="w-full text-center border border-gray-200 rounded-xl overflow-hidden">
           <thead className="bg-gray-100">
-            <tr className="text-sm text-gray-700">
-              <th className="p-3">کد تیکت</th>
-              <th className="p-3">کاربر </th>
-              <th className="p-3">موضوع</th>
-              <th className="p-3">دپارتمان</th>
-              <th className="p-3">ساب دپارتمان</th>
-              <th className="p-3">تاریخ </th>
-              <th className="p-3">الویت</th>
-              <th className="p-3">وضعیت</th>
-              <th className="p-3">اقدام</th>
+            <tr className="text-sm text-gray-700 [&>th]:p-3">
+              <th>کد تیکت</th>
+              <th>کاربر </th>
+              <th>موضوع</th>
+              <th>دپارتمان</th>
+              <th>ساب دپارتمان</th>
+              <th>تاریخ </th>
+              <th>الویت</th>
+              <th>وضعیت</th>
+              <th>اقدام</th>
             </tr>
           </thead>
           <tbody className="text-sm">
-            {filteredTickets.length > 0 ? (
-              filteredTickets.map((ticket) => (
+            {currentTickets.length > 0 ? (
+              currentTickets.map((ticket) => (
                 <tr key={ticket._id} className="border-t border-gray-300">
                   <td className="p-3" dir="ltr">
                     {ticket._id.slice(0, 6)}#
@@ -207,11 +208,11 @@ function TicketsTable({ tickets }) {
           </tbody>
         </table>
       </div>
-      <div className="border rounded-sm border-gray-200 w-16 flex items-center justify-between p-1">
-        <FaAngleRight />
-        <span>1</span>
-        <FaAngleLeft />
-      </div>
+      <Paginations
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 }
