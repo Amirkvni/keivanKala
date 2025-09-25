@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import Paginations from "../Paginations";
 
 function CommentsTable({ allComments, selected, setSelected, setModalState }) {
   const router = useRouter();
@@ -11,6 +12,11 @@ function CommentsTable({ allComments, selected, setSelected, setModalState }) {
   const [ratingFilter, setRatingFilter] = useState("-1");
   const [sortFilter, setSortFilter] = useState("-1");
   const [statusFilter, setStatusFilter] = useState("-1");
+  const [currentPage, setCurrentPage] = useState(1);
+  const commentsPerPage = 5;
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, ratingFilter, sortFilter, statusFilter]);
   const filteredComments = useMemo(() => {
     let filtered = [...allComments];
 
@@ -48,6 +54,10 @@ function CommentsTable({ allComments, selected, setSelected, setModalState }) {
 
     return filtered;
   }, [searchQuery, ratingFilter, sortFilter, statusFilter, allComments]);
+  const indexOfLast = currentPage * commentsPerPage;
+  const indexOfFirst = indexOfLast - commentsPerPage;
+  const currentComments = filteredComments.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(filteredComments.length / commentsPerPage);
 
   const toggleSelectAll = (e) => {
     setSelected(e.target.checked ? allComments.map((c) => c._id) : []);
@@ -131,9 +141,16 @@ function CommentsTable({ allComments, selected, setSelected, setModalState }) {
         </select>
       </div>
 
-      {/* جدول */}
       <div>
         <table className="w-full text-center border border-gray-200 rounded-xl overflow-hidden">
+          {currentComments.length === 0 && (
+            <tr>
+              <td colSpan="9" className="py-6 text-gray-500">
+                هیچ کامنتی پیدا نشد
+              </td>
+            </tr>
+          )}
+
           <thead className="bg-gray-100">
             <tr className="text-sm text-gray-700">
               <th className="p-3">
@@ -157,7 +174,7 @@ function CommentsTable({ allComments, selected, setSelected, setModalState }) {
             </tr>
           </thead>
           <tbody className="text-sm">
-            {filteredComments.map((comment) => (
+            {currentComments.map((comment) => (
               <tr key={comment._id} className="border-t border-gray-300">
                 <td className="p-3">
                   <input
@@ -237,6 +254,11 @@ function CommentsTable({ allComments, selected, setSelected, setModalState }) {
           </tbody>
         </table>
       </div>
+      <Paginations
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+      />
     </>
   );
 }

@@ -27,7 +27,7 @@ function Paginations({ currentPage, totalPages, onPageChange }) {
           onClick={() => onPageChange(page)}
           className={`w-8 h-8 rounded-full transition ${
             page === currentPage
-              ? "bg-blue-500 text-white"
+              ? "bg-green-600 text-white"
               : "hover:bg-gray-100"
           }`}
         >

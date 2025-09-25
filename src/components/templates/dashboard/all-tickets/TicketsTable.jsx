@@ -94,7 +94,7 @@ function TicketsTable({ tickets }) {
 
   const totalPages = Math.ceil(filteredTickets.length / ticketsPerPage);
   return (
-    <div className="bg-white p-4 mt-5 dashboard-box-shadow ">
+    <div className="bg-white p-4 mt-5 dashboard-box-shadow rounded-lg ">
       <div className="my-6 flex flex-wrap items-center gap-4 md:gap-6 lg:gap-8  [&>select]:py-2 [&>select]:rounded-lg [&>select]:border [&>select]:border-gray-300 [&>select]:bg-white [&>select]:focus:outline-none">
         <input
           type="text"

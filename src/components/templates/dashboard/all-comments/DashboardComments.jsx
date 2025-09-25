@@ -1,10 +1,8 @@
 "use client";
-
 import React, { useState } from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import Swal from "sweetalert2";
-import Paginations from "@/components/templates/dashboard/Paginations";
 import CommentsTable from "./CommentsTable";
 import CommentFormModal from "./CommentFormModal";
 import { useRouter } from "next/navigation";
@@ -62,7 +60,6 @@ export default function DashboardComments({ allComments }) {
           setSelected={setSelected}
           setModalState={setModalState}
         />
-        <Paginations />
       </div>
       {selected.length > 0 && (
         <div className="sticky bottom-0 flex justify-between items-center bg-white p-4 mt-3">

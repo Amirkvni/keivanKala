@@ -94,8 +94,7 @@ export default function CommentFormModal({ mode, commentId, setModalState }) {
             <label className="flex gap-x-2 items-center w-16">
               <span className="text-sm text-gray-600">امتیاز</span>
               <select
-                name=""
-                id=""
+                disabled={isView}
                 value={score}
                 onChange={(e) => setScore(Number(e.target.value))}
               >
