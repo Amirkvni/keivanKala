@@ -6,7 +6,8 @@ async function Page() {
     .populate({
       path: "products",
       select: "mainImage",
-    });
+    })
+    .populate("payment", "discount paid status");
 
   return <DashboardOrders allOredrs={JSON.parse(JSON.stringify(allOredrs))} />;
 }
