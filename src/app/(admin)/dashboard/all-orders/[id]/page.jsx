@@ -7,14 +7,13 @@ async function Page({ params }) {
   const { id } = params;
   const order = await OrderModel.findOne({ _id: id })
     .populate("products")
-    .populate("payment", "discount paid")
-    .populate("user", "firstname lastname email phone");
+    .populate("payment", "discount paid products")
+    .populate("user", "firstname lastname email phone profileUrl");
   const userId = await UserModel.findOne({ _id: order.user._id }, "_id");
   const userAddress = await AddressModel.findOne(
     { userId: userId._id },
     "-userId -__v"
   );
-  console.log(order);
 
   return <OrderDetails order={order} userAddress={userAddress} />;
 }
