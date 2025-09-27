@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import productImg from "@/assets/ex.jpg";
 import OrderStatusSteps from "@/components/templates/dashboard/OrderStatusSteps";
 import Link from "next/link";
 import { MdOutlineEmail, MdOutlinePhoneEnabled } from "react-icons/md";
@@ -9,8 +8,6 @@ import { TfiCreditCard } from "react-icons/tfi";
 import { priceFormatter } from "@/utils/priceFormatter ";
 import { FaRegUser } from "react-icons/fa";
 function OrderDetails({ order, userAddress }) {
-  console.log(order);
-
   return (
     <div className="p-12">
       <div className="flex items-center justify-between">
@@ -44,9 +41,12 @@ function OrderDetails({ order, userAddress }) {
             })}
           </div>
         </div>
-        <button className="bg-green-400 p-2 rounded-lg cursor-pointer text-white">
+        <Link
+          className="bg-green-400 p-2 rounded-lg cursor-pointer text-white"
+          href={`/dashboard/edit-order/${order._id}`}
+        >
           ویرایش
-        </button>
+        </Link>
       </div>
 
       <div className="flex gap-x-2 ">

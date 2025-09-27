@@ -326,7 +326,12 @@ function DashboardOrders({ allOredrs }) {
                   </td>
                   <td className="p-3">
                     <div className="flex justify-center gap-2 text-gray-600 [&>svg]:text-xl">
-                      <FaRegEdit className="cursor-pointer hover:text-blue-600" />
+                      <Link
+                        className="cursor-pointer hover:text-blue-600"
+                        href={`/dashboard/edit-order/${order._id}`}
+                      >
+                        <FaRegEdit className="text-xl" />
+                      </Link>
                       <MdDeleteOutline
                         onClick={() => deleteCommentHandler(order._id)}
                         className="cursor-pointer hover:text-red-600"
