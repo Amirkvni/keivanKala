@@ -1,8 +1,9 @@
 "use client";
 import { priceFormatter } from "@/utils/priceFormatter ";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
+import { FaRegTrashCan } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 
 function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
@@ -10,10 +11,32 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
   const section2Ref = useRef(null);
   const section3Ref = useRef(null);
   const section4Ref = useRef(null);
+
+  const [isShowSearchResult, setIsShowSearchResult] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
   const [isShowAllProducts, setIsShowAllProducts] = useState(false);
   const [orderProductsList, setOrderProductsList] = useState(
     orderProducts.map((p) => ({ ...p, quantity: Number(p.quantity) }))
   );
+  const [customer, setCustomer] = useState({
+    _id: user._id,
+    firstname: user.firstname || "",
+    lastname: user.lastname || "",
+    phone: user.phone || "",
+    email: user.email || "",
+  });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [address, setAddress] = useState({
+    _id: userAddress._id,
+    province: userAddress.province || "",
+    city: userAddress.city || "",
+    district: userAddress.district || "",
+    plaque: userAddress.plaque || "",
+    unit: userAddress.unit || "",
+    postalCode: userAddress.postalCode || "",
+    fullAddress: userAddress.fullAddress || "",
+  });
   const scrollToSection = (ref) => {
     ref.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
@@ -38,6 +61,93 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
     const price = productData.secondPrice || productData.price;
     return sum + price * Number(product.quantity);
   }, 0);
+  const handleProductChange = (e, product) => {
+    const checked = e.target.checked;
+    if (checked) {
+      setOrderProductsList((prev) => [...prev, { ...product, quantity: 1 }]);
+    } else {
+      setOrderProductsList((prev) => prev.filter((p) => p._id !== product._id));
+    }
+    console.log(product);
+  };
+  const handleCustomerChange = (e) => {
+    const { name, value } = e.target;
+    setCustomer((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleAddressChange = (e) => {
+    const { name, value } = e.target;
+    setAddress((prev) => ({ ...prev, [name]: value }));
+  };
+  const updateOrderHandler = async () => {
+    const customerChangedFields = Object.keys(customer).reduce((acc, key) => {
+      const value = customer[key];
+      if (value !== user[key] && value.trim() !== "") {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+    if (Object.keys(customerChangedFields).length > 0) {
+      // await fetch("/api/updateUser", {
+      //   method: "PATCH",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(userChangedFields),
+      // });
+    } else {
+      console.log("هیچ تغییر معتبر وجود ندارد.");
+    }
+
+    const addressChangedFields = Object.keys(address).reduce((acc, key) => {
+      const value = address[key];
+      if (value !== userAddress[key] && value.trim() !== "") {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+    if (Object.keys(addressChangedFields).length > 0) {
+      // await fetch("/api/updateUser", {
+      //   method: "PATCH",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(userChangedFields),
+      // });
+      console.log(addressChangedFields);
+    } else {
+      console.log("هیچ تغییر معتبر وجود ندارد.");
+    }
+  };
+
+  const searchHandler = (e) => {
+    setSearchQuery(e.target.value);
+  };
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredProducts([]);
+      setIsShowSearchResult(false);
+      return;
+    }
+
+    const filtered = allProducts.filter((product) =>
+      product.persianName.includes(searchQuery)
+    );
+
+    setFilteredProducts(filtered);
+    setIsShowSearchResult(filtered.length > 0);
+  }, [searchQuery, allProducts]);
+  const addProduct = (product) => {
+    setOrderProductsList((prev) => {
+      const existingProduct = prev.find((p) => p._id === product._id);
+      if (existingProduct) {
+        return prev.map((p) =>
+          p._id === product._id ? { ...p, quantity: p.quantity + 1 } : p
+        );
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
+    setIsShowSearchResult(false);
+    setSearchQuery("");
+  };
+  const deleteFromOrderHandler = (id) => {
+    setOrderProductsList((prev) => prev.filter((p) => p._id !== id));
+  };
 
   return (
     <div className="p-12 ">
@@ -83,6 +193,9 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
                 <input
                   type="text"
                   className="w-full p-3 rounded-lg outline-green-500 bg-gray-100"
+                  placeholder="جستجو کنید ..."
+                  value={searchQuery}
+                  onChange={(e) => searchHandler(e)}
                 />
                 <CiSearch className="absolute left-1 top-4" />
               </div>
@@ -93,13 +206,14 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
                 مشاهده محصولات
               </button>
             </div>
-            <div className="p-4">
+            <div className="p-4 relative">
               <table className="w-full border border-gray-200 rounded-md overflow-hidden text-sm text-right">
                 <thead className="bg-gray-100 font-semibold text-gray-600">
                   <tr>
                     <th className="p-3 text-right">محصول</th>
                     <th className="p-3 text-right">قیمت</th>
                     <th className="p-3 text-right">تعداد</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
@@ -111,6 +225,7 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
                             <Image
                               width={42}
                               height={42}
+                              alt={`product-${String(product._id).slice(-8)}`}
                               src={
                                 allProducts.find(
                                   (p) => p.persianName == product.persianName
@@ -155,10 +270,44 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
                           </span>
                         </div>
                       </td>
+                      <td
+                        className="text-lg cursor-pointer hover:text-red-500"
+                        onClick={() => deleteFromOrderHandler(product._id)}
+                      >
+                        <FaRegTrashCan />
+                      </td>
                     </tr>
                   ))}
+                  {orderProductsList.length === 0 && (
+                    <tr>
+                      <td colSpan={4} className="text-center p-3">
+                        محصولی انتخاب نشده است!
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
+              {isShowSearchResult && (
+                <div className="absolute bg-white top-0 right-0 w-10/12 max-h-96 overflow-y-auto rounded-lg p-3 shadow-2xl flex flex-col gap-y-2 ">
+                  {filteredProducts.map((product) => (
+                    <div
+                      className="flex gap-x-2 items-center cursor-pointer "
+                      key={product._id}
+                      onClick={() => addProduct(product)}
+                    >
+                      <div className="w-12 h-12 rounded-md flex items-center justify-center">
+                        <Image
+                          width={42}
+                          height={42}
+                          src={product.mainImage}
+                          alt={`product-${String(product._id).slice(-8)}`}
+                        />
+                      </div>
+                      <span className="text-xs">{product.persianName}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <div className="text-end">مجموع: {priceFormatter(totalPrice)}</div>
           </div>
@@ -167,11 +316,21 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
             <div className="flex gap-x-3 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-2 w-full [&>div]:w-1/2 [&>div>span]:text-xs [&>div>input]:bg-gray-100 p-3 [&>div>input]:p-3 [&>div>input]:outline-green-500">
               <div>
                 <span>نام</span>
-                <input type="text" defaultValue={user.firstname} />
+                <input
+                  type="text"
+                  name="firstname"
+                  value={customer.firstname}
+                  onChange={handleCustomerChange}
+                />
               </div>
               <div>
                 <span>نام خانوادگی</span>
-                <input type="text" defaultValue={user.lastname} />
+                <input
+                  type="text"
+                  name="lastname"
+                  value={customer.lastname}
+                  onChange={handleCustomerChange}
+                />
               </div>
             </div>
             <div className="flex flex-col gap-y-2">
@@ -179,7 +338,9 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
               <input
                 type="text"
                 className="bg-gray-100 p-3 outline-green-500"
-                defaultValue={user.email}
+                name="email"
+                value={customer.email}
+                onChange={handleCustomerChange}
               />
             </div>
             <div className="flex flex-col gap-y-2">
@@ -187,7 +348,9 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
               <input
                 type="text"
                 className="bg-gray-100 p-3 outline-green-500"
-                defaultValue={user.phone}
+                name="phone"
+                value={customer.phone}
+                onChange={handleCustomerChange}
               />
             </div>
           </div>
@@ -196,41 +359,71 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
             <div className="flex gap-x-3 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-2 w-full [&>div]:w-1/2 [&>div>span]:text-xs [&>div>input]:bg-gray-100 p-3 [&>div>input]:p-3 [&>div>input]:outline-green-500">
               <div>
                 <span>استان</span>
-                <input type="text" defaultValue={userAddress?.province} />
+                <input
+                  type="text"
+                  name="province"
+                  value={address.province}
+                  onChange={handleAddressChange}
+                />
               </div>
               <div>
                 <span>شهر</span>
-                <input type="text" defaultValue={userAddress?.city} />
+                <input
+                  type="text"
+                  value={address.city}
+                  name="city"
+                  onChange={handleAddressChange}
+                />
               </div>
             </div>
             <div className="flex gap-x-3 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-2 w-full [&>div]:w-1/2 [&>div>span]:text-xs [&>div>input]:bg-gray-100 p-3 [&>div>input]:p-3 [&>div>input]:outline-green-500">
               <div>
                 <span>کوچه/ فرعی</span>
-                <input type="text" defaultValue={userAddress?.district} />
+                <input
+                  type="text"
+                  value={address.district}
+                  name="district"
+                  onChange={handleAddressChange}
+                />
               </div>
               <div>
                 <span>پلاک</span>
-                <input type="text" defaultValue={userAddress?.plaque} />
+                <input
+                  type="text"
+                  value={address.plaque}
+                  name="plaque"
+                  onChange={handleAddressChange}
+                />
               </div>
             </div>
             <div className="flex gap-x-3 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-2 w-full [&>div]:w-1/2 [&>div>span]:text-xs [&>div>input]:bg-gray-100 p-3 [&>div>input]:p-3 [&>div>input]:outline-green-500">
               <div>
                 <span>واحد</span>
-                <input type="text" defaultValue={userAddress?.unit} />
+                <input
+                  type="text"
+                  value={address.unit}
+                  name="unit"
+                  onChange={handleAddressChange}
+                />
               </div>
               <div>
                 <span>کدپستی</span>
-                <input type="text" defaultValue={userAddress?.postalCode} />
+                <input
+                  type="text"
+                  value={address.postalCode}
+                  name="postalCode"
+                  onChange={handleAddressChange}
+                />
               </div>
             </div>
             <div className="flex flex-col gap-y-2">
-              <span className="text-xs" defaultValue={userAddress?.fullAddress}>
-                آدرس کامل
-              </span>
+              <span className="text-xs">آدرس کامل</span>
               <textarea
                 rows={9}
                 className="outline-green-500 rounded-lg bg-gray-100 resize-none p-2"
-                defaultValue={userAddress.fullAddress}
+                value={address.fullAddress}
+                name="fullAddress"
+                onChange={handleAddressChange}
               />
             </div>
           </div>
@@ -240,9 +433,9 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
             <div className="flex flex-col gap-y-2">
               <span className="text-xs">روش پرداخت </span>
               <select className="bg-gray-100 p-3 rounded-lg outline-green-500 ">
-                <option value="">بانک تجارت</option>
-                <option value="">بانک سامان</option>
-                <option value="">پی پال</option>
+                <option value="-1">بانک تجارت</option>
+                <option value="-1">بانک سامان</option>
+                <option value="-1">پی پال</option>
               </select>
             </div>
             <div className="flex flex-col gap-y-2">
@@ -258,7 +451,12 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
       <div className="bg-white mt-6 py-6 px-4 flex justify-end rounded-lg dashboard-box-shadow ">
         <div className="flex gap-x-4 items-center [&>button]:px-5  [&>button]:py-3 [&>button]:rounded-lg [&>button]:text-xs [&>button]:font-bold [&>button]:cursor-pointer">
           <button className=" border-red-600 border-2 text-red-600">حذف</button>
-          <button className="bg-blue-500 text-white ">بروزرسانی</button>
+          <button
+            className="bg-blue-500 text-white "
+            onClick={updateOrderHandler}
+          >
+            بروزرسانی
+          </button>
         </div>
       </div>
       {isShowAllProducts && (
@@ -277,13 +475,20 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
             <div className="h-400  overflow-y-scroll flex flex-col gap-y-3 text-xs">
               {allProducts.map((product) => (
                 <div className="flex gap-x-4 items-center " key={product._id}>
-                  <input type="checkbox" className="w-4 h-4" />
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4"
+                    onChange={(e) => handleProductChange(e, product)}
+                    checked={orderProductsList.some(
+                      (p) => p._id === product._id
+                    )}
+                  />
                   <div className="flex justify-between w-full items-center">
                     <div className="flex gap-x-2">
                       <Image
                         width={70}
                         height={70}
-                        alt={product._id}
+                        alt={`product-${String(product._id).slice(-8)}`}
                         src={product.mainImage}
                         className="w-12 h-12 rounded-full"
                       />

@@ -15,7 +15,6 @@ export default async function Page({ params }) {
   const userAddress = await AddressModel.findOne({
     userId: orderProducts.user._id,
   });
-  console.log(userAddress);
 
   return (
     <EditOrderPage
