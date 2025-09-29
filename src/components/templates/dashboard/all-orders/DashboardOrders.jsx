@@ -6,7 +6,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import Link from "next/link";
 import Paginations from "@/components/templates/dashboard/Paginations";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import Swal from "sweetalert2";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 function DashboardOrders({ allOredrs }) {

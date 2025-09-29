@@ -5,7 +5,7 @@ import Link from "next/link";
 import { MdOutlineEmail, MdOutlinePhoneEnabled } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 import { TfiCreditCard } from "react-icons/tfi";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import { FaRegUser } from "react-icons/fa";
 function OrderDetails({ order, userAddress }) {
   return (

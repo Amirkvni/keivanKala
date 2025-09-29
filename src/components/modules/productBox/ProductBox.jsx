@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MdOutlineStar } from "react-icons/md";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import { slugify } from "@/utils/slugify";
 
 export default function ProductBox({ product }) {

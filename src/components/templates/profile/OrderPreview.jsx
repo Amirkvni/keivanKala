@@ -8,7 +8,7 @@ import { MdOutlineCancel } from "react-icons/md";
 import { RiFilePaperLine } from "react-icons/ri";
 import { TbTruckReturn } from "react-icons/tb";
 import { slugify } from "@/utils/slugify";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
 function OrderPreview({ orderDate, status, products, _id, payment }) {

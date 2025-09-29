@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa6";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import Link from "next/link";
 export default function ProductsTable({ selected, setSelected, allProducts }) {
   const [products] = useState(allProducts);

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { FaRegTrashCan } from "react-icons/fa6";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 export default function ProfileProductCard({

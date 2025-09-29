@@ -3,7 +3,7 @@ import React from "react";
 import { LuEye } from "react-icons/lu";
 import DashboardTable from "./DashboardTable";
 import Image from "next/image";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import Link from "next/link";
 function DashboardTablesClient({
   recentUsers,

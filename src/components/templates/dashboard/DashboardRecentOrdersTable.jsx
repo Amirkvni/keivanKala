@@ -4,7 +4,7 @@ import React from "react";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
 import OrdersModel from "@/models/Order";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 export default async function DashboardRecentOrdersTable() {
   const recentOrders = JSON.parse(
     JSON.stringify(

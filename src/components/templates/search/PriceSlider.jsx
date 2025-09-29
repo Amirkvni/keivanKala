@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { RangeSlider } from "next-range-slider";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 
 function PriceSlider() {
   const searchParams = useSearchParams();

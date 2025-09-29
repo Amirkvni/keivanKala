@@ -1,4 +1,4 @@
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import Image from "next/image";
 import React from "react";
 import { MdDeleteOutline } from "react-icons/md";

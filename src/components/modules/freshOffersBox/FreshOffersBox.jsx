@@ -1,5 +1,5 @@
 "use client";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import { slugify } from "@/utils/slugify";
 import Image from "next/image";
 import Link from "next/link";

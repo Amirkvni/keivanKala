@@ -5,7 +5,7 @@ import { LuShieldCheck } from "react-icons/lu";
 import moment from "moment-jalaali";
 import Link from "next/link";
 import { slugify } from "@/utils/slugify";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 export default function OrderDetail({ order, address }) {
   console.log(order);

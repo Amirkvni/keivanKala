@@ -1,4 +1,4 @@
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import React from "react";
 
 function StatGrid({ incomes }) {

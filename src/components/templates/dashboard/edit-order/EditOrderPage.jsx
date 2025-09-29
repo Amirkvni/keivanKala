@@ -1,5 +1,5 @@
 "use client";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
@@ -53,9 +53,7 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
     );
   };
   const totalPrice = orderProductsList.reduce((sum, product) => {
-    const productData = allProducts.find(
-      (p) => p.persianName === product.persianName
-    );
+    const productData = allProducts.find((p) => p._id === product._id);
     if (!productData) return sum;
 
     const price = productData.secondPrice || productData.price;
@@ -81,7 +79,7 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
   const updateOrderHandler = async () => {
     const customerChangedFields = Object.keys(customer).reduce((acc, key) => {
       const value = customer[key];
-      if (value !== user[key] && value.trim() !== "") {
+      if (value && value !== user[key] && value.trim() !== "") {
         acc[key] = value;
       }
       return acc;
@@ -126,7 +124,9 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
     }
 
     const filtered = allProducts.filter((product) =>
-      product.persianName.includes(searchQuery)
+      product.persianName
+        .toLowerCase()
+        .includes(searchQuery.trim().toLowerCase())
     );
 
     setFilteredProducts(filtered);

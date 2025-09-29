@@ -1,6 +1,6 @@
 "use client";
 import AddButton from "@/components/templates/dashboard/AddButton";
-import { priceFormatter } from "@/utils/priceFormatter ";
+import { priceFormatter } from "@/utils/priceFormatter";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
