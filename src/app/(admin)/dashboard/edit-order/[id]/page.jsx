@@ -9,7 +9,10 @@ export default async function Page({ params }) {
     {},
     "persianName price secondPrice stock mainImage"
   );
-  const orderProducts = await OrderModel.findOne({ _id: id }, "payment")
+  const orderProducts = await OrderModel.findOne(
+    { _id: id },
+    "payment user status"
+  )
     .populate("payment", "products")
     .populate("user", "email firstname lastname phone");
   const userAddress = await AddressModel.findOne({
@@ -22,6 +25,8 @@ export default async function Page({ params }) {
       orderProducts={JSON.parse(JSON.stringify(orderProducts.payment.products))}
       user={JSON.parse(JSON.stringify(orderProducts.user))}
       userAddress={JSON.parse(JSON.stringify(userAddress))}
+      staus={JSON.parse(JSON.stringify(orderProducts.status))}
+      orderId={JSON.parse(JSON.stringify(orderProducts._id))}
     />
   );
 }

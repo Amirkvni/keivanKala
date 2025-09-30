@@ -1,4 +1,6 @@
 "use client";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 import { priceFormatter } from "@/utils/priceFormatter";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
@@ -6,11 +8,21 @@ import { CiSearch } from "react-icons/ci";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 
-function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
+function EditOrderPage({
+  allProducts,
+  orderProducts,
+  user,
+  userAddress,
+  staus,
+  orderId,
+}) {
+  const router = useRouter();
+
   const section1Ref = useRef(null);
   const section2Ref = useRef(null);
   const section3Ref = useRef(null);
   const section4Ref = useRef(null);
+  const section5Ref = useRef(null);
 
   const [isShowSearchResult, setIsShowSearchResult] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -26,6 +38,8 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
     phone: user.phone || "",
     email: user.email || "",
   });
+  const [orderStatus, setOrderStatus] = useState(staus);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [address, setAddress] = useState({
     _id: userAddress._id,
@@ -76,40 +90,119 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
     const { name, value } = e.target;
     setAddress((prev) => ({ ...prev, [name]: value }));
   };
+  const getOrderProductsChanges = () => {
+    const initialProducts = orderProducts.map((p) => ({
+      _id: p._id,
+      quantity: Number(p.quantity),
+      persianName: p.persianName,
+    }));
+
+    const currentProducts = orderProductsList.map((p) => ({
+      _id: p._id,
+      quantity: Number(p.quantity),
+      persianName: p.persianName,
+    }));
+
+    let changes = [];
+
+    initialProducts.forEach((initP) => {
+      const current = currentProducts.find((c) => c._id === initP._id);
+
+      if (!current) {
+        changes.push({ _id: initP._id, type: "removed" });
+      } else if (current.quantity !== initP.quantity) {
+        changes.push({
+          _id: initP._id,
+          type: "updated",
+          quantity: current.quantity,
+          persianName: current.persianName,
+        });
+      }
+    });
+
+    currentProducts.forEach((curP) => {
+      const exists = initialProducts.some((i) => i._id === curP._id);
+      if (!exists) {
+        changes.push({
+          _id: curP._id,
+          type: "added",
+          quantity: curP.quantity,
+          persianName: curP.persianName,
+        });
+      }
+    });
+
+    return changes;
+  };
+
   const updateOrderHandler = async () => {
-    const customerChangedFields = Object.keys(customer).reduce((acc, key) => {
+    const productsChanges = getOrderProductsChanges();
+
+    const customerChanges = Object.keys(customer).reduce((acc, key) => {
       const value = customer[key];
       if (value && value !== user[key] && value.trim() !== "") {
         acc[key] = value;
       }
       return acc;
     }, {});
-    if (Object.keys(customerChangedFields).length > 0) {
-      // await fetch("/api/updateUser", {
-      //   method: "PATCH",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(userChangedFields),
-      // });
-    } else {
-      console.log("هیچ تغییر معتبر وجود ندارد.");
-    }
 
-    const addressChangedFields = Object.keys(address).reduce((acc, key) => {
+    const addressChanges = Object.keys(address).reduce((acc, key) => {
       const value = address[key];
       if (value !== userAddress[key] && value.trim() !== "") {
         acc[key] = value;
       }
       return acc;
     }, {});
-    if (Object.keys(addressChangedFields).length > 0) {
-      // await fetch("/api/updateUser", {
-      //   method: "PATCH",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(userChangedFields),
-      // });
-      console.log(addressChangedFields);
-    } else {
-      console.log("هیچ تغییر معتبر وجود ندارد.");
+
+    const statusChange = staus !== orderStatus ? orderStatus : null;
+
+    const payload = {
+      productsChanges: productsChanges.length > 0 ? productsChanges : null,
+      customerChanges:
+        Object.keys(customerChanges).length > 0 ? customerChanges : null,
+      addressChanges:
+        Object.keys(addressChanges).length > 0 ? addressChanges : null,
+      statusChange,
+    };
+
+    if (
+      !payload.productsChanges &&
+      !payload.customerChanges &&
+      !payload.addressChanges &&
+      !payload.statusChange
+    ) {
+      console.log("هیچ تغییری برای آپدیت وجود ندارد!");
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/orders/${orderId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        Swal.fire({
+          icon: "error",
+          title: "خطا",
+          text: "خطا در بروزرسانی سفارش!",
+        });
+      }
+
+      const data = await res.json();
+      Swal.fire({
+        icon: "success",
+        title: "موفقیت آمیز",
+        text: "سفارش با موفقیت بروزرسانی شد!",
+        confirmButtonText: "تایید",
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "خطا",
+        text: err.message,
+      });
     }
   };
 
@@ -148,12 +241,38 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
   const deleteFromOrderHandler = (id) => {
     setOrderProductsList((prev) => prev.filter((p) => p._id !== id));
   };
+  const deleteCommentHandler = async (id) => {
+    const result = await Swal.fire({
+      title: "آیا از حذف این سفارش مطمئن هستید؟",
+      text: "این عملیات قابل بازگشت نیست!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "بله، حذف شود",
+      cancelButtonText: "خیر",
+    });
 
+    if (result.isConfirmed) {
+      const res = await fetch("/api/orders", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: id }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        Swal.fire("حذف شد!", "سفارش با موفقیت حذف شد.", "success");
+        router.push("/dashboard/all-orders");
+      } else {
+        Swal.fire("خطا!", data.message || "مشکلی پیش آمد", "error");
+      }
+    }
+  };
   return (
     <div className="p-12 ">
       <span className="text-xl font-bold">ویرایش سفارش </span>
       <div className="flex gap-x-4 mt-4  [&>div]:rounded-lg ">
-        <div className="w-3/12 p-3  bg-white dashboard-box-shadow h-fit sticky top-20 flex gap-3 flex-col gap-y-7 [&>button]:flex [&>button]:items-center [&>button]:gap-x-2 [&>button]:w-full  [&>button>span]:w-8 [&>button>div]:text-xs [&>button>div>p]:font-bold [&>button>div>span]:text-gray-600 [&>button>div]:text-start [&>button>span]:h-8 [&>button>span]:rounded-full [&>button>span]:bg-gray-200 [&>button]:hover:bg-gray-100 [&>button]:p-4 [&>button]:cursor-pointer">
+        <div className="w-3/12 p-3  bg-white dashboard-box-shadow h-fit sticky top-20 flex gap-3 flex-col gap-y-5 [&>button]:flex [&>button]:items-center [&>button]:gap-x-2 [&>button]:w-full  [&>button>span]:w-8 [&>button>div]:text-xs [&>button>div>p]:font-bold [&>button>div>span]:text-gray-600 [&>button>div]:text-start [&>button>span]:h-8 [&>button>span]:rounded-full [&>button>span]:bg-gray-200 [&>button]:hover:bg-gray-100 [&>button]:p-4 [&>button]:cursor-pointer">
           <button onClick={() => scrollToSection(section1Ref)}>
             <span></span>
             <div>
@@ -182,6 +301,13 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
             <div>
               <p>پرداخت</p>
               <span>وارد کردن روش و جزئیات پرداخت برای تکمیل تراکنش.</span>
+            </div>
+          </button>
+          <button onClick={() => scrollToSection(section5Ref)}>
+            <span></span>
+            <div>
+              <p>وضعیت سفارش</p>
+              <span>تغییر وضعیت پردازش سفارش</span>
             </div>
           </button>
         </div>
@@ -433,24 +559,46 @@ function EditOrderPage({ allProducts, orderProducts, user, userAddress }) {
             <div className="flex flex-col gap-y-2">
               <span className="text-xs">روش پرداخت </span>
               <select className="bg-gray-100 p-3 rounded-lg outline-green-500 ">
-                <option value="-1">بانک تجارت</option>
-                <option value="-1">بانک سامان</option>
-                <option value="-1">پی پال</option>
+                <option value="-1">درگاه بانکی</option>
+                <option value="-1">حضوری</option>
+                <option value="-1">کارت به کارت</option>
               </select>
             </div>
             <div className="flex flex-col gap-y-2">
-              <span className="text-xs">ایمیل پی‌پال</span>
+              <span className="text-xs">ایمیل</span>
               <input
                 type="text"
+                defaultValue="test@gmail.com"
                 className="bg-gray-100 p-3 outline-green-500"
               />
             </div>
+          </div>
+          <div className=" dashboard-box-shadow" ref={section5Ref}>
+            <span className="text-sm font-semibold">وضعیت سفارش</span>
+            <select
+              className="bg-gray-100 p-3 rounded-lg outline-green-500 "
+              value={orderStatus}
+              onChange={(e) => setOrderStatus(e.target.value)}
+            >
+              <option value="pending">جاری</option>
+              <option value="preparing">در حال آماده‌سازی</option>
+              <option value="readytoship">آماده برای ارسال</option>
+              <option value="shipped">ارسال شده</option>
+              <option value="delivered">تحویل داده شده </option>
+              <option value="canceled">لغو شده</option>
+              <option value="returned">مرجوع شده </option>
+            </select>
           </div>
         </div>
       </div>
       <div className="bg-white mt-6 py-6 px-4 flex justify-end rounded-lg dashboard-box-shadow ">
         <div className="flex gap-x-4 items-center [&>button]:px-5  [&>button]:py-3 [&>button]:rounded-lg [&>button]:text-xs [&>button]:font-bold [&>button]:cursor-pointer">
-          <button className=" border-red-600 border-2 text-red-600">حذف</button>
+          <button
+            className=" border-red-600 border-2 text-red-600"
+            onClick={() => deleteCommentHandler(orderId)}
+          >
+            حذف
+          </button>
           <button
             className="bg-blue-500 text-white "
             onClick={updateOrderHandler}

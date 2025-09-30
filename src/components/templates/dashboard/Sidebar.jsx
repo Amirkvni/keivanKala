@@ -398,7 +398,8 @@ export default function Sidebar() {
           </li>
           <li
             className={`p-2 flex items-center justify-between cursor-pointer rounded-sm font-semibold ${
-              pathname.startsWith("/dashboard/all-orders")
+              pathname.startsWith("/dashboard/all-orders") ||
+              pathname.startsWith("/dashboard/edit-order")
                 ? "bg-green-100 text-green-400"
                 : ""
             }`}

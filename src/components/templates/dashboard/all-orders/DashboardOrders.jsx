@@ -24,16 +24,13 @@ function DashboardOrders({ allOredrs }) {
     const query = search.toLowerCase();
 
     let result = allOredrs.filter((order) => {
-      // فیلتر سرچ
       const matchesSearch =
         order._id.slice(-5).includes(query) ||
         order.user.email.toLowerCase().includes(query);
 
-      // فیلتر وضعیت سفارش
       const matchesOrderStatus =
         orderFilter === "-1" || order.status === orderFilter;
 
-      // فیلتر وضعیت پرداخت
       const matchesPaidStatus =
         paidFilter === "-1" || order.payment?.status === paidFilter;
 
