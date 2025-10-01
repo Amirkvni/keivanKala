@@ -1,8 +1,11 @@
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
 function AddPermission({ setAction }) {
+  const router = useRouter();
   const [name, setName] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await fetch("/api/permissions", {
@@ -19,7 +22,10 @@ function AddPermission({ setAction }) {
         icon: "success",
         timer: 1500,
       }).then(() => {
-        setAction("");
+        setAction({
+          mode: "",
+        });
+        router.refresh();
       });
     } else {
       alert("خطا");
@@ -29,7 +35,7 @@ function AddPermission({ setAction }) {
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-center items-center transition-opacity duration-200">
       <div className="bg-white w-96 p-5 rounded-xl shadow-lg transform transition-all duration-300 scale-100 opacity-100">
-        <h2 className="text-lg font-bold mb-4">افزودن مجوز</h2>
+        <h2 className="text-lg font-bold mb-4">افزودن مجوز </h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <label className="flex flex-col">
@@ -47,7 +53,7 @@ function AddPermission({ setAction }) {
             <button
               type="button"
               className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"
-              onClick={() => setAction("")}
+              onClick={() => setAction({ mode: "" })}
             >
               انصراف
             </button>
@@ -55,7 +61,7 @@ function AddPermission({ setAction }) {
               type="submit"
               className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
             >
-              ذخیره
+              ایجاد
             </button>
           </div>
         </form>

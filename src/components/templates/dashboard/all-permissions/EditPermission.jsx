@@ -1,27 +1,37 @@
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import Select from "react-select";
-import makeAnimated from "react-select/animated";
+import Swal from "sweetalert2";
 
-const animatedComponents = makeAnimated();
+function EditPermission({ setAction, permissionID, permissionName }) {
+  const router = useRouter();
+  const [perName, setPername] = useState(permissionName);
 
-const roles = [
-  { label: "سوپر ادمین", value: "super_admin" },
-  { label: "ادمین", value: "admin" },
-  { label: "نویسنده", value: "writer" },
-  { label: "پشتیبان", value: "support" },
-];
-
-function EditPermission({ setAction, setModalState }) {
-  const [selectedRoles, setSelectedRoles] = useState([]);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("مجوز جدید:", {
-      roles: selectedRoles,
-      // اینجا بقیه فیلدها رو هم اضافه کن
-    });
-    setAction("");
-    setModalState({ mode: "", _id: "" });
+    if (perName !== permissionName && perName.length !== 0) {
+      try {
+        const res = await fetch(`/api/permissions/${permissionID}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: perName }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          Swal.fire("مجوز با موفقیت ویرایش شد")
+            .then(() => {
+              router.refresh();
+            })
+            .then(() => {
+              setAction({ mode: "", _id: null, name: "" });
+            });
+        } else {
+          alert(data.error || "خطا در ذخیره مجوز");
+        }
+      } catch (error) {
+        console.error("Error saving per:", error);
+        alert("خطای سرور، لطفا دوباره تلاش کنید");
+      }
+    }
   };
 
   return (
@@ -36,18 +46,8 @@ function EditPermission({ setAction, setModalState }) {
               type="text"
               placeholder="مثلاً مدیریت کاربران"
               className="border rounded-lg px-3 py-2 outline-none focus:border-blue-500"
-            />
-          </label>
-
-          <label className="flex flex-col">
-            <span className="text-sm text-gray-600">اختصاص یافته به</span>
-            <Select
-              closeMenuOnSelect={false}
-              components={animatedComponents}
-              isMulti
-              options={roles}
-              value={selectedRoles}
-              onChange={(val) => setSelectedRoles(val)}
+              value={perName}
+              onChange={(e) => setPername(e.target.value)}
             />
           </label>
 
@@ -55,9 +55,7 @@ function EditPermission({ setAction, setModalState }) {
             <button
               type="button"
               className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 cursor-pointer"
-              onClick={() => {
-                setModalState({ mode: "", _id: "" });
-              }}
+              onClick={() => setAction("")}
             >
               انصراف
             </button>

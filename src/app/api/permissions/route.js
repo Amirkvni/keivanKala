@@ -7,7 +7,6 @@ export async function POST(request) {
   try {
     const body = await request.json();
     const { name } = body;
-    console.log(name);
 
     if (!name || name.trim() === "") {
       return NextResponse.json(
@@ -31,5 +30,32 @@ export async function POST(request) {
   } catch (error) {
     console.error("Error creating permission:", error);
     return NextResponse.json({ error: "خطای سرور" }, { status: 500 });
+  }
+}
+export async function DELETE(req) {
+  try {
+    connectToDB();
+    const { ids } = await req.json();
+    const idArray = Array.isArray(ids) ? ids : [ids];
+
+    if (!idArray.length) {
+      return Response.json(
+        { message: "لیست مجوزها معتبر نیست" },
+        { status: 400 }
+      );
+    }
+
+    const result = await PermissionModel.deleteMany({ _id: { $in: idArray } });
+
+    return Response.json(
+      {
+        message: "مجوز ها با موفقیت حذف شدند",
+        deletedCount: result.deletedCount,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("DELETE Permission Error:", error);
+    return Response.json({ message: "خطا در حذف مجوز ها" }, { status: 500 });
   }
 }

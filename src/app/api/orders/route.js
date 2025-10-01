@@ -48,10 +48,6 @@ export async function DELETE(req) {
 
     const result = await OrderModel.deleteMany({ _id: { $in: idArray } });
 
-    // await ProductModel.updateMany(
-    //   { comments: { $in: idArray } },
-    //   { $pull: { comments: { $in: idArray } } }
-    // );
 
     return Response.json(
       {
