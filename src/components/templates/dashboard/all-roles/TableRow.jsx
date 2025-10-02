@@ -55,19 +55,7 @@ function TableRow({
   };
   return (
     <tr>
-      <td>
-        {name === "SUPERADMIN"
-          ? "سوپر ادمین"
-          : name === "ADMIN"
-          ? "ادمین"
-          : name === "USER"
-          ? "کاربر عادی"
-          : name === "AUTHOR"
-          ? "نویسنده"
-          : name === "SUPPORTER"
-          ? "پشتیبان"
-          : name}
-      </td>
+      <td>{name}</td>
       <td>{usersCount}</td>
       <td>
         <div className="flex gap-x-0.5 items-center justify-center text-xs">

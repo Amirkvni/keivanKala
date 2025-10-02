@@ -28,12 +28,15 @@ export default function RoleFormModal({
           const data = await res.json();
 
           setName(data.role[0].name || "");
-          setUserPermissions(
-            data.role[0].permissions.map((per) => ({
-              _id: per._id,
-              name: per.name,
-            }))
+
+          const mappedPermissions = data.role[0].permissions.map(
+            (per) => per._id
           );
+
+          setUserPermissions(data.role[0].permissions);
+          setSelectedPermissions(mappedPermissions);
+
+          setStatus(data.role[0].status);
         } catch (err) {
           console.error("Error fetching role:", err);
         } finally {
@@ -55,7 +58,7 @@ export default function RoleFormModal({
 
     try {
       const res = await fetch(isAdd ? "/api/role" : `/api/role/${roleId}`, {
-        method: isAdd ? "POST" : "PUT",
+        method: isAdd ? "POST" : "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
@@ -151,7 +154,7 @@ export default function RoleFormModal({
             {!isView && (
               <button
                 type="submit"
-                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
               >
                 ذخیره
               </button>

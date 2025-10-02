@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import RolesList from "./RolesList";
 import RoleBoxes from "./RoleBoxes";
-import AddRole from "./AddRole";
 import RoleFormModal from "../all-permissions/RoleFormModal";
 function Roles({ permissions, allRoles }) {
   const [modalState, setModalState] = useState({

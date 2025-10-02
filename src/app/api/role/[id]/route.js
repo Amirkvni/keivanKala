@@ -29,52 +29,29 @@ export async function GET(request, { params }) {
     return NextResponse.json({ error: "خطای سرور" }, { status: 500 });
   }
 }
-export async function PUT(request, { params }) {
-  connectToDB();
-  try {
-    const body = await request.json();
-    const { id } = params;
-    const { name, permissions, status } = body;
 
-    if (
-      !name ||
-      typeof name !== "string" ||
-      !permissions ||
-      !Array.isArray(permissions) ||
-      permissions.length === 0
-    ) {
-      return NextResponse.json(
-        { error: "پارامترهای ورودی ناقص یا اشتباه است" },
-        { status: 400 }
-      );
-    }
+export async function PATCH(req, { params }) {
+  await connectToDB();
+  const { id } = await params;
+  const body = await req.json();
+  console.log(body.permissions);
 
-    const existingRole = await RoleModel.findOne({ name, _id: { $ne: id } });
-    if (existingRole) {
-      return NextResponse.json(
-        { error: "نقش با این نام قبلا ثبت شده" },
-        { status: 409 }
-      );
-    }
+  const updateData = {};
+  if (body.name !== undefined) updateData.name = body.name;
+  if (body.permissions !== undefined) updateData.permissions = body.permissions;
+  if (body.status !== undefined) updateData.status = body.status;
 
-    const updatedRole = await RoleModel.findByIdAndUpdate(
-      id,
-      { name, permissions, status },
-      { new: true }
-    );
+  const updatedRole = await RoleModel.findByIdAndUpdate(
+    id,
+    { $set: updateData },
+    { new: true }
+  ).populate("permissions", "name");
 
-    if (!updatedRole) {
-      return NextResponse.json({ error: "نقش پیدا نشد" }, { status: 404 });
-    }
-
-    return NextResponse.json(
-      { message: "نقش با موفقیت آپدیت شد", role: updatedRole },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error("Error updating role:", error);
-    return NextResponse.json({ error: "خطای سرور" }, { status: 500 });
+  if (!updatedRole) {
+    return Response.json({ error: "Role not found" }, { status: 404 });
   }
+
+  return Response.json(updatedRole);
 }
 
 export async function DELETE(request, { params }) {
