@@ -82,3 +82,30 @@ export async function POST(req) {
     );
   }
 }
+export async function DELETE(req) {
+  try {
+    connectToDB();
+    const { ids } = await req.json();
+    const idArray = Array.isArray(ids) ? ids : [ids];
+
+    if (!idArray.length) {
+      return Response.json(
+        { message: "لیست آیدی معتبر نیست" },
+        { status: 400 }
+      );
+    }
+
+    const result = await BlogModel.deleteMany({ _id: { $in: idArray } });
+
+    return Response.json(
+      {
+        message: "بلاگ با موفقیت حذف شد",
+        deletedCount: result.deletedCount,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("DELETE Comment Error:", error);
+    return Response.json({ message: "خطا در حذف بلاگ " }, { status: 500 });
+  }
+}
