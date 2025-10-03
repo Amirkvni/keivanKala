@@ -13,13 +13,16 @@ export async function generateStaticParams() {
   const blogs = await BlogModel.find({}, "link").lean();
 
   return blogs.map((blog) => ({
-    name: blog.link,
+    link: blog.link,
   }));
 }
 export default async function page({ params }) {
   const { name } = await params;
   connectToDB();
-  const blog = await BlogModel.findOne({ link: name });
+  const blog = await BlogModel.findOne({ link: name }).populate(
+    "author",
+    "firstname lastname"
+  );
   const blogLinks = await BlogModel.find().limit(4);
   return (
     <>

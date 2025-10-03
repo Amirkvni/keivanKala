@@ -15,7 +15,7 @@ function BlogDetail({ blog }) {
         <div className="flex 2xl:gap-x-4 items-center gap-x-2">
           <div className="flex 2xl:gap-x-2 gap-x-1 items-center">
             <IoPersonOutline />
-            <span>{blog.author}</span>
+            <span>{blog.author.firstname + " " + blog.author.lastname}</span>
           </div>
           <span>{jalaliDate}</span>
         </div>
@@ -33,26 +33,16 @@ function BlogDetail({ blog }) {
         />
       </div>
       <p>{blog.introduction}</p>
-      <div>
-        {blog.content.map((contnet) => (
-          <div key={contnet._id} className="flex flex-col gap-y-5 ">
-            <h4 className="mt-6">{contnet.title}</h4>
-            <p>{contnet.text}</p>
-            <div className="rounded-2xl overflow-hidden">
-              <Image
-                width={1500}
-                height={1500}
-                src={contnet.image}
-                alt={contnet.title}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
+      <div></div>
+      <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+
       <div className="flex 2xl:gap-x-3 flex-wrap gap-2 items-center text-xs">
         <span>برچسب ها :</span>
-        {blog.tags.map((tag) => (
-          <span className="p-2 rounded-lg bg-gray-100 dark:bg-black text-xs">
+        {blog.tags.map((tag, i) => (
+          <span
+            key={i + 1}
+            className="p-2 rounded-lg bg-gray-100 dark:bg-black text-xs"
+          >
             {tag}
           </span>
         ))}

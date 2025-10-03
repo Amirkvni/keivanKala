@@ -1,44 +1,3 @@
-// export async function POST(req) {
-//   try {
-//     connectToDB();
-//     const reqBody = await req.json();
-//     const {
-//       title,
-//       introduction,
-//       content,
-//       author,
-//       mainImage,
-//       categories,
-//       tags,
-//     } = reqBody;
-//     const blog = await BlogModel.create({
-//       title,
-//       introduction,
-//       content,
-//       author,
-//       mainImage,
-//       categories,
-//       tags,
-//     });
-
-//     return Response.json(
-//       {
-//         message: "blog created succesfully",
-//         data: blog,
-//       },
-//       {
-//         status: 201,
-//       }
-//     );
-//   } catch (error) {
-//     return Response.json({ message: error }, { status: 500 });
-//   }
-// }
-// export async function GET() {
-//   connectToDB();
-//   const blogs = await BlogModel.find();
-//   return Response.json(blogs);
-// }
 import { NextResponse } from "next/server";
 import connectToDB from "@/configs/db";
 import BlogModel from "@/models/Blog";
@@ -57,11 +16,13 @@ export async function POST(req) {
         { status: 400 }
       );
     }
+    const link = englishTitle.trim().replace(/\s+/g, "-");
 
     const newBlog = new BlogModel({
       title,
       englishTitle,
       content,
+      link,
       mainImage,
       category,
       tags: Array.isArray(tags) ? tags : [],
@@ -105,7 +66,28 @@ export async function DELETE(req) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("DELETE Comment Error:", error);
+    console.error("DELETE blog Error:", error);
     return Response.json({ message: "خطا در حذف بلاگ " }, { status: 500 });
+  }
+}
+export async function GET() {
+  try {
+    connectToDB();
+
+    const blogs = await BlogModel.find(
+      {},
+      "updatedAt englishTitle mainImage title link"
+    );
+
+    return Response.json(
+      {
+        message: "تمام وبلاگ ها",
+        blogs,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("find blogs Error:", error);
+    return Response.json({ message: "خطا در یافتن بلاگها " }, { status: 500 });
   }
 }

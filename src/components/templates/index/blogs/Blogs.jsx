@@ -14,8 +14,9 @@ function Blogs() {
     const getBlogs = async () => {
       const res = await fetch("/api/blogs");
       const data = await res.json();
+      console.log(data);
 
-      setBlogs([...data]);
+      setBlogs([...data.blogs]);
     };
     getBlogs();
   }, []);
