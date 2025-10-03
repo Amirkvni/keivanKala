@@ -78,38 +78,44 @@ function PermissionsList({ setAction, permissions }) {
           </button>
         </div>
         <table className="w-full mt-5 [&>tr>td]:p-2 [&>tr>td]:border-b [&>tr>td]:border-gray-200 border-collapse">
-          <tr className="bg-gray-100 text-gray-600">
-            <td>نام</td>
-            <td>تاریخ ایجاد</td>
-            <td>اقدام</td>
-          </tr>
-          {currentPermissions.length === 0 && (
-            <tr>
-              <td colSpan="9" className="py-6 text-gray-500">
-                هیچ مجوزی پیدا نشد
-              </td>
+          <tbody>
+            <tr className="bg-gray-100 text-gray-600">
+              <td>نام</td>
+              <td>تاریخ ایجاد</td>
+              <td>اقدام</td>
             </tr>
-          )}
-          {currentPermissions.map((per) => (
-            <tr key={per._id}>
-              <td>{per.name}</td>
-              <td> {new Date(per.createdAt).toLocaleString("fa-IR")}</td>
-              <td>
-                <div className="flex items-center gap-x-2 [&>svg]:cursor-pointer [&>svg]:text-lg">
-                  <MdDeleteOutline
-                    onClick={() => {
-                      deletePermissionHandler(per._id);
-                    }}
-                  />
-                  <FaRegEdit
-                    onClick={() =>
-                      setAction({ mode: "edit", _id: per._id, name: per.name })
-                    }
-                  />
-                </div>
-              </td>
-            </tr>
-          ))}
+            {currentPermissions.length === 0 && (
+              <tr>
+                <td colSpan="9" className="py-6 text-gray-500">
+                  هیچ مجوزی پیدا نشد
+                </td>
+              </tr>
+            )}
+            {currentPermissions.map((per) => (
+              <tr key={per._id}>
+                <td>{per.name}</td>
+                <td> {new Date(per.createdAt).toLocaleString("fa-IR")}</td>
+                <td>
+                  <div className="flex items-center gap-x-2 [&>svg]:cursor-pointer [&>svg]:text-lg">
+                    <MdDeleteOutline
+                      onClick={() => {
+                        deletePermissionHandler(per._id);
+                      }}
+                    />
+                    <FaRegEdit
+                      onClick={() =>
+                        setAction({
+                          mode: "edit",
+                          _id: per._id,
+                          name: per.name,
+                        })
+                      }
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
         <Paginations
           totalPages={totalPages}
