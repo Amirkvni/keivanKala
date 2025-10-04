@@ -18,8 +18,6 @@ export default function AddSpecialOffer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("📤 ارسال کمپین:", form);
-    // ارسال به API
   };
 
   return (

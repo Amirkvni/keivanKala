@@ -11,7 +11,6 @@ export default async function page({ searchParams }) {
   const orders = await OrderModel.find({ user: user._id })
     .populate("products", "mainImage englishFullName")
     .populate("payment", "paid");
-  console.log(orders);
 
   let filteredOrders = orders;
   if (activeTab === "delivered") {

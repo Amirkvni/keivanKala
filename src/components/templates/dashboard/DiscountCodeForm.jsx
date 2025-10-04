@@ -14,7 +14,6 @@ export default function DiscountCodeForm({
   initialData = {},
   onSubmit,
 }) {
-  // مقدار اولیه فرم یا داده های خالی
   const [form, setForm] = useState({
     code: "",
     discountType: "",
@@ -24,10 +23,9 @@ export default function DiscountCodeForm({
     endDate: "",
     applicableUsers: [],
     applicableProducts: [],
-    ...initialData, // مقدار اولیه اگر وجود داشت جایگزین کن
+    ...initialData, 
   });
 
-  // جداکردن تاریخ شروع و پایان برای نمایش در select ها
   const [startDay, setStartDay] = useState("");
   const [startMonth, setStartMonth] = useState("");
   const [startYear, setStartYear] = useState("");

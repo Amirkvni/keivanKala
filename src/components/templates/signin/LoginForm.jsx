@@ -56,7 +56,6 @@ function LoginForm() {
       if (res.status === 200) {
         const user = await fetch("/api/auth/me");
         const data = await user.json();
-        console.log(data);
 
         Swal.fire({
           icon: "success",

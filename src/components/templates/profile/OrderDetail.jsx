@@ -8,8 +8,7 @@ import { slugify } from "@/utils/slugify";
 import { priceFormatter } from "@/utils/priceFormatter";
 moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 export default function OrderDetail({ order, address }) {
-  console.log(order);
-  console.log(address);
+ 
 
   const formatted = moment(order.orderDate).format("jD jMMMM jYYYY");
   return (

@@ -49,7 +49,6 @@ function BlogPage({ blogs }) {
               </button>
             ))}
           </div>
-          {/* bottom : */}
           <div className="flex flex-wrap  gap-4 ">
             {filtered.length > 0 ? (
               filtered?.map((blog) => <BlogBox blog={blog} key={blog._id} />)

@@ -34,7 +34,10 @@ function BlogDetail({ blog }) {
       </div>
       <p>{blog.introduction}</p>
       <div></div>
-      <div dangerouslySetInnerHTML={{ __html: blog.content }}></div>
+      <div
+        className="[&>img]:rounded-lg "
+        dangerouslySetInnerHTML={{ __html: blog.content }}
+      ></div>
 
       <div className="flex 2xl:gap-x-3 flex-wrap gap-2 items-center text-xs">
         <span>برچسب ها :</span>

@@ -22,7 +22,6 @@ export default async function page() {
   const allmessageCount = await NotificationModel.countDocuments({
     userId: user._id,
   });
-  console.log(allmessageCount);
 
   return (
     <Messages

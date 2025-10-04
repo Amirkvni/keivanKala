@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Editor from "@/components/templates/dashboard/add-blog/Editor";
 import { FaTrash } from "react-icons/fa";
 import { CiSquarePlus } from "react-icons/ci";
@@ -13,9 +13,7 @@ function Page() {
   const [category, setCategory] = useState("-1");
   const [englishTitle, setEnglishTitle] = useState("");
   const [tags, setTags] = useState([{ id: 1, tag: "" }]);
-  useEffect(() => {
-    console.log(content);
-  }, [content]);
+
   const removeTagHandler = (id) => {
     const filteredTags = tags.filter((tag) => tag.id !== id);
     setTags(filteredTags);

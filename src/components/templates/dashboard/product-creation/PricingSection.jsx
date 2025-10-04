@@ -1,7 +1,6 @@
 import React from "react";
 
 function PricingSection({ setMainProduct, mainProduct }) {
-  console.log(mainProduct);
 
   const changePrice = (type, value) => {
     const newValue = Number(value.replace(/,/g, ""));

@@ -1,6 +1,5 @@
 import moment from "moment-jalaali";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -12,7 +11,7 @@ function BlogBox({ blog }) {
   return (
     <div
       className="w-[310px] h-[300px]  dark:bg-zinc-800 dark:text-white rounded-lg overflow-hidden p-3  hover:shadow-lg  bg-white cursor-pointer"
-      onClick={() => router.push(`/blogs/${blog.englishTitle}`)}
+      onClick={() => router.push(`/blogs/${blog.link}`)}
     >
       <Image
         width={500}

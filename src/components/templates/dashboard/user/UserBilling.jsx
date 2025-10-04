@@ -4,7 +4,6 @@ import React from "react";
 import { MdDeleteOutline } from "react-icons/md";
 
 function UserBilling({ userPurchases, userAddresses }) {
-  console.log(userPurchases);
 
   return (
     <div className="flex flex-col gap-y-4 [&>div>div]:mt-4">

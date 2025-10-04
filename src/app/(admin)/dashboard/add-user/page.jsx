@@ -41,9 +41,6 @@ function Page() {
     if (passwordMatch && passwordStrength === "قوی") {
       const hashed = bcrypt.hashSync(password, 12);
       setMainUser((prev) => ({ ...prev, password: hashed }));
-      console.log(mainUser);
-      console.log(passwordMatch);
-      console.log(passwordStrength);
     } else {
       setMainUser((prev) => {
         const copy = { ...prev };
@@ -52,10 +49,7 @@ function Page() {
       });
     }
   }, [password, confirmPassword, passwordMatch, passwordStrength]);
-  useEffect(() => {
-    console.log(mainUser);
-    console.log(mainAddress);
-  }, [mainUser, mainAddress]);
+
   const createUserHandler = async () => {
     try {
       const payload = {

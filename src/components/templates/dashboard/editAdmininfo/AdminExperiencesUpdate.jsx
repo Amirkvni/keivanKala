@@ -1,12 +1,10 @@
 "use client";
 import Swal from "sweetalert2";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function AdminExperiencesUpdate({ experiences }) {
   const [workExperiences, setWorkExperiences] = useState(experiences);
-  useEffect(() => {
-    console.log(workExperiences);
-  }, [workExperiences]);
+  
   const handleRemove = (idToRemove) => {
     Swal.fire({
       title: "از حذف مهارت مطمئنید؟",

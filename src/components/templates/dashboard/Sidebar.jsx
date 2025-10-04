@@ -76,7 +76,6 @@ export default function Sidebar() {
           کیوان کالا
         </Link>
         <ul className="space-y-2">
-          {/* داشبورد */}
           <li className="p-2">
             <Link
               href="/dashboard"
@@ -326,7 +325,7 @@ export default function Sidebar() {
                 <LuNewspaper />
                 <span>وبلاگ ها</span>
               </div>
-              {openMenus.discounts ? <FaAngleUp /> : <FaAngleDown />}
+              {openMenus.blogs ? <FaAngleUp /> : <FaAngleDown />}
             </div>
             {openMenus.blogs && (
               <ul className="mt-2 space-y-2 pr-6 text-sm list-disc">

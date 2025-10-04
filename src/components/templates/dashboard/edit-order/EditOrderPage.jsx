@@ -80,7 +80,6 @@ function EditOrderPage({
     } else {
       setOrderProductsList((prev) => prev.filter((p) => p._id !== product._id));
     }
-    console.log(product);
   };
   const handleCustomerChange = (e) => {
     const { name, value } = e.target;
