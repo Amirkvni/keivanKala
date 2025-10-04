@@ -78,7 +78,6 @@ export async function GET(request, { params }) {
     );
   }
 }
-export default async function PATC(params) {}
 
 export async function PATCH(req, { params }) {
   try {

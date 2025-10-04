@@ -18,8 +18,10 @@ export async function POST(req) {
       usageLimit: body.usageLimit || 5,
       startDate: body.startDate,
       endDate: body.endDate,
-      applicableProducts: body.applicableProducts, // آرایه ObjectId
-      applicableUsers: body.applicableUsers, // آرایه ObjectId
+      applicableProducts: body.applicableProducts,
+      applicableUsers: body.applicableUsers,
+      applicableToAllUsers: body.applicableToAllUsers,
+      applicableToAllProducts: body.applicableToAllProducts,
     });
 
     return NextResponse.json(

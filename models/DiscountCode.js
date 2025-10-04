@@ -46,6 +46,8 @@ const schema = mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    applicableToAllProducts: { type: Boolean, default: false },
+    applicableToAllUsers: { type: Boolean, default: false },
     applicableProducts: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -1,9 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import moment from "moment-jalaali";
+import Swal from "sweetalert2";
 moment.loadPersian({ dialect: "persian-modern", usePersianDigits: false });
 
 const animatedComponents = makeAnimated();
@@ -13,7 +15,10 @@ export default function DiscountCodeForm({
   users,
   initialData = {},
   onSubmit,
+  mode,
 }) {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     code: "",
     discountType: "",
@@ -21,9 +26,11 @@ export default function DiscountCodeForm({
     usageLimit: "",
     startDate: "",
     endDate: "",
+    applicableToAllUsers: false,
+    applicableToAllProducts: false,
     applicableUsers: [],
     applicableProducts: [],
-    ...initialData, 
+    ...initialData,
   });
 
   const [startDay, setStartDay] = useState("");
@@ -34,7 +41,6 @@ export default function DiscountCodeForm({
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState("");
 
-  // به محض mount کامپوننت، اگر initialData تاریخ داشت آن را به قسمت های روز/ماه/سال جدا کن
   useEffect(() => {
     if (form.startDate) {
       const m = moment(form.startDate);
@@ -50,7 +56,6 @@ export default function DiscountCodeForm({
     }
   }, []);
 
-  // وقتی day/month/year تغییر کرد، تاریخ ISO جدید محاسبه و در فرم ذخیره شود
   const handleDateChange = (type, day, month, year) => {
     if (day && month && year) {
       const date = moment(`${year}/${month}/${day}`, "jYYYY/jM/jD").toDate();
@@ -61,12 +66,10 @@ export default function DiscountCodeForm({
     }
   };
 
-  // هر بار تغییر startDate یا قسمت‌های روز/ماه/سال آن، مقدار فرم به‌روز شود
   useEffect(() => {
     handleDateChange("startDate", startDay, startMonth, startYear);
   }, [startDay, startMonth, startYear]);
 
-  // هر بار تغییر endDate یا قسمت‌های روز/ماه/سال آن، مقدار فرم به‌روز شود
   useEffect(() => {
     handleDateChange("endDate", endDay, endMonth, endYear);
   }, [endDay, endMonth, endYear]);
@@ -76,7 +79,6 @@ export default function DiscountCodeForm({
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // تابع پیش‌فرض ارسال فرم اگر onSubmit پاس داده نشده بود
   const defaultSubmitHandler = async () => {
     const requiredFields = [
       "code",
@@ -89,45 +91,73 @@ export default function DiscountCodeForm({
       "applicableProducts",
     ];
     for (let field of requiredFields) {
-      if (
-        form[field] === undefined ||
-        form[field] === "" ||
-        (Array.isArray(form[field]) && form[field].length === 0)
-      ) {
-        alert("لطفا تمام فیلد ها را پر کنید");
-        return;
+      const value = form[field];
+
+      if (Array.isArray(value)) {
+        if (
+          (field === "applicableUsers" &&
+            !form.applicableToAllUsers &&
+            value.length === 0) ||
+          (field === "applicableProducts" &&
+            !form.applicableToAllProducts &&
+            value.length === 0)
+        ) {
+          alert("لطفا تمام فیلدها را پر کنید");
+          return;
+        }
+      } else {
+        if (value === undefined || value === "") {
+          alert("لطفا تمام فیلدها را پر کنید");
+          return;
+        }
       }
     }
+    if (mode === "add") {
+      const res = await fetch("/api/discountcode", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    const res = await fetch("/api/discountcode", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-
-    if (res.status === 201) {
-      alert("کد تخفیف با موفقیت ایجاد شد");
-      // در حالت افزودن فرم را ریست کن
-      if (!initialData.code) {
-        setForm({
-          code: "",
-          discountType: "",
-          discountValue: "",
-          usageLimit: "",
-          startDate: "",
-          endDate: "",
-          applicableUsers: [],
-          applicableProducts: [],
-        });
-        setStartDay("");
-        setStartMonth("");
-        setStartYear("");
-        setEndDay("");
-        setEndMonth("");
-        setEndYear("");
+      if (res.status === 201) {
+        Swal.fire("کدتخفیف با موفقیت ایجاد شد").then(() =>
+          router.push("/dashboard/all-discountCodes")
+        );
+        if (!initialData.code) {
+          setForm({
+            code: "",
+            discountType: "",
+            discountValue: "",
+            usageLimit: "",
+            startDate: "",
+            endDate: "",
+            applicableUsers: [],
+            applicableProducts: [],
+          });
+          setStartDay("");
+          setStartMonth("");
+          setStartYear("");
+          setEndDay("");
+          setEndMonth("");
+          setEndYear("");
+        }
+      } else {
+        alert("خطا در ایجاد کد تخفیف");
       }
-    } else {
-      alert("خطا در ایجاد کد تخفیف");
+    } else if (mode === "edit") {
+      const res = await fetch(`/api/discountcode/${initialData._id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (res.status === 200) {
+        Swal.fire("کدتخفیف با موفقیت ویرایش شد").then(() =>
+          router.push("/dashboard/all-discountCodes")
+        );
+      } else {
+        alert("خطا در ویرایش کد تخفیف");
+      }
     }
   };
 
@@ -164,7 +194,6 @@ export default function DiscountCodeForm({
           {initialData.code ? "ویرایش کد تخفیف" : "افزودن کد تخفیف جدید"}
         </h2>
         <div className="grid grid-cols-2 gap-4 text-sm [&>div>label]:block [&>div>label]:mb-1  [&>div>input]:w-full  [&>div>input]:p-2  [&>div>input]:rounded ">
-          {/* کد تخفیف */}
           <div>
             <label>کد تخفیف</label>
             <input
@@ -175,11 +204,10 @@ export default function DiscountCodeForm({
               className="edit-profile-input"
               placeholder="مثلاً: OFF50"
               required
-              disabled={!!initialData.code} // اگر در حالت ویرایش، غیر فعال کن
+              disabled={!!initialData.code}
             />
           </div>
 
-          {/* نوع تخفیف */}
           <div>
             <label>نوع تخفیف</label>
             <select
@@ -195,7 +223,6 @@ export default function DiscountCodeForm({
             </select>
           </div>
 
-          {/* مقدار تخفیف */}
           <div>
             <label>مقدار تخفیف</label>
             <input
@@ -209,7 +236,6 @@ export default function DiscountCodeForm({
             />
           </div>
 
-          {/* محدودیت تعداد استفاده */}
           <div>
             <label>محدودیت تعداد استفاده</label>
             <input
@@ -222,8 +248,6 @@ export default function DiscountCodeForm({
               required
             />
           </div>
-
-          {/* تاریخ شروع */}
           <div className="[&>div>div>select]:border-gray-300 [&>div>div>select]:text-sm [&>div>div>select]:border [&>div>div>select]:rounded-md [&>div>duv>select]:p-1">
             <label>تاریخ شروع</label>
             <div className="flex gap-x-3 [&>div]:flex [&>div]:gap-x-1 [&>div]:items-center">
@@ -277,7 +301,6 @@ export default function DiscountCodeForm({
             </div>
           </div>
 
-          {/* تاریخ پایان */}
           <div className="[&>div>div>select]:border-gray-300 [&>div>div>select]:text-sm [&>div>div>select]:border [&>div>div>select]:rounded-md [&>div>duv>select]:p-1">
             <label>تاریخ پایان</label>
             <div className="flex gap-x-3 [&>div]:flex [&>div]:gap-x-1 [&>div]:items-center">
@@ -331,45 +354,74 @@ export default function DiscountCodeForm({
             </div>
           </div>
 
-          {/* انتخاب کاربران */}
           <div>
             <label className="block mb-1">انتخاب کاربران</label>
             <Select
               closeMenuOnSelect={false}
               components={animatedComponents}
               isMulti
-              options={users}
+              options={[{ _id: "all", email: "همه" }, ...users]}
               getOptionLabel={(option) => option.email}
               getOptionValue={(option) => option._id}
-              onChange={(selected) =>
-                setForm((prev) => ({
-                  ...prev,
-                  applicableUsers: selected.map((p) => p._id),
-                }))
+              onChange={(selected) => {
+                if (!selected) return;
+
+                if (selected.some((opt) => opt._id === "all")) {
+                  setForm((prev) => ({
+                    ...prev,
+                    applicableToAllUsers: true,
+                    applicableUsers: [],
+                  }));
+                } else {
+                  setForm((prev) => ({
+                    ...prev,
+                    applicableToAllUsers: false,
+                    applicableUsers: selected.map((u) => u._id),
+                  }));
+                }
+              }}
+              value={
+                form.applicableToAllUsers
+                  ? [{ _id: "all", email: "همه" }]
+                  : users.filter((u) => form.applicableUsers?.includes(u._id))
               }
-              value={users.filter((u) => form.applicableUsers?.includes(u._id))}
+              menuIsOpen={form.applicableToAllUsers ? false : undefined}
             />
           </div>
-
-          {/* انتخاب محصولات */}
           <div>
             <label className="block mb-1">انتخاب محصولات</label>
             <Select
               closeMenuOnSelect={false}
               components={animatedComponents}
               isMulti
-              options={products}
+              options={[{ _id: "all", persianName: "همه" }, ...products]}
               getOptionLabel={(option) => option.persianName}
               getOptionValue={(option) => option._id}
-              onChange={(selected) =>
-                setForm((prev) => ({
-                  ...prev,
-                  applicableProducts: selected.map((p) => p._id),
-                }))
+              onChange={(selected) => {
+                if (!selected) return;
+
+                if (selected.some((opt) => opt._id === "all")) {
+                  setForm((prev) => ({
+                    ...prev,
+                    applicableToAllProducts: true,
+                    applicableProducts: [],
+                  }));
+                } else {
+                  setForm((prev) => ({
+                    ...prev,
+                    applicableToAllProducts: false,
+                    applicableProducts: selected.map((u) => u._id),
+                  }));
+                }
+              }}
+              value={
+                form.applicableToAllProducts
+                  ? [{ _id: "all", persianName: "همه" }]
+                  : products.filter((u) =>
+                      form.applicableProducts?.includes(u._id)
+                    )
               }
-              value={products.filter((p) =>
-                form.applicableProducts?.includes(p._id)
-              )}
+              menuIsOpen={form.applicableToAllProducts ? false : undefined}
             />
           </div>
 

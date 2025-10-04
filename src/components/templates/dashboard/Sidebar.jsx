@@ -225,7 +225,8 @@ export default function Sidebar() {
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
                 pathname === "/dashboard/all-discountCodes" ||
-                pathname === "/dashboard/add-discountCode"
+                pathname === "/dashboard/add-discountCode" ||
+                pathname.startsWith("/dashboard/edit-discountCode/")
                   ? "bg-green-100 text-green-400"
                   : ""
               }`}

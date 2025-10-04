@@ -14,7 +14,7 @@ export default function DiscountCodesList({ discountCodes }) {
   const [discountTypeFilter, setDiscountTypeFilter] = useState("-1");
   const [discountStatusFilter, setDiscountStatusFilter] = useState("-1");
   const [currentPage, setCurrentPage] = useState(1);
-  const codesPerPage = 8;
+  const codesPerPage = 5;
   const filteredCodes = useMemo(() => {
     const query = search.toLowerCase();
 
@@ -29,7 +29,7 @@ export default function DiscountCodesList({ discountCodes }) {
       );
     } else if (discountTypeFilter === "percentage") {
       result = result.filter(
-        (discountCode) => discountCode.type === "percentage"
+        (discountCode) => discountCode.discountType === "percentage"
       );
     }
     if (discountStatusFilter === "true") {

@@ -10,6 +10,7 @@ export default async function Page() {
     <DiscountCodeForm
       products={JSON.parse(JSON.stringify(products))}
       users={JSON.parse(JSON.stringify(users))}
+      mode="add"
     />
   );
 }
