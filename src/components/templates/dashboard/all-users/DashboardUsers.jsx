@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 
 import AddButton from "@/components/templates/dashboard/AddButton";
-import Paginations from "@/components/templates/dashboard/Paginations";
 import UsersTable from "./UsersTable";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
@@ -67,7 +66,6 @@ function DashboardUsers({ users }) {
           selected={selected}
           setSelected={setSelected}
         />
-        <Paginations />
       </div>
       {selected.length > 0 && (
         <div className="sticky bottom-0 flex justify-between items-center bg-white p-4 mt-3">

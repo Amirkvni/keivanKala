@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { FaRegEdit } from "react-icons/fa";
 import Link from "next/link";
 import { MdDeleteOutline, MdOutlineRemoveRedEye } from "react-icons/md";
@@ -7,28 +7,51 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/fa";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import Paginations from "../Paginations";
 dayjs.extend(relativeTime);
 dayjs.locale("fa");
 function UsersTable({ allUsers, selected, setSelected }) {
-  const router = useRouter();
-  const [users, setUsers] = useState(allUsers);
-  const [searchQuery, setSearchQuery] = useState("");
-  const filteredUsers = useMemo(() => {
-    return users.filter((user) =>
-      [user.firstname, user.email, user.phone].some((field) =>
-        field.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    );
-  }, [searchQuery, users]);
+  console.log(allUsers);
 
-  const roleSortHandler = (e) => {
-    const value = e.target.value;
-    if (!value) {
-      setUsers(allUsers);
-    } else {
-      const filtered = allUsers.filter((user) => user.role === value);
-      setUsers(filtered);
+  const router = useRouter();
+  const [roleFilter, setRoleFilter] = useState("-1");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [statusFilter, setStatusFilter] = useState("-1");
+  const usersPerPage = 8;
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, roleFilter]);
+  const filteredUsers = useMemo(() => {
+    let filtered = [...allUsers];
+
+    if (searchQuery.trim()) {
+      filtered = filtered.filter(
+        (user) =>
+          user.email.persianName
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          user.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
+
+    if (roleFilter !== "-1") {
+      filtered = filtered.filter(
+        (user) => String(user.role.name) === roleFilter
+      );
+    }
+
+    if (statusFilter !== "-1") {
+      filtered = filtered.filter((user) => user.accountStatus === statusFilter);
+    }
+    return filtered;
+  }, [searchQuery, roleFilter, allUsers, statusFilter]);
+  const indexOfLast = currentPage * usersPerPage;
+  const indexOfFirst = indexOfLast - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+  const toggleSelectAll = (e) => {
+    setSelected(e.target.checked ? allUsers.map((c) => c._id) : []);
   };
   const toggleSelect = (id) => {
     setSelected((prev) =>
@@ -70,16 +93,22 @@ function UsersTable({ allUsers, selected, setSelected }) {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
 
-        <select className="px-4 py-2 focus:ring-0 rounded-lg border border-gray-300 bg-white focus:outline-none  cursor-pointer ">
-          <option value="">مرتب سازی وضعیت</option>
-          <option value="paid">مسدود شده</option>
-          <option value="canceled">فعال </option>
+        <select
+          className="px-4 py-2 focus:ring-0 rounded-lg border border-gray-300 bg-white focus:outline-none  cursor-pointer "
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="-1">مرتب سازی وضعیت</option>
+          <option value="ban">مسدود شده</option>
+          <option value="active">فعال </option>
         </select>
         <select
-          onChange={roleSortHandler}
+          value={roleFilter}
+          onChange={(e) => setRoleFilter(e.target.value)}
           className="px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-0  cursor-pointer"
         >
-          <option value="">مرتب سازی نقش</option>
+          <option value="-1">مرتب سازی نقش</option>
+          <option value="SUPERADMIN">سوپر ادمین</option>
           <option value="ADMIN">مدیر</option>
           <option value="USER">کاربر معمولی </option>
         </select>
@@ -90,7 +119,13 @@ function UsersTable({ allUsers, selected, setSelected }) {
           <thead className="bg-gray-100">
             <tr className="text-sm text-gray-700 [&>th]:p-3">
               <th>
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  onChange={toggleSelectAll}
+                  checked={
+                    selected.length > 0 && selected.length === allUsers.length
+                  }
+                />{" "}
               </th>
               <th>نام کامل</th>
               <th>ایمیل </th>
@@ -104,7 +139,14 @@ function UsersTable({ allUsers, selected, setSelected }) {
             </tr>
           </thead>
           <tbody className="text-sm">
-            {filteredUsers.map((user) => (
+            {currentUsers.length === 0 && (
+              <tr>
+                <td colSpan="9" className="py-6 text-gray-500">
+                  هیچ کاربری پیدا نشد
+                </td>
+              </tr>
+            )}
+            {currentUsers.map((user) => (
               <tr key={user._id} className="border-t border-gray-200">
                 <td className="p-3">
                   <input
@@ -173,6 +215,11 @@ function UsersTable({ allUsers, selected, setSelected }) {
           </tbody>
         </table>
       </div>
+      <Paginations
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
+      />
     </>
   );
 }
