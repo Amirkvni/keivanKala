@@ -1,6 +1,4 @@
-import React from "react";
-
-function Overview({ setMainUser, mainUser }) {
+function Overview({ setMainUser, mainUser, roles }) {
   return (
     <div className="bg-white rounded-lg dashboard-box-shadow flex flex-col gap-y-6 [&>div]:flex [&>div]:flex-col [&>div]:gap-y-2  [&>div>input]:p-2 [&>div>input]:rounded-sm [&>div>input]:outline-none ">
       <span className="font-extrabold text-lg">نمای کلی</span>
@@ -54,6 +52,19 @@ function Overview({ setMainUser, mainUser }) {
             setMainUser({ ...mainUser, nationalcode: e.target.value })
           }
         />
+      </div>
+      <div>
+        <label> نقش :</label>
+        <select
+          value={mainUser?.role || "USER"}
+          onChange={(e) => setMainUser({ ...mainUser, role: e.target.value })}
+        >
+          {roles.map((role) => (
+            <option key={role._id} value={role._id}>
+              {role.name}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );

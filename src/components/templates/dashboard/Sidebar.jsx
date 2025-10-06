@@ -183,7 +183,8 @@ export default function Sidebar() {
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-sm font-semibold ${
                 pathname === "/dashboard/all-users" ||
-                pathname === "/dashboard/add-user"
+                pathname === "/dashboard/add-user" ||
+                pathname.startsWith("/dashboard/edit-user/")
                   ? "bg-green-100 text-green-400"
                   : ""
               }`}

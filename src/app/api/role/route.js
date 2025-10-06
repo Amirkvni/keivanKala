@@ -44,3 +44,13 @@ export async function POST(request) {
     return NextResponse.json({ error: "خطای سرور" }, { status: 500 });
   }
 }
+export async function GET(params) {
+  try {
+    connectToDB();
+    const roles = await Role.find({}, "name");
+    return Response.json(roles, { status: 200 });
+  } catch (err) {
+    console.log(err.message);
+    return Response.json({ message: err }, { status: 500 });
+  }
+}

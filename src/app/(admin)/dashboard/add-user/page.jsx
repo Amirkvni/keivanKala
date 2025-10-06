@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 function Page() {
   const router = useRouter();
+  const [roles, setRoles] = useState([]);
   const [mainUser, setMainUser] = useState({});
   const [mainAddress, setMainAddress] = useState({});
   const [password, setPassword] = useState("");
@@ -73,13 +74,25 @@ function Page() {
       alert("خطا در ایجاد کاربر");
     }
   };
+  useEffect(() => {
+    const getRoles = async () => {
+      const res = await fetch("/api/role");
+      const data = await res.json();
+      setRoles(data);
+    };
+    getRoles();
+  }, []);
 
   return (
     <div className="p-12">
       <p className="text-lg font-bold">ایجاد کاربر</p>
       <div className="flex gap-x-2 mt-5 [&>div]:p-4 [&>div]:rounded-lg">
         <div className="w-8/12 flex flex-col gap-y-4 [&>div]:p-6">
-          <Overview setMainUser={setMainUser} mainUser={mainUser} />
+          <Overview
+            setMainUser={setMainUser}
+            mainUser={mainUser}
+            roles={roles}
+          />
           <AddressInformation
             mainAddress={mainAddress}
             setMainAddress={setMainAddress}

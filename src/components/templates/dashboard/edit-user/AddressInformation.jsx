@@ -9,53 +9,75 @@ function AddressInformation({ mainAddress, setMainAddress }) {
         <input
           type="text"
           className="edit-profile-input"
-          value={mainAddress?.province}
+          value={mainAddress?.province || ""}
           onChange={(e) =>
             setMainAddress({ ...mainAddress, province: e.target.value })
           }
         />
       </div>
-      <div className="">
+      <div>
         <label htmlFor="">شهر :</label>
         <input
           type="text"
           className="edit-profile-input"
-          value={mainAddress?.city}
+          value={mainAddress?.city || ""}
           onChange={(e) =>
             setMainAddress({ ...mainAddress, city: e.target.value })
           }
         />
       </div>
-      <div className="">
+      <div>
         <label htmlFor="">خیابان :</label>
         <input
           type="text"
           className="edit-profile-input"
-          value={mainAddress?.district}
+          value={mainAddress?.district || ""}
           onChange={(e) =>
             setMainAddress({ ...mainAddress, district: e.target.value })
           }
         />
       </div>
-      <div className="">
+      <div>
         <label htmlFor="">پلاک :</label>
         <input
           type="text"
           className="edit-profile-input"
-          value={mainAddress?.plaque}
+          value={mainAddress?.plaque || ""}
           onChange={(e) =>
             setMainAddress({ ...mainAddress, plaque: e.target.value })
           }
         />
       </div>
-      <div className="">
+      <div>
         <label htmlFor="">واحد :</label>
         <input
           type="text"
           className="edit-profile-input"
-          value={mainAddress?.unit}
+          value={mainAddress?.unit || ""}
           onChange={(e) =>
             setMainAddress({ ...mainAddress, unit: e.target.value })
+          }
+        />
+      </div>
+      <div>
+        <label htmlFor="">کدپستی :</label>
+        <input
+          type="text"
+          className="edit-profile-input"
+          value={mainAddress?.postalCode || ""}
+          onChange={(e) =>
+            setMainAddress({ ...mainAddress, postalCode: e.target.value })
+          }
+        />
+      </div>
+      <div>
+        <label htmlFor="">آدرس کامل :</label>
+        <textarea
+          className="edit-profile-input  border border-gray-300 resize-none outline-none p-2 rounded-sm"
+          rows={18}
+          value={mainAddress?.fullAddress || ""}
+          onChange={(e) =>
+            setMainAddress({ ...mainAddress, fullAddress: e.target.value })
           }
         />
       </div>

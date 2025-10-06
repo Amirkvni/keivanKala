@@ -190,7 +190,11 @@ function UsersTable({ allUsers, selected, setSelected }) {
                   </span>
                 </td>
                 <td>{dayjs(user.createdAt).fromNow()}</td>
-                <td>{dayjs(user.lastLogin).fromNow()}</td>
+                <td>
+                  {user.lastLogin === null
+                    ? "وارد نشده"
+                    : dayjs(user.lastLogin).fromNow()}
+                </td>
                 <td className="p-3">
                   <div className="flex justify-center gap-2 text-gray-600 [&>a>svg]:text-xl">
                     <Link href={`edit-user/${user._id}`}>
